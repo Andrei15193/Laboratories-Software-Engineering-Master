@@ -1,0 +1,46 @@
+﻿<UserControl x:Name="_rootControl"
+             DataContextChanged="_DataContextChanged"
+             x:Class="BillPath.UserInterface.ExpensesTotalsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:BillPath.UserInterface"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             HorizontalAlignment="Stretch"
+             HorizontalContentAlignment="Stretch">
+    <Grid x:Name="_viewGrid"
+          HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0"
+                   FontSize="{Binding FontSize, ElementName=_rootControl}"
+                   Foreground="{Binding Foreground, ElementName=_rootControl}"
+                   Text="Totals:" />
+        <ItemsControl x:Name="_totalsItemsPresenter"
+                      Grid.Column="1"
+                      HorizontalAlignment="Right"
+                      HorizontalContentAlignment="Right">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="{Binding FontSize, ElementName=_rootControl}"
+                                   Foreground="{Binding Foreground, ElementName=_rootControl}"
+                                   Text="{Binding Total}"
+                                   HorizontalAlignment="Stretch"
+                                   TextAlignment="Right" />
+                        <TextBlock FontSize="{Binding FontSize, ElementName=_rootControl}"
+                                   Foreground="{Binding Foreground, ElementName=_rootControl}"
+                                   Text="{Binding CurrencySymbol}"
+                                   HorizontalAlignment="Stretch"
+                                   TextAlignment="Right" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

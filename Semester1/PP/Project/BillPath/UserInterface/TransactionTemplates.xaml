@@ -1,0 +1,202 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="using:BillPath.UserInterface.Converters"
+                    xmlns:local="using:BillPath.UserInterface"
+                    xmlns:viewModels="using:BillPath.ViewModels">
+    <converters:ColorNameConverter x:Key="ColorNameConverter" />
+    <converters:CollapsedIfEmptyConverter x:Key="CollapsedIfEmptyConverter" />
+    <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
+    <x:Double x:Key="ItemWidth">310</x:Double>
+    <DataTemplate x:Key="CategoryHeaderTemplate">
+        <Border Width="{StaticResource ItemWidth}"
+                VerticalAlignment="Stretch"
+                Padding="10">
+            <Border.Resources>
+                <SolidColorBrush x:Key="ForegroundBrush"
+                                 Color="{Binding Color, Mode=OneWay, ElementName=BackgroundBrush, Converter={StaticResource ReadableColorConverter}}" />
+            </Border.Resources>
+            <Border.Background>
+                <SolidColorBrush x:Name="BackgroundBrush"
+                                 Color="{Binding ColorName, Mode=OneWay, Converter={StaticResource ColorNameConverter}}" />
+            </Border.Background>
+            <Border.Child>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Orientation="Horizontal"
+                                Margin="0,0,0,10">
+                        <TextBlock FontSize="22"
+                                   FontWeight="Normal"
+                                   Foreground="{StaticResource ForegroundBrush}"
+                                   Text="{Binding Name, Mode=OneWay}" />
+                        <TextBlock  FontSize="22"
+                                    FontWeight="Normal"
+                                    Foreground="{StaticResource ForegroundBrush}"
+                                    Text=" (" />
+                        <TextBlock FontSize="22"
+                                   FontWeight="Normal"
+                                   Foreground="{StaticResource ForegroundBrush}"
+                                   Text="{Binding Expenses.Count, Mode=OneWay}" />
+                        <TextBlock FontSize="22"
+                                   FontWeight="Normal"
+                                   Foreground="{StaticResource ForegroundBrush}"
+                                   Text=")" />
+                    </StackPanel>
+                    <local:ErrorPresenter Grid.Row="1"
+                                          Grid.Column="0"
+                                          Grid.ColumnSpan="2"
+                                          FontSize="11"
+                                          Foreground="{StaticResource ForegroundBrush}"
+                                          DataContext="{Binding ValidationErrors}" />
+                    <local:ExpensesTotalsView Grid.Row="2"
+                                              Grid.Column="0"
+                                              Grid.ColumnSpan="2"
+                                              Foreground="{StaticResource ForegroundBrush}"
+                                              DataContext="{Binding Expenses, Mode=OneWay}" />
+                </Grid>
+            </Border.Child>
+        </Border>
+    </DataTemplate>
+    <DataTemplate x:Key="AccountHeaderTemplate">
+        <Border HorizontalAlignment="Stretch"
+                BorderThickness="0,0,0,1"
+                BorderBrush="{ThemeResource AppBarSeparatorForegroundThemeBrush}">
+            <StackPanel>
+                <TextBlock FontSize="22"
+                           Text="{Binding Currency.Name, Mode=OneWay}" />
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   x:Uid="/IAccount/AvailableTotal"
+                                   Text="Available total:" />
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal">
+                            <TextBlock Text="{Binding TotalAvailable, Mode=OneWay}" />
+                            <TextBlock Text="{Binding Currency.Symbol, Mode=OneWay}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </DataTemplate>
+    <DataTemplate x:Key="AccountItemTemplate">
+        <Border Padding="10"
+                Width="{StaticResource ItemWidth}"
+                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                BorderThickness="1"
+                BorderBrush="{ThemeResource AppBarSeparatorForegroundThemeBrush}">
+            <StackPanel>
+                <TextBlock FontSize="22"
+                           Text="{Binding Currency.Name}" />
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   x:Uid="/MainWindow/AccountsAvailableTotal"
+                                   Text="Available total: " />
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal">
+                            <TextBlock Text="{Binding TotalAvailable}" />
+                            <TextBlock  Text="{Binding Currency.Symbol}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </DataTemplate>
+    <DataTemplate x:Key="CategoryTransactionEntryTemplate">
+        <Border MinWidth="{StaticResource ItemWidth}"
+                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                Padding="4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0"
+                        Width="5"
+                        VerticalAlignment="Stretch">
+                    <Border.Background>
+                        <SolidColorBrush Color="{Binding Category.Color.Color, Mode=OneWay}" />
+                    </Border.Background>
+                </Border>
+                <Grid Grid.Column="1"
+                      Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               TextWrapping="NoWrap"
+                               TextTrimming="CharacterEllipsis"
+                               Margin="0,0,0,4"
+                               Text="{Binding Description}" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               FontSize="11"
+                               Text="{Binding DateTimeTaken}" />
+                    <local:DisplayMoneyControl Grid.Row="1"
+                                               Grid.Column="1"
+                                               FontSize="11"
+                                               Sum="{Binding Sum}"
+                                               CurrencySymbol="{Binding Account.Currency.Symbol}" />
+                </Grid>
+            </Grid>
+        </Border>
+    </DataTemplate>
+    <DataTemplate x:Key="TransactionEntryTemplate">
+        <Border MinWidth="{StaticResource ItemWidth}"
+                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                Padding="4">
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           TextWrapping="NoWrap"
+                           TextTrimming="CharacterEllipsis"
+                           Margin="0,0,0,4"
+                           Text="{Binding Description, Mode=OneWay}" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           FontSize="11"
+                           Text="{Binding DateTimeTaken, Mode=OneWay}" />
+                <local:DisplayMoneyControl Grid.Row="1"
+                                           Grid.Column="1"
+                                           FontSize="11"
+                                           Sum="{Binding Sum, Mode=OneWay}"
+                                           CurrencySymbol="{Binding Account.Currency.Symbol, Mode=OneWay}" />
+            </Grid>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>

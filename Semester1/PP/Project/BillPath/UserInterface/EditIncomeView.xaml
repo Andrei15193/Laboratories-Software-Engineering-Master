@@ -1,0 +1,101 @@
+﻿<UserControl x:Name="_self"
+             x:Class="BillPath.UserInterface.EditIncomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:BillPath.UserInterface"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="using:BillPath.ViewModels"
+             mc:Ignorable="d"
+             MaxWidth="{ThemeResource FlyoutThemeMaxWidth}">
+    <Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Thickness x:Key="TextBlockMargin">0,0,20,0</Thickness>
+        </Grid.Resources>
+        <TextBlock x:Uid="/IncomeEditView/DescriptionTextBlock"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="{StaticResource TextBlockMargin}"
+                   FontSize="{ThemeResource ControlContentThemeFontSize}"
+                   Text="Description:"
+                   VerticalAlignment="Center" />
+        <TextBox x:Name="_descriptionTextBox"
+                 Grid.Row="0"
+                 Grid.Column="1"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 FontSize="{ThemeResource ControlContentThemeFontSize}"
+                 Text="{Binding Commands.AddIncomeCommand.Income.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Uid="/IncomeEditView/SumTextBlock"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   Margin="{StaticResource TextBlockMargin}"
+                   FontSize="{ThemeResource ControlContentThemeFontSize}"
+                   Text="Sum:"
+                   VerticalAlignment="Center" />
+        <TextBox Grid.Row="2"
+                 Grid.Column="1"
+                 TextWrapping="Wrap"
+                 FontSize="{ThemeResource ControlContentThemeFontSize}"
+                 Text="{Binding Commands.AddIncomeCommand.Income.Sum, Mode=TwoWay, Converter={StaticResource DecimalConverter}, ConverterParameter=-1, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Uid="/IncomeEditView/DateTakenTextBlock"
+                   Grid.Row="4"
+                   Grid.Column="0"
+                   Text="Date taken:"
+                   Margin="{StaticResource TextBlockMargin}"
+                   FontSize="{ThemeResource ControlContentThemeFontSize}"
+                   VerticalAlignment="Center" />
+        <StackPanel Grid.Row="4"
+                    Grid.Column="1">
+            <DatePicker x:Name="_datePicker"
+                        FontSize="{ThemeResource ControlContentThemeFontSize}"
+                        Margin="0,0,0,10"
+                        Date="{Binding Commands.AddIncomeCommand.Income.DateTaken, Mode=TwoWay}" />
+            <TimePicker x:Name="_timePicker"
+                        FontSize="{ThemeResource ControlContentThemeFontSize}"
+                        Time="{Binding Commands.AddIncomeCommand.Income.TimeTaken, Mode=TwoWay}" />
+        </StackPanel>
+        <TextBlock x:Uid="/IncomeEditView/AccountTextBlock"
+                   Grid.Row="6"
+                   Grid.Column="0"
+                   Text="Account:"
+                   Margin="{StaticResource TextBlockMargin}"
+                   FontSize="{ThemeResource ControlContentThemeFontSize}"
+                   VerticalAlignment="Center" />
+        <ComboBox x:Name="_accountComboBox"
+                  Grid.Row="6"
+                  Grid.Column="1"
+                  FontSize="{ThemeResource ControlContentThemeFontSize}"
+                  ItemsSource="{Binding Accounts, Mode=TwoWay}"
+                  SelectedItem="{Binding Commands.AddIncomeCommand.Income.Account, Mode=TwoWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Currency.Name}" />
+                        <TextBlock Text=" (" />
+                        <TextBlock Text="{Binding Currency.Symbol}" />
+                        <TextBlock Text=")" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <local:ErrorPresenter Grid.Row="8"
+                              Grid.ColumnSpan="2"
+                              DataContext="{Binding Commands.AddIncomeCommand.Income.ValidationErrors, Mode=OneWay}" />
+    </Grid>
+</UserControl>

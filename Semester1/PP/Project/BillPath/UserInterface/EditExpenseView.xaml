@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="BillPath.UserInterface.EditExpenseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:BillPath.UserInterface"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./TransactionTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Thickness x:Key="TextBlockMargin">0,0,20,0</Thickness>
+        </Grid.Resources>
+        <TextBlock x:Uid="/IncomeEditView/DescriptionTextBlock"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="{StaticResource TextBlockMargin}"
+                   FontSize="{ThemeResource ControlContentThemeFontSize}"
+                   Text="Description:"
+                   VerticalAlignment="Center" />
+        <TextBox x:Name="_descriptionTextBox"
+                 Grid.Row="0"
+                 Grid.Column="1"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"
+                 FontSize="{ThemeResource ControlContentThemeFontSize}"
+                 Text="{Binding Commands.AddExpenseCommand.Expense.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Uid="/IncomeEditView/SumTextBlock"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   Margin="{StaticResource TextBlockMargin}"
+                   FontSize="{ThemeResource ControlContentThemeFontSize}"
+                   Text="Sum:"
+                   VerticalAlignment="Center" />
+        <TextBox Grid.Row="2"
+                 Grid.Column="1"
+                 TextWrapping="Wrap"
+                 FontSize="{ThemeResource ControlContentThemeFontSize}"
+                 Text="{Binding Commands.AddExpenseCommand.Expense.Sum, Mode=TwoWay, Converter={StaticResource DecimalConverter}, ConverterParameter=-1, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Uid="/IncomeEditView/DateTakenTextBlock"
+                   Grid.Row="4"
+                   Grid.Column="0"
+                   Text="Date taken:"
+                   Margin="{StaticResource TextBlockMargin}"
+                   FontSize="{ThemeResource ControlContentThemeFontSize}"
+                   VerticalAlignment="Center" />
+        <StackPanel Grid.Row="4"
+                    Grid.Column="1">
+            <DatePicker x:Name="_datePicker"
+                        FontSize="{ThemeResource ControlContentThemeFontSize}"
+                        Margin="0,0,0,10"
+                        Date="{Binding Commands.AddExpenseCommand.Expense.DateTaken, Mode=TwoWay}" />
+            <TimePicker x:Name="_timePicker"
+                        FontSize="{ThemeResource ControlContentThemeFontSize}"
+                        Time="{Binding Commands.AddExpenseCommand.Expense.TimeTaken, Mode=TwoWay}" />
+        </StackPanel>
+        <TextBlock x:Uid="/IncomeEditView/AccountTextBlock"
+                   Grid.Row="6"
+                   Grid.Column="0"
+                   Text="Account:"
+                   Margin="{StaticResource TextBlockMargin}"
+                   FontSize="{ThemeResource ControlContentThemeFontSize}"
+                   VerticalAlignment="Center" />
+        <ComboBox x:Name="_accountComboBox"
+                  Grid.Row="6"
+                  Grid.Column="1"
+                  Loaded="_AccountsComboBoxLoaded"
+                  FontSize="{ThemeResource ControlContentThemeFontSize}"
+                  ItemsSource="{Binding Accounts}"
+                  SelectedItem="{Binding Commands.AddExpenseCommand.Expense.Account, Mode=TwoWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Currency.Name}" />
+                        <TextBlock Text=" (" />
+                        <TextBlock Text="{Binding Currency.Symbol}" />
+                        <TextBlock Text=")" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock x:Uid="/IncomeEditView/AccountTextBlock"
+                   Grid.Row="8"
+                   Grid.Column="0"
+                   Text="Category:"
+                   Margin="{StaticResource TextBlockMargin}"
+                   FontSize="{ThemeResource ControlContentThemeFontSize}"
+                   VerticalAlignment="Center" />
+        <ComboBox x:Name="_categoriesComboBox"
+                  Grid.Row="8"
+                  Grid.Column="1"
+                  FontSize="{ThemeResource ControlContentThemeFontSize}"
+                  ItemsSource="{Binding Categories}"
+                  SelectedItem="{Binding Commands.AddExpenseCommand.Expense.Category, Mode=TwoWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <local:ErrorPresenter Grid.Row="10"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              DataContext="{Binding Commands.AddExpenseCommand.Expense.ValidationErrors, Mode=TwoWay}" />
+    </Grid>
+</UserControl>
