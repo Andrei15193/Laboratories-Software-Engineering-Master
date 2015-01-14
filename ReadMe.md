@@ -9,4 +9,3 @@ Classes from the 1st semester
 =============================
 * PP  = Programming Paradigms
 * MSC = Modeling Software Behavior
-* SPM = Software Project Management
