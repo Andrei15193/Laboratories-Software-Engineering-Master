@@ -1,0 +1,415 @@
+﻿<Page x:Name="_root"
+      x:Class="BillPath.UserInterface.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:BillPath.UserInterface"
+      xmlns:system="using:System"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:viewModels="using:BillPath.ViewModels"
+      xmlns:viewModelsCore="using:BillPath.ViewModels.Core"
+      DataContext="{StaticResource ExpensesWorkspaceViewModel}"
+      DataContextChanged="_PageDataContextChanged"
+      Loaded="_PageLoaded"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./TransactionTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Stretch" />
+                <Setter Property="Margin"
+                        Value="0" />
+            </Style>
+            <Style TargetType="ListView">
+                <Setter Property="Transitions">
+                    <Setter.Value>
+                        <TransitionCollection />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="HeaderTransitions">
+                    <Setter.Value>
+                        <TransitionCollection />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="FooterTransitions">
+                    <Setter.Value>
+                        <TransitionCollection />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemContainerTransitions">
+                    <Setter.Value>
+                        <TransitionCollection />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Thickness x:Key="ColumnMargin">40,0</Thickness>
+        </ResourceDictionary>
+    </Page.Resources>
+    <!--<Page.TopAppBar>
+        <AppBar x:Name="_topAppBar">
+            <ItemsControl Margin="10,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Button FontSize="22"
+                        Padding="10"
+                        Click="_ChangeYearClicked"
+                        Content="2015" />
+                <Button FontSize="22"
+                        Padding="10"
+                        IsEnabled="False"
+                        Click="_ChangeYearClicked"
+                        Content="2014" />
+                <Button FontSize="22"
+                        Padding="10"
+                        Click="_ChangeYearClicked"
+                        Content="2013" />
+                <Button FontSize="22"
+                        Padding="10"
+                        Click="_ChangeYearClicked"
+                        Content="2012" />
+            </ItemsControl>
+        </AppBar>
+    </Page.TopAppBar>-->
+    <Page.Content>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </Grid.ChildrenTransitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="140" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.Children>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="1"
+                               Text="BillPath"
+                               Style="{ThemeResource HeaderTextBlockStyle}"
+                               IsHitTestVisible="false"
+                               TextWrapping="NoWrap"
+                               VerticalAlignment="Bottom"
+                               Margin="0,0,30,40" />
+                </Grid>
+                <StackPanel x:Name="_firstTimeUseStackPanel"
+                            Grid.Row="1">
+                    <TextBlock FontSize="44"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch"
+                               Text="First time user?"
+                               TextAlignment="Center"
+                               Padding="0,50,0,0" />
+                    <TextBlock FontSize="22"
+                               HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch"
+                               Text="Use the bottom app bar to add accounts and categories and after that incomes and expenses."
+                               TextAlignment="Center"
+                               Padding="0,10,0,0" />
+                </StackPanel>
+                <ScrollViewer x:Name="_contentScrollViewer"
+                              Grid.Row="1"
+                              Visibility="Collapsed"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollMode="Disabled"
+                              VerticalScrollBarVisibility="Hidden">
+                    <StackPanel Height="{Binding ActualHeight, ElementName=_contentScrollViewer}"
+                                Orientation="Horizontal">
+                        <Grid Margin="{StaticResource ColumnMargin}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Uid="/MainWindow/AccountsColumnHeaderTextBlock"
+                                       Grid.Row="0"
+                                       Margin="{StaticResource ColumnMargin}"
+                                       Style="{ThemeResource SubheaderTextBlockStyle}"
+                                       Text="Accounts" />
+                            <ScrollViewer Grid.Row="1"
+                                          Margin="{StaticResource ColumnMargin}"
+                                          VerticalScrollMode="Enabled"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollMode="Disabled"
+                                          HorizontalScrollBarVisibility="Hidden">
+                                <ItemsControl ItemsSource="{Binding Accounts}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <Grid Width="{StaticResource ItemWidth}">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="24" />
+                                                        <RowDefinition Height="auto" />
+                                                        <RowDefinition />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition />
+                                                        <ColumnDefinition Width="auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Grid.Row="0"
+                                                               Grid.Column="0"
+                                                               FontSize="22"
+                                                               Text="{Binding Currency.Name}" />
+                                                    <Grid Grid.Row="1"
+                                                          Grid.Column="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition Width="auto" />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0"
+                                                                   x:Uid="/IAccount/AvailableTotal"
+                                                                   Text="Available total:" />
+                                                        <StackPanel Grid.Column="1"
+                                                                    Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding TotalAvailable, Mode=OneWay}" />
+                                                            <TextBlock Text="{Binding Currency.Symbol}" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                    <AppBarButton Grid.Row="0"
+                                                                  Grid.RowSpan="3"
+                                                                  Grid.Column="1"
+                                                                  Padding="0"
+                                                                  Background="Red"
+                                                                  Margin="20, 0, 0, 0"
+                                                                  VerticalAlignment="Center"
+                                                                  Icon="More"
+                                                                  IsCompact="True">
+                                                        <AppBarButton.Flyout>
+                                                            <MenuFlyout>
+                                                                <MenuFlyoutItem Text="Remove selected incomes"
+                                                                                Command="{Binding RemoveIncomesCommand}" />
+                                                                <MenuFlyoutItem Text="Show incomes"
+                                                                                Click="_ShowHideIncomesListViewClicked"
+                                                                                CommandParameter="{Binding ElementName=_incomesListView}" />
+                                                            </MenuFlyout>
+                                                        </AppBarButton.Flyout>
+                                                    </AppBarButton>
+                                                </Grid>
+                                                <ListView x:Name="_incomesListView"
+                                                          SelectionMode="Multiple"
+                                                          Visibility="Collapsed"
+                                                          Margin="0, -10, 0, 20"
+                                                          SelectionChanged="_SelectionChanged"
+                                                          ItemsSource="{Binding Incomes}"
+                                                          ItemTemplate="{StaticResource TransactionEntryTemplate}" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid Margin="{StaticResource ColumnMargin}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Margin="{StaticResource ColumnMargin}"
+                                       Style="{ThemeResource SubheaderTextBlockStyle}"
+                                       Text="Expenses" />
+                            <ListView x:Name="_categoriesListView"
+                                      Grid.Row="1"
+                                      SelectionMode="Multiple"
+                                      SelectionChanged="_CategoriesSelectionChanged"
+                                      Margin="{StaticResource ColumnMargin}"
+                                      ItemsSource="{Binding Categories, Mode=OneTime}"
+                                      ItemTemplate="{StaticResource CategoryHeaderTemplate}"
+                                      SelectedValuePath="" />
+                        </Grid>
+                        <Grid Margin="{StaticResource ColumnMargin}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Margin="{StaticResource ColumnMargin}"
+                                       Style="{StaticResource SubheaderTextBlockStyle}"
+                                       Text="Details" />
+                            <Grid Grid.Row="1">
+                                <Grid x:Name="_detailsStackPanel"
+                                      Visibility="Collapsed"
+                                      Margin="{StaticResource ColumnMargin}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0"
+                                                Orientation="Horizontal">
+                                        <TextBlock x:Name="_categoryNamesTextBlock"
+                                                   FontSize="36"
+                                                   Width="200"
+                                                   TextWrapping="NoWrap"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Margin="0,0,20,0"
+                                                   VerticalAlignment="Center" />
+                                        <AppBarButton x:Name="_editCategoryButton"
+                                                      Icon="Edit"
+                                                      IsCompact="True"
+                                                      IsEnabled="False"
+                                                      ToolTipService.ToolTip="Edit category">
+                                            <AppBarButton.Flyout>
+                                                <Flyout Opening="_OpeningEditCategoryView">
+                                                    <local:EditCategoryView x:Name="_editCategoryView"
+                                                                            DataContext="{x:Null}" />
+                                                </Flyout>
+                                            </AppBarButton.Flyout>
+                                        </AppBarButton>
+                                        <AppBarButton Icon="Add"
+                                                      IsCompact="True"
+                                                      ToolTipService.ToolTip="Add new expense">
+                                            <AppBarButton.Flyout>
+                                                <Flyout x:Name="_addExpenseFlyout"
+                                                        Opening="_AddExpenseFlyoutOpening">
+                                                    <StackPanel>
+                                                        <local:EditExpenseView />
+                                                        <Button Content="Add"
+                                                                HorizontalAlignment="Right"
+                                                                Command="{Binding Commands.AddExpenseCommand}"
+                                                                Click="_AddExpenseClicked" />
+                                                    </StackPanel>
+                                                </Flyout>
+                                            </AppBarButton.Flyout>
+                                        </AppBarButton>
+                                        <AppBarButton Icon="Remove"
+                                                      IsCompact="True"
+                                                      ToolTipService.ToolTip="Remove selected expenses"
+                                                      Command="{Binding Commands.RemoveExpensesCommand}" />
+                                        <AppBarButton Icon="Delete"
+                                                      IsCompact="True"
+                                                      ToolTipService.ToolTip="Delete category"
+                                                      Click="_RemoveCategoryClicked"
+                                                      Command="{Binding Commands.RemoveCategoryCommand}" />
+                                        <!--<AppBarButton Icon="More"
+                                                      IsCompact="True"
+                                                      ToolTipService.ToolTip="More category options">
+                                            <AppBarButton.Flyout>
+                                                <MenuFlyout>
+                                                    <MenuFlyoutItem Text="Draw graph" />
+                                                    <MenuFlyoutItem Text="Remove category"
+                                                                    Click="_RemoveCategoryClicked"
+                                                                    Command="{Binding Commands.RemoveCategoryCommand}" />
+                                                </MenuFlyout>
+                                            </AppBarButton.Flyout>
+                                        </AppBarButton>-->
+                                    </StackPanel>
+                                    <local:ExpensesTotalsView Grid.Row="1"
+                                                              Margin="0,0,0,10"
+                                                              DataContext="{Binding LoadedExpenses, Mode=OneWay}" />
+                                    <ListView x:Name="_loadedExpensesListView"
+                                              Grid.Row="2"
+                                              SelectionChanged="_LoadedExpensesSelectionChanged"
+                                              SelectionMode="Multiple"
+                                              HorizontalAlignment="Stretch">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Border Grid.Column="0"
+                                                            Visibility="{Binding ExpenseGroupColorVisibility, Mode=OneWay, ElementName=_root}"
+                                                            Margin="{ThemeResource ListViewItemCompactSelectedBorderThemeThickness}"
+                                                            Width="5">
+                                                        <Border.Background>
+                                                            <SolidColorBrush Color="{Binding Category.ColorName, Mode=OneWay, Converter={StaticResource ColorNameConverter}}" />
+                                                        </Border.Background>
+                                                    </Border>
+                                                    <ContentPresenter Grid.Column="1"
+                                                                      ContentTemplate="{StaticResource TransactionEntryTemplate}"
+                                                                      Content="{Binding}" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </Grid>
+                                <StackPanel x:Name="_noCategoriesSelectedStackPanel">
+                                    <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}"
+                                               Text="Tap on one of the categories to view details"
+                                               Padding="10, 60, 10, 10"
+                                               HorizontalAlignment="Center" />
+                                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}"
+                                               Text="You can select multiple categories to view details from"
+                                               Padding="10"
+                                               HorizontalAlignment="Center" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid.Children>
+        </Grid>
+    </Page.Content>
+    <Page.BottomAppBar>
+        <CommandBar x:Name="_bottomAppBar">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Name="_addExpenseButton"
+                              Icon="Add"
+                              Label="Add expense">
+                    <AppBarButton.Flyout>
+                        <Flyout Opening="_AddExpenseFlyoutOpening">
+                            <StackPanel>
+                                <local:EditExpenseView />
+                                <Button Content="Add"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding Commands.AddExpenseCommand}"
+                                        Click="_HideAppBars" />
+                            </StackPanel>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton x:Uid="/AppBar/AddCategoryButton"
+                              Icon="Add"
+                              Label="Add category">
+                    <AppBarButton.Flyout>
+                        <Flyout Opening="_OpeningAddCategoryFlyout">
+                            <StackPanel>
+                                <local:EditCategoryView x:Name="_addCategoryView"
+                                                        DataContext="{Binding Commands.AddCategoryCommand.Category}" />
+                                <Button Content="Add"
+                                        Command="{Binding Commands.AddCategoryCommand}"
+                                        HorizontalAlignment="Right"
+                                        Click="_HideAppBars" />
+                            </StackPanel>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="/AppBar/EditAccountsButton"
+                              Icon="Add"
+                              Label="Add account"
+                              Click="_EditAccountsButtonClicked">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout x:Name="_accountsMenuFlyout" />
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton x:Uid="/AppBar/AddIncomeButton"
+                              x:Name="_addIncomeButton"
+                              Icon="Add"
+                              Label="Add income">
+                    <AppBarButton.Flyout>
+                        <Flyout Opening="_AddIncomeFlyoutOpenning">
+                            <StackPanel>
+                                <local:EditIncomeView />
+                                <Button Content="Add income"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding Commands.AddIncomeCommand}"
+                                        Click="_HideAppBars" />
+                            </StackPanel>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="BillPath.UserInterface.EditCategoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:BillPath.UserInterface"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             DataContextChanged="_DataContextChanged"
+             Width="400"
+             d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./TransactionTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Thickness x:Key="TextBlockMargin">0,0,20,0</Thickness>
+        </Grid.Resources>
+        <TextBlock x:Uid="/AddCategoryView/NameTextBlock"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Margin="{StaticResource TextBlockMargin}"
+                   FontSize="{ThemeResource ControlContentThemeFontSize}"
+                   Text="Name:"
+                   VerticalAlignment="Center" />
+        <TextBox Grid.Row="0"
+                 Grid.Column="2"
+                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock x:Uid="/AddCategoryView/ColorTextBlock"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   Margin="{StaticResource TextBlockMargin}"
+                   FontSize="{ThemeResource ControlContentThemeFontSize}"
+                   Text="Color:"
+                   VerticalAlignment="Center" />
+        <ComboBox x:Name="_colorComboBox"
+                  Padding="0"
+                  Grid.Row="2"
+                  Grid.Column="1"
+                  HorizontalContentAlignment="Stretch"
+                  VerticalContentAlignment="Stretch"
+                  ItemsSource="{Binding AllNamedColors, Mode=OneTime, Source={StaticResource NamedColors}}"
+                  Loaded="_ColorComboBoxLoaded"
+                  SelectionChanged="_ColorComboBoxSelectionChanged">
+            <ComboBox.Resources>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment"
+                            Value="Stretch" />
+                </Style>
+            </ComboBox.Resources>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Padding="0,2"
+                            Margin="{Binding BorderThickness, ElementName=_colorComboBox}"
+                            VerticalAlignment="Stretch"
+                            HorizontalAlignment="Stretch">
+                        <Border.Background>
+                            <SolidColorBrush Color="{Binding Color}" />
+                        </Border.Background>
+                        <TextBlock VerticalAlignment="Stretch"
+                                   HorizontalAlignment="Stretch"
+                                   Text="{Binding LocalizedName}"
+                                   TextAlignment="Center"
+                                   Height="20">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{Binding Color, Converter={StaticResource ReadableColorConverter}}" />
+                            </TextBlock.Foreground></TextBlock>
+                    </Border>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <local:ErrorPresenter Grid.Row="4"
+                              Grid.ColumnSpan="2"
+                              DataContext="{Binding ValidationErrors, Mode=TwoWay}" />
+    </Grid>
+</UserControl>
