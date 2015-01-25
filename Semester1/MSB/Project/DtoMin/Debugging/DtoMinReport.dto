@@ -1,0 +1,17 @@
+﻿namespace Andrei15193.Test
+
+dto DTO1
+{
+	DTO2: DTO2
+	DTO3: DTO3
+	Attribute: Int*
+}
+
+dto DTO2
+{
+}
+
+dto DTO3
+{
+}
+

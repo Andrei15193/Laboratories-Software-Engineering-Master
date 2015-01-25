@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dtoMinDiagram dslVersion="1.0.0.0" Id="2a2eaab8-26f9-4f20-af80-11a5e3b95dae" absoluteBounds="0, 0, 11, 8.5" name="Sample">
+  <dTOMapMoniker Id="636ac2a3-8983-41f1-9742-595ab641cc75" />
+  <nestedChildShapes>
+    <dTOCompartmentShape Id="cac4baf1-cba2-4257-bd68-1d009117de3d" absoluteBounds="1.375, 1, 1.5, 1.0439925130208332">
+      <dTOMoniker name="/636ac2a3-8983-41f1-9742-595ab641cc75/Dto1" />
+      <nestedChildShapes>
+        <elementListCompartment Id="18a48e79-4b2d-4c16-b116-7de78bff8ff5" absoluteBounds="1.39, 1.31, 1.4700000000000002, 0.63399251302083326" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </dTOCompartmentShape>
+    <dTOCompartmentShape Id="3ac893ff-c21a-4818-bbb4-58b6ebb53576" absoluteBounds="5.25, 1.25, 1.5, 0.85169108072916666">
+      <dTOMoniker name="/636ac2a3-8983-41f1-9742-595ab641cc75/Dto2" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d37aa346-4f96-4941-918d-9edc9c57685b" absoluteBounds="5.265, 1.56, 1.4700000000000002, 0.44169108072916663" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </dTOCompartmentShape>
+    <dTOCompartmentShape Id="a416e349-cf46-4f6a-a416-01b4d1d9ff21" absoluteBounds="4.25, 3.5, 1.5, 0.65938964843750014">
+      <dTOMoniker name="/636ac2a3-8983-41f1-9742-595ab641cc75/Dto3" />
+      <nestedChildShapes>
+        <elementListCompartment Id="653bf948-9150-402f-9c38-d889c50787a4" isExpanded="false" absoluteBounds="4.265, 3.81, 1.4700000000000002, 0.24938964843750006" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </dTOCompartmentShape>
+    <exampleConnector Id="396b24fc-f832-4ae0-af07-08200b18f8c8" edgePoints="[(2.125 : 2.04399251302083); (2.125 : 3.82969482421875); (4.25 : 3.82969482421875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <dTOReferencesDTOsMoniker Id="8f5e28f4-f349-4421-baec-a7fdab5653d7" />
+      <nodes>
+        <dTOCompartmentShapeMoniker Id="cac4baf1-cba2-4257-bd68-1d009117de3d" />
+        <dTOCompartmentShapeMoniker Id="a416e349-cf46-4f6a-a416-01b4d1d9ff21" />
+      </nodes>
+    </exampleConnector>
+    <exampleConnector Id="4a200c5d-e8ca-4bc5-91f2-959082dd8e90" edgePoints="[(5.5 : 3.5); (5.5 : 2.10169108072917)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <dTOReferencesDTOsMoniker Id="7ecf45d0-a575-4f50-ad67-1de03e185f49" />
+      <nodes>
+        <dTOCompartmentShapeMoniker Id="a416e349-cf46-4f6a-a416-01b4d1d9ff21" />
+        <dTOCompartmentShapeMoniker Id="3ac893ff-c21a-4818-bbb4-58b6ebb53576" />
+      </nodes>
+    </exampleConnector>
+  </nestedChildShapes>
+</dtoMinDiagram>

@@ -1,0 +1,17 @@
+﻿<!--DSL Tools Language Template-->
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<TemplateData>
+		<TemplateID>{09ef46e1-78e6-4d49-b31e-8d29a420b80c}</TemplateID>
+		<Name Package="{4f73bb38-772b-4042-a54f-a269413b3951}" ID="103"/>
+		<Description Package="{4f73bb38-772b-4042-a54f-a269413b3951}" ID="102"/>
+		<Icon Package="{4f73bb38-772b-4042-a54f-a269413b3951}" ID="201" />
+		<ProjectType>VisualBasic</ProjectType>
+		<SortOrder>360</SortOrder>
+		<DefaultName>DtoMin.dtom</DefaultName>
+	</TemplateData>
+	<TemplateContent>
+		<ProjectItem TargetFileName="$fileinputname$.dtom">dtom.dtom</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.dtom.diagram">dtom.diagram</ProjectItem>
+	</TemplateContent>
+</VSTemplate>
+

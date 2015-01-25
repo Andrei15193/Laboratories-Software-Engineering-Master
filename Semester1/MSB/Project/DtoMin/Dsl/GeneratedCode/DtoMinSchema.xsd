@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema id="DtoMinSchema" targetNamespace="http://schemas.microsoft.com/dsltools/DtoMin" elementFormDefault="qualified" xmlns="http://schemas.microsoft.com/dsltools/DtoMin" xmlns:core="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import id="CoreSchema" namespace="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" />
+  <!-- DTOMap -->
+  <xsd:element name="dTOMap" type="DTOMap" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="DTOMap">
+    <xsd:annotation>
+      <xsd:documentation>The root in which all other elements are embedded. Appears as a diagram.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: DTOMapHasDTOs -->
+          <xsd:element name="dTOs" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of DTOMapHasDTOs</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:choice minOccurs="0" maxOccurs="unbounded" >
+                  <xsd:element ref="dTOMapHasDTOs">
+                    <xsd:annotation>
+                      <xsd:documentation>[Relationship deriving from DTOMapHasDTOs needs to be serialized in full-form]</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element ref="dTO" >
+                    <xsd:annotation>
+                      <xsd:documentation>[Target role-player]</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- dslVersion -->
+        <xsd:attribute name="dslVersion" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Version of the model serialized in this file.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Namespace -->
+        <xsd:attribute name="namespace" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DTOMap Moniker -->
+  <xsd:element name="dTOMapMoniker" type="DTOMapMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="DTOMapMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for DTOMap instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DTO -->
+  <xsd:element name="dTO" type="DTO" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="DTO">
+    <xsd:annotation>
+      <xsd:documentation>Elements embedded in the model. Appear as boxes on the diagram.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: DTOHasAttributes -->
+          <xsd:element name="attributes" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of DTOHasAttributes</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="dTOHasAttributes" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of DTOHasAttributes needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: DTOReferencesDTOs -->
+          <xsd:element name="childs" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of DTOReferencesDTOs</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="dTOReferencesDTOs" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of DTOReferencesDTOs needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" use="required" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DTO Moniker -->
+  <xsd:element name="dTOMoniker" type="DTOMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="DTOMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for DTO instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="name" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DTOAttribute -->
+  <xsd:element name="dTOAttribute" type="DTOAttribute" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="DTOAttribute">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" />
+        <!-- Property: Type -->
+        <xsd:attribute name="type" type="AttributeType" />
+        <!-- Property: Multiplicity -->
+        <xsd:attribute name="multiplicity" type="Multiplicity" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DTOAttribute Moniker -->
+  <xsd:element name="dTOAttributeMoniker" type="DTOAttributeMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="DTOAttributeMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for DTOAttribute instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DTOMapHasDTOs -->
+  <xsd:element name="dTOMapHasDTOs" abstract="true" type="DTOMapHasDTOs" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="DTOMapHasDTOs" abstract="true" >
+    <xsd:annotation>
+      <xsd:documentation>Embedding relationship between the Model and Elements</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end DTO -->
+          <xsd:element ref="dTO" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DTOMapHasDTOs Moniker -->
+  <xsd:element name="dTOMapHasDTOsMoniker" type="DTOMapHasDTOsMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="DTOMapHasDTOsMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for DTOMapHasDTOs instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DTOHasAttributes -->
+  <xsd:element name="dTOHasAttributes" type="DTOHasAttributes" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="DTOHasAttributes">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end DTOAttribute -->
+          <xsd:element ref="dTOAttribute" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DTOHasAttributes Moniker -->
+  <xsd:element name="dTOHasAttributesMoniker" type="DTOHasAttributesMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="DTOHasAttributesMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for DTOHasAttributes instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DTOReferencesDTOs -->
+  <xsd:element name="dTOReferencesDTOs" type="DTOReferencesDTOs" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="DTOReferencesDTOs">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end DTO -->
+          <xsd:element ref="dTOMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DTOReferencesDTOs Moniker -->
+  <xsd:element name="dTOReferencesDTOsMoniker" type="DTOReferencesDTOsMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="DTOReferencesDTOsMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for DTOReferencesDTOs instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- Enum AttributeType -->
+  <xsd:simpleType name="AttributeType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Int">
+        <xsd:annotation>
+          <xsd:documentation>Represents a 32-bit integer</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Text">
+        <xsd:annotation>
+          <xsd:documentation>Represent a list of characters</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Float">
+        <xsd:annotation>
+          <xsd:documentation>Represents a 64-bit floating point number</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="DateTime">
+        <xsd:annotation>
+          <xsd:documentation>Represents a date and a time span</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum Multiplicity -->
+  <xsd:simpleType name="Multiplicity">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Single"/>
+      <xsd:enumeration value="Collection"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+</xsd:schema>
+

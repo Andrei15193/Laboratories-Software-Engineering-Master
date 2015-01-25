@@ -1,0 +1,35 @@
+﻿<#@ template inherits="Microsoft.VisualStudio.TextTemplating.VSHost.ModelingTextTransformation" #>
+<#@ output extension=".dto" #>
+<#@ DtoMin processor="DtoMinDirectiveProcessor" requires="fileName='Sample.dtom'" #>
+<#
+if (!string.IsNullOrWhiteSpace(this.DTOMap.Namespace))
+{
+	#>namespace <#= DTOMap.Namespace #>
+
+<#
+}
+#>
+<#
+foreach (DTO dto in this.DTOMap.DTOs)
+{#>
+<#= "dto" #> <#= dto.Name #>
+{
+<# foreach (DTO childDto in dto.Childs)
+{
+#>
+	<#= childDto.Name #>: <#= childDto.Name #>
+<#
+}
+#>
+<# foreach (DTOAttribute attribute in dto.Attributes)
+{
+#>
+	<#= attribute.Name #>: <#= attribute.Type #><#= (int)attribute.Multiplicity == 0 ? string.Empty : "*" #>
+<#
+}
+#>
+}
+
+<#
+}
+#>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified"
+           targetNamespace="http://storage.andrei15193.ro/public/dtoGenSchema.xsd"
+           xmlns:dtoGen="http://storage.andrei15193.ro/public/dtoGenSchema.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="dtoMap">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="dto"
+                    type="dtoGen:DataTransferObject"
+                    minOccurs="0"
+                    maxOccurs="unbounded">
+          <xs:unique name="uniqueAttributeNamesPerDataTransferObject">
+            <xs:selector xpath="dtoGen:attribute" />
+            <xs:field xpath="@name" />
+          </xs:unique>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute use="optional"
+                    name="namespace"
+                    type="xs:QName" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="DataTransferObject">
+    <xs:sequence>
+      <xs:element name="attribute"
+                  type="dtoGen:Attribute"
+                  minOccurs="0"
+                  maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute use="required"
+                  name="name"
+                  type="xs:ID" />
+  </xs:complexType>
+
+  <xs:complexType name="Attribute">
+    <xs:attribute use="required"
+                  name="name"
+                  type="xs:string" />
+    <xs:attribute use="required"
+                  name="type">
+      <xs:simpleType>
+        <xs:union>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="int" />
+              <xs:enumeration value="float" />
+              <xs:enumeration value="dateTime" />
+              <xs:enumeration value="text" />
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType>
+            <xs:restriction base="xs:IDREF"/>
+          </xs:simpleType>
+        </xs:union>
+      </xs:simpleType>
+    </xs:attribute>
+
+    <xs:attribute name="multiplicity"
+                  default="single">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="single" />
+          <xs:enumeration value="collection" />
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+</xs:schema>
