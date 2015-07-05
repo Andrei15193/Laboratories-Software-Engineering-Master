@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-5d0Bc-w-9rE_e_vvQ0kYMw" name=",_velIYAe3EeWly8KELFU4ng" guid="-5d0Bc-w-9rE_e_vvQ0kYMw">
+  <sections xmi:id="_JR1EAAe4EeWly8KELFU4ng" name="Form Feature List Team" guid="_JR1EAAe4EeWly8KELFU4ng">
+    <sectionDescription>The team that will create the list of features, they should be persons that were involved in the&amp;nbsp;&lt;a&#xD;
+class=&quot;elementLink&quot; href=&quot;./../../OpenUPEnhancedWithFDD/tasks/DevelopOverallModel_7C875A67.html&quot;&#xD;
+guid=&quot;_ET6bgAeXEeWly8KELFU4ng&quot;>Develop Overall Model&lt;/a> task (developers, analysts and, if required, architect).</sectionDescription>
+  </sections>
+  <sections xmi:id="_K0kCEAe4EeWly8KELFU4ng" name="Build Feature List" guid="_K0kCEAe4EeWly8KELFU4ng">
+    <sectionDescription>&lt;p>&#xD;
+    Based on the Overall Object Model so far, the Feature List Team starts to write features in the form of &amp;lt;action&amp;gt;&#xD;
+    &amp;lt;result&amp;gt; &amp;lt;object&amp;gt; and groups them by subject area. The domain expert then&amp;nbsp;checks the feature list to&#xD;
+    ensure that each feature represents a valued function part of a business activity.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Afterwards the Feature List is given to the Project Manager and Stakeholders for negotiation, at this point the&#xD;
+    development process can be estimated.&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <purpose>Build a Feature List base on the Overall Object Model.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

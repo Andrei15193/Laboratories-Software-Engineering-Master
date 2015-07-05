@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-gCtPvpHU3vmCQKQ1ymqBvw" name="new_term_definition,_19dWYMaHEduMlb2cQZNTYw" guid="-gCtPvpHU3vmCQKQ1ymqBvw" changeDate="2007-02-27T19:28:53.098+0200">
+  <mainDescription>A&amp;nbsp;&lt;a class=&quot;elementLinkWithUserText&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/guidance_549AC394.html&quot; guid=&quot;_83ttAB_NEdq6CKKKq4D7YA&quot;>guidance&lt;/a>&amp;nbsp;that summarizes a process, often from a particular perspective, such as by&#xD;
+providing a walkthrough with a linear thread of a typical instantiation of activities.</mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

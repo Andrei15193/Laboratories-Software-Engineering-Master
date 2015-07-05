@@ -1,0 +1,266 @@
+﻿<Page x:Class="Tourist.AttractionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:Tourist"
+      xmlns:viewModels="using:Tourist.ViewModels"
+      xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      DataContext="{StaticResource AttractionsViewModel}"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Content>
+        <Grid>
+            <Pivot x:Name="_attractionPivot"
+                   PivotItemLoading="_LoadPivot">
+                <PivotItem Header="about">
+                    <Grid>
+                        <ProgressRing IsActive="{Binding Path=SelectAttractionCommand.Executing}" />
+                        <ScrollViewer Margin="0,0,0,10">
+                            <Grid Visibility="{Binding Path=SelectAttractionCommand.Executing,
+                                                       Converter={StaticResource BoolToVisibilityConverter},
+                                                       ConverterParameter=Collapsed}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0"
+                                      Margin="0,0,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <BitmapIcon Grid.Column="0"
+                                                Width="40"
+                                                Height="40"
+                                                Margin="0,10,10,0"
+                                                VerticalAlignment="Center"
+                                                UriSource="{Binding Path=SelectedAttraction.ImageUri}"
+                                                Foreground="{ThemeResource PhoneAccentBrush}" />
+                                    <BitmapIcon Visibility="{Binding Path=SelectedAttraction.Visited,
+                                                                     Converter={StaticResource BoolToVisibilityConverter},
+                                                                     ConverterParameter=Visible}"
+                                                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                                Margin="0,10,10,0"
+                                                VerticalAlignment="Bottom"
+                                                HorizontalAlignment="Right"
+                                                Width="20"
+                                                UriSource="ms-appx:///Assets/Icons/Check.png" />
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}"
+                                                   FontWeight="Bold"
+                                                   Text="{Binding Path=SelectedAttraction.Title.Value}" />
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0"
+                                                       Style="{ThemeResource BodyTextBlockStyle}"
+                                                       FontSize="14"
+                                                       Text="Rating: "
+                                                       Margin="0,0,7,0" />
+                                            <TextBlock Grid.Column="1"
+                                                       Style="{ThemeResource BodyTextBlockStyle}"
+                                                       FontSize="14"
+                                                       Text="{Binding Path=SelectedAttraction.Rating.Value}" />
+                                            <TextBlock Grid.Column="2"
+                                                       Style="{ThemeResource BodyTextBlockStyle}"
+                                                       FontSize="14"
+                                                       Text=", Tags: "
+                                                       Margin="0,0,7,0" />
+                                            <TextBlock Grid.Column="3"
+                                                       Style="{ThemeResource BodyTextBlockStyle}"
+                                                       FontSize="14"
+                                                       Text="{Binding Path=SelectedAttraction.Tags.Value,
+                                                                      Converter={StaticResource StringJoinConverter},
+                                                                      ConverterParameter=', ',
+                                                                      Mode=OneWay}"
+                                                       TextTrimming="CharacterEllipsis" />
+                                        </Grid>
+                                    </StackPanel>
+                                </Grid>
+                                <StackPanel Grid.Row="1"
+                                            DataContext="{Binding Path=SelectedAttraction,
+                                                                  Mode=OneWay}">
+                                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                               Text="{Binding Path=Description.Value}"
+                                               TextWrapping="WrapWholeWords"
+                                               TextAlignment="Justify" />
+
+                                    <StackPanel Visibility="{Binding Path=ContactDetails,
+                                                                     Converter={StaticResource NullToVisibilityConverter},
+                                                                     ConverterParameter=Collapsed,
+                                                                     Mode=OneWay}">
+                                        <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}"
+                                                   Text="Contact details" />
+                                        <StackPanel Visibility="{Binding Path=ContactDetails.Address.Value,
+                                                                         Converter={StaticResource NullToVisibilityConverter},
+                                                                         ConverterParameter=Collapsed}">
+                                            <TextBlock Style="{ThemeResource ControlHeaderTextBlockStyle}"
+                                                       Text="Address" />
+                                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                                       Text="{Binding Path=ContactDetails.Address.Value}" />
+                                        </StackPanel>
+                                        <StackPanel Visibility="{Binding Path=ContactDetails.Website.Value,
+                                                                         Converter={StaticResource NullToVisibilityConverter},
+                                                                         ConverterParameter=Collapsed,
+                                                                          Mode=OneWay}">
+                                            <TextBlock Style="{ThemeResource ControlHeaderTextBlockStyle}"
+                                                       Text="Website" />
+                                            <HyperlinkButton NavigateUri="{Binding Path=ContactDetails.Website.Value,
+                                                                                   Converter={StaticResource StringToUriConverter},
+                                                                                   Mode=OneWay}"
+                                                             Content="{Binding Path=ContactDetails.Website.Value}">
+                                                <HyperlinkButton.ContentTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                                                   Text="{Binding}" />
+                                                    </DataTemplate>
+                                                </HyperlinkButton.ContentTemplate>
+                                            </HyperlinkButton>
+                                        </StackPanel>
+                                        <StackPanel Visibility="{Binding Path=ContactDetails.PhoneNumber.Value,
+                                                                         Converter={StaticResource NullToVisibilityConverter},
+                                                                         ConverterParameter=Collapsed}">
+                                            <TextBlock Style="{ThemeResource ControlHeaderTextBlockStyle}"
+                                                       Text="Phone number" />
+                                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                                       Text="{Binding Path=ContactDetails.PhoneNumber.Value}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </ScrollViewer>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem Header="comments">
+                    <Grid>
+                        <ProgressRing IsActive="{Binding Path=SelectedAttraction.LoadComments.Executing}" />
+
+                        <TextBlock Style="{ThemeResource ListViewEmptyStaticTextBlockStyle}"
+                                   Visibility="{Binding Path=SelectedAttraction.LoadComments.Executing, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=Collapsed}"
+                                   Text="{Binding Path=SelectedAttraction.Comments.Count,
+                                                  Converter={StaticResource EqualTo0MessageConverter},
+                                                  ConverterParameter='There are no comments',
+                                                  Mode=OneWay}" />
+                        <ItemsControl Visibility="{Binding Path=SelectedAttraction.LoadComments.Executing,
+                                                           Converter={StaticResource BoolToVisibilityConverter},
+                                                           ConverterParameter=Collapsed,
+                                                           Mode=OneWay}"
+                                      ItemsSource="{Binding Path=SelectedAttraction.Comments,
+                                                            Mode=OneWay}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,0,0,10">
+                                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                                   Text="{Binding Path=Text.Value}" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                                       Margin="0,0,7,0"
+                                                       FontSize="14"
+                                                       Text="Posted by" />
+                                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                                       Margin="0,0,7,0"
+                                                       FontSize="14"
+                                                       FontStyle="Italic"
+                                                       Text="{Binding Path=Author.Value}" />
+                                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                                       Margin="0,0,7,0"
+                                                       FontSize="14"
+                                                       Text="on " />
+                                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}"
+                                                       FontSize="14"
+                                                       FontStyle="Italic"
+                                                       Text="{Binding Path=PostTime,
+                                                                      Converter={StaticResource StringFormatConverter},
+                                                                      ConverterParameter='d'}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </PivotItem>
+
+                <PivotItem Header="view on map">
+                    <maps:MapControl x:Name="_map"
+                                     Grid.Row="1"
+                                     MapServiceToken="AslPIGNyxsgs7ZsV60T0hnLsQPYbVbST2_UE8R1shUY5C1Yf6NWNuV_8FEqoxqcp"
+                                     HorizontalAlignment="Stretch"
+                                     HorizontalContentAlignment="Stretch"
+                                     VerticalAlignment="Stretch"
+                                     VerticalContentAlignment="Stretch"
+                                     ZoomLevel="16" />
+                </PivotItem>
+            </Pivot>
+        </Grid>
+    </Page.Content>
+    <Page.BottomAppBar>
+        <CommandBar IsEnabled="{Binding Path=SelectAttractionCommand.NotExecuting}">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton Icon="Favorite"
+                              Label="rate"
+                              IsEnabled="{Binding Path=SelectedAttraction.Visited}">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout Placement="Top">
+                            <MenuFlyoutItem Text="5 I loved it" />
+                            <MenuFlyoutItem Text="4 I liked it" />
+                            <MenuFlyoutItem Text="3 It was ok" />
+                            <MenuFlyoutItem Text="2 It bored me" />
+                            <MenuFlyoutItem Text="1 Not a place to visit" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                <AppBarButton Icon="Pin"
+                              Label="to visit"
+                              Command="{Binding Path=SelectedAttraction.PinToVisitCommand}" />
+                <AppBarButton Icon="Comment"
+                              Label="comment"
+                              IsEnabled="{Binding Path=SelectedAttraction.Visited}">
+                    <AppBarButton.Flyout>
+                        <Flyout x:Name="_addCommentFlyout">
+                            <StackPanel Margin="10"
+                                        DataContext="{Binding Path=SelectedAttraction.AddCommentCommand}">
+                                <ContentPresenter ContentTemplate="{StaticResource ErrorContentPresenterTemplate}"
+                                                  HorizontalAlignment="Stretch">
+                                    <TextBox Header="Author"
+                                             DataContext="{Binding Path=Comment.Author}"
+                                             BorderBrush="{Binding Path=Errors.Count,
+                                                                   Converter={StaticResource ErrorCountToBrushConverter}}"
+                                             Text="{Binding Path=Value,
+                                                            Mode=TwoWay,
+                                                            UpdateSourceTrigger=PropertyChanged}" />
+                                </ContentPresenter>
+                                <ContentPresenter ContentTemplate="{StaticResource ErrorContentPresenterTemplate}"
+                                                  HorizontalAlignment="Stretch">
+                                    <TextBox Header="Text"
+                                             AcceptsReturn="True"
+                                             DataContext="{Binding Path=Comment.Text}"
+                                             BorderBrush="{Binding Path=Errors.Count,
+                                                                   Converter={StaticResource ErrorCountToBrushConverter}}"
+                                             Text="{Binding Path=Value,
+                                                            Mode=TwoWay,
+                                                            UpdateSourceTrigger=PropertyChanged}" />
+                                </ContentPresenter>
+                                <Button Content="comment"
+                                        Command="{Binding}"
+                                        Click="_AddCommentButtonClick" />
+                            </StackPanel>
+                        </Flyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="view pictures"
+                              IsEnabled="{Binding Path=SelectedAttraction.PictureUris.Count,
+                                                  Converter={StaticResource NotEqualToInt32ParameterConverter},
+                                                  ConverterParameter=0}"
+                              Click="_ViewPicturesButtonClick" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

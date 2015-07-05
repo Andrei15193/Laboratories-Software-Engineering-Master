@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-H9RSfWhEhOJscNkDKGPcBA" name="new_term_definition,_kSKZUMaHEduMlb2cQZNTYw" guid="-H9RSfWhEhOJscNkDKGPcBA" changeDate="2007-02-27T19:27:04.167+0200">
+  <mainDescription>A &lt;a class=&quot;elementLinkWithUserText&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/guidance_549AC394.html&quot; guid=&quot;_83ttAB_NEdq6CKKKq4D7YA&quot;>guidance&lt;/a> that describes an asset -&amp;nbsp;such as source code, templates, patterns,&#xD;
+architectural frameworks, domain models, and so on - that can be reused in a different context.</mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

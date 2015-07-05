@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="_a3uz4LBYEdm7Eph_l9Cn9w" name="assess_results,_0l53cMlgEdmt3adZL5Dmdw" guid="_a3uz4LBYEdm7Eph_l9Cn9w" changeDate="2007-05-01T19:24:08.202+0300" version="1.0.0">
+  <mainDescription>The &lt;a class=&quot;elementLink&quot; href=&quot;./../../openup/roles/project_manager_E657F936.html&quot; guid=&quot;_0a0o0MlgEdmt3adZL5Dmdw&quot;>Project Manager&lt;/a> is responsible for coordinating the assessment. He or she&amp;nbsp;discusses&#xD;
+&#xD;
+with the team how the iteration results with be best presented to stakeholders so they can learn as much about the solution&#xD;
+&#xD;
+as possible. The project manager also listens what the team has to say about what went wrong and what went right during the&#xD;
+&#xD;
+iteration. This knowledge will help everybody to make informed decisions for next iteration planning and determine the best&#xD;
+&#xD;
+course of action for the project. This task is performed at the end of every iteration until the end of the project.</mainDescription>
+  <sections xmi:id="_o28GgMMsEdmdo9HxCRR_Gw" name="Review iteration results" guid="_o28GgMMsEdmdo9HxCRR_Gw">
+    <sectionDescription>&lt;p>&#xD;
+    Towards the end of the iteration, the team should jointly assess whether the objectives and evaluation criteria&#xD;
+    established in the &lt;a class=&quot;elementLink&quot; href=&quot;./../../openup/workproducts/iteration_plan.html&quot;&#xD;
+    guid=&quot;_0aQBEslgEdmt3adZL5Dmdw&quot;>Iteration Plan&lt;/a> were met, and whether the team adhered to the plan and completed all&#xD;
+    the work items committed to the iteration.&amp;nbsp;It should&amp;nbsp; use&amp;nbsp;objective measures to the greatest extent&#xD;
+    possible. To assess that a given work item is completed, the team should ensure that the corresponding test cases were&#xD;
+    successfully run against it.&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <sections xmi:id="_PABe4MQIEdmaiYJe8-Eaqg" name="Demonstrate value and gather feedback" guid="_PABe4MQIEdmaiYJe8-Eaqg">
+    <sectionDescription>&lt;p>&#xD;
+    The team should demonstrate the product to customer, end-users, and other &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../openup/roles/stakeholder.html&quot; guid=&quot;_dTa6gMAYEdqX-s4mWhkyqQ&quot;>Stakeholder&lt;/a>s to collect their feedback,&#xD;
+    or better yet, have end users to use the product themselves. This should be done throughout the iteration, or at least&#xD;
+    in a separate session towards the end of the iteration (see &lt;a class=&quot;elementLinkWithType&quot;&#xD;
+    href=&quot;./../../openup/guidances/guidelines/iteration_review.html&quot; guid=&quot;_FekBAC4IEdyhZrtGEIITGQ&quot;>Guideline: Iteration&#xD;
+    Review&lt;/a>). Work that is not completed should not be demonstrated. Resulting knowledge, such as new functionality,&#xD;
+    requested changes and defects are recorded in the &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../openup/workproducts/work_items_list.html&quot; guid=&quot;_rGNWsCbSEdqh1LYUOGRh2A&quot;>Work Items List&lt;/a>, so project&#xD;
+    priorities, scope and duration can be refined in the next iteration planning.&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <sections xmi:id="_iL7cQEpqEdup0IY9DKDPkg" name="Perform a retrospective" guid="_iL7cQEpqEdup0IY9DKDPkg">
+    <sectionDescription>&lt;p>&#xD;
+    Review with the team the approach taken to development and collaboration, the effectiveness of the development&#xD;
+    environment, the suitability of the working environment, and other factors. Discuss what things went well, what could&#xD;
+    have gone better, and how things could be changed to deliver better results. Capture assessment results in the current&#xD;
+    &lt;a class=&quot;elementLink&quot; href=&quot;./../../openup/workproducts/iteration_plan_B46FED39.html&quot; guid=&quot;_0aQBEslgEdmt3adZL5Dmdw&quot;>Iteration Plan&lt;/a>&amp;nbsp;as well as stakeholder feedback and actions to be taken to&#xD;
+    improve the development approach for next iteration. Gather lessons learned and record those in the &lt;a class=&quot;elementLink&quot; href=&quot;./../../openup/workproducts/project_plan_1CDBB7E4.html&quot; guid=&quot;_0a6vcMlgEdmt3adZL5Dmdw&quot;>Project Plan&lt;/a> to be used in the future. You may wish to leverage EPF composer to improve the process by incorporating the&#xD;
+    lessons that have been successfully piloted in the project and enhance templates, checklists, activities,&amp;nbsp;steps,&#xD;
+    introduce new practices and guidance. See&amp;nbsp;&lt;a class=&quot;elementLinkWithType&quot; href=&quot;./../../openup/guidances/supportingmaterials/resources_for_modifying_methods_7663A1A6.html&quot; guid=&quot;_omneEMX4EduywMSzPTUUwA&quot;>Supporting Material: Resources for Modifying Methods&lt;/a> for more information.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    When the assessment period coincides with the end of a phase the corresponding milestone review takes place. These are&#xD;
+    informal reviews of the work accomplished where the team and stakeholders agree on moving the project on to the next&#xD;
+    phase, spanning a set of iterations with a new common goal, in accordance with the emphasis of the following phase. For&#xD;
+    more information, refer to &lt;a class=&quot;elementLinkWithType&quot; href=&quot;./../../openup/guidances/concepts/phase_milestones_5678231E.html&quot; guid=&quot;_HNxbwMBJEdqSgKaj2SZBmg&quot;>Concept: Phase Milestones&lt;/a>.&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <sections xmi:id="_1YHH8DLqEdueZPye-FaNgA" name="Close-out project" guid="_1YHH8DLqEdueZPye-FaNgA">
+    <sectionDescription>&lt;p>&#xD;
+&#xD;
+    This step must be performed only when the iteration review coincides with the end of the project. Involve the team and&#xD;
+&#xD;
+    stakeholders in&amp;nbsp;a final assessment for project acceptance which, if successful, marks the point when the customer&#xD;
+&#xD;
+    accepts ownership of the software product. Complete the close-out of the project by disposing of the remaining assets&#xD;
+&#xD;
+    and reassigning the remaining staff.&#xD;
+&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <purpose>To adjust expectations at regular intervals of the project, brainstorming around product increments and adapting behavior&#xD;
+to the acquired knowledge.</purpose>
+</org.eclipse.epf.uma:TaskDescription>

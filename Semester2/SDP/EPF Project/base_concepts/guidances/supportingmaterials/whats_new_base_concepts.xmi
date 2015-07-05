@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-eyFTMGu83WSs-yJedYCY3g" name="new_supporting_material,_qxY8MEALEdqTMtYjAib0og" guid="-eyFTMGu83WSs-yJedYCY3g" changeDate="2007-07-06T22:06:05.237+0300">
+  <mainDescription>&lt;p>&#xD;
+    For a description of this plug-in's contents, refer to &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../../base_concepts/guidances/supportingmaterials/about_base_concepts.html&quot;&#xD;
+    guid=&quot;_uvje4D_fEdqDFvujd6NHiA&quot;>About Base Concepts&lt;/a>.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    The new features and changes from version to version are described below.&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        &lt;a href=&quot;#1.0&quot;>1.0&lt;/a>&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&#xD;
+&lt;h2>&#xD;
+    &lt;a id=&quot;1.0&quot; name=&quot;1.0&quot;>1.0&lt;/a>&#xD;
+&lt;/h2>&#xD;
+&lt;p>&#xD;
+    This is the initial release of this plug-in.&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

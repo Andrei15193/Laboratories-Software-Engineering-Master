@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-PbfqVxB_j9KN-Jx39_pEUA" name="manage_iteration,_8S2aICbYEdqh1LYUOGRh2A" guid="-PbfqVxB_j9KN-Jx39_pEUA" changeDate="2007-07-18T13:27:16.729+0300" version="1.0.0">
+  <mainDescription>&lt;p>&#xD;
+    Developing the team is part of executing the project. The project manager is responsible for improving the interaction&#xD;
+    of team members and the trust among the team, incorporating team building into project activities and empowering the&#xD;
+    team to make decisions. Management is done by objectives and not by time reporting.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    The project manager helps the team to meet the iteration objectives by removing constraints and monitoring the progress&#xD;
+    and work remaining to completion. When the team is falling behind,&amp;nbsp;the project&amp;nbsp;manager&amp;nbsp;helps the team to&#xD;
+    assess how it can reduce work and still meet the iteration goals. Stakeholders' needs must be continuously met and&#xD;
+    their issues resolved throughout the iteration. The stakeholders may need to be involved in approving changes and&#xD;
+    actions that affect them.&#xD;
+&lt;/p></mainDescription>
+  <sections xmi:id="_OE65ICuxEdqTIKp3l5PtzQ" name="Capture and communicate status" guid="_OE65ICuxEdqTIKp3l5PtzQ">
+    <sectionDescription>&lt;p>&#xD;
+    The project manager needs to do the following:&amp;nbsp;&#xD;
+&lt;/p>&#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        continuously monitor the project to ensure it is progressing appropriately&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        enable the team to react as soon as possible to any change&#xD;
+    &lt;/li>&#xD;
+&lt;/ul>&#xD;
+&lt;p>&#xD;
+    Many alternative means may be used to track the status. Quick, daily meetings with the entire project team are useful&#xD;
+    to understand what team members have accomplished since the&amp;nbsp;last meeting, and what they plan to accomplish before&#xD;
+    the next meeting. It also allows the team to identify any blocking issues. See &lt;a class=&quot;elementLinkWithType&quot;&#xD;
+    href=&quot;./../../openup/guidances/guidelines/daily_meetings.html&quot; guid=&quot;_251UMCmREdyy6Oss2-0s1g&quot;>Guideline: Daily&#xD;
+    Meetings&lt;/a>.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Another approach is the collection of basic metrics, ideally automatically generated from the tools at hand, or&#xD;
+    manually assembled. &lt;span&#xD;
+    style=&quot;FONT-SIZE: 10pt; FONT-FAMILY: Arial; mso-fareast-font-family: 'Times New Roman'; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA&quot;>Burndown&#xD;
+    charts are one of the most useful project progress metrics. They show how many work items where accomplished during&#xD;
+    previous iterations (or days) and the remaining work. They can be used to track project releases and iterations&#xD;
+    (see&amp;nbsp;&lt;a class=&quot;elementLinkWithType&quot; href=&quot;./../../openup/guidances/reports/project_burndown.html&quot;&#xD;
+    guid=&quot;_ePrt8Dj3EduxovfWMDsntw&quot;>Report: Project Burndown&lt;/a>&amp;nbsp;and &lt;a class=&quot;elementLinkWithType&quot;&#xD;
+    href=&quot;./../../openup/guidances/reports/iteration_burndown.html&quot; guid=&quot;_uAzgkDg3Edu4E8ZdmlYjtA&quot;>Report: Iteration&#xD;
+    Burndown&lt;/a>).&amp;nbsp;Communicating project status is as important as gathering it. Keep the information visible to&#xD;
+    stakeholders and project team at all times.&lt;/span> The &lt;a class=&quot;elementLinkWithType&quot;&#xD;
+    href=&quot;./../../openup/workproducts/project_plan.html&quot; guid=&quot;_0a6vcMlgEdmt3adZL5Dmdw&quot;>Artifact: Project&#xD;
+    Plan&lt;/a>&amp;nbsp;should outline which metrics the project should use.&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <sections xmi:id="_oIZdkCbZEdqh1LYUOGRh2A" name="Handle exceptions and problems" guid="_oIZdkCbZEdqh1LYUOGRh2A">
+    <sectionDescription>&lt;p>&#xD;
+    One of the project manager's key responsibilities is to know about the project team's problems and issues. The manager&#xD;
+    needs to focus on problems that are blocking progress. A quick, daily meeting is usually a good way to monitor those&#xD;
+    problems and issues.&amp;nbsp;A record of issues that have to be solved within the team may be kept in the &lt;a&#xD;
+    class=&quot;elementLink&quot; href=&quot;./../../openup/workproducts/iteration_plan.html&quot; guid=&quot;_0aQBEslgEdmt3adZL5Dmdw&quot;>Iteration&#xD;
+    Plan&lt;/a>&lt;font color=&quot;#003399&quot;>.&lt;/font>&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    Identify the cause and impact of problems and exceptions as they arise. Identify possible solutions for problems that&#xD;
+    have an immediate impact on the short-term goals and objectives and identify who needs to be involved in implementing&#xD;
+    the solution. Then, define the corrective actions and implement them.&amp;nbsp;&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <sections xmi:id="_xiFJwCbZEdqh1LYUOGRh2A" name="Identify and manage risks" guid="_xiFJwCbZEdqh1LYUOGRh2A">
+    <sectionDescription>&lt;p>&#xD;
+&#xD;
+&#xD;
+    Identify risks as soon as the project starts and continue identifying and managing risks throughout the project. The &lt;a class=&quot;elementLink&quot; href=&quot;./../../openup/workproducts/risk_list_C4B6F290.html&quot; guid=&quot;_Ckay8Cc_EduIsqH1Q6ZuqA&quot;>Risk List&lt;/a>&amp;nbsp;should be revisited weekly, or as a minimum once per iteration. The&#xD;
+&#xD;
+&#xD;
+    entire team should be involved in identifying and mitigating risks.&#xD;
+&#xD;
+&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <sections xmi:id="_Br6VECuxEdqTIKp3l5PtzQ" name="Manage objectives" guid="_Br6VECuxEdqTIKp3l5PtzQ">
+    <sectionDescription>When a team is falling significantly behind, or critical problems occur, that prevents the team&amp;nbsp;from meeting the&#xD;
+iteration objectives it may be necessary to descope work to ensure that the team delivers a useful product increment by the&#xD;
+end of the iteration, while maximizing stakeholder value. The project manager should work with the team and&#xD;
+stakeholders&amp;nbsp;to revise the &lt;a class=&quot;elementLink&quot; href=&quot;./../../openup/workproducts/iteration_plan_B46FED39.html&quot; guid=&quot;_0aQBEslgEdmt3adZL5Dmdw&quot;>Iteration Plan&lt;/a> and, as necessary, reduce the emphasis on less critical tasks postponing&#xD;
+them to a subsequent iteration. In rare cases, if the iteration objectives still seem impossible to be met, the team might&#xD;
+consider terminating the iteration or reformulating the iteration to a new objective.</sectionDescription>
+  </sections>
+  <purpose>&lt;p>&#xD;
+&#xD;
+&#xD;
+    To help the team to meet the iteration objectives and&amp;nbsp;keep the project on track.&amp;nbsp;Manage stakeholders&#xD;
+&#xD;
+&#xD;
+    expectations as technical and practical discoveries are made during the project.&#xD;
+&#xD;
+&#xD;
+&lt;/p></purpose>
+</org.eclipse.epf.uma:TaskDescription>

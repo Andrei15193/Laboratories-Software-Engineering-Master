@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="_yE05tNnmEdmO6L4XMImrsA" name="customer,_yE05s9nmEdmO6L4XMImrsA" guid="_yE05tNnmEdmO6L4XMImrsA">
+  <mainDescription>A person or organization, internal or external to the producing organization, who takes financial responsibility for the&#xD;
+system. In a large system this may or may not be the user. The customer is the ultimate recipient of the developed product.&#xD;
+See also: &lt;i>&lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/stakeholder_4A6A8AED.html&quot; guid=&quot;_yWHeDNnmEdmO6L4XMImrsA&quot;>stakeholder&lt;/a>.&lt;/i></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

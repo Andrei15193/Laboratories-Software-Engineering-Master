@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="_x7cUNNnmEdmO6L4XMImrsA" name="artifact,_x7cUM9nmEdmO6L4XMImrsA" guid="_x7cUNNnmEdmO6L4XMImrsA" changeDate="2006-08-31T23:52:50.953+0300">
+  <mainDescription>A formal &lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/work_product_826E4C22.html&quot; guid=&quot;_H4JXwB_SEdq6CKKKq4D7YA&quot;>work product&lt;/a>&amp;nbsp;that: &#xD;
+&lt;div style=&quot;MARGIN-LEFT: 2em&quot;>&#xD;
+    1) is produced, modified, or used by a &lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/task_6C1FF051.html&quot; guid=&quot;_x459ktnmEdmO6L4XMImrsA&quot;>task&lt;/a>,&lt;br />&#xD;
+     2) defines an area of responsibility&lt;br />&#xD;
+     3) is subject to version control.&#xD;
+&lt;/div>&#xD;
+&lt;p>&#xD;
+    An artifact can have multiple forms including a &lt;i>&lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/model_6611EA5E.html&quot; guid=&quot;_yNefY9nmEdmO6L4XMImrsA&quot;>model&lt;/a>&lt;/i>, a &lt;i>&lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/model_element_D23CE90D.html&quot; guid=&quot;_yNnpVdnmEdmO6L4XMImrsA&quot;>model element&lt;/a>&lt;/i>, or a &lt;i>&lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/document_8B80C12B.html&quot; guid=&quot;_yG6kY9nmEdmO6L4XMImrsA&quot;>document&lt;/a>&lt;/i>.&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

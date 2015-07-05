@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-pHL9DCPftNVltEgY6aDG9Q" name=",_vJe_IAfYEeWly8KELFU4ng" guid="-pHL9DCPftNVltEgY6aDG9Q">
+  <sections xmi:id="_0QpGMAfYEeWly8KELFU4ng" name="Implement Classes and Methods" guid="_0QpGMAfYEeWly8KELFU4ng">
+    <sectionDescription>The development&amp;nbsp;class owners will perform the&amp;nbsp;implementation of the items necessary to satisfy the requirements&#xD;
+of their class for this feature.</sectionDescription>
+  </sections>
+  <sections xmi:id="_0SVIQAfYEeWly8KELFU4ng" name="Inspect Code" guid="_0SVIQAfYEeWly8KELFU4ng">
+    <sectionDescription>A code inspection with the&amp;nbsp;feature team&amp;nbsp;members or with other project members is held either before or after the&#xD;
+unit test task. The decision to inspect within the feature team or with other project team members is that of the chief&#xD;
+programmer. The decision to inspect before or after unit test is that of the chief programmer.</sectionDescription>
+  </sections>
+  <sections xmi:id="_0UKUQAfYEeWly8KELFU4ng" name="Conduct Unit Test" guid="_0UKUQAfYEeWly8KELFU4ng">
+    <sectionDescription>The development class owner tests their code to ensure all requirements of their class are satisfied. The chief programmer&#xD;
+determines what feature team-level unit testing is required (if any). That is, if any testing across the&amp;nbsp;classes&#xD;
+developed for this&amp;nbsp;feature is required.</sectionDescription>
+  </sections>
+  <sections xmi:id="_0ZHswAfYEeWly8KELFU4ng" name="Promote to Build" guid="_0ZHswAfYEeWly8KELFU4ng">
+    <sectionDescription>Promotion&amp;nbsp;to the&amp;nbsp;build of&amp;nbsp;classes is only possible after a successful code inspection. The chief programmer&#xD;
+tracks the individual classes being promoted, through feedback from the developers, and is the integration point for the&#xD;
+entire feature.</sectionDescription>
+  </sections>
+</org.eclipse.epf.uma:TaskDescription>

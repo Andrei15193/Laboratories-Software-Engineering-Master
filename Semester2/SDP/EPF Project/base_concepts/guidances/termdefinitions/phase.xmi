@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-88Vj7cM5EcVnfesDYaAkww" name="new_term_definition,_K9eecMaGEduMlb2cQZNTYw" guid="-88Vj7cM5EcVnfesDYaAkww" changeDate="2007-02-27T19:19:05.139+0200">
+  <mainDescription>The time between two major project &lt;span class=&quot;docEmphasis&quot;>milestones&lt;/span>, during which a well-defined set of&#xD;
+objectives is met, and decisions are made to move or not to move into the next phase.</mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

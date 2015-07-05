@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="_yQ5m2dnmEdmO6L4XMImrsA" name="process,_yQ5m2NnmEdmO6L4XMImrsA" guid="_yQ5m2dnmEdmO6L4XMImrsA" changeDate="2006-09-29T00:18:49.609+0300">
+  <mainDescription>&lt;p>&#xD;
+    (1) A general structure for particular types of development projects.&amp;nbsp;Processes take &lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/content_element_DA3AD029.html&quot; guid=&quot;_N8x34B_LEdq6CKKKq4D7YA&quot;>content element&lt;/a>s and relate them into semi-ordered sequences that are customized to&#xD;
+    specific types of projects.&amp;nbsp;Thus, a process is a set of partially ordered work descriptions intended to reach a&#xD;
+    higher development goal, such as the release of a specific software&amp;nbsp; &lt;!--StartFragment-->These work descriptions&#xD;
+    are organized into a hierarchical&amp;nbsp;breakdown-structure A process focuses on the lifecycle and the sequencing of&#xD;
+    work in &lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/breakdown_structure_C53514C1.html&quot; guid=&quot;_95LCoB_QEdq6CKKKq4D7YA&quot;>breakdown structure&lt;/a>s.&lt;br />&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    (2) The part of&amp;nbsp; &lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/uma_73BA0C0C.html&quot; guid=&quot;_cj6jkB_PEdq6CKKKq4D7YA&quot;>UMA&lt;/a>&amp;nbsp;that models processes.&#xD;
+&lt;/p>&lt;!--EndFragment--></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

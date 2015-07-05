@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="_ybefKtnmEdmO6L4XMImrsA" name="view_element,_ybefKdnmEdmO6L4XMImrsA" guid="_ybefKtnmEdmO6L4XMImrsA" changeDate="2006-04-14T01:22:45.153+0300">
+  <mainDescription>A view element is a textual and/or graphical projection of a collection of &lt;i>&lt;a class=&quot;elementLinkWithUserText&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/model_element_D23CE90D.html&quot; guid=&quot;_yNnpVdnmEdmO6L4XMImrsA&quot;>model elements&lt;/a>&lt;/i>.</mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:org.eclipse.epf.uma.resourcemanager="http:///org/eclipse/epf/uma/resourcemanager.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1">
+  <org.eclipse.epf.uma.resourcemanager:ResourceManager xmi:id="_nXz1YAeSEeWly8KELFU4ng" guid="_nXz1YAeSEeWly8KELFU4ng">
+    <resourceDescriptors xmi:id="_lhWGMAeWEeWly8KELFU4ng" id="--bq5PFJpdw4EihUA3cqtoA" uri="disciplines/fddDiscipline.xmi"/>
+    <resourceDescriptors xmi:id="_i1-2sAeXEeWly8KELFU4ng" id="-gOs-fM8aiZK1C7OCUvZyKA" uri="tasks/DevelopOverallModel.xmi"/>
+    <resourceDescriptors xmi:id="_LgmosAe4EeWly8KELFU4ng" id="-5d0Bc-w-9rE_e_vvQ0kYMw" uri="tasks/BuildFeatureList.xmi"/>
+    <resourceDescriptors xmi:id="_14-50AfUEeWly8KELFU4ng" id="-Iu9G9ZgPhFngBl0IUK-bHg" uri="tasks/PlanByFeature.xmi"/>
+    <resourceDescriptors xmi:id="_-xGUkAfVEeWly8KELFU4ng" id="-fs4bEn8ABMlRltEu7spmrA" uri="tasks/DesignByFeature.xmi"/>
+    <resourceDescriptors xmi:id="_1XQI8AfYEeWly8KELFU4ng" id="-pHL9DCPftNVltEgY6aDG9Q" uri="tasks/BuildByFeature.xmi"/>
+  </org.eclipse.epf.uma.resourcemanager:ResourceManager>
+  <org.eclipse.epf.uma:MethodPlugin xmi:id="_nXRC0AeSEeWly8KELFU4ng" name="OpenUPEnhancedWithFDD" guid="_nXRC0AeSEeWly8KELFU4ng">
+    <methodPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_nXRC0QeSEeWly8KELFU4ng" name="Content" guid="_nXRC0QeSEeWly8KELFU4ng">
+      <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_nXRC0geSEeWly8KELFU4ng" name="Categories" guid="_nXRC0geSEeWly8KELFU4ng">
+        <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_nXRC0weSEeWly8KELFU4ng" name="Domains" guid="_nXRC0weSEeWly8KELFU4ng"/>
+        <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_nXRC1AeSEeWly8KELFU4ng" name="Disciplines" guid="_nXRC1AeSEeWly8KELFU4ng">
+          <contentElements xsi:type="org.eclipse.epf.uma:Discipline" xmi:id="_rCrvMAeTEeWly8KELFU4ng" name="FddDiscipline" guid="_rCrvMAeTEeWly8KELFU4ng" presentationName="Feature Driven Development" briefDescription="Feature-driven development (FDD) is an iterative and incremental software development process. It is one of a number of lightweight or Agile methods for developing software. FDD blends a number of industry-recognized best practices into a cohesive whole. These practices are all driven from a client-valued functionality (feature) perspective. Its main purpose is to deliver tangible, working software repeatedly in a timely manner. - Wikipedia" tasks="_ET6bgAeXEeWly8KELFU4ng _velIYAe3EeWly8KELFU4ng _F-P2kAe8EeWly8KELFU4ng _zhAgYAfVEeWly8KELFU4ng _vJe_IAfYEeWly8KELFU4ng">
+            <methodElementProperty xmi:id="_RgFXUAeWEeWly8KELFU4ng" name="me_edited" value="true"/>
+            <presentation xmi:id="--bq5PFJpdw4EihUA3cqtoA" href="uma://--bq5PFJpdw4EihUA3cqtoA#--bq5PFJpdw4EihUA3cqtoA"/>
+          </contentElements>
+        </childPackages>
+        <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_nXRC1QeSEeWly8KELFU4ng" name="RoleSets" guid="_nXRC1QeSEeWly8KELFU4ng"/>
+        <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_nXRC1geSEeWly8KELFU4ng" name="WP Types" guid="_nXRC1geSEeWly8KELFU4ng"/>
+        <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_nXRC1weSEeWly8KELFU4ng" name="Tools" guid="_nXRC1weSEeWly8KELFU4ng"/>
+        <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_nXRC2AeSEeWly8KELFU4ng" name="StandardCategories" guid="_nXRC2AeSEeWly8KELFU4ng"/>
+        <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_nXRC2QeSEeWly8KELFU4ng" name="CustomCategories" guid="_nXRC2QeSEeWly8KELFU4ng">
+          <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_nXRC2geSEeWly8KELFU4ng" name="Hidden" guid="_nXRC2geSEeWly8KELFU4ng">
+            <contentElements xsi:type="org.eclipse.epf.uma:CustomCategory" xmi:id="_nXRC2weSEeWly8KELFU4ng" name="Custom Categories" guid="_nXRC2weSEeWly8KELFU4ng"/>
+          </childPackages>
+        </childPackages>
+      </childPackages>
+      <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_nXRC3AeSEeWly8KELFU4ng" name="CoreContent" guid="_nXRC3AeSEeWly8KELFU4ng">
+        <childPackages xsi:type="org.eclipse.epf.uma:ContentPackage" xmi:id="_yhlCUAeWEeWly8KELFU4ng" name="fddContentPackage" guid="_yhlCUAeWEeWly8KELFU4ng" presentationName="Content Package">
+          <methodElementProperty xmi:id="_yhwBcAeWEeWly8KELFU4ng" name="pkg_loadCheck" value="true"/>
+          <methodElementProperty xmi:id="_zeWzoAeWEeWly8KELFU4ng" name="me_edited" value="true"/>
+          <methodElementProperty xmi:id="_OCic8AeXEeWly8KELFU4ng" name="pakage_supporting" value="false"/>
+          <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_ET6bgAeXEeWly8KELFU4ng" name="DevelopOverallModel" guid="_ET6bgAeXEeWly8KELFU4ng" presentationName="Develop Overall Model" briefDescription="The FDD project starts with a high-level walkthrough of the scope of the system and its context. Next, detailed domain models are created for each modeling area by small groups and presented for peer review. One of the proposed models, or a combination of them, is selected to become the model for each domain area. Domain area models are progressively merged into an overall model." mandatoryInput="_FkRWgAefEeWly8KELFU4ng" output="_yL6q0AfXEeWly8KELFU4ng _LvHYQAfYEeWly8KELFU4ng">
+            <methodElementProperty xmi:id="_SSjgoAeXEeWly8KELFU4ng" name="me_edited" value="true"/>
+            <presentation xmi:id="-gOs-fM8aiZK1C7OCUvZyKA" href="uma://-gOs-fM8aiZK1C7OCUvZyKA#-gOs-fM8aiZK1C7OCUvZyKA"/>
+            <performedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0VxJsMlgEdmt3adZL5Dmdw"/>
+            <performedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0X9iEMlgEdmt3adZL5Dmdw"/>
+            <performedBy href="#_vG-GMAeiEeWly8KELFU4ng"/>
+            <additionallyPerformedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0YDosMlgEdmt3adZL5Dmdw"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_FkRWgAefEeWly8KELFU4ng" name="SpecificationDocument" guid="_FkRWgAefEeWly8KELFU4ng" presentationName="Specification Document">
+            <methodElementProperty xmi:id="_HQC70AefEeWly8KELFU4ng" name="me_edited" value="true"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Role" xmi:id="_vG-GMAeiEeWly8KELFU4ng" name="domainExpert" guid="_vG-GMAeiEeWly8KELFU4ng" presentationName="Domain Expert">
+            <methodElementProperty xmi:id="_wS3RkAeiEeWly8KELFU4ng" name="me_edited" value="true"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_velIYAe3EeWly8KELFU4ng" name="BuildFeatureList" guid="_velIYAe3EeWly8KELFU4ng" presentationName="Build Feature List" briefDescription="The knowledge gathered during the initial modeling is used to identify a list of features, by functionally decomposing the domain into subject areas. Subject areas each contain business activities, and the steps within each business activity form the basis for a categorized feature list. Features in this respect are small pieces of client-valued functions expressed in the form &quot;&lt;action> &lt;result> &lt;object>&quot;, for example: 'Calculate the total of a sale' or 'Validate the password of a user'. Features should not take more than two weeks to complete, else they should be broken down into smaller pieces." mandatoryInput="_LvHYQAfYEeWly8KELFU4ng" output="_pUMNQAe4EeWly8KELFU4ng" optionalInput="_yL6q0AfXEeWly8KELFU4ng _FkRWgAefEeWly8KELFU4ng">
+            <methodElementProperty xmi:id="_1Dp6gAe3EeWly8KELFU4ng" name="me_edited" value="true"/>
+            <presentation xmi:id="-5d0Bc-w-9rE_e_vvQ0kYMw" href="uma://-5d0Bc-w-9rE_e_vvQ0kYMw#-5d0Bc-w-9rE_e_vvQ0kYMw"/>
+            <performedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0VxJsMlgEdmt3adZL5Dmdw"/>
+            <performedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0YDosMlgEdmt3adZL5Dmdw"/>
+            <performedBy href="#_vG-GMAeiEeWly8KELFU4ng"/>
+            <additionallyPerformedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0X9iEMlgEdmt3adZL5Dmdw"/>
+            <additionallyPerformedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0a0o0MlgEdmt3adZL5Dmdw"/>
+            <additionallyPerformedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_dTa6gMAYEdqX-s4mWhkyqQ"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_pUMNQAe4EeWly8KELFU4ng" name="FeatureList" guid="_pUMNQAe4EeWly8KELFU4ng" presentationName="Feature List" briefDescription=" Feature list is intended as a potentially client deliverable piece of work.">
+            <methodElementProperty xmi:id="_0lfiYAe4EeWly8KELFU4ng" name="me_edited" value="true"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_F-P2kAe8EeWly8KELFU4ng" name="PlanByFeature" guid="_F-P2kAe8EeWly8KELFU4ng" presentationName="Plan By Feature" briefDescription="After the feature list is completed, the next step is to produce the development plan; assigning ownership of features (or feature sets) as classes to programmers." mandatoryInput="_pUMNQAe4EeWly8KELFU4ng _LvHYQAfYEeWly8KELFU4ng" output="_OJEHoAfXEeWly8KELFU4ng" optionalInput="_yL6q0AfXEeWly8KELFU4ng _FkRWgAefEeWly8KELFU4ng">
+            <methodElementProperty xmi:id="_IXCS4Ae8EeWly8KELFU4ng" name="me_edited" value="true"/>
+            <presentation xmi:id="-Iu9G9ZgPhFngBl0IUK-bHg" href="uma://-Iu9G9ZgPhFngBl0IUK-bHg#-Iu9G9ZgPhFngBl0IUK-bHg"/>
+            <performedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0YDosMlgEdmt3adZL5Dmdw"/>
+            <performedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0a0o0MlgEdmt3adZL5Dmdw"/>
+            <additionallyPerformedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0ZM4MclgEdmt3adZL5Dmdw"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_zhAgYAfVEeWly8KELFU4ng" name="DesignByFeature" guid="_zhAgYAfVEeWly8KELFU4ng" presentationName="Design By Feature" briefDescription="A design package is produced for each feature. A chief programmer selects a small group of features that are to be developed within two weeks. Together with the corresponding class owners, the chief programmer works out detailed sequence diagrams for each feature and refines the overall model. Next, the class and method prologues are written and finally a design inspection is held." mandatoryInput="_pUMNQAe4EeWly8KELFU4ng _OJEHoAfXEeWly8KELFU4ng _LvHYQAfYEeWly8KELFU4ng" optionalInput="_yL6q0AfXEeWly8KELFU4ng _FkRWgAefEeWly8KELFU4ng">
+            <methodElementProperty xmi:id="_3o_pcAfVEeWly8KELFU4ng" name="me_edited" value="true"/>
+            <presentation xmi:id="-fs4bEn8ABMlRltEu7spmrA" href="uma://-fs4bEn8ABMlRltEu7spmrA#-fs4bEn8ABMlRltEu7spmrA"/>
+            <performedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0X9iEMlgEdmt3adZL5Dmdw"/>
+            <performedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0YDosMlgEdmt3adZL5Dmdw"/>
+            <output href="#_h3aFEAfYEeWly8KELFU4ng"/>
+            <output href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0XAf0MlgEdmt3adZL5Dmdw"/>
+            <additionallyPerformedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0VxJsMlgEdmt3adZL5Dmdw"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_OJEHoAfXEeWly8KELFU4ng" name="DevelopmentSequence" guid="_OJEHoAfXEeWly8KELFU4ng" presentationName="Development Sequence" briefDescription="The planned order for completion of each business activity. The planning team shall assign a date (month and year only) for completion of each business activity.">
+            <methodElementProperty xmi:id="_PrRhQAfXEeWly8KELFU4ng" name="me_edited" value="true"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_yL6q0AfXEeWly8KELFU4ng" name="ExplanatoryNote" guid="_yL6q0AfXEeWly8KELFU4ng" presentationName="Explanatory Note" briefDescription="Notes made on detailed or complex model shapes and on significant model alternatives are made for future reference by the project.">
+            <methodElementProperty xmi:id="_3ZzsAAfXEeWly8KELFU4ng" name="me_edited" value="true"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_LvHYQAfYEeWly8KELFU4ng" name="OverallObjectModel" guid="_LvHYQAfYEeWly8KELFU4ng" presentationName="Overall Object Model">
+            <methodElementProperty xmi:id="_N7JK8AfYEeWly8KELFU4ng" name="me_edited" value="true"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Artifact" xmi:id="_h3aFEAfYEeWly8KELFU4ng" name="TodoTaskList" guid="_h3aFEAfYEeWly8KELFU4ng" presentationName="Todo Task List">
+            <methodElementProperty xmi:id="_jFb-cAfYEeWly8KELFU4ng" name="me_edited" value="true"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Task" xmi:id="_vJe_IAfYEeWly8KELFU4ng" name="BuildByFeature" guid="_vJe_IAfYEeWly8KELFU4ng" presentationName="Build By Feature" briefDescription="After a successful design inspection a per feature activity to produce a completed client-valued function (feature) is planned. The class owners develops the code for their classes. After a unit test and a successful code inspection, the completed feature is promoted to the main build." output="_VUGgEAfZEeWly8KELFU4ng" optionalInput="_yL6q0AfXEeWly8KELFU4ng _OJEHoAfXEeWly8KELFU4ng">
+            <methodElementProperty xmi:id="_zIytUAfYEeWly8KELFU4ng" name="me_edited" value="true"/>
+            <presentation xmi:id="-pHL9DCPftNVltEgY6aDG9Q" href="uma://-pHL9DCPftNVltEgY6aDG9Q#-pHL9DCPftNVltEgY6aDG9Q"/>
+            <performedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0YDosMlgEdmt3adZL5Dmdw"/>
+            <performedBy href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0ZM4MclgEdmt3adZL5Dmdw"/>
+            <mandatoryInput href="#_h3aFEAfYEeWly8KELFU4ng"/>
+            <mandatoryInput href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0XAf0MlgEdmt3adZL5Dmdw"/>
+          </contentElements>
+          <contentElements xsi:type="org.eclipse.epf.uma:Deliverable" xmi:id="_VUGgEAfZEeWly8KELFU4ng" name="FeatureImplementation" guid="_VUGgEAfZEeWly8KELFU4ng" presentationName="Feature Implementation">
+            <methodElementProperty xmi:id="_Wt2hQAfZEeWly8KELFU4ng" name="me_edited" value="true"/>
+          </contentElements>
+        </childPackages>
+      </childPackages>
+      <childPackages xsi:type="org.eclipse.epf.uma:ProcessPackage" xmi:id="_nXRC3QeSEeWly8KELFU4ng" name="CapabilityPatterns" guid="_nXRC3QeSEeWly8KELFU4ng"/>
+    </methodPackages>
+    <methodPackages xsi:type="org.eclipse.epf.uma:ProcessPackage" xmi:id="_nXRC3geSEeWly8KELFU4ng" name="DeliveryProcesses" guid="_nXRC3geSEeWly8KELFU4ng"/>
+    <methodPackages xsi:type="org.eclipse.epf.uma:ProcessPackage" xmi:id="_nXRC3weSEeWly8KELFU4ng" name="ProcessContributions" guid="_nXRC3weSEeWly8KELFU4ng"/>
+    <bases href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0TLvwMlgEdmt3adZL5Dmdw"/>
+  </org.eclipse.epf.uma:MethodPlugin>
+</xmi:XMI>

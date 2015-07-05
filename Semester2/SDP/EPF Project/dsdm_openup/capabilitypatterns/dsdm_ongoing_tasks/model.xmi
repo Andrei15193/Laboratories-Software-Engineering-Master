@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:org.eclipse.epf.uma.resourcemanager="http:///org/eclipse/epf/uma/resourcemanager.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1">
+  <org.eclipse.epf.uma.resourcemanager:ResourceManager xmi:id="_l8QY0Cs-Edy1v79I_OKHWw" guid="_l8QY0Cs-Edy1v79I_OKHWw">
+    <resourceDescriptors xmi:id="_l8QY0Ss-Edy1v79I_OKHWw" id="-9dafpL7f-NYcUP2e0d4KoQ" uri="content.xmi"/>
+  </org.eclipse.epf.uma.resourcemanager:ResourceManager>
+  <org.eclipse.epf.uma:ProcessComponent xmi:id="_l7N3ACs-Edy1v79I_OKHWw" name="dsdm_ongoing_tasks" guid="_l7N3ACs-Edy1v79I_OKHWw">
+    <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_ug-y8Cs-Edy1v79I_OKHWw" name="request_change" guid="_ug-y8Cs-Edy1v79I_OKHWw" presentationName="Request Change" superActivities="_l7N3ASs-Edy1v79I_OKHWw" optionalInput="_ug-y8is-Edy1v79I_OKHWw" output="_ug-y8is-Edy1v79I_OKHWw" performedPrimarilyBy="_ug-y8Ss-Edy1v79I_OKHWw">
+      <Task href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0mwzEclgEdmt3adZL5Dmdw"/>
+      <selectedSteps href="uma://_Nr0S4KeqEdmKDbQuyzCoqQ#_qEkewKuoEdmEGLSmmpF1Sg"/>
+      <selectedSteps href="uma://_Nr0S4KeqEdmKDbQuyzCoqQ#_r2aP0KuoEdmEGLSmmpF1Sg"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:RoleDescriptor" xmi:id="_ug-y8Ss-Edy1v79I_OKHWw" name="any_role" guid="_ug-y8Ss-Edy1v79I_OKHWw" presentationName="Any Role" isPlanned="false" superActivities="_l7N3ASs-Edy1v79I_OKHWw" modifies="_ug-y8is-Edy1v79I_OKHWw">
+      <Role href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0dsWoMlgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:WorkProductDescriptor" xmi:id="_ug-y8is-Edy1v79I_OKHWw" name="work_items_list" guid="_ug-y8is-Edy1v79I_OKHWw" presentationName="Work Items List" isPlanned="false" superActivities="_l7N3ASs-Edy1v79I_OKHWw">
+      <WorkProduct href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_rGNWsCbSEdqh1LYUOGRh2A"/>
+    </processElements>
+    <process xsi:type="org.eclipse.epf.uma:CapabilityPattern" xmi:id="_l7N3ASs-Edy1v79I_OKHWw" name="dsdm_ongoing_tasks" guid="_l7N3ASs-Edy1v79I_OKHWw" presentationName="Ongoing Tasks" breakdownElements="_ug-y8Cs-Edy1v79I_OKHWw _ug-y8Ss-Edy1v79I_OKHWw _ug-y8is-Edy1v79I_OKHWw">
+      <presentation xmi:id="-9dafpL7f-NYcUP2e0d4KoQ" href="uma://-9dafpL7f-NYcUP2e0d4KoQ#-9dafpL7f-NYcUP2e0d4KoQ"/>
+      <defaultContext href="uma://_y62TUKVPEdmMZJIzZ1W7Pw#_ZUWSwFlsEdu-hcil0jQ6jA"/>
+      <validContext href="uma://_y62TUKVPEdmMZJIzZ1W7Pw#_ZUWSwFlsEdu-hcil0jQ6jA"/>
+    </process>
+  </org.eclipse.epf.uma:ProcessComponent>
+</xmi:XMI>

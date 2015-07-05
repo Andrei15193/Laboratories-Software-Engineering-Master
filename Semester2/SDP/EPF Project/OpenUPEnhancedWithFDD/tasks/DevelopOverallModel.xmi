@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-gOs-fM8aiZK1C7OCUvZyKA" name=",_ET6bgAeXEeWly8KELFU4ng" guid="-gOs-fM8aiZK1C7OCUvZyKA" changeDate="2015-05-31T16:20:19.547+0300">
+  <sections xmi:id="_kI7FQAeXEeWly8KELFU4ng" name="Form Modeling Team" guid="_kI7FQAeXEeWly8KELFU4ng">
+    <sectionDescription>The modeling team should consist of analysts and&amp;nbsp;the chief&amp;nbsp;architect, senior developers may be part of this team&#xD;
+to help identify&amp;nbsp;and clarify technical issues. As the Object Model is sketched out it should be checked with the&#xD;
+domain expert once in a while to validate the changes.</sectionDescription>
+  </sections>
+  <sections xmi:id="_8f_hUAeYEeWly8KELFU4ng" name="Conduct Domain Walk-though" guid="_8f_hUAeYEeWly8KELFU4ng">
+    <sectionDescription>&lt;p>&#xD;
+    This is a presentation of the problem domain by domain experts because they have been in the business for a long time&#xD;
+    and understand&amp;nbsp;most if not all&amp;nbsp;subtilities of&amp;nbsp;it however it is possible to omit some key information&#xD;
+    because domain experts consider it to be &quot;known&quot;. Some things just slip by because they are usual things in a days work&#xD;
+    but not everyone works in the same domain, such information can be vital in building the Overall Object Model.&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <sections xmi:id="_ASXmwAeZEeWly8KELFU4ng" name="Study Documents" guid="_ASXmwAeZEeWly8KELFU4ng">
+    <sectionDescription>&lt;p>&#xD;
+    While studying documents it is possible that the information within the documents to not be clear enough,&amp;nbsp;outdated&#xD;
+    or the documents themselves to be isufficient. Because of this the step is repetitive. As long as the requirements are&#xD;
+    not clear enough the team continues to study the documents, new ones may arrive and outdates ones may be skipped.&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <sections xmi:id="_W4TDEAefEeWly8KELFU4ng" name="Develop Small Group Models" guid="_W4TDEAefEeWly8KELFU4ng">
+    <sectionDescription>&lt;p>&#xD;
+    The problem domain is usually rich and can be split into smaller pieces called domain areas. Each domain area is&#xD;
+    refined and illustrated through an Object Model of its own. Later on all Small Group Models are merged by the chief&#xD;
+    architect obtaining the Object Model of the problem domain.&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <sections xmi:id="_gW4ygAehEeWly8KELFU4ng" name="Develop Team Model" guid="_gW4ygAehEeWly8KELFU4ng">
+    <sectionDescription>A problem usually has more than one solution. For each solution there is a model and at this step one of those models or&#xD;
+merging ideas from different models is chosen for the problem domain.</sectionDescription>
+  </sections>
+  <sections xmi:id="_PBMugAegEeWly8KELFU4ng" name="Refine Overall Object Model" guid="_PBMugAegEeWly8KELFU4ng">
+    <sectionDescription>&lt;p>&#xD;
+    As the Overall Object Model is composed of multiple smaller Domain Area Object Models it is possible to contain similar&#xD;
+    concepts that in fact represent the same thing or other sorts of duplications or anomalies. The Overall Object Model&#xD;
+    has to be cleaned after each merge however there are usually more ways to do this resulting in multiple model proposals&#xD;
+    that are sound. When this happens the team has to decide which one to use, in short they cycle through Develop Team&#xD;
+    Model step and Refine Overall Object Model until the final model is sound.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    At this step UML (interaction and static structure) diagrams can be drawn to better illustrate how the domain works.&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <sections xmi:id="_mV3AcAejEeWly8KELFU4ng" name="Write Model Notes" guid="_mV3AcAejEeWly8KELFU4ng">
+    <sectionDescription>&lt;p>&#xD;
+    As diagrams are drawn it is possible to end up with complex diagrams, for each of those it is recommended to keep&#xD;
+    explanatory notes in order to ease understanding in future development tasks.&#xD;
+&lt;/p></sectionDescription>
+  </sections>
+  <purpose>&lt;p>&#xD;
+    Build a mainly structural model of the problem domain called the Object Model.&#xD;
+&lt;/p></purpose>
+</org.eclipse.epf.uma:TaskDescription>

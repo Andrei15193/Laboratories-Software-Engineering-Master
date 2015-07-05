@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-Iu9G9ZgPhFngBl0IUK-bHg" name=",_F-P2kAe8EeWly8KELFU4ng" guid="-Iu9G9ZgPhFngBl0IUK-bHg">
+  <sections xmi:id="_udxFcAfUEeWly8KELFU4ng" name="Form Planning Team" guid="_udxFcAfUEeWly8KELFU4ng">
+    <sectionDescription>The planning team is made out of the project manager, cheaf programmers and testers.</sectionDescription>
+  </sections>
+  <sections xmi:id="_4CiAQAfUEeWly8KELFU4ng" name="Determine Development Sequence" guid="_4CiAQAfUEeWly8KELFU4ng">
+    <sectionDescription>The main tasks in the process ‘Plan By Feature’ are not a strict sequence. Like many&amp;nbsp;planning activities they are&#xD;
+considered together, with refinements made from one or more tasks and then considering the others again. The planning team&#xD;
+shall assign a date (month and year only) for completion of each business activity. The identification of the&amp;nbsp;business&#xD;
+activity&amp;nbsp;and the completion date (and thus the&amp;nbsp;development sequence) is based on: &#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Dependencies between&amp;nbsp;features in terms of&amp;nbsp;classes involved&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Balancing load across class owners&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        The complexity of the&amp;nbsp;features to be implemented&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Bringing forward high-risk or complex business activites&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Consideration of any external (visible) milestones such as betas, previews, feedback checkpoints and the &quot;whole&#xD;
+        products&quot; that satisfy such milestones&#xD;
+    &lt;/li>&#xD;
+&lt;/ul></sectionDescription>
+  </sections>
+  <sections xmi:id="_cCEJsAfVEeWly8KELFU4ng" name="Assign Business Activities to Chief Programmers" guid="_cCEJsAfVEeWly8KELFU4ng">
+    <sectionDescription>The&amp;nbsp;planning team shall assign chief programmers as owners of business activities. The assignment is based on: &#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        The development sequence&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Dependencies between features in terms of&amp;nbsp;classes involved&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        Balancing load across class owners (remember that chief programmers are also class owners)&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        The complexity of the&amp;nbsp;features to be implemented&#xD;
+    &lt;/li>&#xD;
+&lt;/ul></sectionDescription>
+  </sections>
+  <sections xmi:id="_nAqlQAfVEeWly8KELFU4ng" name="Assign Classes to Developers" guid="_nAqlQAfVEeWly8KELFU4ng">
+    <sectionDescription>The planning team shall assign developers as class owners. Developers own multiple classes. The assignment of&amp;nbsp;classes&#xD;
+to developers is based on: &#xD;
+&lt;ul>&#xD;
+    &lt;li>&#xD;
+        Balancing load across developers&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        The complexity of the classes&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        The usage (e.g. high-use) of the classes&#xD;
+    &lt;/li>&#xD;
+    &lt;li>&#xD;
+        The development sequence&#xD;
+    &lt;/li>&#xD;
+&lt;/ul></sectionDescription>
+  </sections>
+</org.eclipse.epf.uma:TaskDescription>

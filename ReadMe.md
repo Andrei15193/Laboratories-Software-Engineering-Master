@@ -9,3 +9,11 @@ Classes from the 1st semester
 =============================
 * PP  = Programming Paradigms
 * MSC = Modeling Software Behavior
+
+
+Classes from the 2nd semester
+=============================
+* SSQ  = Software Systems Quality
+* SSD  = Software Systems Design
+* ISSD = Interactive Software Systems Design
+* SDP  = Software Development Processes

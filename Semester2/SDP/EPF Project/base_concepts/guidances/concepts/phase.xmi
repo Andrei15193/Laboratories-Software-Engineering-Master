@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-bhzuf6RMHP3d-AHkoKDg7g" name="phase,__7xOEC7aEdqHMdmRzC0-2g" guid="-bhzuf6RMHP3d-AHkoKDg7g" changeDate="2007-07-23T19:35:29.948+0300" version="1.0.0">
+  <mainDescription>&lt;h3>&#xD;
+    What is a Phase?&#xD;
+&lt;/h3>&#xD;
+&lt;p>&#xD;
+    While the entire purpose of a project is to produce a product, the specific goals of the team will vary substantially&#xD;
+    throughout the project. In the beginning, there usually is considerable latitude in the requirements for the product.&#xD;
+    It may not be clear whether the project is feasible or even if it is likely to be profitable. At that time, it is&#xD;
+    critical to bring an answer to these questions, and of little to no value to start developing the product in&#xD;
+    earnest.&amp;nbsp;Towards the end of the project, the product itself is usually complete, and issues of quality, delivery,&#xD;
+    and completeness then take center stage. At different points in time, tasks are undertaken in new ways and work&#xD;
+    products will have new content.&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    To coordinate the team’s efforts in a manner that takes these fundamental observations into account, the project&#xD;
+    lifecycle should be divided into a sequence of phases. Each phase has a defined set of goals, its own iteration style&#xD;
+    and customized &lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/task.html&quot;&#xD;
+    guid=&quot;_x459ktnmEdmO6L4XMImrsA&quot;>task&lt;/a>s and &lt;a class=&quot;elementLink&quot;&#xD;
+    href=&quot;./../../../base_concepts/guidances/termdefinitions/work_product.html&quot; guid=&quot;_H4JXwB_SEdq6CKKKq4D7YA&quot;>work&#xD;
+    product&lt;/a>s to address the unique needs of the project at that point in time.&#xD;
+&lt;/p>&#xD;
+&lt;h3>&#xD;
+    Iteration and Phases&#xD;
+&lt;/h3>&#xD;
+&lt;p>&#xD;
+    Each phase is divided into iterations. An iteration is a complete development loop resulting in a build (internal or&#xD;
+    external) of an executable system, usually a subset of the final product under development, which grows incrementally&#xD;
+    from iteration to iteration to become the final product.&lt;br />&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

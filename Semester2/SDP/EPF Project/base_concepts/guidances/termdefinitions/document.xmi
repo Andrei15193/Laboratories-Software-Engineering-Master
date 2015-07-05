@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="_yG6kZNnmEdmO6L4XMImrsA" name="document,_yG6kY9nmEdmO6L4XMImrsA" guid="_yG6kZNnmEdmO6L4XMImrsA">
+  <mainDescription>A document is a collection of information intended to be represented on paper, or in a medium using a paper metaphor. The&#xD;
+paper metaphor includes the concept of pages, and it has either an implicit or explicit sequence of contents. The&#xD;
+information is in text or two-dimensional pictures. Examples of paper metaphors are word processor documents, spreadsheets,&#xD;
+schedules, Gantt charts, web-pages,&amp;nbsp;and overhead slide presentations.</mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

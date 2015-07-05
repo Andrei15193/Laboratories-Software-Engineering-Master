@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:org.eclipse.epf.uma.resourcemanager="http:///org/eclipse/epf/uma/resourcemanager.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1">
+  <org.eclipse.epf.uma.resourcemanager:ResourceManager xmi:id="_jLJ-kCwMEdyRVqdqydmuUA" guid="_jLJ-kCwMEdyRVqdqydmuUA">
+    <resourceDescriptors xmi:id="_jLJ-kSwMEdyRVqdqydmuUA" id="--NZMnDuKFchwZm3rFJv1jg" uri="content.xmi"/>
+  </org.eclipse.epf.uma.resourcemanager:ResourceManager>
+  <org.eclipse.epf.uma:ProcessComponent xmi:id="_frG_QCwMEdyRVqdqydmuUA" name="develop_solution_no_tdd" guid="_frG_QCwMEdyRVqdqydmuUA">
+    <processElements xsi:type="org.eclipse.epf.uma:RoleDescriptor" xmi:id="_frG_RiwMEdyRVqdqydmuUA" name="developer" guid="_frG_RiwMEdyRVqdqydmuUA" presentationName="Developer" hasMultipleOccurrences="true" superActivities="_frNF7CwMEdyRVqdqydmuUA" modifies="_frNF6ywMEdyRVqdqydmuUA _frNF4CwMEdyRVqdqydmuUA _frG_RSwMEdyRVqdqydmuUA _frNF4SwMEdyRVqdqydmuUA _frNF5SwMEdyRVqdqydmuUA _frG_SCwMEdyRVqdqydmuUA _frG_RCwMEdyRVqdqydmuUA _frNF4iwMEdyRVqdqydmuUA" responsibleFor="_frNF4SwMEdyRVqdqydmuUA _frNF4CwMEdyRVqdqydmuUA _frG_RSwMEdyRVqdqydmuUA _frNF6ywMEdyRVqdqydmuUA">
+      <Role href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0YDosMlgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:WorkProductDescriptor" xmi:id="_frNF6ywMEdyRVqdqydmuUA" name="design" guid="_frNF6ywMEdyRVqdqydmuUA" presentationName="Design" superActivities="_frNF7CwMEdyRVqdqydmuUA">
+      <WorkProduct href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0WuL8slgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:WorkProductDescriptor" xmi:id="_frG_RSwMEdyRVqdqydmuUA" name="implementation" guid="_frG_RSwMEdyRVqdqydmuUA" presentationName="Implementation" superActivities="_frNF7CwMEdyRVqdqydmuUA">
+      <WorkProduct href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0YoQcMlgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:WorkProductDescriptor" xmi:id="_frNF4CwMEdyRVqdqydmuUA" name="developer_test" guid="_frNF4CwMEdyRVqdqydmuUA" presentationName="Developer Test" hasMultipleOccurrences="true" superActivities="_frNF7CwMEdyRVqdqydmuUA">
+      <WorkProduct href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0YuXEclgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:WorkProductDescriptor" xmi:id="_frNF4SwMEdyRVqdqydmuUA" name="build" guid="_frNF4SwMEdyRVqdqydmuUA" presentationName="Build" superActivities="_frNF7CwMEdyRVqdqydmuUA">
+      <WorkProduct href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0YuXEMlgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_frG_QSwMEdyRVqdqydmuUA" name="design_solution" guid="_frG_QSwMEdyRVqdqydmuUA" presentationName="Design the Solution" superActivities="_frNF7CwMEdyRVqdqydmuUA" additionallyPerformedBy="_frNF6SwMEdyRVqdqydmuUA _frNF5ywMEdyRVqdqydmuUA _frNF5CwMEdyRVqdqydmuUA _frNF6CwMEdyRVqdqydmuUA" mandatoryInput="_frNF5SwMEdyRVqdqydmuUA _frG_QiwMEdyRVqdqydmuUA _frG_SCwMEdyRVqdqydmuUA" optionalInput="_frNF6ywMEdyRVqdqydmuUA" output="_frNF6ywMEdyRVqdqydmuUA" performedPrimarilyBy="_frG_RiwMEdyRVqdqydmuUA">
+      <Task href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0fshwMlgEdmt3adZL5Dmdw"/>
+      <selectedSteps href="uma://_NrC20qeqEdmKDbQuyzCoqQ#_4Z7WYKuKEdmhFZtkg1nakg"/>
+      <selectedSteps href="uma://_NrC20qeqEdmKDbQuyzCoqQ#_Ci7aYFixEdusJoWkvSRO9Q"/>
+      <selectedSteps href="uma://_NrC20qeqEdmKDbQuyzCoqQ#_--6tYKuKEdmhFZtkg1nakg"/>
+      <selectedSteps href="uma://_NrC20qeqEdmKDbQuyzCoqQ#_A_LU8KuLEdmhFZtkg1nakg"/>
+      <selectedSteps href="uma://_NrC20qeqEdmKDbQuyzCoqQ#_ENwJwKuLEdmhFZtkg1nakg"/>
+      <selectedSteps href="uma://_NrC20qeqEdmKDbQuyzCoqQ#_KNZYAKuLEdmhFZtkg1nakg"/>
+      <selectedSteps href="uma://_NrC20qeqEdmKDbQuyzCoqQ#_OGYbwKuLEdmhFZtkg1nakg"/>
+      <selectedSteps href="uma://_NrC20qeqEdmKDbQuyzCoqQ#_mUVt8BfnEduD353bkQ4frw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:WorkProductDescriptor" xmi:id="_frNF5SwMEdyRVqdqydmuUA" name="supporting_requirements_spec" guid="_frNF5SwMEdyRVqdqydmuUA" presentationName="Supporting Requirements Specification" superActivities="_frNF7CwMEdyRVqdqydmuUA">
+      <WorkProduct href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_BVh9cL-CEdqb7N6KIeDL8Q"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:WorkProductDescriptor" xmi:id="_frG_QiwMEdyRVqdqydmuUA" name="architecture_notebook" guid="_frG_QiwMEdyRVqdqydmuUA" presentationName="Architecture Notebook" superActivities="_frNF7CwMEdyRVqdqydmuUA">
+      <WorkProduct href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0XAf0MlgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_frNF5iwMEdyRVqdqydmuUA" name="impl_developer_tests" guid="_frNF5iwMEdyRVqdqydmuUA" presentationName="Implement Developer Tests" superActivities="_frNF7CwMEdyRVqdqydmuUA" additionallyPerformedBy="_frNF6CwMEdyRVqdqydmuUA" mandatoryInput="_frG_RSwMEdyRVqdqydmuUA" optionalInput="_frNF6ywMEdyRVqdqydmuUA" output="_frNF4CwMEdyRVqdqydmuUA" performedPrimarilyBy="_frG_RiwMEdyRVqdqydmuUA">
+      <Task href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0iL1EMlgEdmt3adZL5Dmdw"/>
+      <selectedSteps href="uma://_dWPe8KrMEdmqUqi7YGiSxw#_2LYo8KuPEdmhFZtkg1nakg"/>
+      <selectedSteps href="uma://_dWPe8KrMEdmqUqi7YGiSxw#_g8npoC5UEduVhuZHT5jKZQ"/>
+      <selectedSteps href="uma://_dWPe8KrMEdmqUqi7YGiSxw#_g1eDUC5VEduVhuZHT5jKZQ"/>
+      <selectedSteps href="uma://_dWPe8KrMEdmqUqi7YGiSxw#_5WtVcKuPEdmhFZtkg1nakg"/>
+      <selectedSteps href="uma://_dWPe8KrMEdmqUqi7YGiSxw#_j30aAC5VEduVhuZHT5jKZQ"/>
+      <selectedSteps href="uma://_dWPe8KrMEdmqUqi7YGiSxw#_ku06gC5VEduVhuZHT5jKZQ"/>
+      <selectedSteps href="uma://_dWPe8KrMEdmqUqi7YGiSxw#_6wZFMKuPEdmhFZtkg1nakg"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_frNF6iwMEdyRVqdqydmuUA" name="implement_solution" guid="_frNF6iwMEdyRVqdqydmuUA" presentationName="Implement the Solution" superActivities="_frNF7CwMEdyRVqdqydmuUA" additionallyPerformedBy="_frNF5CwMEdyRVqdqydmuUA _frNF6CwMEdyRVqdqydmuUA" mandatoryInput="_frNF6ywMEdyRVqdqydmuUA" optionalInput="_frG_RSwMEdyRVqdqydmuUA _frNF5SwMEdyRVqdqydmuUA _frG_SCwMEdyRVqdqydmuUA" output="_frG_RSwMEdyRVqdqydmuUA _frNF4SwMEdyRVqdqydmuUA _frNF5SwMEdyRVqdqydmuUA _frG_SCwMEdyRVqdqydmuUA" performedPrimarilyBy="_frG_RiwMEdyRVqdqydmuUA">
+      <Task href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0hyzgMlgEdmt3adZL5Dmdw"/>
+      <selectedSteps href="uma://_d2aMwKrMEdmqUqi7YGiSxw#_2sxisE2iEduU655MA_3VXg"/>
+      <selectedSteps href="uma://_d2aMwKrMEdmqUqi7YGiSxw#_iMMWoKuPEdmhFZtkg1nakg"/>
+      <selectedSteps href="uma://_d2aMwKrMEdmqUqi7YGiSxw#_pjehkNb7Edq_LtLvi4w2yw"/>
+      <selectedSteps href="uma://_d2aMwKrMEdmqUqi7YGiSxw#_mFQ58KuPEdmhFZtkg1nakg"/>
+      <selectedSteps href="uma://_d2aMwKrMEdmqUqi7YGiSxw#_ni25UKuPEdmhFZtkg1nakg"/>
+      <selectedSteps href="uma://_d2aMwKrMEdmqUqi7YGiSxw#_q5XiIKuPEdmhFZtkg1nakg"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_frG_RywMEdyRVqdqydmuUA" name="run_developer_tests" guid="_frG_RywMEdyRVqdqydmuUA" presentationName="Run Developer Tests" superActivities="_frNF7CwMEdyRVqdqydmuUA" mandatoryInput="_frNF4CwMEdyRVqdqydmuUA _frG_RSwMEdyRVqdqydmuUA" output="_frG_RCwMEdyRVqdqydmuUA _frNF4iwMEdyRVqdqydmuUA" performedPrimarilyBy="_frG_RiwMEdyRVqdqydmuUA">
+      <Task href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0iYCUMlgEdmt3adZL5Dmdw"/>
+      <selectedSteps href="uma://_W6rc0Lv7EdmmUvZAZjqE3g#_MSnQsMP4EdmWKcx6ixEiwg"/>
+      <selectedSteps href="uma://_W6rc0Lv7EdmmUvZAZjqE3g#_NkRF0MP4EdmWKcx6ixEiwg"/>
+      <selectedSteps href="uma://_W6rc0Lv7EdmmUvZAZjqE3g#_SXPFkMP4EdmWKcx6ixEiwg"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:WorkProductDescriptor" xmi:id="_frG_RCwMEdyRVqdqydmuUA" name="test_log" guid="_frG_RCwMEdyRVqdqydmuUA" presentationName="Test Log" superActivities="_frNF7CwMEdyRVqdqydmuUA">
+      <WorkProduct href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0ZlSsMlgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:RoleDescriptor" xmi:id="_frNF6SwMEdyRVqdqydmuUA" name="architect" guid="_frNF6SwMEdyRVqdqydmuUA" presentationName="Architect" hasMultipleOccurrences="true" superActivities="_frNF7CwMEdyRVqdqydmuUA" responsibleFor="_frG_QiwMEdyRVqdqydmuUA">
+      <Role href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0X9iEMlgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:WorkProductDescriptor" xmi:id="_frG_SCwMEdyRVqdqydmuUA" name="use_case" guid="_frG_SCwMEdyRVqdqydmuUA" presentationName="Use Case" hasMultipleOccurrences="true" superActivities="_frNF7CwMEdyRVqdqydmuUA">
+      <WorkProduct href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0VGbUMlgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:WorkProductDescriptor" xmi:id="_frNF4ywMEdyRVqdqydmuUA" name="test_script" guid="_frNF4ywMEdyRVqdqydmuUA" presentationName="Test Script" hasMultipleOccurrences="true" superActivities="_frNF7CwMEdyRVqdqydmuUA">
+      <WorkProduct href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0ZfMEMlgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:RoleDescriptor" xmi:id="_frNF5ywMEdyRVqdqydmuUA" name="analyst" guid="_frNF5ywMEdyRVqdqydmuUA" presentationName="Analyst" hasMultipleOccurrences="true" superActivities="_frNF7CwMEdyRVqdqydmuUA" responsibleFor="_frNF5SwMEdyRVqdqydmuUA">
+      <Role href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0VxJsMlgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:RoleDescriptor" xmi:id="_frNF5CwMEdyRVqdqydmuUA" name="stakeholder" guid="_frNF5CwMEdyRVqdqydmuUA" presentationName="Stakeholder" hasMultipleOccurrences="true" superActivities="_frNF7CwMEdyRVqdqydmuUA">
+      <Role href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_dTa6gMAYEdqX-s4mWhkyqQ"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:RoleDescriptor" xmi:id="_frNF6CwMEdyRVqdqydmuUA" name="tester" guid="_frNF6CwMEdyRVqdqydmuUA" presentationName="Tester" hasMultipleOccurrences="true" superActivities="_frNF7CwMEdyRVqdqydmuUA" responsibleFor="_frNF4ywMEdyRVqdqydmuUA _frG_RCwMEdyRVqdqydmuUA">
+      <Role href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_0ZM4MclgEdmt3adZL5Dmdw"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:WorkProductDescriptor" xmi:id="_frNF4iwMEdyRVqdqydmuUA" name="work_items_list" guid="_frNF4iwMEdyRVqdqydmuUA" presentationName="Work Items List" isPlanned="false" superActivities="_frNF7CwMEdyRVqdqydmuUA">
+      <WorkProduct href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_rGNWsCbSEdqh1LYUOGRh2A"/>
+    </processElements>
+    <processElements xsi:type="org.eclipse.epf.uma:TaskDescriptor" xmi:id="_frG_QywMEdyRVqdqydmuUA" name="integrate_and_create_build" guid="_frG_QywMEdyRVqdqydmuUA" presentationName="Integrate and Create Build" superActivities="_frNF7CwMEdyRVqdqydmuUA" mandatoryInput="_frG_RSwMEdyRVqdqydmuUA _frNF4CwMEdyRVqdqydmuUA _frNF4ywMEdyRVqdqydmuUA" output="_frNF4SwMEdyRVqdqydmuUA" performedPrimarilyBy="_frG_RiwMEdyRVqdqydmuUA">
+      <Task href="uma://_0TLvwMlgEdmt3adZL5Dmdw#_Dq0GQAIoEdyLh7vsrHZ4YA"/>
+      <selectedSteps href="uma://-3MMugrRt4H5NPnZe38OAjA#_xVY94A06EdyKD8XBf_Hbrw"/>
+      <selectedSteps href="uma://-3MMugrRt4H5NPnZe38OAjA#_hbwWQA07EdyKD8XBf_Hbrw"/>
+      <selectedSteps href="uma://-3MMugrRt4H5NPnZe38OAjA#_S5vB0A08EdyKD8XBf_Hbrw"/>
+      <selectedSteps href="uma://-3MMugrRt4H5NPnZe38OAjA#_Dm_bEA09EdyKD8XBf_Hbrw"/>
+    </processElements>
+    <process xsi:type="org.eclipse.epf.uma:CapabilityPattern" xmi:id="_frNF7CwMEdyRVqdqydmuUA" name="develop_solution_no_tdd" guid="_frNF7CwMEdyRVqdqydmuUA" presentationName="Develop Solution Increment (no TDD)" briefDescription="Design, implement, test and integrate the solution for a requirement within a given context." hasMultipleOccurrences="true" breakdownElements="_frG_RiwMEdyRVqdqydmuUA _frNF6ywMEdyRVqdqydmuUA _frG_RSwMEdyRVqdqydmuUA _frNF4CwMEdyRVqdqydmuUA _frNF4SwMEdyRVqdqydmuUA _frG_QSwMEdyRVqdqydmuUA _frNF5SwMEdyRVqdqydmuUA _frG_QiwMEdyRVqdqydmuUA _frNF5iwMEdyRVqdqydmuUA _frNF6iwMEdyRVqdqydmuUA _frG_RywMEdyRVqdqydmuUA _frG_RCwMEdyRVqdqydmuUA _frNF6SwMEdyRVqdqydmuUA _frG_SCwMEdyRVqdqydmuUA _frNF4ywMEdyRVqdqydmuUA _frNF5ywMEdyRVqdqydmuUA _frNF5CwMEdyRVqdqydmuUA _frNF6CwMEdyRVqdqydmuUA _frNF4iwMEdyRVqdqydmuUA _frG_QywMEdyRVqdqydmuUA">
+      <ownedRules xmi:id="_frNF7SwMEdyRVqdqydmuUA" name="diagram" guid="_frNF7SwMEdyRVqdqydmuUA" body="ad_image_uri=|publish_ad_image=false|add_image_uri=|publish_add_image=false|wpd_image_uri=|publish_wpd_image=false"/>
+      <presentation xmi:id="--NZMnDuKFchwZm3rFJv1jg" href="uma://--NZMnDuKFchwZm3rFJv1jg#--NZMnDuKFchwZm3rFJv1jg"/>
+      <defaultContext href="uma://_y62TUKVPEdmMZJIzZ1W7Pw#_0u-T4clgEdmt3adZL5Dmdw"/>
+      <validContext href="uma://_y62TUKVPEdmMZJIzZ1W7Pw#_0u-T4clgEdmt3adZL5Dmdw"/>
+    </process>
+  </org.eclipse.epf.uma:ProcessComponent>
+</xmi:XMI>

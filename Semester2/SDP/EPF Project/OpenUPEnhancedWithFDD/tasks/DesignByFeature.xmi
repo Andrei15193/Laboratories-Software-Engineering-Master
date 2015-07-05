@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:TaskDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-fs4bEn8ABMlRltEu7spmrA" name=",_zhAgYAfVEeWly8KELFU4ng" guid="-fs4bEn8ABMlRltEu7spmrA">
+  <sections xmi:id="_52T1kAfVEeWly8KELFU4ng" name="Form Feature Team" guid="_52T1kAfVEeWly8KELFU4ng">
+    <sectionDescription>The chief programmer identifies the classes likely to be involved in the design of this set of features and updates the&#xD;
+feature database accordingly. From the class owner list, the chief programmer identifies the developers needed to form the&#xD;
+feature team. As part of this step, the chief programmer creates a new design package for the features(s) as part of the&#xD;
+work package.</sectionDescription>
+  </sections>
+  <sections xmi:id="_62VvMAfVEeWly8KELFU4ng" name="Conduct Domain Walk-through" guid="_62VvMAfVEeWly8KELFU4ng">
+    <sectionDescription>In the case of complex features the domain expert gives a domain overview of the domain area for the feature to be&#xD;
+designed. This should also include domain information that is related to the feature but not necessarily a part of its&#xD;
+implementation. This is an optional task based on the complexity of the feature and/or its interactions.</sectionDescription>
+  </sections>
+  <sections xmi:id="_7kkuMAfVEeWly8KELFU4ng" name="Study Referenced Documents" guid="_7kkuMAfVEeWly8KELFU4ng">
+    <sectionDescription>In parallel with conducting domain walk-through the feature team studies the referenced requirement(s) for the feature to&#xD;
+be designed, all covering memos, screen designs, external system interface specifications and any other supporting&#xD;
+documentation. This is an optional task based on the complexity of the feature and/or its interactions.</sectionDescription>
+  </sections>
+  <sections xmi:id="_8Q-hMAfVEeWly8KELFU4ng" name="Develop Sequence Diagram(s)" guid="_8Q-hMAfVEeWly8KELFU4ng">
+    <sectionDescription>Develop the sequence diagram(s) required for the feature to be designed. The diagram files should be checked into the&#xD;
+version control system. Any alternative designs, design decisions, requirements clarifications and explanatory notes are&#xD;
+also recorded and written up in the design alternatives section of the design package.</sectionDescription>
+  </sections>
+  <sections xmi:id="_9R-rMAfVEeWly8KELFU4ng" name="Refine Object Model" guid="_9R-rMAfVEeWly8KELFU4ng">
+    <sectionDescription>The chief programmer creates a feature team area for the feature(s). This area is either a directory on the file server or&#xD;
+a directory on their PC that is backed up to the server by the Chief Programmer as required or utilizes work area support&#xD;
+in your version control system. The purpose of the feature team area is that work in progress by the feature team can be&#xD;
+shared and is visible amongst the feature team but is not visible to the rest of the project. The chief programmer makes&#xD;
+some refinements on the model to add new / updated classes, methods, attributes and/or to make changes to existing classes,&#xD;
+methods or attributes based on the sequence diagram(s) defined for the feature(s). This results in the implementation&#xD;
+language source files being updated in the feature team area. The Chief Programmer creates model diagrams in a publishable&#xD;
+format. These files should be checked into the version control system and submitted for publishing on the project intranet.</sectionDescription>
+  </sections>
+  <sections xmi:id="_-Cwn4AfVEeWly8KELFU4ng" name="Write Class and Method Prologue" guid="_-Cwn4AfVEeWly8KELFU4ng">
+    <sectionDescription>Using the updated implementation language source files from the ‘Refine Object Model’ task in the shared feature team area,&#xD;
+the development owner of each class writes the class and method prologue for each item defined by the feature and sequence&#xD;
+diagram(s). This includes parameter types, return types, exceptions and messages. Once each developer has completed this&#xD;
+task, the chief programmer generates the API documentation using a tool and submits it for publication on the project&#xD;
+intranet.</sectionDescription>
+  </sections>
+  <sections xmi:id="_-rgC4AfVEeWly8KELFU4ng" name="Design Inspection" guid="_-rgC4AfVEeWly8KELFU4ng">
+    <sectionDescription>A design inspection with the feature team members or with other project members is held. The decision to inspect within the&#xD;
+feature team or with other project team members is that of the chief programmer. On acceptance a todo task list is&#xD;
+generated per affected class, and each team member adds their tasks to their calendar task list. The chief programmer must&#xD;
+also merge changes from the shared feature team area into the change control system.</sectionDescription>
+  </sections>
+</org.eclipse.epf.uma:TaskDescription>

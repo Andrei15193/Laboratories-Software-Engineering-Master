@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.epf.uma:ContentDescription xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:org.eclipse.epf.uma="http://www.eclipse.org/epf/uma/1.0.6/uma.ecore" xmlns:epf="http://www.eclipse.org/epf" epf:version="1.5.1" xmi:id="-CTatxBir28UK-VwWwDij-g" name="guidance,_83ttAB_NEdq6CKKKq4D7YA" guid="-CTatxBir28UK-VwWwDij-g" changeDate="2006-09-29T00:13:32.046+0300">
+  <mainDescription>&lt;p>&#xD;
+    Guidance describes proven advice for accomplishing a goal.&amp;nbsp;&#xD;
+&lt;/p>&#xD;
+&lt;p>&#xD;
+    In the &lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/uma_73BA0C0C.html&quot; guid=&quot;_cj6jkB_PEdq6CKKKq4D7YA&quot;>UMA&lt;/a>, guidance generalizes all forms of content whose primary purpose is to provide&#xD;
+    explanations about other UMA&amp;nbsp;elements. Guidance being itself a &lt;a class=&quot;elementLink&quot; href=&quot;./../../../base_concepts/guidances/termdefinitions/content_element_DA3AD029.html&quot; guid=&quot;_N8x34B_LEdq6CKKKq4D7YA&quot;>content element&lt;/a>, it is possible to associate guidance to other guidance.&#xD;
+&lt;/p></mainDescription>
+</org.eclipse.epf.uma:ContentDescription>

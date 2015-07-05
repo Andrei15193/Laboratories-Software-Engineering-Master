@@ -1,0 +1,30 @@
+﻿<Application x:Class="Tourist.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Tourist"
+             xmlns:data="using:Tourist.Data"
+             xmlns:viewModels="using:Tourist.ViewModels"
+             xmlns:converters="using:Tourist.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <data:AttractionsRepository x:Key="AttractionsRepository" />
+            
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <converters:StringJoinConverter x:Key="StringJoinConverter" />
+            <converters:EqualTo0MessageConverter x:Key="EqualTo0MessageConverter" />
+            <converters:StringFormatConverter x:Key="StringFormatConverter" />
+            <converters:NotEqualToInt32ParameterConverter x:Key="NotEqualToInt32ParameterConverter" />
+            <converters:EqualToInt32ParameterConverter x:Key="EqualToInt32ParameterConverter" />
+            <converters:UriToStringConverter x:Key="UriToStringConverter" />
+            <converters:StringToUriConverter x:Key="StringToUriConverter" />
+            <converters:NegationConverter x:Key="NegationConverter" />
+
+            <viewModels:AttractionsViewModel x:Key="AttractionsViewModel" />
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./CommonStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
