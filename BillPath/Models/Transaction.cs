@@ -11,7 +11,7 @@ namespace BillPath.Models
         }
 
         [DataMember]
-        public Account Account
+        public Currency Currency
         {
             get;
             set;

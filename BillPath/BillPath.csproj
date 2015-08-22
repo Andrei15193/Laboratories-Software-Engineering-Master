@@ -109,14 +109,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataAccess\IAccountRepository.cs" />
     <Compile Include="DataAccess\IExpenseCategoryRepository.cs" />
     <Compile Include="DataAccess\IExpenseRepository.cs" />
     <Compile Include="DataAccess\ITransactionRepository.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Account.cs" />
     <Compile Include="Models\ArgbColor.cs" />
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Expense.cs" />

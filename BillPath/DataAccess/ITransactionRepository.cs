@@ -8,9 +8,9 @@ namespace BillPath.DataAccess
     public interface ITransactionRepository<TTransaction>
         where TTransaction : Transaction
     {
-        Task<IEnumerable<TTransaction>> GetForAsync(Account account, DateTimeOffset start, DateTimeOffset end);
-        Task<IEnumerable<TTransaction>> GetForAsync(Account account, int pageNumber);
-        Task<int> GetPageCountAsync(Account account);
+        Task<IEnumerable<TTransaction>> GetForAsync(Currency currency, DateTimeOffset start, DateTimeOffset end);
+        Task<IEnumerable<TTransaction>> GetForAsync(Currency currency, int pageNumber);
+        Task<int> GetPageCountAsync(Currency currency);
 
         Task SaveAsync(TTransaction transaction);
 
