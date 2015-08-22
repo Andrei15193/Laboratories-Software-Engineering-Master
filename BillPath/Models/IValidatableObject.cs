@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if WINDOWS_APP
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BillPath.Models
@@ -11,3 +12,4 @@ namespace BillPath.Models
         IEnumerable<ValidationResult> Validate(ValidationContext validationContext);
     }
 }
+#endif

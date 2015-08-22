@@ -7,8 +7,8 @@
     <ProjectGuid>{3911CB56-0C7B-432F-A220-74B9C63DC1D2}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BillPath</RootNamespace>
-    <AssemblyName>BillPath</AssemblyName>
+    <RootNamespace>BillPath.Modern</RootNamespace>
+    <AssemblyName>BillPath.Modern</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
@@ -109,27 +109,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataAccess\IExpenseCategoryRepository.cs" />
-    <Compile Include="DataAccess\IExpenseRepository.cs" />
-    <Compile Include="DataAccess\ISettingsRepository.cs" />
-    <Compile Include="DataAccess\ITransactionRepository.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\ArgbColor.cs" />
-    <Compile Include="Models\Currency.cs" />
-    <Compile Include="Models\CurrencyDisplayFormat.cs" />
-    <Compile Include="Models\Expense.cs" />
-    <Compile Include="Models\ExpenseCategory.cs" />
-    <Compile Include="Models\ICloneable.cs" />
-    <Compile Include="Models\Income.cs" />
-    <Compile Include="Models\IValidatableObject.cs" />
-    <Compile Include="Models\Settings.cs" />
-    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInterface\Converters\ArgbColorToColorConverter.cs" />
-    <Compile Include="UserInterface\Converters\IdealReadingColorCoverter.cs" />
-    <Compile Include="UserInterface\ViewModels\ViewModel.cs" />
+    <Compile Include="Converters\ArgbColorToColorConverter.cs" />
+    <Compile Include="Converters\IdealReadingColorCoverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -157,6 +142,7 @@
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
+  <Import Project="..\BillPath\BillPath.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

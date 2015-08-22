@@ -2,7 +2,7 @@
 using Windows.UI;
 using Windows.UI.Xaml.Data;
 
-namespace BillPath.UserInterface.Converters
+namespace BillPath.Modern.Converters
 {
     public class IdealReadingColorCoverter
         : IValueConverter
