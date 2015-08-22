@@ -1,10 +1,10 @@
 ﻿using System.Runtime.Serialization;
-using Windows.UI;
 
 namespace BillPath.Models
 {
     [DataContract]
     public class ExpenseCategory
+        : ICloneable<ExpenseCategory>
     {
         [DataMember]
         public string Name
@@ -17,6 +17,15 @@ namespace BillPath.Models
         {
             get;
             set;
+        }
+
+        public ExpenseCategory Clone()
+        {
+            return new ExpenseCategory
+            {
+                Name = Name,
+                RgbColor = RgbColor
+            };
         }
     }
 }

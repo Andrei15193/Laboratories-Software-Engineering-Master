@@ -121,6 +121,7 @@
     <Compile Include="Models\CurrencyDisplayFormat.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\ExpenseCategory.cs" />
+    <Compile Include="Models\ICloneable.cs" />
     <Compile Include="Models\Income.cs" />
     <Compile Include="Models\IValidatableObject.cs" />
     <Compile Include="Models\Settings.cs" />

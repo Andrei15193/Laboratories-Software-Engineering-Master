@@ -4,6 +4,7 @@ namespace BillPath.Models
 {
     [DataContract]
     public class Settings
+        : ICloneable<Settings>
     {
         [DataMember]
         public Currency PreferredCurrency
@@ -16,6 +17,15 @@ namespace BillPath.Models
         {
             get;
             set;
+        }
+
+        public Settings Clone()
+        {
+            return new Settings
+            {
+                PreferredCurrency = PreferredCurrency,
+                CurrencyDisplayFormat = CurrencyDisplayFormat
+            };
         }
     }
 }

@@ -4,12 +4,10 @@ using System.Runtime.Serialization;
 namespace BillPath.Models
 {
     [DataContract]
-    public class Transaction
+    public abstract class Transaction<TTransaction>
+        : ICloneable<TTransaction>
+        where TTransaction : Transaction<TTransaction>
     {
-        protected Transaction()
-        {
-        }
-
         [DataMember]
         public Currency Currency
         {
@@ -34,5 +32,7 @@ namespace BillPath.Models
             get;
             set;
         }
+
+        public abstract TTransaction Clone();
     }
 }

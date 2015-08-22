@@ -6,7 +6,7 @@ using BillPath.Models;
 namespace BillPath.DataAccess
 {
     public interface ITransactionRepository<TTransaction>
-        where TTransaction : Transaction
+        where TTransaction : Transaction<TTransaction>
     {
         Task<IEnumerable<TTransaction>> GetInAsync(Currency currency, DateTimeOffset start, DateTimeOffset end);
         Task<IEnumerable<TTransaction>> GetInAsync(Currency currency, int pageNumber);
