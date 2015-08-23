@@ -32,8 +32,8 @@ namespace BillPath.Tests.CurrencyManagement
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SetPreferredCurrency", "  Users of the application are able to change their preferred currency which is n" +
-                    "othing more than a default to when\n  a new transaction is created. The preferred" +
-                    " currency can be changed at any given time.", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "othing more than a default to when\r\n  a new transaction is created. The preferre" +
+                    "d currency can be changed at any given time.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

@@ -42,8 +42,8 @@ namespace BillPath.UserInterface.ViewModels
     {
         protected sealed override void OnExecute(object parameter)
         {
-            Execute((TParameter)parameter);
+            OnExecute((TParameter)parameter);
         }
-        protected abstract void Execute(TParameter parameter);
+        protected abstract void OnExecute(TParameter parameter);
     }
 }

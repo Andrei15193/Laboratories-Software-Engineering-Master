@@ -1,7 +1,9 @@
 ﻿using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using BillPath.DataAccess;
 using BillPath.Models;
+using BillPath.UserInterface.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using TechTalk.SpecFlow;
@@ -12,16 +14,18 @@ namespace BillPath.Tests.CurrencyManagement
     [Scope(Feature = "SetPreferredCurrency")]
     public sealed class SetPreferredCurrency
     {
-        private ISettingsRepository _settingsRepository;
+        private readonly SettingsViewModel _settingsViewModel;
         private CultureInfo _cultureInfo;
-        private Currency? _scenarioCurrency;
         private Currency? _mockRepositoryCurrency;
 
         public SetPreferredCurrency()
         {
-            _settingsRepository = _GetScenarioRepository();
-            _cultureInfo = CultureInfo.CurrentCulture;
-            _scenarioCurrency = null;
+            _settingsViewModel =
+                new SettingsViewModel
+                {
+                    Repository = _GetScenarioRepository()
+                };
+            _cultureInfo = null;
             _mockRepositoryCurrency = null;
         }
         private ISettingsRepository _GetScenarioRepository()
@@ -33,18 +37,27 @@ namespace BillPath.Tests.CurrencyManagement
                 .Returns(
                     (Settings settings) =>
                     {
-                        _mockRepositoryCurrency = settings?.PreferredCurrency;
+                        if (settings == null)
+                            _mockRepositoryCurrency = null;
+                        else
+                            _mockRepositoryCurrency = settings.PreferredCurrency;
 
                         return Task.FromResult(default(object));
                     });
             settingsRepositoryMock
                 .Setup(settingsRepository => settingsRepository.GetAsync())
                 .Returns(
-                    () => Task.FromResult(
-                        new Settings
-                        {
-                            PreferredCurrency = _mockRepositoryCurrency ?? new Currency(new RegionInfo(_cultureInfo.Name))
-                        }));
+                    () =>
+                    {
+                        if (_mockRepositoryCurrency == null)
+                            return Task.FromResult<Settings>(null);
+                        else
+                            return Task.FromResult(
+                                new Settings
+                                {
+                                    PreferredCurrency = _mockRepositoryCurrency.Value
+                                });
+                    });
 
             return settingsRepositoryMock.Object;
         }
@@ -52,7 +65,7 @@ namespace BillPath.Tests.CurrencyManagement
         [Given(@"the (\w+(?:-\w+)?) currency")]
         public void GivenCurrency(string regionName)
         {
-            _scenarioCurrency = new Currency(new RegionInfo(regionName));
+            _settingsViewModel.PreferredCurrency = new Currency(new RegionInfo(regionName));
         }
         [Given(@"the stored (\w+(?:-\w+)?) currency")]
         public void GivenStoredCurrency(string regionName)
@@ -73,22 +86,21 @@ namespace BillPath.Tests.CurrencyManagement
         [When("I set the preferred currency")]
         public async Task WhenISaveThePrefferedCurrency()
         {
-            await _settingsRepository.SaveAsync(new Settings { PreferredCurrency = _scenarioCurrency.Value });
+            await _settingsViewModel.SaveCommand.ExecuteAsync(null);
         }
         [When(@"I change the preferred currency to (\w+(?:-\w+)?)")]
         public async Task WhenIChangeThePrefferedCurrency(string regionName)
         {
-            await _settingsRepository.SaveAsync(
-                new Settings
-                {
-                    PreferredCurrency = new Currency(new RegionInfo(regionName))
-                });
+            _settingsViewModel.PreferredCurrency = new Currency(new RegionInfo(regionName));
+            await _settingsViewModel.SaveCommand.ExecuteAsync(null);
         }
         [When("I retrieve the preferred currency")]
         public async Task WhenIGetThePreferredCurrency()
         {
-            var settings = await _settingsRepository.GetAsync();
-            _scenarioCurrency = settings.PreferredCurrency;
+            if (_cultureInfo != null)
+                Thread.CurrentThread.CurrentCulture = _cultureInfo;
+
+            await _settingsViewModel.LoadCommand.ExecuteAsync(null);
         }
 
         [Then(@"the (\w+(?:-\w+)?) currency should be stored")]
@@ -104,7 +116,7 @@ namespace BillPath.Tests.CurrencyManagement
         [Then(@"it should be the (\w+(?:-\w+)?) currency")]
         public void ThenRetrievedCurrencyShouldBe(string regionName)
         {
-            Assert.AreEqual(new Currency(new RegionInfo(regionName)), _scenarioCurrency);
+            Assert.AreEqual(new Currency(new RegionInfo(regionName)), _settingsViewModel.PreferredCurrency);
         }
     }
 }
