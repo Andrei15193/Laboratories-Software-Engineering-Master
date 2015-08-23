@@ -24,6 +24,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Transaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\AsyncCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\Command.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\ViewModel.cs" />
   </ItemGroup>
 </Project>
