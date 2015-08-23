@@ -60,11 +60,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CurrencyManagement\SetPreferredCurrency.cs" />
+    <Compile Include="CurrencyManagement\SetPreferredCurrency.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetPreferredCurrency.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="CurrencyManagement\SetPreferredCurrency.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SetPreferredCurrency.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>
