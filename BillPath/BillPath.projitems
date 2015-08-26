@@ -14,6 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\ISettingsRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\ITransactionRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\Xml\FileProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccess\Xml\SettingsRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ArgbColor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Currency.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencyDisplayFormat.cs" />
