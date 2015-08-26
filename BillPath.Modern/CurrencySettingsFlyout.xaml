@@ -1,0 +1,40 @@
+﻿<SettingsFlyout
+    x:Class="BillPath.Modern.CurrencySettingsFlyout"
+    x:Uid="/SettingsFlyout/Currency"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BillPath.Modern"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    DataContext="{StaticResource SettingsViewModel}"
+    IconSource="Assets/SmallLogo.png"
+    Title="Currency"
+    d:DesignWidth="346"
+    HorizontalContentAlignment="Stretch"
+    Unloaded="_SaveSettings">
+    <StackPanel>
+        <StackPanel
+            Style="{StaticResource SettingsFlyoutSectionStyle}">
+            <StackPanel.Resources>
+                <Style
+                    x:Key="LabelTextBlockStyle"
+                    TargetType="TextBlock"
+                    BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                    <Setter
+                        Property="Margin"
+                        Value="0,0,0,10" />
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock
+                Style="{StaticResource LabelTextBlockStyle}"
+                x:Uid="/Settings/PreferredCurrency"
+                Text="Preferred currency" />
+            <ComboBox
+                DisplayMemberPath="IsoCode"
+                ItemsSource="{Binding AllCurrencies, Mode=OneTime}"
+                SelectedItem="{Binding PreferredCurrency, Mode=TwoWay}"
+                IsEnabled="{Binding SaveCommand.CanExecute, Mode=OneWay}" />
+        </StackPanel>
+    </StackPanel>
+</SettingsFlyout>
