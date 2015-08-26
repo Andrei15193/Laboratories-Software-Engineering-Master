@@ -136,8 +136,8 @@ namespace BillPath.UserInterface.ViewModels
     {
         protected sealed override Task OnExecuteAsync(object parameter)
         {
-            return ExecuteAsync((TParameter)parameter);
+            return OnExecuteAsync((TParameter)parameter);
         }
-        protected abstract Task ExecuteAsync(TParameter parameter);
+        protected abstract Task OnExecuteAsync(TParameter parameter);
     }
 }
