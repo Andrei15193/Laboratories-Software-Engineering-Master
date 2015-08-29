@@ -35,6 +35,21 @@
                 ItemsSource="{Binding AllCurrencies, Mode=OneTime}"
                 SelectedItem="{Binding PreferredCurrency, Mode=TwoWay}"
                 IsEnabled="{Binding SaveCommand.CanExecute, Mode=OneWay}" />
+            <TextBlock
+                Style="{StaticResource LabelTextBlockStyle}"
+                x:Uid="/SettingsFlyout/CurrencyDisplayFormat"
+                Text="Display format" />
+            <ComboBox
+                ItemsSource="{Binding AllCurrencyDisplayFormats, Mode=OneTime}"
+                SelectedItem="{Binding CurrencyDisplayFormat, Mode=TwoWay}"
+                IsEnabled="{Binding SaveCommand.CanExecute, Mode=OneWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock
+                            Text="{Binding Converter={StaticResource LocalizationConverter}}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
     </StackPanel>
 </SettingsFlyout>

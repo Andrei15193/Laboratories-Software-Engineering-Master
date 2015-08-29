@@ -38,7 +38,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\CurrencyDisplayFormat.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Settings.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\ro-RO\CurrencyDisplayFormat.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\ro-RO\Settings.resw" />
   </ItemGroup>
 </Project>
