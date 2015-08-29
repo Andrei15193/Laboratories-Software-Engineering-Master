@@ -19,19 +19,19 @@ namespace BillPath.Tests.CurrencyManagement
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class SetCurrencyDisplayModeFeature
+    public partial class SetCurrencyDisplayFormatFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "SetCurrencyDisplayMode.feature"
+#line 1 "SetCurrencyDisplayFormat.feature"
 #line hidden
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SetCurrencyDisplayMode", "  Users can set how currencies are displayed, some prefer the ISO code, some the " +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "SetCurrencyDisplayFormat", "  Users can set how currencies are displayed, some prefer the ISO code, some the " +
                     "symbol and some want both.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -47,9 +47,9 @@ namespace BillPath.Tests.CurrencyManagement
         public virtual void TestInitialize()
         {
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
-                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "SetCurrencyDisplayMode")))
+                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "SetCurrencyDisplayFormat")))
             {
-                BillPath.Tests.CurrencyManagement.SetCurrencyDisplayModeFeature.FeatureSetup(null);
+                BillPath.Tests.CurrencyManagement.SetCurrencyDisplayFormatFeature.FeatureSetup(null);
             }
         }
         
@@ -71,7 +71,7 @@ namespace BillPath.Tests.CurrencyManagement
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Currency symbol display mode")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SetCurrencyDisplayMode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SetCurrencyDisplayFormat")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Acceptance")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MainFlow")]
         public virtual void CurrencySymbolDisplayMode()
@@ -93,7 +93,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Currency ISO code display mode")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SetCurrencyDisplayMode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SetCurrencyDisplayFormat")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Acceptance")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MainFlow")]
         public virtual void CurrencyISOCodeDisplayMode()
@@ -115,7 +115,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Currency full display mode")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SetCurrencyDisplayMode")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "SetCurrencyDisplayFormat")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Acceptance")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("MainFlow")]
         public virtual void CurrencyFullDisplayMode()

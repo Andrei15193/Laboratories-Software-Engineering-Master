@@ -1,4 +1,4 @@
-﻿Feature: SetCurrencyDisplayMode
+﻿Feature: SetCurrencyDisplayFormat
     Users can set how currencies are displayed, some prefer the ISO code, some the symbol and some want both.
 
 @Acceptance @MainFlow
