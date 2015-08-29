@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\ArgbColor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Currency.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencyDisplayFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencyDisplayFormatters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencyIsoCodeOnlyFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencySymbolOnlyFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencySynmbolAndIsoCodeFormatter.cs" />

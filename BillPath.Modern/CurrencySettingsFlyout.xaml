@@ -18,28 +18,30 @@
             Style="{StaticResource SettingsFlyoutSectionStyle}">
             <StackPanel.Resources>
                 <Style
-                    x:Key="LabelTextBlockStyle"
-                    TargetType="TextBlock"
-                    BasedOn="{StaticResource SubtitleTextBlockStyle}">
+                    TargetType="ComboBox">
                     <Setter
-                        Property="Margin"
-                        Value="0,0,0,10" />
+                        Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock
+                                    Text="{Binding}"
+                                    Style="{StaticResource SubtitleTextBlockStyle}" />
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
                 </Style>
             </StackPanel.Resources>
-            <TextBlock
-                Style="{StaticResource LabelTextBlockStyle}"
-                x:Uid="/Settings/PreferredCurrency"
-                Text="Preferred currency" />
             <ComboBox
+                x:Uid="/Settings/PreferredCurrency"
+                Header="Preferred currency"
                 DisplayMemberPath="IsoCode"
                 ItemsSource="{Binding AllCurrencies, Mode=OneTime}"
                 SelectedItem="{Binding PreferredCurrency, Mode=TwoWay}"
                 IsEnabled="{Binding SaveCommand.CanExecute, Mode=OneWay}" />
-            <TextBlock
-                Style="{StaticResource LabelTextBlockStyle}"
-                x:Uid="/SettingsFlyout/CurrencyDisplayFormat"
-                Text="Display format" />
+
             <ComboBox
+                x:Uid="/Settings/CurrencyDisplayFormat"
+                Header="Display format"
                 ItemsSource="{Binding AllCurrencyDisplayFormats, Mode=OneTime}"
                 SelectedItem="{Binding CurrencyDisplayFormat, Mode=TwoWay}"
                 IsEnabled="{Binding SaveCommand.CanExecute, Mode=OneWay}">

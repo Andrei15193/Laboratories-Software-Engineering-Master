@@ -8,11 +8,13 @@
     xmlns:repositories="using:BillPath.DataAccess.Xml">
     <Application.Resources>
         <ResourceDictionary>
-            <viewModels:SettingsViewModel x:Key="SettingsViewModel">
+            <viewModels:SettingsViewModel
+                x:Key="SettingsViewModel">
                 <viewModels:SettingsViewModel.Repository>
                     <repositories:SettingsRepository>
                         <repositories:SettingsRepository.FileProvider>
-                            <local:ModernAppFileProvider FileName="test"/>
+                            <local:ModernAppFileProvider
+                                FileName="test" />
                         </repositories:SettingsRepository.FileProvider>
                     </repositories:SettingsRepository>
                 </viewModels:SettingsViewModel.Repository>
