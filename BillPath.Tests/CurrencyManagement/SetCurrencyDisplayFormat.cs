@@ -6,8 +6,8 @@ using TechTalk.SpecFlow;
 namespace BillPath.Tests.CurrencyManagement
 {
     [Binding]
-    [Scope(Feature = "SetCurrencyDisplayMode")]
-    public sealed class SetCurrencyDisplayMode
+    [Scope(Feature = "SetCurrencyDisplayFormat")]
+    public sealed class SetCurrencyDisplayFormat
     {
         private Currency _currency;
         private ICurrencyFormatter _currencyFormatter;

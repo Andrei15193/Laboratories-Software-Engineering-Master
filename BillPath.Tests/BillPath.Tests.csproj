@@ -63,11 +63,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CurrencyManagement\SetCurrencyDisplayMode.cs" />
-    <Compile Include="CurrencyManagement\SetCurrencyDisplayMode.feature.cs">
+    <Compile Include="CurrencyManagement\SetCurrencyDisplayFormat.cs" />
+    <Compile Include="CurrencyManagement\SetCurrencyDisplayFormat.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SetCurrencyDisplayMode.feature</DependentUpon>
+      <DependentUpon>SetCurrencyDisplayFormat.feature</DependentUpon>
     </Compile>
     <Compile Include="CurrencyManagement\SetPreferredCurrency.cs" />
     <Compile Include="CurrencyManagement\SetPreferredCurrency.feature.cs">
@@ -80,9 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="CurrencyManagement\SetCurrencyDisplayMode.feature">
+    <None Include="CurrencyManagement\SetCurrencyDisplayFormat.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SetCurrencyDisplayMode.feature.cs</LastGenOutput>
+      <LastGenOutput>SetCurrencyDisplayFormat.feature.cs</LastGenOutput>
     </None>
     <None Include="CurrencyManagement\SetPreferredCurrency.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
