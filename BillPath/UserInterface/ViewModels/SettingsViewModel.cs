@@ -175,6 +175,19 @@ namespace BillPath.UserInterface.ViewModels
             }
         }
 
+        public CurrencyDisplayFormat CurrencyDisplayFormat
+        {
+            get
+            {
+                return _settings.CurrencyDisplayFormat;
+            }
+            set
+            {
+                _settings.CurrencyDisplayFormat = value;
+                OnPropertyChanged();
+            }
+        }
+
         public AsyncCommand LoadCommand
         {
             get;
