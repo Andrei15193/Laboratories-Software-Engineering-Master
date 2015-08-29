@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using BillPath.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 
 namespace BillPath.Tests.CurrencyManagement
@@ -9,6 +10,7 @@ namespace BillPath.Tests.CurrencyManagement
     public sealed class SetCurrencyDisplayMode
     {
         private Currency _currency;
+        private ICurrencyFormatter _currencyFormatter;
 
         [Given(@"(\w+(?:-\w+)?) currency")]
         public void GivenCurrency(string regionName)
@@ -19,23 +21,23 @@ namespace BillPath.Tests.CurrencyManagement
         [When("I display currency with symbol only")]
         public void WhenSymbolOnlyDisplayIsSet()
         {
-            ScenarioContext.Current.Pending();
+            _currencyFormatter = new CurrencySymbolOnlyFormatter();
         }
         [When("I display currency with ISO code only")]
         public void WhenIsoCodeOnlyDisplayIsSet()
         {
-            ScenarioContext.Current.Pending();
+            _currencyFormatter = new CurrencyIsoCodeOnlyFormatter();
         }
         [When("I display currency with symbol and ISO code")]
         public void WhenFullDisplayIsSet()
         {
-            ScenarioContext.Current.Pending();
+            _currencyFormatter = new CurrencySynmbolAndIsoCodeFormatter();
         }
 
         [Then(@"the result should be (.*)")]
         public void ThenFormattedCurrencyIs(string value)
         {
-            ScenarioContext.Current.Pending();
+            Assert.AreEqual(value, _currencyFormatter.Format(_currency), ignoreCase: false);
         }
     }
 }
