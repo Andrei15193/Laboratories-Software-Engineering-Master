@@ -117,7 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PreferredCurrency.Header" xml:space="preserve">
-    <value>Moneda preferată</value>
+  <data name="Full" xml:space="preserve">
+    <value>Simbol și cod ISO</value>
+  </data>
+  <data name="IsoCode" xml:space="preserve">
+    <value>Doar cod ISO</value>
+  </data>
+  <data name="Symbol" xml:space="preserve">
+    <value>Doar simbol</value>
   </data>
 </root>

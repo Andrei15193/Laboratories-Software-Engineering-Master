@@ -18,9 +18,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\ArgbColor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Currency.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencyDisplayFormat.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencyDisplayFormatters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencyIsoCodeOnlyFormatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencySymbolOnlyFormatter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencySynmbolAndIsoCodeFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Expense.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ExpenseCategory.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ICloneable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ICurrencyFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Income.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IValidatableObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Settings.cs" />
@@ -34,7 +39,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\CurrencyDisplayFormat.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Settings.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\ro-RO\CurrencyDisplayFormat.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\ro-RO\Settings.resw" />
   </ItemGroup>
 </Project>

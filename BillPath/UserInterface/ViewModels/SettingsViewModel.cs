@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BillPath.DataAccess;
@@ -126,6 +128,10 @@ namespace BillPath.UserInterface.ViewModels
                 new Currency(new RegionInfo("ar-YE")),
                 new Currency(new RegionInfo("af-ZA"))
             };
+        private static IEnumerable<CurrencyDisplayFormat> _allCurrencyDIsplayFormats =
+            Enum.GetValues(typeof(CurrencyDisplayFormat))
+                .Cast<CurrencyDisplayFormat>()
+                .ToList();
         private readonly Settings _settings;
 
         public SettingsViewModel()
@@ -139,10 +145,13 @@ namespace BillPath.UserInterface.ViewModels
         {
             var settings = await Repository.GetAsync();
 
-            if (settings != null)
-                PreferredCurrency = settings.PreferredCurrency;
-            else
+            if (settings == null)
                 PreferredCurrency = new Currency(new RegionInfo(CultureInfo.CurrentCulture.Name));
+            else
+            {
+                PreferredCurrency = settings.PreferredCurrency;
+                CurrencyDisplayFormat = settings.CurrencyDisplayFormat;
+            }
         }
         private Task _SaveSettings(object parameter, CancellationToken cancellationToken)
         {
@@ -172,6 +181,26 @@ namespace BillPath.UserInterface.ViewModels
             get
             {
                 return _allCurrencies;
+            }
+        }
+
+        public CurrencyDisplayFormat CurrencyDisplayFormat
+        {
+            get
+            {
+                return _settings.CurrencyDisplayFormat;
+            }
+            set
+            {
+                _settings.CurrencyDisplayFormat = value;
+                OnPropertyChanged();
+            }
+        }
+        public IEnumerable<CurrencyDisplayFormat> AllCurrencyDisplayFormats
+        {
+            get
+            {
+                return _allCurrencyDIsplayFormats;
             }
         }
 

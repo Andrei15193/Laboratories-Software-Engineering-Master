@@ -112,6 +112,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\AsyncCommandToCommandConverter.cs" />
+    <Compile Include="Converters\LocalizationConverter.cs" />
     <Compile Include="CurrencySettingsFlyout.xaml.cs">
       <DependentUpon>CurrencySettingsFlyout.xaml</DependentUpon>
     </Compile>

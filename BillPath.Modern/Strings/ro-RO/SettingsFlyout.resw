@@ -120,4 +120,7 @@
   <data name="Currency.Title" xml:space="preserve">
     <value>Monedă</value>
   </data>
+  <data name="CurrencyDisplayFormat.Text" xml:space="preserve">
+    <value>Format afișare</value>
+  </data>
 </root>
