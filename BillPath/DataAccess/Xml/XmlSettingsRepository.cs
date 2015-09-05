@@ -6,23 +6,18 @@ using BillPath.Models;
 
 namespace BillPath.DataAccess.Xml
 {
-    public class SettingsRepository
-        : ISettingsRepository
+    public class XmlSettingsRepository
+        : SettingsRepository
     {
         private volatile Settings _settings = null;
-
-
+        
         public FileProvider FileProvider
         {
             get;
             set;
         }
 
-        public Task<Settings> GetAsync()
-        {
-            return GetAsync(CancellationToken.None);
-        }
-        public async Task<Settings> GetAsync(CancellationToken cancellationToken)
+        public override async Task<Settings> GetAsync(CancellationToken cancellationToken)
         {
             if (_settings != null)
                 return _settings;
@@ -38,12 +33,8 @@ namespace BillPath.DataAccess.Xml
 
             return _settings;
         }
-
-        public Task SaveAsync(Settings settings)
-        {
-            return SaveAsync(settings, CancellationToken.None);
-        }
-        public async Task SaveAsync(Settings settings, CancellationToken cancellationToken)
+        
+        public override async Task SaveAsync(Settings settings, CancellationToken cancellationToken)
         {
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
