@@ -11,12 +11,12 @@
             <viewModels:SettingsViewModel
                 x:Key="SettingsViewModel">
                 <viewModels:SettingsViewModel.Repository>
-                    <repositories:SettingsRepository>
-                        <repositories:SettingsRepository.FileProvider>
+                    <repositories:XmlSettingsRepository>
+                        <repositories:XmlSettingsRepository.FileProvider>
                             <local:ModernAppFileProvider
                                 FileName="test" />
-                        </repositories:SettingsRepository.FileProvider>
-                    </repositories:SettingsRepository>
+                        </repositories:XmlSettingsRepository.FileProvider>
+                    </repositories:XmlSettingsRepository>
                 </viewModels:SettingsViewModel.Repository>
             </viewModels:SettingsViewModel>
 

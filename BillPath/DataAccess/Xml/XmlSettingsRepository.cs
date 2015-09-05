@@ -1,45 +1,48 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using BillPath.Models;
 
 namespace BillPath.DataAccess.Xml
 {
-    public class SettingsRepository
-        : ISettingsRepository
+    public class XmlSettingsRepository
+        : SettingsRepository
     {
         private volatile Settings _settings = null;
-
-
+        
         public FileProvider FileProvider
         {
             get;
             set;
         }
 
-        public async Task<Settings> GetAsync()
+        public override async Task<Settings> GetAsync(CancellationToken cancellationToken)
         {
             if (_settings != null)
                 return _settings;
 
-            if (!(await FileProvider.FileExistsAsync()))
+            if (!(await FileProvider.FileExistsAsync(cancellationToken)))
                 return null;
+            cancellationToken.ThrowIfCancellationRequested();
 
             var serializer = new DataContractSerializer(typeof(Settings));
-            using (var settingsStream = await FileProvider.GetReadStreamAsync())
+            using (var settingsStream = await FileProvider.GetReadStreamAsync(cancellationToken))
                 _settings = (Settings)serializer.ReadObject(settingsStream);
+            cancellationToken.ThrowIfCancellationRequested();
 
             return _settings;
         }
-
-        public async Task SaveAsync(Settings settings)
+        
+        public override async Task SaveAsync(Settings settings, CancellationToken cancellationToken)
         {
             if (settings == null)
                 throw new ArgumentNullException(nameof(settings));
 
             var serializer = new DataContractSerializer(typeof(Settings));
-            using (var settingsStream = await FileProvider.GetWriteStreamAsync())
+            using (var settingsStream = await FileProvider.GetWriteStreamAsync(cancellationToken))
                 serializer.WriteObject(settingsStream, settings);
+            cancellationToken.ThrowIfCancellationRequested();
 
             if (_settings == null)
                 _settings = settings;
