@@ -10,13 +10,13 @@ namespace BillPath.DataAccess
         Task<IEnumerable<ExpenseCategory>> GetAllAsync();
         Task<IEnumerable<ExpenseCategory>> GetAllAsync(CancellationToken cancellationToken);
 
-        Task Save(ExpenseCategory category);
-        Task Save(ExpenseCategory category, CancellationToken cancellationToken);
+        Task SaveAsync(ExpenseCategory category);
+        Task SaveAsync(ExpenseCategory category, CancellationToken cancellationToken);
 
-        Task Update(ExpenseCategory oldCategory, ExpenseCategory newCategory);
-        Task Update(ExpenseCategory oldCategory, ExpenseCategory newCategory, CancellationToken cancellationToken);
+        Task UpdateAsync(ExpenseCategory oldCategory, ExpenseCategory newCategory);
+        Task UpdateAsync(ExpenseCategory oldCategory, ExpenseCategory newCategory, CancellationToken cancellationToken);
 
-        Task Remove(ExpenseCategory category);
-        Task Remove(ExpenseCategory category, CancellationToken cancellationToken);
+        Task RemoveAsync(ExpenseCategory category);
+        Task RemoveAsync(ExpenseCategory category, CancellationToken cancellationToken);
     }
 }

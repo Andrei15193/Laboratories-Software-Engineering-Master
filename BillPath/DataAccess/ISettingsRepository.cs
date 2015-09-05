@@ -8,6 +8,7 @@ namespace BillPath.DataAccess
     {
         Task<Settings> GetAsync();
         Task<Settings> GetAsync(CancellationToken cancellationToken);
+
         Task SaveAsync(Settings settings);
         Task SaveAsync(Settings settings, CancellationToken cancellationToken);
     }
