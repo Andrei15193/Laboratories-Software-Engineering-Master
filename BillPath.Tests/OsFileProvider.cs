@@ -8,19 +8,19 @@ namespace BillPath.Tests
     public sealed class OsFileProvider
         : FileProvider
     {
-        public override Task<bool> FileExistsAsync(CancellationToken cancellationToken)
+        public override Task<bool> FileExistsAsync(string fileName, CancellationToken cancellationToken)
         {
-            return Task.FromResult(File.Exists(FileName));
+            return Task.FromResult(File.Exists(fileName));
         }
 
-        public override Task<Stream> GetReadStreamAsync(CancellationToken cancellationToken)
+        public override Task<Stream> GetReadStreamForAsync(string fileName, CancellationToken cancellationToken)
         {
-            return Task.FromResult<Stream>(new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.Read));
+            return Task.FromResult<Stream>(new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read));
         }
 
-        public override Task<Stream> GetWriteStreamAsync(CancellationToken cancellationToken)
+        public override Task<Stream> GetWriteStreamForAsync(string fileName, CancellationToken cancellationToken)
         {
-            return Task.FromResult<Stream>(new FileStream(FileName, FileMode.Create, FileAccess.ReadWrite, FileShare.None));
+            return Task.FromResult<Stream>(new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.None));
         }
     }
 }

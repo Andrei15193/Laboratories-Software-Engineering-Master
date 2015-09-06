@@ -14,11 +14,8 @@ namespace BillPath.Tests.IncomeManagement
     [TestClass]
     public class IncomeRepositoryTests
     {
-        private OsFileProvider _FilePorvider
-        {
-            get;
-            set;
-        }
+        private OsFileProvider _filePorvider;
+        private string _testFileName;
 
         public TestContext TestContext
         {
@@ -26,19 +23,22 @@ namespace BillPath.Tests.IncomeManagement
             set;
         }
 
+        [ClassInitialize]
+        public void ClassInitialize()
+        {
+            _testFileName = Path.Combine(TestContext.TestDir, "TestIncomes.xml");
+        }
+
         [TestInitialize]
         public void TestInitialize()
         {
-            _FilePorvider = new OsFileProvider
-            {
-                FileName = Path.Combine(TestContext.TestDir, "testFile")
-            };
+            _filePorvider = new OsFileProvider();
         }
         [TestCleanup]
         public void TestCleanup()
         {
-            File.Delete(_FilePorvider.FileName);
-            _FilePorvider = null;
+            File.Delete(_testFileName);
+            _filePorvider = null;
         }
 
         [TestMethod]
@@ -51,14 +51,11 @@ namespace BillPath.Tests.IncomeManagement
                 DateRealized = DateTimeOffset.Now,
                 Description = "Test description"
             };
-            var incomeRepository = new XmlIncomeRepository
-            {
-                FileProvider = _FilePorvider
-            };
+            var incomeRepository = new XmlIncomeRepository(_filePorvider, _testFileName);
 
             await incomeRepository.SaveAsync(income);
 
-            using (var fileStream = await _FilePorvider.GetReadStreamAsync())
+            using (var fileStream = await _filePorvider.GetReadStreamForAsync(_testFileName))
             {
                 var incomeSerializer = new DataContractSerializer(typeof(Income), new[] { typeof(List<Income>) });
 
@@ -85,15 +82,12 @@ namespace BillPath.Tests.IncomeManagement
                 DateRealized = DateTimeOffset.Now,
                 Description = "Test description 2"
             };
-            var incomeRepository = new XmlIncomeRepository
-            {
-                FileProvider = _FilePorvider
-            };
+            var incomeRepository = new XmlIncomeRepository(_filePorvider, _testFileName);
 
             await incomeRepository.SaveAsync(income1);
             await incomeRepository.SaveAsync(income2);
 
-            using (var fileStream = await _FilePorvider.GetReadStreamAsync())
+            using (var fileStream = await _filePorvider.GetReadStreamForAsync(_testFileName))
             {
                 var incomeSerializer = new DataContractSerializer(typeof(Income), new[] { typeof(List<Income>) });
                 var savedIncomes = (IEnumerable<Income>)incomeSerializer.ReadObject(fileStream);
