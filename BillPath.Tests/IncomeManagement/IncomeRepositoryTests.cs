@@ -14,8 +14,8 @@ namespace BillPath.Tests.IncomeManagement
     [TestClass]
     public class IncomeRepositoryTests
     {
+        private static string _testFileName;
         private OsFileProvider _filePorvider;
-        private string _testFileName;
 
         public TestContext TestContext
         {
@@ -24,9 +24,9 @@ namespace BillPath.Tests.IncomeManagement
         }
 
         [ClassInitialize]
-        public void ClassInitialize()
+        public static void ClassInitialize(TestContext testContext)
         {
-            _testFileName = Path.Combine(TestContext.TestDir, "TestIncomes.xml");
+            _testFileName = Path.Combine(testContext.TestDir, "TestIncomes.xml");
         }
 
         [TestInitialize]
