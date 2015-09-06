@@ -2,24 +2,11 @@
     x:Class="BillPath.Modern.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:BillPath.Modern"
-    xmlns:viewModels="using:BillPath.UserInterface.ViewModels"
-    xmlns:converters="using:BillPath.Modern.Converters"
-    xmlns:repositories="using:BillPath.DataAccess.Xml">
+    xmlns:converters="using:BillPath.Modern.Converters">
     <Application.Resources>
         <ResourceDictionary>
-            <viewModels:SettingsViewModel
-                x:Key="SettingsViewModel">
-                <viewModels:SettingsViewModel.Repository>
-                    <repositories:XmlSettingsRepository>
-                        <repositories:XmlSettingsRepository.FileProvider>
-                            <local:ModernAppFileProvider
-                                FileName="test" />
-                        </repositories:XmlSettingsRepository.FileProvider>
-                    </repositories:XmlSettingsRepository>
-                </viewModels:SettingsViewModel.Repository>
-            </viewModels:SettingsViewModel>
-
+            <x:String
+                x:Key="SettingsFileName">Settings.xml</x:String>
             <converters:LocalizationConverter
                 x:Key="LocalizationConverter" />
         </ResourceDictionary>
