@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BillPath.Models;
@@ -27,6 +28,21 @@ namespace BillPath.DataAccess
             return GetPageCountAsync(currency, CancellationToken.None);
         }
         public abstract Task<int> GetPageCountAsync(Currency currency, CancellationToken cancellationToken);
+        public Task<int> GetCountAsync(Currency currency)
+        {
+            return GetCountAsync(currency, CancellationToken.None);
+        }
+        public virtual async Task<int> GetCountAsync(Currency currency, CancellationToken cancellationToken)
+        {
+            return
+                (await Task.WhenAll(
+                    from pageNumber in Enumerable.Range(1, await GetPageCountAsync(currency, cancellationToken))
+                    select GetInAsync(currency, pageNumber, cancellationToken)
+                        .ContinueWith(transactions => transactions.Result.Count(), cancellationToken)))
+                .DefaultIfEmpty()
+                .Sum();
+
+        }
 
         public Task RemoveAsync(TTransaction transaction)
         {

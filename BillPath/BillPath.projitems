@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\SettingsRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\TransactionRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\Xml\FileProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccess\Xml\XmlIncomeRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\Xml\XmlSettingsRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ArgbColor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Currency.cs" />
@@ -31,6 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\ICloneable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ICurrencyFormatter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Income.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IncomeEqualityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IValidatableObject.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Transaction.cs" />

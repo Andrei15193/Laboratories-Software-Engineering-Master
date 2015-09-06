@@ -75,12 +75,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SetPreferredCurrency.feature</DependentUpon>
     </Compile>
+    <Compile Include="IncomeEqualityComparerTests.cs" />
     <Compile Include="IncomeManagement\AddIncome.cs" />
     <Compile Include="IncomeManagement\AddIncome.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AddIncome.feature</DependentUpon>
     </Compile>
+    <Compile Include="IncomeManagement\IncomeRepositoryTests.cs" />
+    <Compile Include="OsFileProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelTests.cs" />
   </ItemGroup>
