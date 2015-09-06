@@ -88,7 +88,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
     testRunner.And("the total income in RO currency should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
-    testRunner.And("the available funds in RO currency should be 10.5", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.And("the available funds in RO currency should be 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

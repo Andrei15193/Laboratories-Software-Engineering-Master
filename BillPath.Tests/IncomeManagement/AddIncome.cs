@@ -1,4 +1,12 @@
 ﻿using System;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using BillPath.DataAccess.Xml;
+using BillPath.Models;
+using BillPath.UserInterface.ViewModels;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 
 namespace BillPath.Tests.IncomeManagement
@@ -7,32 +15,54 @@ namespace BillPath.Tests.IncomeManagement
     [Scope(Feature = "AddIncome")]
     public sealed class AddIncome
     {
+        private const string _testFileName = "testFile.xml";
+        private readonly IncomesViewModel _viewModel = new IncomesViewModel(new XmlIncomeRepository(new OsFileProvider(), _testFileName));
+
         [Given("no incomes")]
+        [AfterScenario]
         public void GivenNoIncomes()
         {
-            ScenarioContext.Current.Pending();
+            File.Delete(_testFileName);
         }
 
         [When(@"I add a new income in (\w+(?:-\w+)?) currency with the amount of (\d+(?:\.\d+)?) on (\d{1,2}/\d{1,2}/\d{4} \d{1,2}:\d{1,2}:\d{1,2}) and '(.*)' description")]
-        public void WhenAddingNewIncome(string regionName, decimal amount, DateTime transactionDate, string description)
+        public async Task WhenAddingNewIncome(string regionName, decimal amount, DateTime transactionDate, string description)
         {
-            ScenarioContext.Current.Pending();
+            await _viewModel.AddIncome.ExecuteAsync(new Income
+            {
+                Amount = amount,
+                Currency = new Currency(new RegionInfo(regionName)),
+                DateRealized = transactionDate,
+                Description = description
+            });
         }
 
         [Then(@"there should be a total of (\d+) incomes")]
         public void ThenIncomeCountIs(int incomeCount)
         {
-            ScenarioContext.Current.Pending();
+            Assert.AreEqual(incomeCount, _viewModel.Incomes.Count());
         }
         [Then(@"the total income in (\w+(?:-\w+)?) currency should be (\d+(?:\.\d+)?)")]
         public void ThenTotalIncomeAmountIs(string regionName, decimal totalIncomeAmount)
         {
-            ScenarioContext.Current.Pending();
+            var currency = new Currency(new RegionInfo(regionName));
+            var actualTotalIncomeAmount = _viewModel
+                .Incomes
+                .Where(income => income?.Currency == currency)
+                .Sum(income => income.Amount);
+
+            Assert.AreEqual(totalIncomeAmount, actualTotalIncomeAmount);
         }
         [Then(@"the available funds in (\w+(?:-\w+)?) currency should be (\d+(?:\.\d+)?)")]
         public void ThenTotalAvailableAccountIs(string regionName, decimal totalAvailableAmount)
         {
-            ScenarioContext.Current.Pending();
+            var currency = new Currency(new RegionInfo(regionName));
+            var actualTotalIncomeAmount = _viewModel
+                .Incomes
+                .Where(income => income?.Currency == currency)
+                .Sum(income => income.Amount);
+
+            Assert.AreEqual(totalAvailableAmount, actualTotalIncomeAmount);
         }
     }
 }

@@ -6,7 +6,7 @@ Scenario: No incomes
     Given no incomes
     Then there should be a total of 0 incomes
     And the total income in RO currency should be 0
-    And the available funds in RO currency should be 10.5
+    And the available funds in RO currency should be 0
 
 @Acceptance @MainFlow
 Scenario: Adding first income
