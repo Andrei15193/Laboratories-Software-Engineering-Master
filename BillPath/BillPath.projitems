@@ -13,8 +13,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\ExpenseRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\IExpenseCategoryRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\IExpenseRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccess\IncomeRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\ISettingsRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\ITransactionRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataAccess\IIncomeRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\SettingsRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\TransactionRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\Xml\FileProvider.cs" />
@@ -41,6 +43,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\Command.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\DelegateAsyncCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\DelegateCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\IncomesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\ViewModel.cs" />
   </ItemGroup>

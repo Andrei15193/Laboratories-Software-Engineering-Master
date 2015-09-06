@@ -135,8 +135,11 @@ namespace BillPath.UserInterface.ViewModels
         private readonly ISettingsRepository _repository;
         private readonly Settings _settings;
 
-        public SettingsViewModel(ISettingsRepository repository )
+        public SettingsViewModel(ISettingsRepository repository)
         {
+            if (repository == null)
+                throw new ArgumentNullException(nameof(repository));
+
             _repository = repository;
             _settings = new Settings();
             LoadCommand = new DelegateAsyncCommand(_LoadSettings);

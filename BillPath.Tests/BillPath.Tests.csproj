@@ -83,6 +83,7 @@
       <DependentUpon>AddIncome.feature</DependentUpon>
     </Compile>
     <Compile Include="IncomeManagement\IncomeRepositoryTests.cs" />
+    <Compile Include="IncomeManagement\IncomesViewModelTests.cs" />
     <Compile Include="OsFileProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModelTests.cs" />

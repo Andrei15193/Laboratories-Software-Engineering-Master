@@ -8,6 +8,7 @@ using BillPath.Models;
 namespace BillPath.DataAccess.Xml
 {
     public class XmlIncomeRepository
+        : IncomeRepository
     {
         private readonly FileProvider _fileProvider;
         private readonly string _fileName;
@@ -25,12 +26,8 @@ namespace BillPath.DataAccess.Xml
             _fileProvider = fileProvider;
             _fileName = fileName;
         }
-
-        public Task SaveAsync(Income income)
-        {
-            return SaveAsync(income, CancellationToken.None);
-        }
-        public async Task SaveAsync(Income income, CancellationToken cancellationToken)
+        
+        public override async Task SaveAsync(Income income, CancellationToken cancellationToken)
         {
             var incomeSerializer = new DataContractSerializer(typeof(Income), new[] { typeof(List<Income>) });
             List<Income> incomes ;
