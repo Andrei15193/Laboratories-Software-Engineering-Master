@@ -16,27 +16,28 @@ namespace BillPath.Modern
             Debug.WriteLine(ApplicationData.Current.LocalFolder.Path);
         }
 
-        public override async Task<bool> FileExistsAsync(CancellationToken cancellationToken)
+        public override async Task<bool> FileExistsAsync(string fileName, CancellationToken cancellationToken)
         {
-            return (await ApplicationData.Current.LocalFolder.TryGetItemAsync(FileName)) as IStorageFile != null;
+            return (await ApplicationData.Current.LocalFolder.TryGetItemAsync(fileName)) as IStorageFile != null;
         }
 
-        public override async Task<Stream> GetReadStreamAsync(CancellationToken cancellationToken)
+        public override async Task<Stream> GetReadStreamForAsync(string fileName, CancellationToken cancellationToken)
         {
             var storageFile = await ApplicationData
                 .Current
                 .LocalFolder
-                .GetFileAsync(FileName)
+                .GetFileAsync(fileName)
                 .AsTask(cancellationToken);
             return await storageFile.OpenStreamForReadAsync();
         }
 
-        public override async Task<Stream> GetWriteStreamAsync(CancellationToken cancellationToken)
+        public override async Task<Stream> GetWriteStreamForAsync(string fileName, CancellationToken cancellationToken)
         {
             var storageFile = await ApplicationData
                 .Current
                 .LocalFolder
-                .CreateFileAsync(FileName, CreationCollisionOption.ReplaceExisting).AsTask(cancellationToken);
+                .CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting)
+                .AsTask(cancellationToken);
             return await storageFile.OpenStreamForWriteAsync();
         }
     }

@@ -132,10 +132,12 @@ namespace BillPath.UserInterface.ViewModels
             Enum.GetValues(typeof(CurrencyDisplayFormat))
                 .Cast<CurrencyDisplayFormat>()
                 .ToList();
+        private readonly ISettingsRepository _repository;
         private readonly Settings _settings;
 
-        public SettingsViewModel()
+        public SettingsViewModel(ISettingsRepository repository )
         {
+            _repository = repository;
             _settings = new Settings();
             LoadCommand = new DelegateAsyncCommand(_LoadSettings);
             SaveCommand = new DelegateAsyncCommand(_SaveSettings);
@@ -143,7 +145,7 @@ namespace BillPath.UserInterface.ViewModels
 
         private async Task _LoadSettings(object parameter, CancellationToken cancellationToken)
         {
-            var settings = await Repository.GetAsync();
+            var settings = await _repository.GetAsync();
 
             if (settings == null)
                 PreferredCurrency = new Currency(new RegionInfo(CultureInfo.CurrentCulture.Name));
@@ -155,13 +157,7 @@ namespace BillPath.UserInterface.ViewModels
         }
         private Task _SaveSettings(object parameter, CancellationToken cancellationToken)
         {
-            return Repository.SaveAsync(_settings);
-        }
-
-        public ISettingsRepository Repository
-        {
-            get;
-            set;
+            return _repository.SaveAsync(_settings);
         }
 
         public Currency PreferredCurrency

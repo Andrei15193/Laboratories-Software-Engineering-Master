@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using BillPath.DataAccess.Xml;
 using BillPath.UserInterface.ViewModels;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -17,11 +18,13 @@ namespace BillPath.Modern
         public App()
         {
             InitializeComponent();
+
             Suspending += OnSuspending;
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
+            _LoadResources();
 
 #if DEBUG
             if (Debugger.IsAttached)
@@ -50,6 +53,18 @@ namespace BillPath.Modern
                 rootFrame.Navigate(typeof(MainPage), e.Arguments);
 
             Window.Current.Activate();
+        }
+
+        private void _LoadResources()
+        {
+            var fileProvider = new ModernAppFileProvider();
+
+            Resources.Add(
+                "SettingsViewModel",
+                new SettingsViewModel(
+                    new XmlSettingsRepository(
+                        fileProvider,
+                        (string)Resources["SettingsFileName"])));
         }
 
         protected override void OnWindowCreated(WindowCreatedEventArgs args)

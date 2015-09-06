@@ -23,7 +23,7 @@ namespace BillPath.Tests.CurrencyManagement
             _settingsViewModel =
                 new SettingsViewModel
                 {
-                    Repository = _GetScenarioRepository()
+                    _repository = _GetScenarioRepository()
                 };
             _cultureInfo = null;
             _mockRepositoryCurrency = null;

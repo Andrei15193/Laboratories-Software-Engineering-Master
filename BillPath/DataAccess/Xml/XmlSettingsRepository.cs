@@ -9,12 +9,14 @@ namespace BillPath.DataAccess.Xml
     public class XmlSettingsRepository
         : SettingsRepository
     {
+        private readonly string _fileName;
+        private readonly FileProvider _fileProvider;
         private volatile Settings _settings = null;
         
-        public FileProvider FileProvider
+        public XmlSettingsRepository(FileProvider fileProvider, string fileName)
         {
-            get;
-            set;
+            _fileProvider = fileProvider;
+            _fileName = fileName;
         }
 
         public override async Task<Settings> GetAsync(CancellationToken cancellationToken)
@@ -22,12 +24,12 @@ namespace BillPath.DataAccess.Xml
             if (_settings != null)
                 return _settings;
 
-            if (!(await FileProvider.FileExistsAsync(cancellationToken)))
+            if (!(await _fileProvider.FileExistsAsync(_fileName, cancellationToken)))
                 return null;
             cancellationToken.ThrowIfCancellationRequested();
 
             var serializer = new DataContractSerializer(typeof(Settings));
-            using (var settingsStream = await FileProvider.GetReadStreamAsync(cancellationToken))
+            using (var settingsStream = await _fileProvider.GetReadStreamForAsync(_fileName, cancellationToken))
                 _settings = (Settings)serializer.ReadObject(settingsStream);
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -40,7 +42,7 @@ namespace BillPath.DataAccess.Xml
                 throw new ArgumentNullException(nameof(settings));
 
             var serializer = new DataContractSerializer(typeof(Settings));
-            using (var settingsStream = await FileProvider.GetWriteStreamAsync(cancellationToken))
+            using (var settingsStream = await _fileProvider.GetWriteStreamForAsync(_fileName, cancellationToken))
                 serializer.WriteObject(settingsStream, settings);
             cancellationToken.ThrowIfCancellationRequested();
 
