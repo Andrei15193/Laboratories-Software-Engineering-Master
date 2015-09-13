@@ -60,7 +60,7 @@ namespace BillPath.Modern
             var fileProvider = new ModernAppFileProvider();
 
             Resources.Add(
-                "SettingsViewModel",
+                nameof(SettingsViewModel),
                 new SettingsViewModel(
                     new XmlSettingsRepository(
                         fileProvider,
@@ -79,14 +79,13 @@ namespace BillPath.Modern
             settingsPaneCommandsRequestedEventArgs
                 .Request
                 .ApplicationCommands
-                .Add(
-                    new SettingsCommand(
-                        "Currency",
-                        settingsResource.GetString("Currency/Title"),
-                        delegate
-                        {
-                            new CurrencySettingsFlyout().Show();
-                        }));
+                .Add(new SettingsCommand(
+                    "Currency",
+                    settingsResource.GetString("Currency/Title"),
+                    delegate
+                    {
+                        new CurrencySettingsFlyout().Show();
+                    }));
 
         }
 

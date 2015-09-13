@@ -111,10 +111,21 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\NavigationHelper.cs" />
+    <Compile Include="Common\ObservableDictionary.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Converters\ArgbColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\AsyncCommandToCommandConverter.cs" />
+    <Compile Include="Converters\ChainedConverter.cs" />
+    <Compile Include="Converters\CurrencyDisplayConverter.cs" />
     <Compile Include="Converters\LocalizationConverter.cs" />
+    <Compile Include="Converters\PieChartSlicesConverter.cs" />
     <Compile Include="CurrencySettingsFlyout.xaml.cs">
       <DependentUpon>CurrencySettingsFlyout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CurrencyTextBlock.xaml.cs">
+      <DependentUpon>CurrencyTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -129,6 +140,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="BillPath_StoreKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />
@@ -146,10 +158,20 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="CurrencyTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="WinRTXamlToolkit, Version=1.6.1.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinRTXamlToolkit.1.6.1.3\lib\netcore451\WinRTXamlToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

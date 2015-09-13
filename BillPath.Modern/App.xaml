@@ -9,6 +9,8 @@
                 x:Key="SettingsFileName">Settings.xml</x:String>
             <converters:LocalizationConverter
                 x:Key="LocalizationConverter" />
+            <converters:IdealReadingColorCoverter
+                x:Key="IdealReadingColorCoverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>
