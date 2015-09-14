@@ -28,7 +28,7 @@ namespace BillPath.Tests.IncomeManagement
         [When(@"I add a new income in (\w+(?:-\w+)?) currency with the amount of (\d+(?:\.\d+)?) on (\d{1,2}/\d{1,2}/\d{4} \d{1,2}:\d{1,2}:\d{1,2}) and '(.*)' description")]
         public async Task WhenAddingNewIncome(string regionName, decimal amount, DateTime transactionDate, string description)
         {
-            await _viewModel.AddIncome.ExecuteAsync(new Income
+            await _viewModel.AddIncomeCommand.ExecuteAsync(new Income
             {
                 Amount = amount,
                 Currency = new Currency(new RegionInfo(regionName)),
@@ -40,14 +40,14 @@ namespace BillPath.Tests.IncomeManagement
         [Then(@"there should be a total of (\d+) incomes")]
         public void ThenIncomeCountIs(int incomeCount)
         {
-            Assert.AreEqual(incomeCount, _viewModel.Incomes.Count());
+            Assert.AreEqual(incomeCount, _viewModel.SelectedPage.Count());
         }
         [Then(@"the total income in (\w+(?:-\w+)?) currency should be (\d+(?:\.\d+)?)")]
         public void ThenTotalIncomeAmountIs(string regionName, decimal totalIncomeAmount)
         {
             var currency = new Currency(new RegionInfo(regionName));
             var actualTotalIncomeAmount = _viewModel
-                .Incomes
+                .SelectedPage
                 .Where(income => income?.Currency == currency)
                 .Sum(income => income.Amount);
 
@@ -58,7 +58,7 @@ namespace BillPath.Tests.IncomeManagement
         {
             var currency = new Currency(new RegionInfo(regionName));
             var actualTotalIncomeAmount = _viewModel
-                .Incomes
+                .SelectedPage
                 .Where(income => income?.Currency == currency)
                 .Sum(income => income.Amount);
 

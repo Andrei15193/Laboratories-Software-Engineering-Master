@@ -49,5 +49,15 @@ namespace BillPath.DataAccess.Xml
                 return Enumerable.Empty<Income>();
 
         }
+
+        public override Task<IEnumerable<Income>> GetOnPageAsync(int pageNumber, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task<int> GetPageCountAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

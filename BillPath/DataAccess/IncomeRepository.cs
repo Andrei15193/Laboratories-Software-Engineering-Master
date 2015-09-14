@@ -15,5 +15,13 @@ namespace BillPath.DataAccess
         public Task<IEnumerable<Income>> GetAllAsync()
             => GetAllAsync(CancellationToken.None);
         public abstract Task<IEnumerable<Income>> GetAllAsync(CancellationToken cancellationToken);
+
+        public Task<IEnumerable<Income>> GetOnPageAsync(int pageNumber)
+            => GetOnPageAsync(pageNumber, CancellationToken.None);
+        public abstract Task<IEnumerable<Income>> GetOnPageAsync(int pageNumber, CancellationToken cancellationToken);
+
+        public Task<int> GetPageCountAsync()
+            => GetPageCountAsync(CancellationToken.None);
+        public abstract Task<int> GetPageCountAsync(CancellationToken cancellationToken);
     }
 }

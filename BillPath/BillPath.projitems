@@ -44,6 +44,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\DelegateAsyncCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\DelegateCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\IncomesViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\IncomeViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\StatsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserInterface\ViewModels\ViewModel.cs" />
