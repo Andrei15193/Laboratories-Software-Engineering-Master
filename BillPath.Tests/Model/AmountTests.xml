@@ -1,0 +1,83 @@
+﻿<?xml
+    version="1.0"
+    encoding="utf-8"?>
+<TestData
+    xmlns="BillPath.Model.Amount.Tests">
+    <xsd:schema
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="BillPath.Model.Amount.Tests"
+        elementFormDefault="qualified">
+        <xsd:element
+            name="AmountOperationTest">
+            <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element
+                        name="first"
+                        type="xsd:decimal" />
+                    <xsd:element
+                        name="second"
+                        type="xsd:decimal" />
+                    <xsd:element
+                        name="sum"
+                        type="xsd:decimal" />
+                    <xsd:element
+                        name="difference"
+                        type="xsd:decimal" />
+                    <xsd:element
+                        name="product"
+                        type="xsd:decimal" />
+                    <xsd:element
+                        name="quotient"
+                        type="xsd:decimal" />
+                    <xsd:element
+                        name="relationship">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="lessThan" />
+                                <xsd:enumeration value="equal" />
+                                <xsd:enumeration value="greaterThan" />
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+
+    <AmountOperationTest>
+        <first>1</first>
+        <second>1</second>
+        <sum>2</sum>
+        <difference>0</difference>
+        <product>1</product>
+        <quotient>1</quotient>
+        <relationship>equal</relationship>
+    </AmountOperationTest>
+    <AmountOperationTest>
+        <first>2</first>
+        <second>2</second>
+        <sum>4</sum>
+        <difference>0</difference>
+        <product>4</product>
+        <quotient>1</quotient>
+        <relationship>equal</relationship>
+    </AmountOperationTest>
+    <AmountOperationTest>
+        <first>1</first>
+        <second>2</second>
+        <sum>3</sum>
+        <difference>-1</difference>
+        <product>2</product>
+        <quotient>0.5</quotient>
+        <relationship>lessThan</relationship>
+    </AmountOperationTest>
+    <AmountOperationTest>
+        <first>2</first>
+        <second>1</second>
+        <sum>3</sum>
+        <difference>1</difference>
+        <product>2</product>
+        <quotient>2</quotient>
+        <relationship>greaterThan</relationship>
+    </AmountOperationTest>
+</TestData>

@@ -22,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\Xml\FileProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\Xml\XmlIncomeRepository.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataAccess\Xml\XmlSettingsRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Amount.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ArgbColor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Currency.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CurrencyDisplayFormat.cs" />
