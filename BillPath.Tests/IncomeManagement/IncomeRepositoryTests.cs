@@ -46,8 +46,7 @@ namespace BillPath.Tests.IncomeManagement
         {
             var income = new Income
             {
-                Amount = 10.2m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.2m, new Currency(new RegionInfo("RO"))),
                 DateRealized = DateTimeOffset.Now,
                 Description = "Test description"
             };
@@ -70,15 +69,13 @@ namespace BillPath.Tests.IncomeManagement
         {
             var income1 = new Income
             {
-                Amount = 10.2m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.2m, new Currency(new RegionInfo("RO"))),
                 DateRealized = DateTimeOffset.Now,
                 Description = "Test description 1"
             };
             var income2 = new Income
             {
-                Amount = 3.2m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(3.2m, new Currency(new RegionInfo("RO"))),
                 DateRealized = DateTimeOffset.Now,
                 Description = "Test description 2"
             };

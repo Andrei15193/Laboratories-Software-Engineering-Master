@@ -13,8 +13,7 @@ namespace BillPath.Tests
         {
             var income = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = DateTimeOffset.Now,
                 Description = "test description"
             };
@@ -27,15 +26,13 @@ namespace BillPath.Tests
             var now = DateTimeOffset.Now;
             var income1 = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = now,
                 Description = "test description"
             };
             var income2 = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = now,
                 Description = "test description"
             };
@@ -48,15 +45,13 @@ namespace BillPath.Tests
             var now = DateTimeOffset.Now;
             var income1 = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = now,
                 Description = "test description"
             };
             var income2 = new Income
             {
-                Amount = 10m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10m, new Currency(new RegionInfo("RO"))),
                 DateRealized = now,
                 Description = "test description"
             };
@@ -69,15 +64,13 @@ namespace BillPath.Tests
             var now = DateTimeOffset.Now;
             var income1 = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = now,
                 Description = "test description"
             };
             var income2 = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("GB")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("GB"))),
                 DateRealized = now,
                 Description = "test description"
             };
@@ -90,15 +83,13 @@ namespace BillPath.Tests
             var now = DateTimeOffset.Now;
             var income1 = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = now,
                 Description = "test description"
             };
             var income2 = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = now.AddMilliseconds(1),
                 Description = "test description"
             };
@@ -111,15 +102,13 @@ namespace BillPath.Tests
             var now = DateTimeOffset.Now;
             var income1 = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = now,
                 Description = "test description 1"
             };
             var income2 = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = now,
                 Description = "test description 2"
             };
@@ -132,15 +121,13 @@ namespace BillPath.Tests
             var now = DateTimeOffset.Now;
             var income1 = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = now,
                 Description = "test description"
             };
             var income2 = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = now,
                 Description = "TEST DESCRIPTION"
             };
@@ -157,8 +144,7 @@ namespace BillPath.Tests
         {
             var income = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = DateTimeOffset.Now,
                 Description = "test description"
             };
@@ -172,8 +158,7 @@ namespace BillPath.Tests
         {
             var income = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = DateTimeOffset.Now,
                 Description = "test description"
             };
@@ -193,8 +178,7 @@ namespace BillPath.Tests
         {
             var income = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = DateTimeOffset.Now,
                 Description = null
             };

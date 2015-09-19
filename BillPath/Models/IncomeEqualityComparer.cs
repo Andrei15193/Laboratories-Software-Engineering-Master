@@ -25,7 +25,6 @@ namespace BillPath.Models
                 throw new ArgumentNullException(nameof(obj));
 
             return (obj.Amount.GetHashCode()
-                    ^ obj.Currency.GetHashCode()
                     ^ obj.DateRealized.GetHashCode()
                     ^ StringComparer.OrdinalIgnoreCase.GetHashCode(obj.Description ?? string.Empty));
         }
@@ -33,7 +32,6 @@ namespace BillPath.Models
         private bool _Equals(Income x, Income y)
         {
             return (x.Amount == y.Amount
-                    && x.Currency == y.Currency
                     && x.DateRealized == y.DateRealized
                     && StringComparer.OrdinalIgnoreCase.Equals(x.Description, y.Description));
         }

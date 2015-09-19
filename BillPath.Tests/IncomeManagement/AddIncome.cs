@@ -30,37 +30,35 @@ namespace BillPath.Tests.IncomeManagement
         {
             await _viewModel.AddIncomeCommand.ExecuteAsync(new Income
             {
-                Amount = amount,
-                Currency = new Currency(new RegionInfo(regionName)),
+                Amount = new Amount(amount, new Currency(new RegionInfo(regionName))),
                 DateRealized = transactionDate,
                 Description = description
             });
         }
 
         [Then(@"there should be a total of (\d+) incomes")]
-        public void ThenIncomeCountIs(int incomeCount)
+        public async Task ThenIncomeCountIs(int incomeCount)
         {
+            await _viewModel.SelectPageCommand.ExecuteAsync(1);
             Assert.AreEqual(incomeCount, _viewModel.SelectedPage.Count());
         }
         [Then(@"the total income in (\w+(?:-\w+)?) currency should be (\d+(?:\.\d+)?)")]
-        public void ThenTotalIncomeAmountIs(string regionName, decimal totalIncomeAmount)
+        public async Task ThenTotalIncomeAmountIs(string regionName, decimal totalIncomeAmount)
         {
+            await _viewModel.LoadPageInfoCommand.ExecuteAsync(null);
+
             var currency = new Currency(new RegionInfo(regionName));
-            var actualTotalIncomeAmount = _viewModel
-                .SelectedPage
-                .Where(income => income?.Currency == currency)
-                .Sum(income => income.Amount);
+            var actualTotalIncomeAmount = _viewModel.TotalAmounts.Single(amount => amount.Currency == currency);
 
             Assert.AreEqual(totalIncomeAmount, actualTotalIncomeAmount);
         }
         [Then(@"the available funds in (\w+(?:-\w+)?) currency should be (\d+(?:\.\d+)?)")]
-        public void ThenTotalAvailableAccountIs(string regionName, decimal totalAvailableAmount)
+        public async Task ThenTotalAvailableAccountIs(string regionName, decimal totalAvailableAmount)
         {
+            await _viewModel.LoadPageInfoCommand.ExecuteAsync(null);
+
             var currency = new Currency(new RegionInfo(regionName));
-            var actualTotalIncomeAmount = _viewModel
-                .SelectedPage
-                .Where(income => income?.Currency == currency)
-                .Sum(income => income.Amount);
+            var actualTotalIncomeAmount = _viewModel.TotalAmounts.Single(amount => amount.Currency == currency);
 
             Assert.AreEqual(totalAvailableAmount, actualTotalIncomeAmount);
         }

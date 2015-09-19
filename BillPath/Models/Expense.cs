@@ -17,7 +17,6 @@ namespace BillPath.Models
         {
             return new Expense
             {
-                Currency = Currency,
                 Description = Description,
                 Amount = Amount,
                 DateRealized = DateRealized,

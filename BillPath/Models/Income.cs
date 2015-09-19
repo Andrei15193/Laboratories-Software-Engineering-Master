@@ -10,7 +10,6 @@ namespace BillPath.Models
         {
             return new Income
             {
-                Currency = Currency,
                 Description = Description,
                 Amount = Amount,
                 DateRealized = DateRealized

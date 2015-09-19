@@ -22,8 +22,7 @@ namespace BillPath.Tests.IncomeManagement
             Income savedIncome = null;
             var income = new Income
             {
-                Amount = 10.1m,
-                Currency = new Currency(new RegionInfo("RO")),
+                Amount = new Amount(10.1m, new Currency(new RegionInfo("RO"))),
                 DateRealized = DateTimeOffset.Now,
                 Description = "test description"
             };
@@ -217,10 +216,11 @@ namespace BillPath.Tests.IncomeManagement
                 .Setup(repository => repository.GetOnPageAsync(It.IsAny<int>(), It.IsAny<CancellationToken>()))
                 .Returns((int pageNumber, CancellationToken cancellationToken) =>
                     {
-                        if (pageNumber < 1 || incomes.Count / 10 < pageNumber)
+                        var pageIndex = pageNumber - 1;
+                        if (pageIndex < 0 || incomes.Count / 10 < pageIndex)
                             throw new ArgumentOutOfRangeException(nameof(pageNumber));
 
-                        return Task.FromResult(incomes.Skip((pageNumber - 1) * 10).Take(10));
+                        return Task.FromResult(incomes.Skip(pageIndex * 10).Take(10));
                     });
             repositoryMock
                 .Setup(repository =>

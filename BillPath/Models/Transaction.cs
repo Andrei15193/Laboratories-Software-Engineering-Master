@@ -9,19 +9,13 @@ namespace BillPath.Models
         where TTransaction : Transaction<TTransaction>
     {
         [DataMember]
-        public Currency Currency
-        {
-            get;
-            set;
-        }
-        [DataMember]
         public string Description
         {
             get;
             set;
         }
         [DataMember]
-        public decimal Amount
+        public Amount Amount
         {
             get;
             set;

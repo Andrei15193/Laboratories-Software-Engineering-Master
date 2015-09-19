@@ -1,24 +1,27 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace BillPath.Models
 {
+    [DataContract]
     public struct Amount
         : IEquatable<Amount>, IComparable<Amount>
     {
+        [DataMember(Name = nameof(Value))]
+        private readonly decimal _value;
+        [DataMember(Name = nameof(Currency))]
+        private readonly Currency _currency;
+
         public Amount(decimal value, Currency currency)
         {
-            Value = value;
-            Currency = currency;
+            _value = value;
+            _currency = currency;
         }
 
         public decimal Value
-        {
-            get;
-        }
+            => _value;
         public Currency Currency
-        {
-            get;
-        }
+            => _currency;
 
         public bool Equals(Amount other)
             => (Value == other.Value && Currency == other.Currency);
