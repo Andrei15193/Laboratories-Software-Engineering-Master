@@ -11,6 +11,14 @@
             x:Key="LocalizationConverter" />
         <converters:IdealReadingColorCoverter
             x:Key="IdealReadingColorCoverter" />
+        <converters:ResourceFormatConverter
+            x:Key="ResourceFormatConverter" />
+        <converters:CommandConverter
+            x:Key="CommandConverter" />
+        <converters:StringToIntConverter
+            x:Key="StringToIntConverter" />
+        <converters:IsMatchConverter
+            x:Key="IsMatchConverter" />
 
         <mocks:IncomeRepository
             x:Key="IncomeRepository"

@@ -21,14 +21,14 @@
                     x:Name="Loading">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames
-                            Storyboard.TargetName="_progressRing"
+                            Storyboard.TargetName="ProgressRing"
                             Storyboard.TargetProperty="IsActive">
                             <DiscreteObjectKeyFrame
                                 Value="True"
                                 KeyTime="0" />
                         </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames
-                            Storyboard.TargetName="_incomesListView"
+                            Storyboard.TargetName="IncomesListView"
                             Storyboard.TargetProperty="IsEnabled">
                             <DiscreteObjectKeyFrame
                                 Value="False"
@@ -40,13 +40,13 @@
         </VisualStateManager.VisualStateGroups>
 
         <ProgressRing
-            x:Name="_progressRing"
+            x:Name="ProgressRing"
             Width="60"
             Height="60"
             IsActive="False">
         </ProgressRing>
         <ListView
-            x:Name="_incomesListView"
+            x:Name="IncomesListView"
             ItemsSource="{Binding SelectedPage}">
             <ListView.Resources>
                 <Style
@@ -59,20 +59,79 @@
                         Value="5,0,5,5" />
                 </Style>
             </ListView.Resources>
-            <ListView.Header>
-                <ListView
-                    SelectionMode="None"
-                    IsItemClickEnabled="True"
-                    ItemClick="_SelectedPage"
-                    ItemsSource="{Binding PageRange}">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel
-                                Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                </ListView>
-            </ListView.Header>
+            <ListView.Footer>
+                <Grid
+                    Height="30"
+                    HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition
+                            Width="10" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        Grid.Row="0"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{Binding SelectedPageNumber, Converter={StaticResource ResourceFormatConverter}, ConverterParameter=IncomesView Page, Mode=OneWay}" />
+                    <Button
+                        Grid.Column="2"
+                        Grid.Row="0"
+                        Style="{StaticResource TextBlockButtonStyle}"
+                        Content="go to">
+                        <Button.Flyout>
+                            <Flyout>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition
+                                            Width="Auto" />
+                                        <ColumnDefinition
+                                            Width="5" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition
+                                            Width="5" />
+                                        <ColumnDefinition
+                                            Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Grid.Row="0"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="Page:" />
+                                    <TextBox
+                                        x:Name="PageNumberTextBox"
+                                        Grid.Column="2"
+                                        Grid.Row="0"
+                                        InputScope="Number"
+                                        Text="{Binding SelectedPageNumber, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                        TextChanged="PageNumberTextChanged"
+                                        KeyDown="PageNumberKeyDown" />
+                                    <Button
+                                        x:Name="SelectPageButton"
+                                        Grid.Column="4"
+                                        Grid.Row="0"
+                                        Content="Go"
+                                        Command="{Binding SelectPageCommand, Converter={StaticResource CommandConverter}}"
+                                        HorizontalAlignment="Right" />
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="5"
+                                        Grid.Row="1"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{Binding PageCount, Converter={StaticResource ResourceFormatConverter}, ConverterParameter=IncomesView PageCount, Mode=OneWay}" />
+                                </Grid>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                </Grid>
+            </ListView.Footer>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid

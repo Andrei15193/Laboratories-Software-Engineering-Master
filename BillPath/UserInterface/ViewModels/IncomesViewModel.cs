@@ -14,9 +14,9 @@ namespace BillPath.UserInterface.ViewModels
         : ViewModel
     {
         private readonly IIncomeRepository _repository;
-        private readonly ObservableCollection<int> _pageRange;
         private IEnumerable<Income> _selectedPage;
         private int? _selectedPageNumber;
+        private int _pageCount;
 
         public IncomesViewModel(IIncomeRepository repository)
         {
@@ -24,7 +24,6 @@ namespace BillPath.UserInterface.ViewModels
                 throw new ArgumentNullException(nameof(repository));
 
             _repository = repository;
-            _pageRange = new ObservableCollection<int>();
             _selectedPage = null;
             _selectedPageNumber = null;
 
@@ -33,37 +32,29 @@ namespace BillPath.UserInterface.ViewModels
             SelectPageCommand = new DelegateAsyncCommand<int>(_SelectPage);
             AddIncomeCommand = new DelegateAsyncCommand<Income>(_AddIncome);
 
-            PageRange = new ReadOnlyObservableCollection<int>(_pageRange);
+            PageCount = 0;
             TotalAmounts = new Amount[0];
         }
 
         private async Task _LoadPageInfo(CancellationToken cancellationToken)
         {
-            var pageCount = await _repository.GetPageCountAsync(cancellationToken);
+            PageCount = await _repository.GetPageCountAsync(cancellationToken);
 
             var amountsByCurrency = new ConcurrentDictionary<Currency, Amount>();
             await Task.WhenAll(
-                from pageNumber in Enumerable.Range(1, pageCount)
+                from pageNumber in Enumerable.Range(1, PageCount)
                 select _repository
                     .GetOnPageAsync(pageNumber, cancellationToken)
                     .ContinueWith(incomesTask =>
                     {
                         foreach (var amount in from income in incomesTask.Result
-                                                     select income.Amount)
+                                               select income.Amount)
                             amountsByCurrency.AddOrUpdate(
                                 amount.Currency,
                                 amount,
                                 (currency, totalAmount) => totalAmount + amount);
                     }));
             TotalAmounts = amountsByCurrency.Values.ToList();
-
-            if (_pageRange.Count != pageCount)
-            {
-                while (_pageRange.Count < pageCount)
-                    _pageRange.Add(_pageRange.Count + 1);
-                while (_pageRange.Count > pageCount)
-                    _pageRange.RemoveAt(_pageRange.Count - 1);
-            }
         }
         private async Task _SelectPage(int pageNumber, CancellationToken cancellationToken)
         {
@@ -76,7 +67,11 @@ namespace BillPath.UserInterface.ViewModels
             await _LoadPageInfo(cancellationToken);
         }
 
-        public IEnumerable<Amount> TotalAmounts { get; private set; }
+        public IEnumerable<Amount> TotalAmounts
+        {
+            get;
+            private set;
+        }
 
         public IEnumerable<Income> SelectedPage
         {
@@ -116,10 +111,21 @@ namespace BillPath.UserInterface.ViewModels
         {
             get;
         }
-
-        public ReadOnlyObservableCollection<int> PageRange
+        
+        public int PageCount
         {
-            get;
+            get
+            {
+                return _pageCount;
+            }
+            set
+            {
+                if (_pageCount != value)
+                {
+                    _pageCount = value;
+                    OnPropertyChanged();
+                }
+            }
         }
     }
 }

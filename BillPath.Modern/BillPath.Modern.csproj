@@ -119,8 +119,12 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converters\ArgbColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\AsyncCommandToCommandConverter.cs" />
+    <Compile Include="Converters\IsMatchConverter.cs" />
     <Compile Include="Converters\ChainedConverter.cs" />
+    <Compile Include="Converters\CommandConverter.cs" />
     <Compile Include="Converters\CurrencyDisplayConverter.cs" />
+    <Compile Include="Converters\StringToIntConverter.cs" />
+    <Compile Include="Converters\ResourceFormatConverter.cs" />
     <Compile Include="Converters\LocalizationConverter.cs" />
     <Compile Include="Converters\PieChartSlicesConverter.cs" />
     <Compile Include="CurrencySettingsFlyout.xaml.cs">
@@ -153,6 +157,8 @@
     </AppxManifest>
     <None Include="BillPath_StoreKey.pfx" />
     <None Include="packages.config" />
+    <PRIResource Include="Strings\ro-RO\IncomesView.resw" />
+    <PRIResource Include="Strings\en\IncomesView.resw" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />

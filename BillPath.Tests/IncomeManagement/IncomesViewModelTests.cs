@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -95,20 +94,20 @@ namespace BillPath.Tests.IncomeManagement
             await viewModel.SelectPageCommand.ExecuteAsync(0);
         }
         [TestMethod]
-        public async Task TestGetPagesRangeHavingNoPages()
+        public async Task TestGetPageCountHavingNoPages()
         {
             var viewModel = new IncomesViewModel(_GetRepositoryMockWithPages());
 
             await viewModel.LoadPageInfoCommand.ExecuteAsync(null);
-            Assert.AreEqual(0, viewModel.PageRange.Count());
+            Assert.AreEqual(0, viewModel.PageCount);
         }
         [TestMethod]
-        public async Task TestGetPagesRangeHavingTwoPages()
+        public async Task TestGetPageCountHavingTwoPages()
         {
             var viewModel = new IncomesViewModel(_GetRepositoryMockWithPages(new Income[0], new Income[0]));
 
             await viewModel.LoadPageInfoCommand.ExecuteAsync(null);
-            Assert.AreEqual(2, viewModel.PageRange.Count());
+            Assert.AreEqual(2, viewModel.PageCount);
         }
 
         [TestMethod]
@@ -167,19 +166,17 @@ namespace BillPath.Tests.IncomeManagement
         }
 
         [TestMethod]
-        public async Task TestFillingIncomesOnTwoPagesRaisesCollectionChangedOnPageRangeAccordingly()
+        public async Task TestFillingIncomesOnTwoPagesRaisesPropertyChangedForPageCountAccordingly()
         {
             var pageCount = 0;
             var viewModel = new IncomesViewModel(_GetRepositoryMockForIncomeSaveTests());
-            ((INotifyCollectionChanged)viewModel.PageRange).CollectionChanged +=
+            viewModel.PropertyChanged +=
                 (sender, e) =>
                 {
-                    if (e.Action == NotifyCollectionChangedAction.Add
-                        && e.NewItems != null
-                        && e.NewItems.Count == 1
-                        && (int)e.NewItems[0] == (pageCount + 1))
+                    if (nameof(IncomesViewModel.PageCount).Equals(e.PropertyName, StringComparison.OrdinalIgnoreCase))
                         pageCount++;
                 };
+
             await viewModel.LoadPageInfoCommand.ExecuteAsync(null);
 
             for (var incomeCount = 0; incomeCount < 11; incomeCount++)
@@ -188,19 +185,17 @@ namespace BillPath.Tests.IncomeManagement
             Assert.AreEqual(2, pageCount);
         }
         [TestMethod]
-        public async Task TestPageRangeRaisesCollectionChangedAccordinglyWhenAddingFirstIncome()
+        public async Task TestPageCountRaisesPropertyChangedAccordinglyWhenAddingFirstIncome()
         {
             var raiseCount = 0;
             var viewModel = new IncomesViewModel(_GetRepositoryMockForIncomeSaveTests());
-            ((INotifyCollectionChanged)viewModel.PageRange).CollectionChanged +=
+            viewModel.PropertyChanged +=
                 (sender, e) =>
                 {
-                    if (e.Action == NotifyCollectionChangedAction.Add
-                        && e.NewItems != null
-                        && e.NewItems.Count == 1
-                        && (int)e.NewItems[0] == 1)
+                    if (nameof(IncomesViewModel.PageCount).Equals(e.PropertyName, StringComparison.OrdinalIgnoreCase))
                         raiseCount++;
                 };
+
             await viewModel.LoadPageInfoCommand.ExecuteAsync(null);
             await viewModel.AddIncomeCommand.ExecuteAsync(new Income());
 

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using BillPath.UserInterface.ViewModels;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace BillPath.Modern
 {
@@ -59,9 +61,28 @@ namespace BillPath.Modern
                 _currentViewState = viewState;
         }
 
-        private async void _SelectedPage(object sender, ItemClickEventArgs e)
+        private void PageNumberTextChanged(object sender, TextChangedEventArgs e)
         {
-            await ((IncomesViewModel)DataContext).SelectPageCommand.ExecuteAsync(e.ClickedItem);
+            int pageNumber;
+            var viewModel = (IncomesViewModel)DataContext;
+
+            if (int.TryParse(PageNumberTextBox.Text, out pageNumber)
+                && 1 <= pageNumber
+                && pageNumber <= viewModel.PageCount)
+            {
+                SelectPageButton.IsEnabled = true;
+                SelectPageButton.CommandParameter = pageNumber;
+            }
+            else
+                SelectPageButton.IsEnabled = false;
+        }
+
+        private void PageNumberKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter
+                && SelectPageButton.IsEnabled
+                && SelectPageButton.Command.CanExecute(SelectPageButton.CommandParameter))
+                SelectPageButton.Command.Execute(SelectPageButton.CommandParameter);
         }
     }
 }
