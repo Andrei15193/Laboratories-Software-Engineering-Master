@@ -2,15 +2,20 @@
     x:Class="BillPath.Modern.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="using:BillPath.Modern.Converters">
+    xmlns:converters="using:BillPath.Modern.Converters"
+    xmlns:mocks="using:BillPath.Modern.Mocks">
     <Application.Resources>
-        <ResourceDictionary>
-            <x:String
-                x:Key="SettingsFileName">Settings.xml</x:String>
-            <converters:LocalizationConverter
-                x:Key="LocalizationConverter" />
-            <converters:IdealReadingColorCoverter
-                x:Key="IdealReadingColorCoverter" />
-        </ResourceDictionary>
+        <x:String
+            x:Key="SettingsFileName">Settings.xml</x:String>
+        <converters:LocalizationConverter
+            x:Key="LocalizationConverter" />
+        <converters:IdealReadingColorCoverter
+            x:Key="IdealReadingColorCoverter" />
+
+        <mocks:IncomeRepository
+            x:Key="IncomeRepository"
+            MillisecondsDelay="1000" />
+        <mocks:IncomesViewModel
+            x:Key="IncomesViewModel" />
     </Application.Resources>
 </Application>

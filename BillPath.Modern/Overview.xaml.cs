@@ -2,10 +2,10 @@
 
 namespace BillPath.Modern
 {
-    public sealed partial class MainPage
-        : Page
+    public sealed partial class Overview
+        : UserControl
     {
-        public MainPage()
+        public Overview()
         {
             InitializeComponent();
         }

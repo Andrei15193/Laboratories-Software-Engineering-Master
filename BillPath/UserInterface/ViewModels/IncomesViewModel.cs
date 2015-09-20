@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -33,11 +34,28 @@ namespace BillPath.UserInterface.ViewModels
             AddIncomeCommand = new DelegateAsyncCommand<Income>(_AddIncome);
 
             PageRange = new ReadOnlyObservableCollection<int>(_pageRange);
+            TotalAmounts = new Amount[0];
         }
 
         private async Task _LoadPageInfo(CancellationToken cancellationToken)
         {
             var pageCount = await _repository.GetPageCountAsync(cancellationToken);
+
+            var amountsByCurrency = new ConcurrentDictionary<Currency, Amount>();
+            await Task.WhenAll(
+                from pageNumber in Enumerable.Range(1, pageCount)
+                select _repository
+                    .GetOnPageAsync(pageNumber, cancellationToken)
+                    .ContinueWith(incomesTask =>
+                    {
+                        foreach (var amount in from income in incomesTask.Result
+                                                     select income.Amount)
+                            amountsByCurrency.AddOrUpdate(
+                                amount.Currency,
+                                amount,
+                                (currency, totalAmount) => totalAmount + amount);
+                    }));
+            TotalAmounts = amountsByCurrency.Values.ToList();
 
             if (_pageRange.Count != pageCount)
             {
@@ -57,6 +75,8 @@ namespace BillPath.UserInterface.ViewModels
             await _repository.SaveAsync(income, cancellationToken);
             await _LoadPageInfo(cancellationToken);
         }
+
+        public IEnumerable<Amount> TotalAmounts { get; private set; }
 
         public IEnumerable<Income> SelectedPage
         {

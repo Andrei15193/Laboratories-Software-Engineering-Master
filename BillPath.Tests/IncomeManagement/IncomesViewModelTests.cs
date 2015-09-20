@@ -237,5 +237,31 @@ namespace BillPath.Tests.IncomeManagement
 
             return repositoryMock.Object;
         }
+
+        [TestMethod]
+        public void TestInitiallyTotalAmountsIsEmpty()
+        {
+            var viewModel = new IncomesViewModel(new Mock<IIncomeRepository>().Object);
+            Assert.IsFalse(viewModel.TotalAmounts.Any());
+        }
+
+        [TestMethod]
+        public async Task TestAddingAnIncomeUpdatesTheTotalAmounts()
+        {
+            var viewModel = new IncomesViewModel(_GetRepositoryMockForIncomeSaveTests());
+
+            await viewModel
+                .AddIncomeCommand
+                .ExecuteAsync(
+                    new Income
+                    {
+                        Amount = new Amount(10.2m, new Currency(new RegionInfo("RO")))
+                    });
+
+            var amount = viewModel.TotalAmounts.Single();
+
+            Assert.AreEqual(new Currency(new RegionInfo("RO")), amount.Currency);
+            Assert.AreEqual(10.2m, amount.Value);
+        }
     }
 }

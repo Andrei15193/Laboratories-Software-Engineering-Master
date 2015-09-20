@@ -20,88 +20,10 @@
         <Hub
             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
             Header="BillPath">
-            <HubSection>
+            <HubSection
+                VerticalContentAlignment="Stretch">
                 <DataTemplate>
-                    <StackPanel>
-                        <ItemsControl>
-                            <ItemsControl.ItemsSource>
-                                <Binding
-                                    Path="CurrencyCategories"
-                                    Mode="OneWay">
-                                    <Binding.Converter>
-                                        <converters:PieChartSlicesConverter />
-                                    </Binding.Converter>
-                                </Binding>
-                            </ItemsControl.ItemsSource>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <Grid
-                                        Width="250"
-                                        Height="250" />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <tk:RingSlice
-                                        Radius="100"
-                                        StartAngle="{Binding Start}"
-                                        EndAngle="{Binding End}"
-                                        Fill="{Binding Color, Converter={StaticResource ArgbColorToSolidColorBrushConverter}}" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-
-                        <ListView
-                            SelectionMode="None"
-                            ItemsSource="{Binding CurrencyCategories}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition
-                                                Width="20" />
-                                            <ColumnDefinition />
-                                        </Grid.ColumnDefinitions>
-
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition
-                                                Height="auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <Grid.Resources>
-                                            <Style
-                                                TargetType="TextBlock"
-                                                BasedOn="{StaticResource CaptionTextBlockStyle}" />
-                                        </Grid.Resources>
-
-                                        <Border
-                                            Grid.Column="0"
-                                            Grid.Row="0"
-                                            Grid.RowSpan="2"
-                                            Background="{Binding Color, Converter={StaticResource ArgbColorToSolidColorBrushConverter}}"
-                                            Width="5" />
-
-                                        <TextBlock
-                                            Grid.Column="1"
-                                            Grid.Row="0"
-                                            Style="{StaticResource SubheaderTextBlockStyle}"
-                                            Text="{Binding Name}" />
-                                        <StackPanel
-                                            Grid.Column="1"
-                                            Grid.Row="1"
-                                            Orientation="Horizontal"
-                                            Margin="0,0,0,10">
-                                            <TextBlock
-                                                Text="{Binding Amount, Mode=OneWay}" />
-                                            <local:CurrencyTextBlock
-                                                Currency="{Binding Currency, Mode=OneWay}" />
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </StackPanel>
+                    <local:Overview MinWidth="400" />
                 </DataTemplate>
             </HubSection>
             <HubSection>
