@@ -35,14 +35,14 @@
                     x:Name="Expenses">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames
-                            Storyboard.TargetName="_expensesButton"
+                            Storyboard.TargetName="ExpensesButton"
                             Storyboard.TargetProperty="BorderBrush">
                             <DiscreteObjectKeyFrame
                                 KeyTime="0"
-                                Value="{ThemeResource HyperlinkForegroundThemeBrush}" />
+                                Value="{ThemeResource ApplicationForegroundThemeBrush}" />
                         </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames
-                            Storyboard.TargetName="_incomesView"
+                            Storyboard.TargetName="IncomesView"
                             Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame
                                 KeyTime="0"
@@ -54,14 +54,14 @@
                     x:Name="Incomes">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames
-                            Storyboard.TargetName="_incomesButton"
+                            Storyboard.TargetName="IncomesButton"
                             Storyboard.TargetProperty="BorderBrush">
                             <DiscreteObjectKeyFrame
                                 KeyTime="0"
-                                Value="{ThemeResource HyperlinkForegroundThemeBrush}" />
+                                Value="{ThemeResource ApplicationForegroundThemeBrush}" />
                         </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames
-                            Storyboard.TargetName="_expensesView"
+                            Storyboard.TargetName="ExpensesView"
                             Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame
                                 KeyTime="0"
@@ -73,10 +73,11 @@
         </VisualStateManager.VisualStateGroups>
         <StackPanel
             Grid.Row="0"
-            Orientation="Horizontal">
+            Orientation="Horizontal"
+            Margin="0,0,0,10">
             <StackPanel.Resources>
                 <Style
-                    TargetType="HyperlinkButton">
+                    TargetType="Button">
                     <Setter
                         Property="BorderBrush"
                         Value="Transparent" />
@@ -91,13 +92,13 @@
                         Value="0" />
                 </Style>
             </StackPanel.Resources>
-            <HyperlinkButton
-                x:Name="_expensesButton"
+            <Button
+                x:Name="ExpensesButton"
                 Command="{StaticResource GoToStateCommand}"
                 CommandParameter="Expenses"
                 Content="Expenses" />
-            <HyperlinkButton
-                x:Name="_incomesButton"
+            <Button
+                x:Name="IncomesButton"
                 Command="{StaticResource GoToStateCommand}"
                 CommandParameter="Incomes"
                 Content="Incomes" />
@@ -105,7 +106,7 @@
         <Grid
             Grid.Row="1">
             <StackPanel
-                x:Name="_expensesView">
+                x:Name="ExpensesView">
                 <ItemsControl>
                     <ItemsControl.ItemsSource>
                         <Binding
@@ -186,7 +187,7 @@
                 </ListView>
             </StackPanel>
             <local:IncomesView
-                x:Name="_incomesView" />
+                x:Name="IncomesView" />
         </Grid>
     </Grid>
 </UserControl>
