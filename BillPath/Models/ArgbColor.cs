@@ -7,37 +7,50 @@ namespace BillPath.Models
     public struct ArgbColor
         : IEquatable<ArgbColor>
     {
+        [DataMember(Name = nameof(Alpha))]
+        private readonly byte _alpha;
+        [DataMember(Name = nameof(Red))]
+        private readonly byte _red;
+        [DataMember(Name = nameof(Green))]
+        private readonly byte _green;
+        [DataMember(Name = nameof(Blue))]
+        private readonly byte _blue;
+
         public ArgbColor(byte alpha, byte red, byte green, byte blue)
         {
-            Alpha = alpha;
-            Red = red;
-            Green = green;
-            Blue = blue;
+            _alpha = alpha;
+            _red = red;
+            _green = green;
+            _blue = blue;
         }
 
-        [DataMember]
         public byte Alpha
         {
-            get;
-            private set;
+            get
+            {
+                return _alpha;
+            }
         }
-        [DataMember]
         public byte Red
         {
-            get;
-            private set;
+            get
+            {
+                return _red;
+            }
         }
-        [DataMember]
         public byte Green
         {
-            get;
-            private set;
+            get
+            {
+                return _green;
+            }
         }
-        [DataMember]
         public byte Blue
         {
-            get;
-            private set;
+            get
+            {
+                return _blue;
+            }
         }
 
         public static bool operator ==(ArgbColor left, ArgbColor right)
