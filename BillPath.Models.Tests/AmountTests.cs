@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Globalization;
-using BillPath.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BillPath.Tests.Model
+namespace BillPath.Models.Tests
 {
     [TestClass]
     public class AmountTests
