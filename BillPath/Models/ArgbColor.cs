@@ -25,65 +25,36 @@ namespace BillPath.Models
         }
 
         public byte Alpha
-        {
-            get
-            {
-                return _alpha;
-            }
-        }
+            => _alpha;
         public byte Red
-        {
-            get
-            {
-                return _red;
-            }
-        }
+            => _red;
         public byte Green
-        {
-            get
-            {
-                return _green;
-            }
-        }
+            => _green;
         public byte Blue
-        {
-            get
-            {
-                return _blue;
-            }
-        }
+            => _blue;
 
-        public static bool operator ==(ArgbColor left, ArgbColor right)
-        {
-            return left.Equals(right);
-        }
-        public static bool operator !=(ArgbColor left, ArgbColor right)
-        {
-            return !left.Equals(right);
-        }
         public bool Equals(ArgbColor other)
-        {
-            return Alpha == other.Alpha
-                   && Red == other.Red
-                   && Green == other.Green
-                   && Blue == other.Blue;
-        }
+            => Alpha == other.Alpha
+               && Red == other.Red
+               && Green == other.Green
+               && Blue == other.Blue;
         public override bool Equals(object obj)
         {
             var argbColor = obj as ArgbColor?;
             return argbColor != null && Equals(argbColor.Value);
         }
         public override int GetHashCode()
-        {
-            return Alpha.GetHashCode()
-                   ^ Red.GetHashCode()
-                   ^ Green.GetHashCode()
-                   ^ Blue.GetHashCode();
-        }
+            => Alpha.GetHashCode()
+               ^ Red.GetHashCode()
+               ^ Green.GetHashCode()
+               ^ Blue.GetHashCode();
+
+        public static bool operator ==(ArgbColor left, ArgbColor right)
+            => left.Equals(right);
+        public static bool operator !=(ArgbColor left, ArgbColor right)
+            => !left.Equals(right);
 
         public override string ToString()
-        {
-            return $"{{{nameof(Alpha)} = {Alpha}, {nameof(Red)} = {Red}, {nameof(Green)} = {Green}, {nameof(Blue)} = {Blue}}}";
-        }
+            => $"{{{nameof(Alpha)} = {Alpha}, {nameof(Red)} = {Red}, {nameof(Green)} = {Green}, {nameof(Blue)} = {Blue}}}";
     }
 }
