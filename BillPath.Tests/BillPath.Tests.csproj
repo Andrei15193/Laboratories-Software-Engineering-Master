@@ -78,6 +78,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SetPreferredCurrency.feature</DependentUpon>
     </Compile>
+    <Compile Include="DelegateAsyncCommandTests.cs" />
+    <Compile Include="DelegateCommandTests.cs" />
     <Compile Include="IncomeEqualityComparerTests.cs" />
     <Compile Include="IncomeManagement\AddIncome.cs" />
     <Compile Include="IncomeManagement\AddIncome.feature.cs">

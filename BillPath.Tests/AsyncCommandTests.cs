@@ -171,6 +171,23 @@ namespace BillPath.Tests
         }
 
         [TestMethod]
+        public async Task TestCanceledAsyncCommandTransitionsTaskIntoCanceledState()
+        {
+            using (var resumeEvent = new ManualResetEventSlim(false))
+            {
+                var asyncCommand = new WaitForResumeEventAsyncCommand(resumeEvent);
+
+                var executeTask = asyncCommand.ExecuteAsync(null);
+
+                Assert.IsFalse(asyncCommand.Canceling);
+                asyncCommand.CancelCommand.Execute(null);
+                Assert.IsTrue(asyncCommand.Canceling);
+
+                await executeTask.ContinueWith(task => Assert.IsTrue(task.IsCanceled));
+            }
+        }
+
+        [TestMethod]
         public void TestCannotCallCancelIfAsyncCommandIsNotExecuting()
         {
             var asyncCommand = new PropertyChangedLoggingAsyncCommand();
