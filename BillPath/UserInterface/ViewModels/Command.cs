@@ -42,7 +42,10 @@ namespace BillPath.UserInterface.ViewModels
     {
         protected sealed override void OnExecute(object parameter)
         {
-            OnExecute((TParameter)parameter);
+            if (parameter is TParameter)
+                OnExecute((TParameter)parameter);
+            else
+                OnExecute(Convert.ChangeType(parameter, typeof(TParameter)));
         }
         protected abstract void OnExecute(TParameter parameter);
     }

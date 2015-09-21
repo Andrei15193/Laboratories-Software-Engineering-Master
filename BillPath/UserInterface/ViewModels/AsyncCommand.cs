@@ -12,7 +12,7 @@ namespace BillPath.UserInterface.ViewModels
             : Command
         {
             private readonly AsyncCommand _asyncCommand;
-            
+
             internal CancelAsyncCommand(AsyncCommand asyncCommand)
             {
                 if (asyncCommand == null)
@@ -136,7 +136,10 @@ namespace BillPath.UserInterface.ViewModels
     {
         protected sealed override Task OnExecuteAsync(object parameter)
         {
-            return OnExecuteAsync((TParameter)parameter);
+            if (parameter is TParameter)
+                return OnExecuteAsync((TParameter)parameter);
+            else
+                return OnExecuteAsync(Convert.ChangeType(parameter, typeof(TParameter)));
         }
         protected abstract Task OnExecuteAsync(TParameter parameter);
     }

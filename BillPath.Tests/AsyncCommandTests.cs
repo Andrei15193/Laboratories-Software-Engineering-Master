@@ -207,5 +207,66 @@ namespace BillPath.Tests
                 Assert.IsFalse(asyncCommand.CancelCommand.CanExecute);
             }
         }
+
+        [TestMethod]
+        public async Task TestStronglyTypedParameterAsyncCommandConvertsStringOfNumericValueToIntImplicitly()
+        {
+            var value = 10;
+            var asyncCommand = new AssertEqualsIntAsyncCommand(value);
+
+            await asyncCommand.ExecuteAsync(value.ToString());
+        }
+        [TestMethod]
+        public async Task TestStronglyTypedParameterAsyncCommandWorksWithParameterOfSameType()
+        {
+            var value = 10;
+            var asyncCommand = new AssertEqualsIntAsyncCommand(value);
+
+            await asyncCommand.ExecuteAsync(value);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public async Task TestStronglyTypedIntParameterAsyncCommandFailsWhenTryingtoCastNonNumericValue()
+        {
+            var asyncCommand = new AssertEqualsIntAsyncCommand(10);
+
+            await asyncCommand.ExecuteAsync("abc");
+        }
+        [TestMethod]
+        [ExpectedException(typeof(InvalidCastException))]
+        public async Task TestStronglyTypedAsyncComandFailsWhenParameterTypeIsNotConvertibleAndMismatches()
+        {
+            var asyncCommand = new NonConvertibleParameterAsyncCommand();
+
+            await asyncCommand.ExecuteAsync(string.Empty);
+        }
+        private sealed class AssertEqualsIntAsyncCommand
+            : AsyncCommand<int>
+        {
+            private readonly int _valueToCompare;
+
+            public AssertEqualsIntAsyncCommand(int valueToCompare)
+            {
+                _valueToCompare = valueToCompare;
+            }
+
+            protected override Task OnExecuteAsync(int parameter)
+            {
+                Assert.AreEqual(_valueToCompare, parameter);
+                return Task.FromResult(default(object));
+            }
+        }
+        private sealed class NonConvertibleParameterAsyncCommand
+            : AsyncCommand<NonConvertibleParameterAsyncCommand.ParameterType>
+        {
+            public class ParameterType
+            {
+            }
+
+            protected override Task OnExecuteAsync(ParameterType parameter)
+            {
+                return Task.FromResult(default(object));
+            }
+        }
     }
 }

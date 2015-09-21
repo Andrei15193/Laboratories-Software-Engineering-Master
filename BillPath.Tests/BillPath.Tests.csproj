@@ -64,6 +64,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AsyncCommandTests.cs" />
+    <Compile Include="CommandTests.cs" />
     <Compile Include="CurrencyManagement\SetCurrencyDisplayFormat.cs" />
     <Compile Include="CurrencyManagement\SetCurrencyDisplayFormat.feature.cs">
       <AutoGen>True</AutoGen>

@@ -86,5 +86,64 @@ namespace BillPath.Tests
             Assert.AreEqual(1, command.PropertyChanges.Count);
             Assert.AreEqual(nameof(Command.CanExecute), command.PropertyChanges[0]);
         }
+
+        [TestMethod]
+        public void TestStronglyTypedParameterAsyncCommandConvertsStringOfNumericValueToIntImplicitly()
+        {
+            var value = 10;
+            var command = new AssertEqualsIntCommand(value);
+
+            command.Execute(value.ToString());
+        }
+        [TestMethod]
+        public void TestStronglyTypedParameterAsyncCommandWorksWithParameterOfSameType()
+        {
+            var value = 10;
+            var command = new AssertEqualsIntCommand(value);
+
+            command.Execute(value);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(FormatException))]
+        public void TestStronglyTypedIntParameterAsyncCommandFailsWhenTryingtoCastNonNumericValue()
+        {
+            var command = new AssertEqualsIntCommand(10);
+
+            command.Execute("abc");
+        }
+        [TestMethod]
+        [ExpectedException(typeof(InvalidCastException))]
+        public void TestStronglyTypedAsyncComandFailsWhenParameterTypeIsNotConvertibleAndMismatches()
+        {
+            var command = new NonConvertibleParameterCommand();
+
+            command.Execute(string.Empty);
+        }
+        private sealed class AssertEqualsIntCommand
+            : Command<int>
+        {
+            private readonly int _valueToCompare;
+
+            public AssertEqualsIntCommand(int valueToCompare)
+            {
+                _valueToCompare = valueToCompare;
+            }
+
+            protected override void OnExecute(int parameter)
+            {
+                Assert.AreEqual(_valueToCompare, parameter);
+            }
+        }
+        private sealed class NonConvertibleParameterCommand
+            : Command<NonConvertibleParameterCommand.ParameterType>
+        {
+            public class ParameterType
+            {
+            }
+
+            protected override void OnExecute(ParameterType parameter)
+            {
+            }
+        }
     }
 }
