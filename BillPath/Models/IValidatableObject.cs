@@ -1,4 +1,4 @@
-﻿#if WINDOWS_APP
+﻿#if NETFX_CORE
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
