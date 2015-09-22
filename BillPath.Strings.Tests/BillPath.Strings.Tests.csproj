@@ -6,17 +6,17 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5AA09DCE-F49D-4829-A6AA-DE2974B8F69D}</ProjectGuid>
+    <ProjectGuid>{F079F888-5E8B-4391-B105-69994CCFFECE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BillPath.Moden.Tests</RootNamespace>
-    <AssemblyName>BillPath.Moden.Tests</AssemblyName>
+    <RootNamespace>BillPath.Strings.Tests</RootNamespace>
+    <AssemblyName>BillPath.Strings.Tests</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>BillPath.Moden.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>BillPath.Strings.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxBundle>Never</AppxBundle>
     <AllowCrossPlatformRetargeting>False</AllowCrossPlatformRetargeting>
   </PropertyGroup>
@@ -121,7 +121,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="BillPath.Moden.Tests_TemporaryKey.pfx" />
+    <None Include="BillPath.Strings.Tests_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\UnitTestLogo.scale-100.png">
@@ -136,12 +136,6 @@
     <Content Include="Images\UnitTestStoreLogo.scale-100.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BillPath.Modern\BillPath.Modern.csproj">
-      <Project>{3911cb56-0c7b-432f-a220-74b9c63dc1d2}</Project>
-      <Name>BillPath.Modern</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
