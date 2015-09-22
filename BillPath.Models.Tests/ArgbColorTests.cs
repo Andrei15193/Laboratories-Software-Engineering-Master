@@ -43,7 +43,11 @@ namespace BillPath.Models.Tests
             var argbColor2 = new ArgbColor(alpha, red, green, blue);
 
             Assert.AreEqual(argbColor1, argbColor2);
+            Assert.IsTrue(argbColor1.Equals(argbColor2));
+
             Assert.IsTrue(argbColor1 == argbColor2);
+            Assert.IsFalse(argbColor1 != argbColor2);
+
             Assert.AreEqual(argbColor1.GetHashCode(), argbColor2.GetHashCode());
         }
         [TestMethod]
@@ -56,6 +60,9 @@ namespace BillPath.Models.Tests
             var argbColor2 = new ArgbColor(2, red, green, blue);
 
             Assert.AreNotEqual(argbColor1, argbColor2);
+            Assert.IsFalse(argbColor1.Equals(argbColor2));
+
+            Assert.IsFalse(argbColor1 == argbColor2);
             Assert.IsTrue(argbColor1 != argbColor2);
         }
         [TestMethod]
