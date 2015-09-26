@@ -58,6 +58,9 @@
   <ItemGroup>
     <Compile Include="AmountTests.cs" />
     <Compile Include="ArgbColorTests.cs" />
+    <Compile Include="CurrencyIsoCodeOnlyFormatterTests.cs" />
+    <Compile Include="CurrencySymbolOnlyFormatterTests.cs" />
+    <Compile Include="CurrencySynmbolAndIsoCodeFormatterTests.cs" />
     <Compile Include="CurrencyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -5,7 +5,7 @@
     {
         public string Format(Currency currency)
         {
-            return currency.IsoCode;
+            return currency.IsoCode ?? string.Empty;
         }
     }
 }

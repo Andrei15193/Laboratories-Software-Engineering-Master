@@ -5,7 +5,10 @@
     {
         public string Format(Currency currency)
         {
-            return $"{currency.Symbol}({currency.IsoCode})";
+            if (currency == default(Currency))
+                return string.Empty;
+            else
+                return $"{currency.Symbol}({currency.IsoCode})";
         }
     }
 }

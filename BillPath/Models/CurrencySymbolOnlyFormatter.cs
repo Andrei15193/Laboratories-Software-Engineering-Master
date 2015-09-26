@@ -5,7 +5,7 @@
     {
         public string Format(Currency currency)
         {
-            return currency.Symbol;
+            return currency.Symbol ?? string.Empty;
         }
     }
 }
