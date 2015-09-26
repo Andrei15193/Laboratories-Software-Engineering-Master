@@ -1,5 +1,4 @@
-﻿#if NETFX_CORE
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BillPath.Models
@@ -12,4 +11,3 @@ namespace BillPath.Models
         IEnumerable<ValidationResult> Validate(ValidationContext validationContext);
     }
 }
-#endif

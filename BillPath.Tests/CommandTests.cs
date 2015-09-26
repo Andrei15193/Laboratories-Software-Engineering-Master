@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using BillPath.UserInterface.ViewModels;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace BillPath.Tests
 {
@@ -62,11 +62,10 @@ namespace BillPath.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
         public void TestCannotExecuteCommandIfCanExecuteIsFalse()
         {
-            var command = new CannotExecuteCommand();
-            command.Execute(null);
+            Assert.ThrowsException<InvalidOperationException>(
+                () => new CannotExecuteCommand().Execute(null));
         }
 
         [TestMethod]
@@ -104,20 +103,16 @@ namespace BillPath.Tests
             command.Execute(value);
         }
         [TestMethod]
-        [ExpectedException(typeof(FormatException))]
         public void TestStronglyTypedIntParameterAsyncCommandFailsWhenTryingtoCastNonNumericValue()
         {
-            var command = new AssertEqualsIntCommand(10);
-
-            command.Execute("abc");
+            Assert.ThrowsException<FormatException>(
+                () => new AssertEqualsIntCommand(10).Execute("abc"));
         }
         [TestMethod]
-        [ExpectedException(typeof(InvalidCastException))]
         public void TestStronglyTypedAsyncComandFailsWhenParameterTypeIsNotConvertibleAndMismatches()
         {
-            var command = new NonConvertibleParameterCommand();
-
-            command.Execute(string.Empty);
+            Assert.ThrowsException<InvalidCastException>(
+                () => new NonConvertibleParameterCommand().Execute(string.Empty));
         }
         private sealed class AssertEqualsIntCommand
             : Command<int>

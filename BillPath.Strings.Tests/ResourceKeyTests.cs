@@ -15,11 +15,13 @@ namespace BillPath.Strings.Tests
         public void TestResourceKeyIsDefinedForAllLanguages()
         {
             var languagesByModelResourceKeys =
-                (from modelType in GetType().GetTypeInfo().Assembly.DefinedTypes
+                (from modelType in typeof(Models.Expense).GetTypeInfo().Assembly.DefinedTypes
                  where !string.IsNullOrWhiteSpace(modelType.Namespace)
                        && modelType.Namespace.EndsWith(".Models")
                  from modelResourcePair in ResourceManager.Current.MainResourceMap
-                 where modelResourcePair.Key.StartsWith(modelType.Name)
+                 where modelResourcePair
+                    .Key
+                    .StartsWith($"{typeof(Models.Expense).GetTypeInfo().Assembly.GetName().Name}/{modelType.Name}")
                  from modelResourceCandidate in modelResourcePair.Value.Candidates
                  let modelResourceLanguages =
                      from modelResourceCandidateQualifier in modelResourceCandidate.Qualifiers

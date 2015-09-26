@@ -9,8 +9,8 @@ namespace BillPath.Models
     {
         [DataMember]
         [Required(
-            //ErrorMessageResourceName = nameof(Name) + "/Required",
-            //ErrorMessageResourceType = typeof(Strings.ExpenseCategory)
+            ErrorMessageResourceName = nameof(Name) + "_Required",
+            ErrorMessageResourceType = typeof(Strings.ExpenseCategory)
             )]
         public string Name
         {

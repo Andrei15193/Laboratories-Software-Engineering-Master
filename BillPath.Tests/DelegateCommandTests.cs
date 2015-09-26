@@ -1,6 +1,6 @@
 ﻿using System;
 using BillPath.UserInterface.ViewModels;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace BillPath.Tests
 {
@@ -8,10 +8,10 @@ namespace BillPath.Tests
     public class DelegateCommandTests
     {
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestCannotCreateDelegateAsyncCommandWithNullCallback()
         {
-            new DelegateCommand(null);
+            Assert.ThrowsException<ArgumentNullException>(
+                () => new DelegateCommand(null));
         }
 
         [TestMethod]

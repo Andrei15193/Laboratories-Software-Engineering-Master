@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using BillPath.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace BillPath.Tests
 {
@@ -168,10 +168,10 @@ namespace BillPath.Tests
                 IncomeEqualityComparer.Instance.GetHashCode(income));
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void TestGetHashCodeThrowsArgumentNullException()
         {
-            IncomeEqualityComparer.Instance.GetHashCode(null);
+            Assert.ThrowsException<ArgumentNullException>(
+                () => IncomeEqualityComparer.Instance.GetHashCode(null));
         }
         [TestMethod]
         public void TestGetHashCodeDoesNotThrowExceptionForIncomeWithNullDescription()

@@ -1,26 +1,34 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using BillPath.DataAccess.Xml;
+using Windows.Storage;
 
 namespace BillPath.Tests
 {
     public sealed class OsFileProvider
         : FileProvider
     {
-        public override Task<bool> FileExistsAsync(string fileName, CancellationToken cancellationToken)
+        public override async Task<bool> FileExistsAsync(string fileName, CancellationToken cancellationToken)
         {
-            return Task.FromResult(File.Exists(fileName));
+            var file = await _GetStorageFileAsync(fileName, cancellationToken);
+            return file.IsAvailable;
         }
 
-        public override Task<Stream> GetReadStreamForAsync(string fileName, CancellationToken cancellationToken)
+        public override async Task<Stream> GetReadStreamForAsync(string fileName, CancellationToken cancellationToken)
         {
-            return Task.FromResult<Stream>(new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read));
+            var file = await _GetStorageFileAsync(fileName, cancellationToken);
+            return await file.OpenStreamForReadAsync();
         }
 
-        public override Task<Stream> GetWriteStreamForAsync(string fileName, CancellationToken cancellationToken)
+        public override async Task<Stream> GetWriteStreamForAsync(string fileName, CancellationToken cancellationToken)
         {
-            return Task.FromResult<Stream>(new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.None));
+            var storageFile = await _GetStorageFileAsync(fileName, cancellationToken);
+            return await storageFile.OpenStreamForWriteAsync();
         }
+
+        private static Task<StorageFile> _GetStorageFileAsync(string fileName, CancellationToken cancellationToken)
+            => ApplicationData.Current.LocalFolder.GetFileAsync(fileName).AsTask(cancellationToken);
     }
 }
