@@ -54,8 +54,10 @@
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Amount.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\CurrencyDisplayFormat.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en\Settings.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\ExpenseCategory.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\ro-RO\Amount.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\ro-RO\CurrencyDisplayFormat.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\ro-RO\ExpenseCategory.resw" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\ro-RO\Settings.resw" />
   </ItemGroup>
 </Project>

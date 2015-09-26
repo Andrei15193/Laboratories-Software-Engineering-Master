@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace BillPath.Models
 {
@@ -7,13 +8,17 @@ namespace BillPath.Models
         : ICloneable<ExpenseCategory>
     {
         [DataMember]
+        [Required(
+            //ErrorMessageResourceName = nameof(Name) + "/Required",
+            //ErrorMessageResourceType = typeof(Strings.ExpenseCategory)
+            )]
         public string Name
         {
             get;
             set;
         }
         [DataMember]
-        public ArgbColor RgbColor
+        public ArgbColor Color
         {
             get;
             set;
@@ -21,11 +26,7 @@ namespace BillPath.Models
 
         public ExpenseCategory Clone()
         {
-            return new ExpenseCategory
-            {
-                Name = Name,
-                RgbColor = RgbColor
-            };
+            return (ExpenseCategory)MemberwiseClone();
         }
     }
 }
