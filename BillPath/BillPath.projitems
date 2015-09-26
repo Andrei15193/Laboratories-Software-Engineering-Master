@@ -36,6 +36,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Income.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IncomeEqualityComparer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IValidatableObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ModelValidator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Settings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Transaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
