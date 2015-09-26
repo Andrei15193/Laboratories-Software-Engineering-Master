@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace BillPath.Models.Tests
 {
@@ -12,8 +12,8 @@ namespace BillPath.Models.Tests
         [TestMethod]
         public void TestCreateCurrency()
         {
-            foreach (var regionInfo in from culture in CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-                                       select new RegionInfo(culture.LCID))
+            foreach (var regionInfo in from regionName in new[] { "en-US", "en-AU", "en-GB", "ro-RO" }
+                                       select new RegionInfo(regionName))
             {
                 var currency = new Currency(regionInfo);
 

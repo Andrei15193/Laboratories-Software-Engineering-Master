@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace BillPath.Models.Tests
 {

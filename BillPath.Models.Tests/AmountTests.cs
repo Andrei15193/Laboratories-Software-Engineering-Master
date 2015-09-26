@@ -1,140 +1,144 @@
 ﻿using System;
 using System.Globalization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace BillPath.Models.Tests
 {
     [TestClass]
     public class AmountTests
     {
-        private enum Relationship
+        public enum Relationship
         {
-            Equal = 1,
+            Equal = 0,
             LessThan,
             GreaterThan
         }
 
-        public TestContext TestContext
+        [DataTestMethod]
+        [DataRow(1, 1, 2)]
+        [DataRow(2, 2, 4)]
+        [DataRow(1, 2, 3)]
+        [DataRow(2, 1, 3)]
+        public void TestAddition(double first, double second, double expected)
         {
-            get;
-            set;
-        }
+            var result = new Amount((decimal)first, default(Currency)) + new Amount((decimal)second, default(Currency));
 
-        [TestMethod]
-        [DataSource("AmountTests")]
-        [DeploymentItem(@"Model\AmountTests.xml", "Model")]
-        public void TestAddingTwoAmountsInSameCurrency()
-        {
-            var first = (decimal)TestContext.DataRow["first"];
-            var second = (decimal)TestContext.DataRow["second"];
-            var sum = (decimal)TestContext.DataRow["sum"];
-            var result = (new Amount(first, default(Currency)) + new Amount(second, default(Currency))).Value;
-
-            Assert.AreEqual(sum, result);
+            Assert.AreEqual((decimal)expected, result.Value);
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestAddingTwoAmountsInDifferentCurrencies()
         {
-            var result = new Amount(12, new Currency(new RegionInfo("RO")))
-                + new Amount(10, new Currency(new RegionInfo("GB")));
+            Assert.ThrowsException<ArgumentException>(
+                () =>
+                {
+                    var result = new Amount(12, new Currency(new RegionInfo("RO")))
+                        + new Amount(10, new Currency(new RegionInfo("GB")));
+                });
         }
 
-        [TestMethod]
-        [DataSource("AmountTests")]
-        [DeploymentItem(@"Model\AmountTests.xml", "Model")]
-        public void TestSubtractingTwoAmountsInSameCurrency()
+        [DataTestMethod]
+        [DataRow(1, 1, 0)]
+        [DataRow(2, 2, 0)]
+        [DataRow(1, 2, -1)]
+        [DataRow(2, 1, 1)]
+        public void TestSubtraction(double first, double second, double expected)
         {
-            var first = (decimal)TestContext.DataRow["first"];
-            var second = (decimal)TestContext.DataRow["second"];
-            var difference = (decimal)TestContext.DataRow["difference"];
-            var result = (new Amount(first, default(Currency)) - new Amount(second, default(Currency))).Value;
+            var result = new Amount((decimal)first, default(Currency)) - new Amount((decimal)second, default(Currency));
 
-            Assert.AreEqual(difference, result);
+            Assert.AreEqual((decimal)expected, result.Value);
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestSubtractingTwoAmountsInDifferentCurrencies()
         {
-            var result = new Amount(12, new Currency(new RegionInfo("RO")))
-               - new Amount(10, new Currency(new RegionInfo("GB")));
+            Assert.ThrowsException<ArgumentException>(
+                () =>
+                {
+                    var result = new Amount(12, new Currency(new RegionInfo("RO")))
+                       - new Amount(10, new Currency(new RegionInfo("GB")));
+                });
         }
 
-        [TestMethod]
-        [DataSource("AmountTests")]
-        [DeploymentItem(@"Model\AmountTests.xml", "Model")]
-        public void TestMultiplyingTwoAmountsInSameCurrency()
+        [DataTestMethod]
+        [DataRow(1, 1, 1)]
+        [DataRow(2, 2, 4)]
+        [DataRow(1, 2, 2)]
+        [DataRow(2, 1, 2)]
+        public void TestMultiplication(double first, double second, double expected)
         {
-            var first = (decimal)TestContext.DataRow["first"];
-            var second = (decimal)TestContext.DataRow["second"];
-            var product = (decimal)TestContext.DataRow["product"];
-            var result = (new Amount(first, default(Currency)) * new Amount(second, default(Currency))).Value;
+            var result = new Amount((decimal)first, default(Currency)) * new Amount((decimal)second, default(Currency));
 
-            Assert.AreEqual(product, result);
+            Assert.AreEqual((decimal)expected, result.Value);
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestMultiplyingTwoAmountsInDifferentCurrencies()
         {
-            var result = new Amount(12, new Currency(new RegionInfo("RO")))
-               * new Amount(10, new Currency(new RegionInfo("GB")));
+            Assert.ThrowsException<ArgumentException>(
+                () =>
+                {
+                    var result = new Amount(12, new Currency(new RegionInfo("RO")))
+                       * new Amount(10, new Currency(new RegionInfo("GB")));
+                });
         }
 
-        [TestMethod]
-        [DataSource("AmountTests")]
-        [DeploymentItem(@"Model\AmountTests.xml", "Model")]
-        public void TestDividingTwoAmountsInSameCurrency()
+        [DataTestMethod]
+        [DataRow(1, 1, 1)]
+        [DataRow(2, 2, 1)]
+        [DataRow(1, 2, 0.5)]
+        [DataRow(2, 1, 2)]
+        public void TestDivision(double first, double second, double expected)
         {
-            var first = (decimal)TestContext.DataRow["first"];
-            var second = (decimal)TestContext.DataRow["second"];
-            var quotient = (decimal)TestContext.DataRow["quotient"];
-            var result = (new Amount(first, default(Currency)) / new Amount(second, default(Currency))).Value;
+            var result = new Amount((decimal)first, default(Currency)) / new Amount((decimal)second, default(Currency));
 
-            Assert.AreEqual(quotient, result);
+            Assert.AreEqual((decimal)expected, result.Value);
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestDividingTwoAmountsInDifferentCurrencies()
         {
-            var result = new Amount(12, new Currency(new RegionInfo("RO")))
-               / new Amount(10, new Currency(new RegionInfo("GB")));
+            Assert.ThrowsException<ArgumentException>(
+                () =>
+                {
+                    var result = new Amount(12, new Currency(new RegionInfo("RO")))
+                       / new Amount(10, new Currency(new RegionInfo("GB")));
+                });
         }
 
-        [TestMethod]
-        [DataSource("AmountTests")]
-        [DeploymentItem(@"Model\AmountTests.xml", "Model")]
-        public void TestRelationshipInSameCurrency()
+        [DataTestMethod]
+        [DataRow(1, 1, Relationship.Equal)]
+        [DataRow(2, 2, Relationship.Equal)]
+        [DataRow(1, 2, Relationship.LessThan)]
+        [DataRow(2, 1, Relationship.GreaterThan)]
+        public void TestRelationship(double first, double second, Relationship relationship)
         {
-            var first = new Amount((decimal)TestContext.DataRow["first"], default(Currency));
-            var second = new Amount((decimal)TestContext.DataRow["second"], default(Currency));
+            var left = new Amount((decimal)first, default(Currency));
+            var right = new Amount((decimal)second, default(Currency));
 
-            switch (_GetRelationship())
+            switch (relationship)
             {
                 case Relationship.LessThan:
-                    Assert.IsTrue(first < second, $"{first.Value} < {second.Value}");
-                    Assert.IsTrue(first <= second, $"{first.Value} <= {second.Value}");
-                    Assert.IsFalse(first == second, $"{first.Value} == {second.Value}");
-                    Assert.IsTrue(first != second, $"{first.Value} != {second.Value}");
-                    Assert.IsFalse(first >= second, $"{first.Value} >= {second.Value}");
-                    Assert.IsFalse(first > second, $"{first.Value} > {second.Value}");
+                    Assert.IsTrue(left < right, $"{left.Value} < {right.Value}");
+                    Assert.IsTrue(left <= right, $"{left.Value} <= {right.Value}");
+                    Assert.IsFalse(left == right, $"{left.Value} == {right.Value}");
+                    Assert.IsTrue(left != right, $"{left.Value} != {right.Value}");
+                    Assert.IsFalse(left >= right, $"{left.Value} >= {right.Value}");
+                    Assert.IsFalse(left > right, $"{left.Value} > {right.Value}");
                     break;
 
                 case Relationship.Equal:
-                    Assert.IsFalse(first < second, $"{first.Value} < {second.Value}");
-                    Assert.IsTrue(first <= second, $"{first.Value} <= {second.Value}");
-                    Assert.IsTrue(first == second, $"{first.Value} == {second.Value}");
-                    Assert.IsFalse(first != second, $"{first.Value} != {second.Value}");
-                    Assert.IsTrue(first >= second, $"{first.Value} >= {second.Value}");
-                    Assert.IsFalse(first > second, $"{first.Value} > {second.Value}");
+                    Assert.IsFalse(left < right, $"{left.Value} < {right.Value}");
+                    Assert.IsTrue(left <= right, $"{left.Value} <= {right.Value}");
+                    Assert.IsTrue(left == right, $"{left.Value} == {right.Value}");
+                    Assert.IsFalse(left != right, $"{left.Value} != {right.Value}");
+                    Assert.IsTrue(left >= right, $"{left.Value} >= {right.Value}");
+                    Assert.IsFalse(left > right, $"{left.Value} > {right.Value}");
                     break;
 
                 case Relationship.GreaterThan:
-                    Assert.IsFalse(first < second, $"{first.Value} < {second.Value}");
-                    Assert.IsFalse(first <= second, $"{first.Value} <= {second.Value}");
-                    Assert.IsFalse(first == second, $"{first.Value} == {second.Value}");
-                    Assert.IsTrue(first != second, $"{first.Value} != {second.Value}");
-                    Assert.IsTrue(first >= second, $"{first.Value} >= {second.Value}");
-                    Assert.IsTrue(first > second, $"{first.Value} > {second.Value}");
+                    Assert.IsFalse(left < right, $"{left.Value} < {right.Value}");
+                    Assert.IsFalse(left <= right, $"{left.Value} <= {right.Value}");
+                    Assert.IsFalse(left == right, $"{left.Value} == {right.Value}");
+                    Assert.IsTrue(left != right, $"{left.Value} != {right.Value}");
+                    Assert.IsTrue(left >= right, $"{left.Value} >= {right.Value}");
+                    Assert.IsTrue(left > right, $"{left.Value} > {right.Value}");
                     break;
 
                 default:
@@ -156,37 +160,44 @@ namespace BillPath.Models.Tests
                 != new Amount(10, new Currency(new RegionInfo("GB"))));
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestLessThanInDifferentCurrency()
         {
-            var result = new Amount(12, new Currency(new RegionInfo("RO")))
-               < new Amount(10, new Currency(new RegionInfo("GB")));
+            Assert.ThrowsException<ArgumentException>(
+                () =>
+                {
+                    var result = new Amount(12, new Currency(new RegionInfo("RO")))
+                       < new Amount(10, new Currency(new RegionInfo("GB")));
+                });
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestLessThanOrEqualInDifferentCurrency()
         {
-            var result = new Amount(12, new Currency(new RegionInfo("RO")))
-               <= new Amount(10, new Currency(new RegionInfo("GB")));
+            Assert.ThrowsException<ArgumentException>(
+                () =>
+                {
+                    var result = new Amount(12, new Currency(new RegionInfo("RO")))
+                       <= new Amount(10, new Currency(new RegionInfo("GB")));
+                });
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestGreaterThanEqualInDifferentCurrency()
         {
-            var result = new Amount(12, new Currency(new RegionInfo("RO")))
-               >= new Amount(10, new Currency(new RegionInfo("GB")));
+            Assert.ThrowsException<ArgumentException>(
+                () =>
+                {
+                    var result = new Amount(12, new Currency(new RegionInfo("RO")))
+                       >= new Amount(10, new Currency(new RegionInfo("GB")));
+                });
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void TestGreaterThanInDifferentCurrency()
         {
-            var result = new Amount(12, new Currency(new RegionInfo("RO")))
-               > new Amount(10, new Currency(new RegionInfo("GB")));
-        }
-
-        private Relationship _GetRelationship()
-        {
-            return (Relationship)Enum.Parse(typeof(Relationship), (string)TestContext.DataRow["relationship"], true);
+            Assert.ThrowsException<ArgumentException>(
+                () =>
+                {
+                    var result = new Amount(12, new Currency(new RegionInfo("RO")))
+                       > new Amount(10, new Currency(new RegionInfo("GB")));
+                });
         }
     }
 }

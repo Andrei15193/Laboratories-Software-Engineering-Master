@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace BillPath.Models.Tests
 {
