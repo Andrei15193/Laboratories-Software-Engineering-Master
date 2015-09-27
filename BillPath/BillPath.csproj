@@ -150,6 +150,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CurrencyDisplayFormat.resw</DependentUpon>
     </Compile>
+    <Compile Include="Strings\Expense.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Expense.resw</DependentUpon>
+    </Compile>
     <Compile Include="Strings\ExpenseCategory.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -201,6 +206,13 @@
       <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
       <Generator>ReswFileCodeGenerator</Generator>
       <LastGenOutput>ExpenseCategory.cs</LastGenOutput>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\Expense.resw">
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Expense.cs</LastGenOutput>
     </PRIResource>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
