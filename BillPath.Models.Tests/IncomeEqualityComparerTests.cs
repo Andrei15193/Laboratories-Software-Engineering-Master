@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Globalization;
-using BillPath.Models;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
-namespace BillPath.Tests
+namespace BillPath.Models.Tests
 {
     [TestClass]
     public class IncomeEqualityComparerTests

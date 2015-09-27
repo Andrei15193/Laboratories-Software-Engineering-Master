@@ -21,10 +21,11 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BillPath.Properties", "Bill
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillPath", "BillPath\BillPath.csproj", "{6F1D21E6-EEBA-4D46-8E1A-44703C93044A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillPath.Tests", "BillPath.Tests\BillPath.Tests.csproj", "{458AE041-D984-4417-BBD7-05FEE3F4F59E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillPath.UserInterface.ViewModels.Tests", "BillPath.UserInterface.ViewModels.Tests\BillPath.UserInterface.ViewModels.Tests.csproj", "{458AE041-D984-4417-BBD7-05FEE3F4F59E}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		BillPath.Properties\BillPath.Properties.projitems*{458ae041-d984-4417-bbd7-05fee3f4f59e}*SharedItemsImports = 4
 		BillPath.Properties\BillPath.Properties.projitems*{6f1d21e6-eeba-4d46-8e1a-44703c93044a}*SharedItemsImports = 4
 		BillPath.Properties\BillPath.Properties.projitems*{f079f888-5e8b-4391-b105-69994ccffece}*SharedItemsImports = 4
 		BillPath.Properties\BillPath.Properties.projitems*{fa174e16-3c99-453e-a74c-11b37ac21f23}*SharedItemsImports = 4

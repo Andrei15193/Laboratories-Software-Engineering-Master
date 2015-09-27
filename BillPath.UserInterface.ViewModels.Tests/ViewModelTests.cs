@@ -2,10 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using BillPath.Models;
-using BillPath.UserInterface.ViewModels;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
-namespace BillPath.Tests
+namespace BillPath.UserInterface.ViewModels.Tests
 {
     [TestClass]
     public class ViewModelTests

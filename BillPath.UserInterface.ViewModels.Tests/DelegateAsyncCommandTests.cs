@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using BillPath.UserInterface.ViewModels;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
-namespace BillPath.Tests
+namespace BillPath.UserInterface.ViewModels.Tests
 {
     [TestClass]
     public class DelegateAsyncCommandTests

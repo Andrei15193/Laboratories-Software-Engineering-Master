@@ -1,8 +1,7 @@
 ﻿using System;
-using BillPath.UserInterface.ViewModels;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
-namespace BillPath.Tests
+namespace BillPath.UserInterface.ViewModels.Tests
 {
     [TestClass]
     public class DelegateCommandTests

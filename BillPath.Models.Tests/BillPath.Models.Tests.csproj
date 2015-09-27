@@ -122,6 +122,7 @@
     <Compile Include="CurrencySynmbolAndIsoCodeFormatterTests.cs" />
     <Compile Include="CurrencyTests.cs" />
     <Compile Include="ExpenseCategoryTests.cs" />
+    <Compile Include="IncomeEqualityComparerTests.cs" />
     <Compile Include="ModelValidatorResourceTests.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
