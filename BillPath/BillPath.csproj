@@ -215,6 +215,9 @@
       <LastGenOutput>Expense.cs</LastGenOutput>
     </PRIResource>
   </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\ro-RO\Expense.resw" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
