@@ -20,13 +20,7 @@ namespace BillPath.Models
 
         public override Expense Clone()
         {
-            return new Expense
-            {
-                Description = Description,
-                Amount = Amount,
-                DateRealized = DateRealized,
-                Category = Category
-            };
+            return (Expense)MemberwiseClone();
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

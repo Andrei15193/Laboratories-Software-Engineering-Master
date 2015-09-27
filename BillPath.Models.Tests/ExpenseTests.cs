@@ -37,11 +37,7 @@ namespace BillPath.Models.Tests
                 deserializedExpense = (Expense)expenseSerializer.ReadObject(expenseSerializationStream);
             }
 
-            Assert.AreEqual(expense.Amount, deserializedExpense.Amount);
-            Assert.AreEqual(expense.DateRealized, deserializedExpense.DateRealized);
-            Assert.AreEqual(expense.Description, deserializedExpense.Description);
-            Assert.AreEqual(expense.Category.Name, deserializedExpense.Category.Name);
-            Assert.AreEqual(expense.Category.Color, deserializedExpense.Category.Color);
+            _AreEqual(expense, deserializedExpense);
         }
 
         [TestMethod]
@@ -89,6 +85,52 @@ namespace BillPath.Models.Tests
                 Category = new ExpenseCategory()
             };
             Assert.AreEqual(0, ModelValidator.Validate(expense).Count());
+        }
+
+        [TestMethod]
+        public void TestCloningExpenseRetrievesNewInstance()
+        {
+            var expense = new Expense();
+            Assert.AreNotSame(expense, expense.Clone());
+        }
+
+        [TestMethod]
+        public void TestClonedExpenseIsEqualToOriginal()
+        {
+            var expense = new Expense
+            {
+                Amount = new Amount(1M, new Currency(new RegionInfo("en-US"))),
+                DateRealized = new DateTimeOffset(new DateTime(2015, 7, 20), TimeSpan.FromHours(3D)),
+                Description = "This is a test description",
+                Category = new ExpenseCategory
+                {
+                    Name = "This is a test expense category name",
+                    Color = new ArgbColor(0xFF, 0xFF, 0xFE, 0xAA)
+                }
+            };
+            var clonedExpense = expense.Clone();
+
+            _AreEqual(expense, clonedExpense);
+        }
+
+        [TestMethod]
+        public void TestClonedExpenseHasSameCategoryAsOriginal()
+        {
+            var expense = new Expense
+            {
+                Category = new ExpenseCategory()
+            };
+
+            Assert.AreSame(expense.Category, expense.Clone().Category);
+        }
+
+        private static void _AreEqual(Expense first, Expense second)
+        {
+            Assert.AreEqual(first.Amount, second.Amount);
+            Assert.AreEqual(first.DateRealized, second.DateRealized);
+            Assert.AreEqual(first.Description, second.Description);
+            Assert.AreEqual(first.Category.Name, second.Category.Name);
+            Assert.AreEqual(first.Category.Color, second.Category.Color);
         }
     }
 }
