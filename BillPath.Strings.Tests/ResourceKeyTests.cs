@@ -24,11 +24,12 @@ namespace BillPath.Strings.Tests
                     .StartsWith($"{typeof(Models.Expense).GetTypeInfo().Assembly.GetName().Name}/{modelType.Name}")
                  from modelResourceCandidate in modelResourcePair.Value.Candidates
                  let modelResourceLanguages =
-                     from modelResourceCandidateQualifier in modelResourceCandidate.Qualifiers
-                     where "language".Equals(
-                         modelResourceCandidateQualifier.QualifierName,
-                         StringComparison.OrdinalIgnoreCase)
-                     select modelResourceCandidateQualifier.QualifierValue
+                     (from modelResourceCandidateQualifier in modelResourceCandidate.Qualifiers
+                      where "language".Equals(
+                          modelResourceCandidateQualifier.QualifierName,
+                          StringComparison.OrdinalIgnoreCase)
+                      select modelResourceCandidateQualifier.QualifierValue)
+                     .DefaultIfEmpty("en")
                  from modelResourceLanguage in modelResourceLanguages.Distinct(StringComparer.OrdinalIgnoreCase)
                  select new
                  {
