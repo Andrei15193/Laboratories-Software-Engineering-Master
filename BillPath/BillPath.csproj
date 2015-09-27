@@ -102,7 +102,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <PRIResource Include="Strings\en\Amount.resw" />
+    <PRIResource Include="Strings\Amount.resw" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\ExpenseCategoryRepository.cs" />
@@ -136,7 +136,7 @@
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Strings\en\ExpenseCategory.cs">
+    <Compile Include="Strings\ExpenseCategory.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpenseCategory.resw</DependentUpon>
@@ -152,10 +152,10 @@
     <Compile Include="UserInterface\ViewModels\ViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en\CurrencyDisplayFormat.resw" />
+    <PRIResource Include="Strings\CurrencyDisplayFormat.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en\Settings.resw" />
+    <PRIResource Include="Strings\Settings.resw" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\ro-RO\Amount.resw" />
@@ -170,7 +170,7 @@
     <PRIResource Include="Strings\ro-RO\Settings.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en\ExpenseCategory.resw">
+    <PRIResource Include="Strings\ExpenseCategory.resw">
       <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
       <Generator>ReswFileCodeGenerator</Generator>
       <LastGenOutput>ExpenseCategory.cs</LastGenOutput>

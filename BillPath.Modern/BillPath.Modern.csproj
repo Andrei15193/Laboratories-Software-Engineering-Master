@@ -106,7 +106,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <PRIResource Include="Strings\en\SettingsFlyout.resw" />
+    <PRIResource Include="Strings\SettingsFlyout.resw" />
     <PRIResource Include="Strings\ro-RO\SettingsFlyout.resw" />
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +158,7 @@
     <None Include="BillPath_StoreKey.pfx" />
     <None Include="packages.config" />
     <PRIResource Include="Strings\ro-RO\IncomesView.resw" />
-    <PRIResource Include="Strings\en\IncomesView.resw" />
+    <PRIResource Include="Strings\IncomesView.resw" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />

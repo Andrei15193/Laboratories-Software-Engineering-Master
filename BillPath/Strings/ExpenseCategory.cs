@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 09/26/2015 22:44:44
+// 	Generated: 09/27/2015 10:34:03
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace BillPath.Strings
@@ -42,7 +42,6 @@ namespace BillPath.Strings
             string[] currentAssemblySplit;
             currentAssemblySplit = currentAssemblyName.Split(',');
             currentAssemblyName = currentAssemblySplit[1];
-
             if (CoreWindow.GetForCurrentThread() != null)
             {
                 if (executingAssemblyName.Equals(currentAssemblyName))
