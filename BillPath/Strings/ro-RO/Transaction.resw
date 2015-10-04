@@ -117,7 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Name.Required" xml:space="preserve">
-    <value>Numele categoriei este necesar.</value>
+  <data name="Amount.MustHaveCurrency" xml:space="preserve">
+    <value>Trebuie specificată o monedă.</value>
+  </data>
+  <data name="Amount.ValueMustBeStrictlyPositive" xml:space="preserve">
+    <value>Suma trebuie să fie mai mare decât zero.</value>
   </data>
 </root>

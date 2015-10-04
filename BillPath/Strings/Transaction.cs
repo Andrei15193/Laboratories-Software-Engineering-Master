@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 10/04/2015 11:39:11
+// 	Generated: 10/04/2015 11:43:48
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace BillPath.Strings
@@ -68,7 +68,7 @@ namespace BillPath.Strings
         }
         
         /// <summary>
-        /// Localized resource similar to "The amount must have a currency."
+        /// Localized resource similar to "A currency must be specified."
         /// </summary>
         public static string Amount_MustHaveCurrency
         {
