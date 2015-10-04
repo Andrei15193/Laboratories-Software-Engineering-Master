@@ -63,7 +63,7 @@ namespace BillPath.DataAccess.Xml
         private void _CopyFrom(Settings settings)
         {
             _settings.PreferredCurrency = settings.PreferredCurrency;
-            _settings.CurrencyDisplayFormat = settings.CurrencyDisplayFormat;
+            _settings.PreferredCurrencyDisplayFormat = settings.PreferredCurrencyDisplayFormat;
         }
     }
 }

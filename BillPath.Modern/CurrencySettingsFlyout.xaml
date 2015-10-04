@@ -43,7 +43,7 @@
                 x:Uid="/Settings/CurrencyDisplayFormat"
                 Header="Display format"
                 ItemsSource="{Binding AllCurrencyDisplayFormats, Mode=OneTime}"
-                SelectedItem="{Binding CurrencyDisplayFormat, Mode=TwoWay}"
+                SelectedItem="{Binding PreferredCurrencyDisplayFormat, Mode=TwoWay}"
                 IsEnabled="{Binding SaveCommand.CanExecute, Mode=OneWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>

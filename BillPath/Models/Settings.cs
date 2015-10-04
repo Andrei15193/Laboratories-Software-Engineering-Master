@@ -13,7 +13,7 @@ namespace BillPath.Models
             set;
         }
         [DataMember]
-        public CurrencyDisplayFormat CurrencyDisplayFormat
+        public CurrencyDisplayFormat PreferredCurrencyDisplayFormat
         {
             get;
             set;

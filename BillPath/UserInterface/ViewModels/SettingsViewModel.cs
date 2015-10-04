@@ -128,10 +128,11 @@ namespace BillPath.UserInterface.ViewModels
                 new Currency(new RegionInfo("ar-YE")),
                 new Currency(new RegionInfo("af-ZA"))
             };
-        private static IEnumerable<CurrencyDisplayFormat> _allCurrencyDIsplayFormats =
+        private static IEnumerable<CurrencyDisplayFormat> _allCurrencyDisplayFormats =
             Enum.GetValues(typeof(CurrencyDisplayFormat))
                 .Cast<CurrencyDisplayFormat>()
                 .ToList();
+        private bool _loaded;
         private readonly ISettingsRepository _repository;
         private readonly Settings _settings;
 
@@ -140,6 +141,7 @@ namespace BillPath.UserInterface.ViewModels
             if (repository == null)
                 throw new ArgumentNullException(nameof(repository));
 
+            _loaded = false;
             _repository = repository;
             _settings = new Settings();
             LoadCommand = new DelegateAsyncCommand(_LoadSettings);
@@ -148,33 +150,48 @@ namespace BillPath.UserInterface.ViewModels
 
         private async Task _LoadSettings(object parameter, CancellationToken cancellationToken)
         {
-            var settings = await _repository.GetAsync();
+            var settings = await _repository.GetAsync(cancellationToken);
 
             if (settings == null)
-                PreferredCurrency = new Currency(new RegionInfo(CultureInfo.CurrentCulture.Name));
+                _settings.PreferredCurrency = new Currency(new RegionInfo(CultureInfo.CurrentCulture.Name));
             else
             {
-                PreferredCurrency = settings.PreferredCurrency;
-                CurrencyDisplayFormat = settings.CurrencyDisplayFormat;
+                _settings.PreferredCurrency = settings.PreferredCurrency;
+                _settings.PreferredCurrencyDisplayFormat = settings.PreferredCurrencyDisplayFormat;
             }
+
+            _loaded = true;
         }
         private Task _SaveSettings(object parameter, CancellationToken cancellationToken)
         {
-            return _repository.SaveAsync(_settings);
+            _EnsureIsLoaded();
+
+            return _repository.SaveAsync(_settings, cancellationToken);
+        }
+
+        private void _EnsureIsLoaded()
+        {
+            if (!_loaded)
+                throw new InvalidOperationException("Execute " + nameof(LoadCommand) + " command before accessing any properties");
         }
 
         public Currency PreferredCurrency
         {
             get
             {
+                _EnsureIsLoaded();
+
                 return _settings.PreferredCurrency;
             }
             set
             {
+                _EnsureIsLoaded();
+
                 _settings.PreferredCurrency = value;
                 OnPropertyChanged();
             }
         }
+
         public IEnumerable<Currency> AllCurrencies
         {
             get
@@ -183,15 +200,19 @@ namespace BillPath.UserInterface.ViewModels
             }
         }
 
-        public CurrencyDisplayFormat CurrencyDisplayFormat
+        public CurrencyDisplayFormat PreferredCurrencyDisplayFormat
         {
             get
             {
-                return _settings.CurrencyDisplayFormat;
+                _EnsureIsLoaded();
+
+                return _settings.PreferredCurrencyDisplayFormat;
             }
             set
             {
-                _settings.CurrencyDisplayFormat = value;
+                _EnsureIsLoaded();
+
+                _settings.PreferredCurrencyDisplayFormat = value;
                 OnPropertyChanged();
             }
         }
@@ -199,7 +220,7 @@ namespace BillPath.UserInterface.ViewModels
         {
             get
             {
-                return _allCurrencyDIsplayFormats;
+                return _allCurrencyDisplayFormats;
             }
         }
 

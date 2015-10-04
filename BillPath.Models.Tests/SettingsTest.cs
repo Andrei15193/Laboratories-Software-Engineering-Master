@@ -9,13 +9,13 @@ namespace BillPath.Models.Tests
     {
         protected override void AssertInstanceIsEqualTo(Settings other)
         {
-            Assert.AreEqual(Instance.CurrencyDisplayFormat, other.CurrencyDisplayFormat);
+            Assert.AreEqual(Instance.PreferredCurrencyDisplayFormat, other.PreferredCurrencyDisplayFormat);
             Assert.AreEqual(Instance.PreferredCurrency, other.PreferredCurrency);
         }
 
         protected override void SetValidTestDataToInstance()
         {
-            Instance.CurrencyDisplayFormat = CurrencyDisplayFormat.IsoCode;
+            Instance.PreferredCurrencyDisplayFormat = CurrencyDisplayFormat.IsoCode;
             Instance.PreferredCurrency = new Currency(new RegionInfo("en-US"));
         }
     }

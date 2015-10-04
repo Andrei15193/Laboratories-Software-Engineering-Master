@@ -58,7 +58,7 @@ namespace BillPath.Modern
 
         private void _SettingsViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (nameof(SettingsViewModel.CurrencyDisplayFormat).Equals(e.PropertyName, StringComparison.OrdinalIgnoreCase))
+            if (nameof(SettingsViewModel.PreferredCurrencyDisplayFormat).Equals(e.PropertyName, StringComparison.OrdinalIgnoreCase))
                 _SetCurrencyText();
         }
         private void _SetCurrencyText()
@@ -66,7 +66,7 @@ namespace BillPath.Modern
             var textBlock = TextBlock;
             if (textBlock != null)
                 textBlock.Text = (string)_converter.Convert(
-                    ((SettingsViewModel)Application.Current.Resources[nameof(SettingsViewModel)]).CurrencyDisplayFormat,
+                    ((SettingsViewModel)Application.Current.Resources[nameof(SettingsViewModel)]).PreferredCurrencyDisplayFormat,
                     typeof(string),
                     Currency,
                     null) ?? string.Empty;
