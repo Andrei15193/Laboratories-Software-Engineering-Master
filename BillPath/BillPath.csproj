@@ -160,11 +160,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpenseCategory.resw</DependentUpon>
     </Compile>
-    <Compile Include="Strings\Income.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Income.resw</DependentUpon>
-    </Compile>
     <Compile Include="Strings\Settings.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -227,13 +222,6 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\ro-RO\Expense.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\Income.resw">
-      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
-      <Generator>ReswFileCodeGenerator</Generator>
-      <LastGenOutput>Income.cs</LastGenOutput>
-    </PRIResource>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\Transaction.resw">

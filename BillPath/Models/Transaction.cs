@@ -29,12 +29,17 @@ namespace BillPath.Models
             set;
         }
 
-        public abstract TTransaction Clone();
+        public virtual TTransaction Clone()
+        {
+            return (TTransaction)MemberwiseClone();
+        }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (Amount.Currency == default(Currency))
                 yield return new ValidationResult(Strings.Transaction.Amount_MustHaveCurrency, new[] { nameof(Amount) });
+            if (Amount.Value <= 0)
+                yield return new ValidationResult(Strings.Transaction.Amount_ValueMustBeStrictlyPositive, new[] { nameof(Amount) });
 
             foreach (var validationResult in OnValidated(validationContext))
                 yield return validationResult;

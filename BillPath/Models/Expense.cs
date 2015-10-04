@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
 namespace BillPath.Models
 {
     [DataContract]
     public class Expense
-        : Transaction<Expense>, IValidatableObject
+        : Transaction<Expense>
     {
         [DataMember]
         [Required(
@@ -16,17 +15,6 @@ namespace BillPath.Models
         {
             get;
             set;
-        }
-
-        public override Expense Clone()
-        {
-            return (Expense)MemberwiseClone();
-        }
-
-        protected override IEnumerable<ValidationResult> OnValidated(ValidationContext validationContext)
-        {
-            if (Amount.Value < 0)
-                yield return new ValidationResult(Strings.Expense.Amount_MustBePositive, new[] { nameof(Amount) });
         }
     }
 }

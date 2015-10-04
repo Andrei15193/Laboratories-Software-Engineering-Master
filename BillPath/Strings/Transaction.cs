@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 10/04/2015 11:07:44
+// 	Generated: 10/04/2015 11:39:11
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace BillPath.Strings
@@ -75,6 +75,17 @@ namespace BillPath.Strings
             get
             {
                 return resourceLoader.GetString("Amount.MustHaveCurrency");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "The amount must be greater than zero."
+        /// </summary>
+        public static string Amount_ValueMustBeStrictlyPositive
+        {
+            get
+            {
+                return resourceLoader.GetString("Amount.ValueMustBeStrictlyPositive");
             }
         }
     }

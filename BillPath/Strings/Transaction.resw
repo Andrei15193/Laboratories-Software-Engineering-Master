@@ -120,4 +120,7 @@
   <data name="Amount.MustHaveCurrency" xml:space="preserve">
     <value>The amount must have a currency.</value>
   </data>
+  <data name="Amount.ValueMustBeStrictlyPositive" xml:space="preserve">
+    <value>The amount must be greater than zero.</value>
+  </data>
 </root>
