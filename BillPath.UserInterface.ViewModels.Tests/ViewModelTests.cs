@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using BillPath.Models;
@@ -9,6 +10,43 @@ namespace BillPath.UserInterface.ViewModels.Tests
     [TestClass]
     public class ViewModelTests
     {
+        private class PropertyChangedRaisingViewModel
+            : ViewModel
+        {
+            public void RaisePropertyChanged()
+            {
+                OnPropertyChanged("test");
+            }
+        }
+        [TestMethod]
+        public void TestViewModelRaisesPropertyChanged()
+        {
+            _AssertPropertyChangedIsRaisedFor(new PropertyChangedRaisingViewModel());
+        }
+
+        private class EmptyPropertyChangedOverrideViewModel
+            : PropertyChangedRaisingViewModel
+        {
+            protected override void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
+            {
+            }
+        }
+        [TestMethod]
+        public void TestViewModelRaisesPropertyChangedRegardlessOfOverride()
+        {
+            _AssertPropertyChangedIsRaisedFor(new EmptyPropertyChangedOverrideViewModel());
+        }
+
+        private static void _AssertPropertyChangedIsRaisedFor(PropertyChangedRaisingViewModel viewModel)
+        {
+            var raiseCount = 0;
+            viewModel.PropertyChanged += delegate { raiseCount++; };
+
+            viewModel.RaisePropertyChanged();
+
+            Assert.AreEqual(1, raiseCount);
+        }
+
         private class AttributeValidation
         {
             [Required]
@@ -69,7 +107,8 @@ namespace BillPath.UserInterface.ViewModels.Tests
             var viewModel = new ViewModel<ValidatableObject>(new ValidatableObject(new ValidationResult("Error", new[] { "Property" })));
 
             Assert.IsTrue(viewModel.HasErrors);
-            Assert.AreEqual(1, viewModel.GetErrors(null).Count());
+            Assert.AreEqual(1, viewModel.GetErrors("Property").Count());
+            Assert.AreEqual(0, viewModel.GetErrors(null).Count());
         }
         [TestMethod]
         public void TestValidatableObjectWithoutError()
@@ -143,7 +182,24 @@ namespace BillPath.UserInterface.ViewModels.Tests
             Assert.IsTrue(viewModel.HasErrors);
             Assert.AreEqual(1, viewModel.GetErrors(nameof(ValidatableObjectWithDependentProperties.Property1)).Count());
             Assert.AreEqual(1, viewModel.GetErrors(nameof(ValidatableObjectWithDependentProperties.Property2)).Count());
-            Assert.AreEqual(2, viewModel.GetErrors(null).Count());
+            Assert.AreEqual(0, viewModel.GetErrors(null).Count());
+        }
+
+        public class ValidatableObjectWithInstanceLevelErrors
+            : IValidatableObject
+        {
+            public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+            {
+                yield return new ValidationResult("");
+            }
+        }
+        [TestMethod]
+        public void TestValidatableObjectWithInstanceLevelErrors()
+        {
+            var viewModel = new ViewModel<ValidatableObjectWithInstanceLevelErrors>(new ValidatableObjectWithInstanceLevelErrors());
+
+            Assert.IsTrue(viewModel.HasErrors);
+            Assert.AreEqual(1, viewModel.GetErrors(null).Count());
         }
     }
 }
