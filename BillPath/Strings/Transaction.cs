@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 10/04/2015 10:59:10
+// 	Generated: 10/04/2015 11:07:44
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace BillPath.Strings
@@ -74,7 +74,7 @@ namespace BillPath.Strings
         {
             get
             {
-                return resourceLoader.GetString("Amount_MustHaveCurrency");
+                return resourceLoader.GetString("Amount.MustHaveCurrency");
             }
         }
     }

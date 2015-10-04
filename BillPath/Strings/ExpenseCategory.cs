@@ -17,19 +17,20 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 09/27/2015 10:34:03
+// 	Generated: 10/04/2015 11:07:32
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace BillPath.Strings
 {
     using Windows.ApplicationModel.Resources;
     using Windows.UI.Core;
-
+    
+    
     public partial class ExpenseCategory
     {
-
+        
         private static ResourceLoader resourceLoader;
-
+        
         static ExpenseCategory()
         {
             string executingAssemblyName;
@@ -65,7 +66,7 @@ namespace BillPath.Strings
                 }
             }
         }
-
+        
         /// <summary>
         /// Localized resource similar to "Category name is required."
         /// </summary>
@@ -73,7 +74,7 @@ namespace BillPath.Strings
         {
             get
             {
-                return resourceLoader.GetString("Name_Required");
+                return resourceLoader.GetString("Name.Required");
             }
         }
     }
