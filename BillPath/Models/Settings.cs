@@ -21,11 +21,7 @@ namespace BillPath.Models
 
         public Settings Clone()
         {
-            return new Settings
-            {
-                PreferredCurrency = PreferredCurrency,
-                CurrencyDisplayFormat = CurrencyDisplayFormat
-            };
+            return (Settings)MemberwiseClone();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
@@ -8,11 +9,16 @@ namespace BillPath.Models.Tests
     [TestClass]
     public abstract class SerializationTests<T>
     {
+        protected static ModelValidator ModelValidator { get; } = new ModelValidator();
+
         [TestInitialize]
         public virtual void TestInitialize()
         {
             Instance = GetNewInstance();
             SetValidTestDataToInstance();
+
+            if (ModelValidator.Validate(Instance).Any())
+                Assert.Inconclusive("The instance is in an invalid state.");
         }
 
         protected virtual T GetNewInstance()

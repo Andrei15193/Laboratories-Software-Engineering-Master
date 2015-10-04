@@ -10,8 +10,6 @@ namespace BillPath.Models.Tests
         : CloningTests<TTransaction>
         where TTransaction : Transaction<TTransaction>
     {
-        protected static ModelValidator ModelValidator { get; } = new ModelValidator();
-
         protected override void SetValidTestDataToInstance()
         {
             Instance.Amount = new Amount(1M, new Currency(new RegionInfo("en-US")));
