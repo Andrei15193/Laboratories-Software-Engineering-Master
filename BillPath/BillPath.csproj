@@ -134,7 +134,6 @@
     <Compile Include="Models\ICloneable.cs" />
     <Compile Include="Models\ICurrencyFormatter.cs" />
     <Compile Include="Models\Income.cs" />
-    <Compile Include="Models\IncomeEqualityComparer.cs" />
     <Compile Include="Models\IValidatableObject.cs" />
     <Compile Include="Models\ModelValidator.cs" />
     <Compile Include="Models\Settings.cs" />
