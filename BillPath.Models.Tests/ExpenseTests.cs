@@ -10,30 +10,25 @@ namespace BillPath.Models.Tests
         [TestMethod]
         public void TestExpenseRequiresACategory()
         {
-            Transaction.Category = null;
-            var validationResult = ModelValidator.Validate(Transaction).Single();
+            Instance.Category = null;
+            var validationResult = ModelValidator.Validate(Instance).Single();
 
             Assert.AreEqual(nameof(Expense.Category), validationResult.MemberNames.Single());
         }
 
-        [TestMethod]
-        public void TestClonedExpenseHasSameCategoryAsOriginal()
+        protected override void SetValidTestDataToInstance()
         {
-            Assert.AreSame(Transaction.Category, Transaction.Clone().Category);
+            base.SetValidTestDataToInstance();
+            Instance.Category = new ExpenseCategory();
         }
 
-        protected override void SetValidTestData(Expense transaction)
+        protected override void AssertInstanceIsEqualTo(Expense other)
         {
-            base.SetValidTestData(transaction);
-            transaction.Category = new ExpenseCategory();
-        }
-        protected override void AssertAreEqual(Expense first, Expense second)
-        {
-            Assert.AreEqual(first.Amount, second.Amount);
-            Assert.AreEqual(first.DateRealized, second.DateRealized);
-            Assert.AreEqual(first.Description, second.Description);
-            Assert.AreEqual(first.Category.Name, second.Category.Name);
-            Assert.AreEqual(first.Category.Color, second.Category.Color);
+            Assert.AreEqual(Instance.Amount, other.Amount);
+            Assert.AreEqual(Instance.DateRealized, other.DateRealized);
+            Assert.AreEqual(Instance.Description, other.Description);
+            Assert.AreEqual(Instance.Category.Name, other.Category.Name);
+            Assert.AreEqual(Instance.Category.Color, other.Category.Color);
         }
     }
 }
