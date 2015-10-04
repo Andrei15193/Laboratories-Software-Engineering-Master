@@ -11,5 +11,11 @@ namespace BillPath.Models.Tests
         {
             Assert.IsTrue(Enum.IsDefined(typeof(CurrencyDisplayFormat), default(CurrencyDisplayFormat)));
         }
+
+        [TestMethod]
+        public void TestFullDisplayFormatIsTheDefault()
+        {
+            Assert.AreEqual(CurrencyDisplayFormat.Full, default(CurrencyDisplayFormat));
+        }
     }
 }
