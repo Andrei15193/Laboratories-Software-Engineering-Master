@@ -23,7 +23,7 @@ namespace BillPath.Models
             return (Expense)MemberwiseClone();
         }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        protected override IEnumerable<ValidationResult> OnValidated(ValidationContext validationContext)
         {
             if (Amount.Value < 0)
                 yield return new ValidationResult(Strings.Expense.Amount_MustBePositive, new[] { nameof(Amount) });

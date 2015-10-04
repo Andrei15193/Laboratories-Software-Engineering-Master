@@ -45,6 +45,7 @@ namespace BillPath.Models.Tests
         {
             var expense = new Expense
             {
+                Amount = new Amount(0M, new Currency(new RegionInfo("en-US"))),
                 Category = null
             };
             var validationResult = ModelValidator.Validate(expense).Single();
@@ -52,12 +53,18 @@ namespace BillPath.Models.Tests
             Assert.AreEqual(nameof(Expense.Category), validationResult.MemberNames.Single());
         }
 
-        [TestMethod]
-        public void TestExpenseCannotHaveNegativeAmount()
+        [DataTestMethod]
+        [DataRow(-1)]
+        [DataRow(-100)]
+        [DataRow(-50)]
+        [DataRow(-35)]
+        [DataRow(-20)]
+        [DataRow(-1000)]
+        public void TestExpenseCannotHaveNegativeAmount(double amountValue)
         {
             var expense = new Expense
             {
-                Amount = new Amount(-1M, new Currency()),
+                Amount = new Amount((decimal)amountValue, new Currency(new RegionInfo("en-US"))),
                 Category = new ExpenseCategory()
             };
             var validationResult = ModelValidator.Validate(expense).Single();
@@ -70,10 +77,23 @@ namespace BillPath.Models.Tests
         {
             var expense = new Expense
             {
+                Amount = new Amount(0M, new Currency(new RegionInfo("en-US"))),
+                Category = new ExpenseCategory()
+            };
+            Assert.IsFalse(ModelValidator.Validate(expense).Any());
+        }
+
+        [TestMethod]
+        public void TestExpenseCannotHaveDefaultAmountCurrency()
+        {
+            var expense = new Expense
+            {
                 Amount = new Amount(0M, new Currency()),
                 Category = new ExpenseCategory()
             };
-            Assert.AreEqual(0, ModelValidator.Validate(expense).Count());
+            var validationResult = ModelValidator.Validate(expense).Single();
+
+            Assert.AreEqual(nameof(Expense.Amount), validationResult.MemberNames.Single());
         }
 
         [TestMethod]
@@ -81,6 +101,7 @@ namespace BillPath.Models.Tests
         {
             var expense = new Expense
             {
+                Amount = new Amount(0M, new Currency(new RegionInfo("en-US"))),
                 Description = null,
                 Category = new ExpenseCategory()
             };

@@ -160,10 +160,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpenseCategory.resw</DependentUpon>
     </Compile>
+    <Compile Include="Strings\Income.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Income.resw</DependentUpon>
+    </Compile>
     <Compile Include="Strings\Settings.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Settings.resw</DependentUpon>
+    </Compile>
+    <Compile Include="Strings\Transaction.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Transaction.resw</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\ViewModels\AsyncCommand.cs" />
     <Compile Include="UserInterface\ViewModels\Command.cs" />
@@ -217,6 +227,20 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\ro-RO\Expense.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\Income.resw">
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Income.cs</LastGenOutput>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\Transaction.resw">
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Transaction.cs</LastGenOutput>
+    </PRIResource>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

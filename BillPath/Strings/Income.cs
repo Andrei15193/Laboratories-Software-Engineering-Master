@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 10/04/2015 10:55:03
+// 	Generated: 10/04/2015 10:55:14
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace BillPath.Strings
@@ -26,12 +26,12 @@ namespace BillPath.Strings
     using Windows.UI.Core;
     
     
-    public partial class Expense
+    public partial class Income
     {
         
         private static ResourceLoader resourceLoader;
         
-        static Expense()
+        static Income()
         {
             string executingAssemblyName;
             executingAssemblyName = Windows.UI.Xaml.Application.Current.GetType().AssemblyQualifiedName;
@@ -39,7 +39,7 @@ namespace BillPath.Strings
             executingAssemblySplit = executingAssemblyName.Split(',');
             executingAssemblyName = executingAssemblySplit[1];
             string currentAssemblyName;
-            currentAssemblyName = typeof(Expense).AssemblyQualifiedName;
+            currentAssemblyName = typeof(Income).AssemblyQualifiedName;
             string[] currentAssemblySplit;
             currentAssemblySplit = currentAssemblyName.Split(',');
             currentAssemblyName = currentAssemblySplit[1];
@@ -47,45 +47,34 @@ namespace BillPath.Strings
             {
                 if (executingAssemblyName.Equals(currentAssemblyName))
                 {
-                    resourceLoader = ResourceLoader.GetForCurrentView("Expense");
+                    resourceLoader = ResourceLoader.GetForCurrentView("Income");
                 }
                 else
                 {
-                    resourceLoader = ResourceLoader.GetForCurrentView(currentAssemblyName + "/Expense");
+                    resourceLoader = ResourceLoader.GetForCurrentView(currentAssemblyName + "/Income");
                 }
             }
             else
             {
                 if (executingAssemblyName.Equals(currentAssemblyName))
                 {
-                    resourceLoader = ResourceLoader.GetForViewIndependentUse("Expense");
+                    resourceLoader = ResourceLoader.GetForViewIndependentUse("Income");
                 }
                 else
                 {
-                    resourceLoader = ResourceLoader.GetForViewIndependentUse(currentAssemblyName + "/Expense");
+                    resourceLoader = ResourceLoader.GetForViewIndependentUse(currentAssemblyName + "/Income");
                 }
             }
         }
         
         /// <summary>
-        /// Localized resource similar to "The amount must be greater than or equal to zero."
+        /// Localized resource similar to "The amount must be greater than zero."
         /// </summary>
-        public static string Amount_MustBePositive
+        public static string Amount_MustBeStrictlyPositive
         {
             get
             {
-                return resourceLoader.GetString("Amount_MustBePositive");
-            }
-        }
-        
-        /// <summary>
-        /// Localized resource similar to "Each expense belongs to a category."
-        /// </summary>
-        public static string Category_Required
-        {
-            get
-            {
-                return resourceLoader.GetString("Category_Required");
+                return resourceLoader.GetString("Amount_MustBeStrictlyPositive");
             }
         }
     }

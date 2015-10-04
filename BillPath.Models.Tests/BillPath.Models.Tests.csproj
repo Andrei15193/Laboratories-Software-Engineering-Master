@@ -124,6 +124,7 @@
     <Compile Include="ExpenseCategoryTests.cs" />
     <Compile Include="ExpenseTests.cs" />
     <Compile Include="IncomeEqualityComparerTests.cs" />
+    <Compile Include="IncomeTests.cs" />
     <Compile Include="ModelValidatorResourceTests.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
