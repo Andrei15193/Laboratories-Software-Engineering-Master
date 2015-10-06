@@ -40,6 +40,11 @@ namespace BillPath.UserInterface.ViewModels.Tests
                 _settings = settings;
                 return Task.FromResult(default(object));
             }
+
+            public void Clear()
+            {
+                _settings = null;
+            }
         }
 
         [TestInitialize]
@@ -49,7 +54,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
             _SettingsViewModel = new SettingsViewModel(_SettingsRepository);
         }
 
-        private ISettingsRepository _SettingsRepository
+        private SettingsRepositoryMock _SettingsRepository
         {
             get;
             set;
@@ -140,6 +145,23 @@ namespace BillPath.UserInterface.ViewModels.Tests
             Assert.AreEqual(
                 newPreferredCurrencyDisplayFormat,
                 (await _SettingsRepository.GetAsync()).PreferredCurrencyDisplayFormat);
+        }
+
+        [TestMethod]
+        public async Task TestDefaultCurrencyIsObtainedFromCurrentCultureWhenThereAreNoSettingsInTheRepository()
+        {
+            _SettingsRepository.Clear();
+
+            await _SettingsViewModel.LoadCommand.ExecuteAsync(null);
+            Assert.AreEqual(new Currency(new RegionInfo(CultureInfo.CurrentCulture.Name)), _SettingsViewModel.PreferredCurrency);
+        }
+        [TestMethod]
+        public async Task TestDefaultCurrencyDisplayFormatIsUsedWhenThereAreNoSettingsInTheRepository()
+        {
+            _SettingsRepository.Clear();
+
+            await _SettingsViewModel.LoadCommand.ExecuteAsync(null);
+            Assert.AreEqual(default(CurrencyDisplayFormat), _SettingsViewModel.PreferredCurrencyDisplayFormat);
         }
     }
 }
