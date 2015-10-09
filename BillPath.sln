@@ -23,9 +23,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillPath", "BillPath\BillPa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillPath.UserInterface.ViewModels.Tests", "BillPath.UserInterface.ViewModels.Tests\BillPath.UserInterface.ViewModels.Tests.csproj", "{458AE041-D984-4417-BBD7-05FEE3F4F59E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillPath.Providers.Tests", "BillPath.Providers.Tests\BillPath.Providers.Tests.csproj", "{B81065E8-61D6-4039-9521-433E7F394862}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{578662D8-6F3C-45A1-9C91-C2F479CA253D}"
+	ProjectSection(SolutionItems) = preProject
+		Get-Currencies.ps1 = Get-Currencies.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		BillPath.Properties\BillPath.Properties.projitems*{458ae041-d984-4417-bbd7-05fee3f4f59e}*SharedItemsImports = 4
+		BillPath.Properties\BillPath.Properties.projitems*{b81065e8-61d6-4039-9521-433e7f394862}*SharedItemsImports = 4
 		BillPath.Properties\BillPath.Properties.projitems*{6f1d21e6-eeba-4d46-8e1a-44703c93044a}*SharedItemsImports = 4
 		BillPath.Properties\BillPath.Properties.projitems*{f079f888-5e8b-4391-b105-69994ccffece}*SharedItemsImports = 4
 		BillPath.Properties\BillPath.Properties.projitems*{fa174e16-3c99-453e-a74c-11b37ac21f23}*SharedItemsImports = 4
@@ -205,6 +213,30 @@ Global
 		{458AE041-D984-4417-BBD7-05FEE3F4F59E}.Release|x86.ActiveCfg = Release|x86
 		{458AE041-D984-4417-BBD7-05FEE3F4F59E}.Release|x86.Build.0 = Release|x86
 		{458AE041-D984-4417-BBD7-05FEE3F4F59E}.Release|x86.Deploy.0 = Release|x86
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|ARM.ActiveCfg = Debug|ARM
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|ARM.Build.0 = Debug|ARM
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|ARM.Deploy.0 = Debug|ARM
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|x64.ActiveCfg = Debug|x64
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|x64.Build.0 = Debug|x64
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|x64.Deploy.0 = Debug|x64
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|x86.ActiveCfg = Debug|x86
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|x86.Build.0 = Debug|x86
+		{B81065E8-61D6-4039-9521-433E7F394862}.Debug|x86.Deploy.0 = Debug|x86
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|ARM.ActiveCfg = Release|ARM
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|ARM.Build.0 = Release|ARM
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|ARM.Deploy.0 = Release|ARM
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|x64.ActiveCfg = Release|x64
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|x64.Build.0 = Release|x64
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|x64.Deploy.0 = Release|x64
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|x86.ActiveCfg = Release|x86
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|x86.Build.0 = Release|x86
+		{B81065E8-61D6-4039-9521-433E7F394862}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -218,5 +250,6 @@ Global
 		{E6DE2565-02BC-4478-9083-A7851C323CC0} = {8FC3D751-2D21-47AB-9D0A-945FC5CF5708}
 		{6F1D21E6-EEBA-4D46-8E1A-44703C93044A} = {8FC3D751-2D21-47AB-9D0A-945FC5CF5708}
 		{458AE041-D984-4417-BBD7-05FEE3F4F59E} = {8FC3D751-2D21-47AB-9D0A-945FC5CF5708}
+		{B81065E8-61D6-4039-9521-433E7F394862} = {8FC3D751-2D21-47AB-9D0A-945FC5CF5708}
 	EndGlobalSection
 EndGlobal

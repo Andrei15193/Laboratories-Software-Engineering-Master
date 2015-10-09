@@ -139,6 +139,7 @@
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\CurrencyProvider.cs" />
     <Compile Include="Strings\Amount.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
