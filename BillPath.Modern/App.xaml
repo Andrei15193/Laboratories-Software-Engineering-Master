@@ -25,5 +25,11 @@
             MillisecondsDelay="1000" />
         <mocks:IncomesViewModel
             x:Key="IncomesViewModel" />
+
+        <mocks:SettingsRepository
+            x:Key="SettingsRepository"
+            MillisecondsDelay="1000" />
+        <mocks:SettingsViewModel
+            x:Key="SettingsViewModel" />
     </Application.Resources>
 </Application>

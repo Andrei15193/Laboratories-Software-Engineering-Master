@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using BillPath.DataAccess.Xml;
 using BillPath.UserInterface.ViewModels;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -23,8 +22,6 @@ namespace BillPath.Modern
 
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-            _LoadResources();
-
 #if DEBUG
             if (Debugger.IsAttached)
                 DebugSettings.EnableFrameRateCounter = true;
@@ -52,18 +49,6 @@ namespace BillPath.Modern
                 rootFrame.Navigate(typeof(MainPage), e.Arguments);
 
             Window.Current.Activate();
-        }
-
-        private void _LoadResources()
-        {
-            var fileProvider = new ModernAppFileProvider();
-
-            Resources.Add(
-                nameof(SettingsViewModel),
-                new SettingsViewModel(
-                    new XmlSettingsRepository(
-                        fileProvider,
-                        (string)Resources["SettingsFileName"])));
         }
 
         protected override void OnWindowCreated(WindowCreatedEventArgs args)

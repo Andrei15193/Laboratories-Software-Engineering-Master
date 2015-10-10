@@ -146,6 +146,8 @@
     </Compile>
     <Compile Include="Mocks\IncomeRepository.cs" />
     <Compile Include="Mocks\IncomesViewModel.cs" />
+    <Compile Include="Mocks\SettingsRepository.cs" />
+    <Compile Include="Mocks\SettingsViewModel.cs" />
     <Compile Include="ModernAppFileProvider.cs" />
     <Compile Include="Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
