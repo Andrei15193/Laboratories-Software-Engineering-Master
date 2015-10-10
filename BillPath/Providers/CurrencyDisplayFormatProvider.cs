@@ -5,14 +5,11 @@ namespace BillPath.Providers
 {
     public class CurrencyDisplayFormatProvider
     {
-        public IEnumerable<CurrencyDisplayFormat> CurrencyDisplayFormats
-        {
-            get
+        public IEnumerable<CurrencyDisplayFormat> CurrencyDisplayFormats { get; } = new[]
             {
-                yield return CurrencyDisplayFormat.Full;
-                yield return CurrencyDisplayFormat.Symbol;
-                yield return CurrencyDisplayFormat.IsoCode;
-            }
-        }
+                CurrencyDisplayFormat.Full,
+                CurrencyDisplayFormat.Symbol,
+                CurrencyDisplayFormat.IsoCode
+            };
     }
 }

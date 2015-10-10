@@ -6,164 +6,161 @@ namespace BillPath.Providers
 {
     public class CurrencyProvider
     {
-        public IEnumerable<Currency> Currencies
-        {
-            get
+        public IEnumerable<Currency> Currencies { get; } = new[]
             {
-                yield return new Currency(new RegionInfo("aa-DJ"));
-                yield return new Currency(new RegionInfo("aa-ER"));
-                yield return new Currency(new RegionInfo("aa-ET"));
-                yield return new Currency(new RegionInfo("af"));
-                yield return new Currency(new RegionInfo("af-NA"));
-                yield return new Currency(new RegionInfo("af-ZA"));
-                yield return new Currency(new RegionInfo("agq-CM"));
-                yield return new Currency(new RegionInfo("ak-GH"));
-                yield return new Currency(new RegionInfo("am"));
-                yield return new Currency(new RegionInfo("ar"));
-                yield return new Currency(new RegionInfo("ar-001"));
-                yield return new Currency(new RegionInfo("ar-AE"));
-                yield return new Currency(new RegionInfo("ar-BH"));
-                yield return new Currency(new RegionInfo("ar-DZ"));
-                yield return new Currency(new RegionInfo("ar-EG"));
-                yield return new Currency(new RegionInfo("ar-IL"));
-                yield return new Currency(new RegionInfo("ar-IQ"));
-                yield return new Currency(new RegionInfo("ar-JO"));
-                yield return new Currency(new RegionInfo("ar-KM"));
-                yield return new Currency(new RegionInfo("ar-KW"));
-                yield return new Currency(new RegionInfo("ar-LB"));
-                yield return new Currency(new RegionInfo("ar-LY"));
-                yield return new Currency(new RegionInfo("ar-MA"));
-                yield return new Currency(new RegionInfo("ar-MR"));
-                yield return new Currency(new RegionInfo("ar-OM"));
-                yield return new Currency(new RegionInfo("ar-QA"));
-                yield return new Currency(new RegionInfo("ar-SA"));
-                yield return new Currency(new RegionInfo("ar-SD"));
-                yield return new Currency(new RegionInfo("ar-SO"));
-                yield return new Currency(new RegionInfo("ar-SS"));
-                yield return new Currency(new RegionInfo("ar-SY"));
-                yield return new Currency(new RegionInfo("ar-TN"));
-                yield return new Currency(new RegionInfo("ar-YE"));
-                yield return new Currency(new RegionInfo("arn-CL"));
-                yield return new Currency(new RegionInfo("as"));
-                yield return new Currency(new RegionInfo("as-IN"));
-                yield return new Currency(new RegionInfo("asa-TZ"));
-                yield return new Currency(new RegionInfo("ast-ES"));
-                yield return new Currency(new RegionInfo("az"));
-                yield return new Currency(new RegionInfo("ba"));
-                yield return new Currency(new RegionInfo("ba-RU"));
-                yield return new Currency(new RegionInfo("be-BY"));
-                yield return new Currency(new RegionInfo("bem-ZM"));
-                yield return new Currency(new RegionInfo("bg"));
-                yield return new Currency(new RegionInfo("bin-NG"));
-                yield return new Currency(new RegionInfo("bm"));
-                yield return new Currency(new RegionInfo("bm-Latn-ML"));
-                yield return new Currency(new RegionInfo("bn"));
-                yield return new Currency(new RegionInfo("bn-BD"));
-                yield return new Currency(new RegionInfo("bo"));
-                yield return new Currency(new RegionInfo("bo-CN"));
-                yield return new Currency(new RegionInfo("br"));
-                yield return new Currency(new RegionInfo("bs"));
-                yield return new Currency(new RegionInfo("ca"));
-                yield return new Currency(new RegionInfo("cgg-UG"));
-                yield return new Currency(new RegionInfo("co"));
-                yield return new Currency(new RegionInfo("cs-CZ"));
-                yield return new Currency(new RegionInfo("cy-GB"));
-                yield return new Currency(new RegionInfo("da-DK"));
-                yield return new Currency(new RegionInfo("dav-KE"));
-                yield return new Currency(new RegionInfo("de-CH"));
-                yield return new Currency(new RegionInfo("dv-MV"));
-                yield return new Currency(new RegionInfo("dz-BT"));
-                yield return new Currency(new RegionInfo("en-029"));
-                yield return new Currency(new RegionInfo("en-AU"));
-                yield return new Currency(new RegionInfo("en-BB"));
-                yield return new Currency(new RegionInfo("en-BW"));
-                yield return new Currency(new RegionInfo("en-BZ"));
-                yield return new Currency(new RegionInfo("en-CK"));
-                yield return new Currency(new RegionInfo("en-FJ"));
-                yield return new Currency(new RegionInfo("en-FK"));
-                yield return new Currency(new RegionInfo("en-GI"));
-                yield return new Currency(new RegionInfo("en-GM"));
-                yield return new Currency(new RegionInfo("en-GY"));
-                yield return new Currency(new RegionInfo("en-HK"));
-                yield return new Currency(new RegionInfo("en-ID"));
-                yield return new Currency(new RegionInfo("en-JM"));
-                yield return new Currency(new RegionInfo("en-KY"));
-                yield return new Currency(new RegionInfo("en-LR"));
-                yield return new Currency(new RegionInfo("en-MG"));
-                yield return new Currency(new RegionInfo("en-MO"));
-                yield return new Currency(new RegionInfo("en-MU"));
-                yield return new Currency(new RegionInfo("en-MW"));
-                yield return new Currency(new RegionInfo("en-MY"));
-                yield return new Currency(new RegionInfo("en-PG"));
-                yield return new Currency(new RegionInfo("en-PH"));
-                yield return new Currency(new RegionInfo("en-PK"));
-                yield return new Currency(new RegionInfo("en-RW"));
-                yield return new Currency(new RegionInfo("en-SB"));
-                yield return new Currency(new RegionInfo("en-SC"));
-                yield return new Currency(new RegionInfo("en-SG"));
-                yield return new Currency(new RegionInfo("en-SH"));
-                yield return new Currency(new RegionInfo("en-SL"));
-                yield return new Currency(new RegionInfo("en-SX"));
-                yield return new Currency(new RegionInfo("en-SZ"));
-                yield return new Currency(new RegionInfo("en-TO"));
-                yield return new Currency(new RegionInfo("en-TT"));
-                yield return new Currency(new RegionInfo("en-VU"));
-                yield return new Currency(new RegionInfo("en-WS"));
-                yield return new Currency(new RegionInfo("es-CR"));
-                yield return new Currency(new RegionInfo("es-CU"));
-                yield return new Currency(new RegionInfo("es-DO"));
-                yield return new Currency(new RegionInfo("es-GT"));
-                yield return new Currency(new RegionInfo("es-HN"));
-                yield return new Currency(new RegionInfo("es-MX"));
-                yield return new Currency(new RegionInfo("es-NI"));
-                yield return new Currency(new RegionInfo("es-PA"));
-                yield return new Currency(new RegionInfo("es-PE"));
-                yield return new Currency(new RegionInfo("es-PY"));
-                yield return new Currency(new RegionInfo("es-UY"));
-                yield return new Currency(new RegionInfo("es-VE"));
-                yield return new Currency(new RegionInfo("fa-IR"));
-                yield return new Currency(new RegionInfo("ff-GN"));
-                yield return new Currency(new RegionInfo("fr-BI"));
-                yield return new Currency(new RegionInfo("fr-CD"));
-                yield return new Currency(new RegionInfo("fr-HT"));
-                yield return new Currency(new RegionInfo("fr-NC"));
-                yield return new Currency(new RegionInfo("hr"));
-                yield return new Currency(new RegionInfo("hu"));
-                yield return new Currency(new RegionInfo("is"));
-                yield return new Currency(new RegionInfo("ja-JP"));
-                yield return new Currency(new RegionInfo("ka-GE"));
-                yield return new Currency(new RegionInfo("kea-CV"));
-                yield return new Currency(new RegionInfo("kk-KZ"));
-                yield return new Currency(new RegionInfo("km-KH"));
-                yield return new Currency(new RegionInfo("ko-KR"));
-                yield return new Currency(new RegionInfo("ky-KG"));
-                yield return new Currency(new RegionInfo("la"));
-                yield return new Currency(new RegionInfo("ln-AO"));
-                yield return new Currency(new RegionInfo("mgh-MZ"));
-                yield return new Currency(new RegionInfo("mk"));
-                yield return new Currency(new RegionInfo("mn"));
-                yield return new Currency(new RegionInfo("my-MM"));
-                yield return new Currency(new RegionInfo("nb-NO"));
-                yield return new Currency(new RegionInfo("ne-NP"));
-                yield return new Currency(new RegionInfo("nl-AW"));
-                yield return new Currency(new RegionInfo("nl-SR"));
-                yield return new Currency(new RegionInfo("pl"));
-                yield return new Currency(new RegionInfo("pt-ST"));
-                yield return new Currency(new RegionInfo("ro"));
-                yield return new Currency(new RegionInfo("ro-MD"));
-                yield return new Currency(new RegionInfo("ru-UA"));
-                yield return new Currency(new RegionInfo("se"));
-                yield return new Currency(new RegionInfo("si-LK"));
-                yield return new Currency(new RegionInfo("sq-AL"));
-                yield return new Currency(new RegionInfo("sr-Cyrl-RS"));
-                yield return new Currency(new RegionInfo("tg-Cyrl-TJ"));
-                yield return new Currency(new RegionInfo("th"));
-                yield return new Currency(new RegionInfo("tk-TM"));
-                yield return new Currency(new RegionInfo("tr"));
-                yield return new Currency(new RegionInfo("uz"));
-                yield return new Currency(new RegionInfo("vi-VN"));
-                yield return new Currency(new RegionInfo("zh-TW"));
-            }
-        }
+                new Currency(new RegionInfo("ar-AE")),
+                new Currency(new RegionInfo("af")),
+                new Currency(new RegionInfo("sq-AL")),
+                new Currency(new RegionInfo("am")),
+                new Currency(new RegionInfo("en-SX")),
+                new Currency(new RegionInfo("ln-AO")),
+                new Currency(new RegionInfo("ar")),
+                new Currency(new RegionInfo("en-AU")),
+                new Currency(new RegionInfo("nl-AW")),
+                new Currency(new RegionInfo("az")),
+                new Currency(new RegionInfo("ba")),
+                new Currency(new RegionInfo("en-BB")),
+                new Currency(new RegionInfo("bn-BD")),
+                new Currency(new RegionInfo("bg")),
+                new Currency(new RegionInfo("ar-BH")),
+                new Currency(new RegionInfo("fr-BI")),
+                new Currency(new RegionInfo("bm")),
+                new Currency(new RegionInfo("bn")),
+                new Currency(new RegionInfo("bo")),
+                new Currency(new RegionInfo("br")),
+                new Currency(new RegionInfo("bs")),
+                new Currency(new RegionInfo("dz-BT")),
+                new Currency(new RegionInfo("en-BW")),
+                new Currency(new RegionInfo("be-BY")),
+                new Currency(new RegionInfo("en-BZ")),
+                new Currency(new RegionInfo("ca")),
+                new Currency(new RegionInfo("fr-CD")),
+                new Currency(new RegionInfo("de-CH")),
+                new Currency(new RegionInfo("arn-CL")),
+                new Currency(new RegionInfo("bo-CN")),
+                new Currency(new RegionInfo("co")),
+                new Currency(new RegionInfo("es-CR")),
+                new Currency(new RegionInfo("es-CU")),
+                new Currency(new RegionInfo("kea-CV")),
+                new Currency(new RegionInfo("cs-CZ")),
+                new Currency(new RegionInfo("aa-DJ")),
+                new Currency(new RegionInfo("da-DK")),
+                new Currency(new RegionInfo("es-DO")),
+                new Currency(new RegionInfo("ar-DZ")),
+                new Currency(new RegionInfo("ar-EG")),
+                new Currency(new RegionInfo("aa-ER")),
+                new Currency(new RegionInfo("aa-ET")),
+                new Currency(new RegionInfo("ast-ES")),
+                new Currency(new RegionInfo("en-FJ")),
+                new Currency(new RegionInfo("en-FK")),
+                new Currency(new RegionInfo("cy-GB")),
+                new Currency(new RegionInfo("ka-GE")),
+                new Currency(new RegionInfo("ak-GH")),
+                new Currency(new RegionInfo("en-GI")),
+                new Currency(new RegionInfo("en-GM")),
+                new Currency(new RegionInfo("ff-GN")),
+                new Currency(new RegionInfo("es-GT")),
+                new Currency(new RegionInfo("en-GY")),
+                new Currency(new RegionInfo("en-HK")),
+                new Currency(new RegionInfo("es-HN")),
+                new Currency(new RegionInfo("hr")),
+                new Currency(new RegionInfo("fr-HT")),
+                new Currency(new RegionInfo("hu")),
+                new Currency(new RegionInfo("en-ID")),
+                new Currency(new RegionInfo("ar-IL")),
+                new Currency(new RegionInfo("as-IN")),
+                new Currency(new RegionInfo("ar-IQ")),
+                new Currency(new RegionInfo("fa-IR")),
+                new Currency(new RegionInfo("is")),
+                new Currency(new RegionInfo("en-JM")),
+                new Currency(new RegionInfo("ar-JO")),
+                new Currency(new RegionInfo("ja-JP")),
+                new Currency(new RegionInfo("dav-KE")),
+                new Currency(new RegionInfo("ky-KG")),
+                new Currency(new RegionInfo("km-KH")),
+                new Currency(new RegionInfo("ar-KM")),
+                new Currency(new RegionInfo("ko-KR")),
+                new Currency(new RegionInfo("ar-KW")),
+                new Currency(new RegionInfo("en-KY")),
+                new Currency(new RegionInfo("kk-KZ")),
+                new Currency(new RegionInfo("la")),
+                new Currency(new RegionInfo("ar-LB")),
+                new Currency(new RegionInfo("si-LK")),
+                new Currency(new RegionInfo("en-LR")),
+                new Currency(new RegionInfo("ar-LY")),
+                new Currency(new RegionInfo("ar-MA")),
+                new Currency(new RegionInfo("ro-MD")),
+                new Currency(new RegionInfo("en-MG")),
+                new Currency(new RegionInfo("mk")),
+                new Currency(new RegionInfo("my-MM")),
+                new Currency(new RegionInfo("mn")),
+                new Currency(new RegionInfo("en-MO")),
+                new Currency(new RegionInfo("ar-MR")),
+                new Currency(new RegionInfo("en-MU")),
+                new Currency(new RegionInfo("dv-MV")),
+                new Currency(new RegionInfo("en-MW")),
+                new Currency(new RegionInfo("es-MX")),
+                new Currency(new RegionInfo("en-MY")),
+                new Currency(new RegionInfo("mgh-MZ")),
+                new Currency(new RegionInfo("af-NA")),
+                new Currency(new RegionInfo("bin-NG")),
+                new Currency(new RegionInfo("es-NI")),
+                new Currency(new RegionInfo("nb-NO")),
+                new Currency(new RegionInfo("ne-NP")),
+                new Currency(new RegionInfo("en-CK")),
+                new Currency(new RegionInfo("ar-OM")),
+                new Currency(new RegionInfo("es-PA")),
+                new Currency(new RegionInfo("es-PE")),
+                new Currency(new RegionInfo("en-PG")),
+                new Currency(new RegionInfo("en-PH")),
+                new Currency(new RegionInfo("en-PK")),
+                new Currency(new RegionInfo("pl")),
+                new Currency(new RegionInfo("es-PY")),
+                new Currency(new RegionInfo("ar-QA")),
+                new Currency(new RegionInfo("ro")),
+                new Currency(new RegionInfo("sr-Cyrl-RS")),
+                new Currency(new RegionInfo("ba-RU")),
+                new Currency(new RegionInfo("en-RW")),
+                new Currency(new RegionInfo("ar-SA")),
+                new Currency(new RegionInfo("en-SB")),
+                new Currency(new RegionInfo("en-SC")),
+                new Currency(new RegionInfo("ar-SD")),
+                new Currency(new RegionInfo("se")),
+                new Currency(new RegionInfo("en-SG")),
+                new Currency(new RegionInfo("en-SH")),
+                new Currency(new RegionInfo("en-SL")),
+                new Currency(new RegionInfo("ar-SO")),
+                new Currency(new RegionInfo("nl-SR")),
+                new Currency(new RegionInfo("ar-SS")),
+                new Currency(new RegionInfo("pt-ST")),
+                new Currency(new RegionInfo("ar-SY")),
+                new Currency(new RegionInfo("en-SZ")),
+                new Currency(new RegionInfo("th")),
+                new Currency(new RegionInfo("tg-Cyrl-TJ")),
+                new Currency(new RegionInfo("tk-TM")),
+                new Currency(new RegionInfo("ar-TN")),
+                new Currency(new RegionInfo("en-TO")),
+                new Currency(new RegionInfo("tr")),
+                new Currency(new RegionInfo("en-TT")),
+                new Currency(new RegionInfo("zh-TW")),
+                new Currency(new RegionInfo("asa-TZ")),
+                new Currency(new RegionInfo("ru-UA")),
+                new Currency(new RegionInfo("cgg-UG")),
+                new Currency(new RegionInfo("as")),
+                new Currency(new RegionInfo("es-UY")),
+                new Currency(new RegionInfo("uz")),
+                new Currency(new RegionInfo("es-VE")),
+                new Currency(new RegionInfo("vi-VN")),
+                new Currency(new RegionInfo("en-VU")),
+                new Currency(new RegionInfo("en-WS")),
+                new Currency(new RegionInfo("agq-CM")),
+                new Currency(new RegionInfo("en-029")),
+                new Currency(new RegionInfo("ar-001")),
+                new Currency(new RegionInfo("bm-Latn-ML")),
+                new Currency(new RegionInfo("fr-NC")),
+                new Currency(new RegionInfo("ar-YE")),
+                new Currency(new RegionInfo("af-ZA")),
+                new Currency(new RegionInfo("bem-ZM"))
+            };
     }
 }

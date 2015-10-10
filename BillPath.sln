@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillPath.Providers.Tests", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{578662D8-6F3C-45A1-9C91-C2F479CA253D}"
 	ProjectSection(SolutionItems) = preProject
-		Get-Currencies.ps1 = Get-Currencies.ps1
+		Get-CurrencyProvider.ps1 = Get-CurrencyProvider.ps1
 	EndProjectSection
 EndProject
 Global

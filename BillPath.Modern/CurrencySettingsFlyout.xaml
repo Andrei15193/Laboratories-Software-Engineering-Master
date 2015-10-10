@@ -3,6 +3,7 @@
     x:Uid="/SettingsFlyout/Currency"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:providers="using:BillPath.Providers"
     xmlns:local="using:BillPath.Modern"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,6 +14,12 @@
     d:DesignWidth="346"
     HorizontalContentAlignment="Stretch"
     Unloaded="_SaveSettings">
+    <SettingsFlyout.Resources>
+        <providers:CurrencyProvider
+            x:Key="CurrencyProvider" />
+        <providers:CurrencyDisplayFormatProvider
+            x:Key="CurrencyDisplayFormatProvider" />
+    </SettingsFlyout.Resources>
     <StackPanel>
         <StackPanel
             Style="{StaticResource SettingsFlyoutSectionStyle}">
@@ -35,14 +42,14 @@
                 x:Uid="/Settings/PreferredCurrency"
                 Header="Preferred currency"
                 DisplayMemberPath="IsoCode"
-                ItemsSource="{Binding AllCurrencies, Mode=OneTime}"
+                ItemsSource="{Binding Currencies, Source={StaticResource CurrencyProvider}, Mode=OneTime}"
                 SelectedItem="{Binding PreferredCurrency, Mode=TwoWay}"
                 IsEnabled="{Binding SaveCommand.CanExecute, Mode=OneWay}" />
 
             <ComboBox
                 x:Uid="/Settings/CurrencyDisplayFormat"
                 Header="Display format"
-                ItemsSource="{Binding AllCurrencyDisplayFormats, Mode=OneTime}"
+                ItemsSource="{Binding CurrencyDisplayFormats, Source={StaticResource CurrencyDisplayFormatProvider}, Mode=OneTime}"
                 SelectedItem="{Binding PreferredCurrencyDisplayFormat, Mode=TwoWay}"
                 IsEnabled="{Binding SaveCommand.CanExecute, Mode=OneWay}">
                 <ComboBox.ItemTemplate>
