@@ -1,5 +1,7 @@
 ﻿using System;
+#if DEBUG
 using System.Diagnostics;
+#endif
 using BillPath.UserInterface.ViewModels;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -26,7 +28,7 @@ namespace BillPath.Modern
             if (Debugger.IsAttached)
                 DebugSettings.EnableFrameRateCounter = true;
 #endif
-            await (Resources["SettingsViewModel"] as SettingsViewModel)?.LoadCommand.ExecuteAsync(null);
+            await this.GetResource<SettingsViewModel>("SettingsViewModel")?.LoadCommand.ExecuteAsync(null);
 
             Frame rootFrame = Window.Current.Content as Frame;
 

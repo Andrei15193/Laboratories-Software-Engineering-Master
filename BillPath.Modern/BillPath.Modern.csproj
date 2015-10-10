@@ -117,6 +117,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationExtensions.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
@@ -145,9 +146,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mocks\IncomeRepository.cs" />
-    <Compile Include="Mocks\IncomesViewModel.cs" />
+    <Compile Include="ResourceBinders\IncomesViewModel.cs" />
     <Compile Include="Mocks\SettingsRepository.cs" />
-    <Compile Include="Mocks\SettingsViewModel.cs" />
+    <Compile Include="ResourceBinders\SettingsViewModel.cs" />
     <Compile Include="ModernAppFileProvider.cs" />
     <Compile Include="Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>

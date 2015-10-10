@@ -2,9 +2,16 @@
     x:Class="BillPath.Modern.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:providers="using:BillPath.Providers"
     xmlns:converters="using:BillPath.Modern.Converters"
-    xmlns:mocks="using:BillPath.Modern.Mocks">
+    xmlns:mocks="using:BillPath.Modern.Mocks"
+    xmlns:resourceBinders="using:BillPath.Modern.ResourceBinders">
     <Application.Resources>
+        <providers:CurrencyProvider
+            x:Key="CurrencyProvider" />
+        <providers:CurrencyDisplayFormatProvider
+            x:Key="CurrencyDisplayFormatProvider" />
+        
         <x:String
             x:Key="SettingsFileName">Settings.xml</x:String>
         <converters:LocalizationConverter
@@ -21,15 +28,21 @@
             x:Key="IsMatchConverter" />
 
         <mocks:IncomeRepository
+            x:Key="DEBUG_IncomeRepository"
+            MillisecondsDelay="1000" />
+        <mocks:SettingsRepository
+            x:Key="DEBUG_SettingsRepository"
+            MillisecondsDelay="1000" />
+        <mocks:IncomeRepository
             x:Key="IncomeRepository"
             MillisecondsDelay="1000" />
-        <mocks:IncomesViewModel
-            x:Key="IncomesViewModel" />
-
         <mocks:SettingsRepository
             x:Key="SettingsRepository"
             MillisecondsDelay="1000" />
-        <mocks:SettingsViewModel
+
+        <resourceBinders:IncomesViewModel
+            x:Key="IncomesViewModel" />
+        <resourceBinders:SettingsViewModel
             x:Key="SettingsViewModel" />
     </Application.Resources>
 </Application>

@@ -1,13 +1,13 @@
 ﻿using BillPath.DataAccess;
 using Windows.UI.Xaml;
 
-namespace BillPath.Modern.Mocks
+namespace BillPath.Modern.ResourceBinders
 {
     internal class IncomesViewModel
         : UserInterface.ViewModels.IncomesViewModel
     {
         public IncomesViewModel()
-            : base((IIncomeRepository)Application.Current.Resources[nameof(IncomeRepository)])
+            : base(Application.Current.GetResource<IIncomeRepository>(nameof(IncomeRepository)))
         {
         }
     }
