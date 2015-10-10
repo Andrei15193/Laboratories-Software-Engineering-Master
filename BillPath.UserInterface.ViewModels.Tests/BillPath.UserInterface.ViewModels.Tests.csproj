@@ -118,7 +118,6 @@
     <Compile Include="CommandTests.cs" />
     <Compile Include="DelegateAsyncCommandTests.cs" />
     <Compile Include="DelegateCommandTests.cs" />
-    <Compile Include="OsFileProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsViewModelTests.cs" />
     <Compile Include="ViewModelTests.cs" />

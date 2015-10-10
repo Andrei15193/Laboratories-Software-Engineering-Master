@@ -7,21 +7,19 @@ namespace BillPath.DataAccess.Xml
     public abstract class FileProvider
     {
         public Task<bool> FileExistsAsync(string fileName)
-        {
-            return FileExistsAsync(fileName, CancellationToken.None);
-        }
+            => FileExistsAsync(fileName, CancellationToken.None);
         public abstract Task<bool> FileExistsAsync(string fileName, CancellationToken cancellationToken);
 
         public Task<Stream> GetReadStreamForAsync(string fileName)
-        {
-            return GetReadStreamForAsync(fileName, CancellationToken.None);
-        }
+            => GetReadStreamForAsync(fileName, CancellationToken.None);
         public abstract Task<Stream> GetReadStreamForAsync(string fileName, CancellationToken cancellationToken);
 
         public Task<Stream> GetWriteStreamForAsync(string fileName)
-        {
-            return GetWriteStreamForAsync(fileName, CancellationToken.None);
-        }
+            => GetWriteStreamForAsync(fileName, CancellationToken.None);
         public abstract Task<Stream> GetWriteStreamForAsync(string fileName, CancellationToken cancellationToken);
+
+        public Task DeleteFileAsync(string fileName)
+            => DeleteFileAsync(fileName, CancellationToken.None);
+        public abstract Task DeleteFileAsync(string fileName, CancellationToken cancellationToken);
     }
 }
