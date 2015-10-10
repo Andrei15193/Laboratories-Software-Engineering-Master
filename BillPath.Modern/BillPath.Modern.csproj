@@ -106,7 +106,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <PRIResource Include="Strings\SettingsFlyout.resw">
+    <PRIResource Include="Strings\en\SettingsFlyout.resw">
       <CustomToolNamespace>BillPath.Modern.Strings</CustomToolNamespace>
       <Generator>ReswFileCodeGenerator</Generator>
       <LastGenOutput>SettingsFlyout.cs</LastGenOutput>
@@ -153,12 +153,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converters\ArgbColorToColorConverter.cs" />
     <Compile Include="Converters\IdealReadingColorCoverter.cs" />
-    <Compile Include="Strings\IncomesView.cs">
+    <Compile Include="Strings\en\IncomesView.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IncomesView.resw</DependentUpon>
     </Compile>
-    <Compile Include="Strings\SettingsFlyout.cs">
+    <Compile Include="Strings\en\SettingsFlyout.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SettingsFlyout.resw</DependentUpon>
@@ -172,7 +172,7 @@
     <None Include="BillPath_StoreKey.pfx" />
     <None Include="packages.config" />
     <PRIResource Include="Strings\ro-RO\IncomesView.resw" />
-    <PRIResource Include="Strings\IncomesView.resw">
+    <PRIResource Include="Strings\en\IncomesView.resw">
       <CustomToolNamespace>BillPath.Modern.Strings</CustomToolNamespace>
       <Generator>ReswFileCodeGenerator</Generator>
       <LastGenOutput>IncomesView.cs</LastGenOutput>

@@ -101,14 +101,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <PRIResource Include="Strings\Amount.resw">
-      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
-      <Generator>ReswFileCodeGenerator</Generator>
-      <LastGenOutput>Amount.cs</LastGenOutput>
-    </PRIResource>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="DataAccess\ExpenseCategoryRepository.cs" />
     <Compile Include="DataAccess\ExpenseRepository.cs" />
     <Compile Include="DataAccess\IExpenseCategoryRepository.cs" />
@@ -141,35 +133,35 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CurrencyDisplayFormatProvider.cs" />
     <Compile Include="Providers\CurrencyProvider.cs" />
-    <Compile Include="Strings\Amount.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Strings\en\Amount.cs">
       <DependentUpon>Amount.resw</DependentUpon>
-    </Compile>
-    <Compile Include="Strings\CurrencyDisplayFormat.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Strings\en\CurrencyDisplayFormat.cs">
       <DependentUpon>CurrencyDisplayFormat.resw</DependentUpon>
-    </Compile>
-    <Compile Include="Strings\Expense.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Strings\en\Expense.cs">
       <DependentUpon>Expense.resw</DependentUpon>
-    </Compile>
-    <Compile Include="Strings\ExpenseCategory.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Strings\en\ExpenseCategory.cs">
       <DependentUpon>ExpenseCategory.resw</DependentUpon>
-    </Compile>
-    <Compile Include="Strings\Settings.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Strings\en\Settings.cs">
       <DependentUpon>Settings.resw</DependentUpon>
-    </Compile>
-    <Compile Include="Strings\Transaction.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Strings\en\Transaction.cs">
       <DependentUpon>Transaction.resw</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="UserInterface\ViewModels\AsyncCommand.cs" />
     <Compile Include="UserInterface\ViewModels\Command.cs" />
@@ -180,20 +172,6 @@
     <Compile Include="UserInterface\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\StatsViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\ViewModel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\CurrencyDisplayFormat.resw">
-      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
-      <Generator>ReswFileCodeGenerator</Generator>
-      <LastGenOutput>CurrencyDisplayFormat.cs</LastGenOutput>
-    </PRIResource>
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\Settings.resw">
-      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
-      <Generator>ReswFileCodeGenerator</Generator>
-      <LastGenOutput>Settings.cs</LastGenOutput>
-    </PRIResource>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\ro-RO\Amount.resw" />
@@ -208,31 +186,52 @@
     <PRIResource Include="Strings\ro-RO\Settings.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\ExpenseCategory.resw">
-      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
-      <Generator>ReswFileCodeGenerator</Generator>
-      <LastGenOutput>ExpenseCategory.cs</LastGenOutput>
-    </PRIResource>
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\Expense.resw">
-      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
-      <Generator>ReswFileCodeGenerator</Generator>
-      <LastGenOutput>Expense.cs</LastGenOutput>
-    </PRIResource>
-  </ItemGroup>
-  <ItemGroup>
     <PRIResource Include="Strings\ro-RO\Expense.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\Transaction.resw">
-      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    <PRIResource Include="Strings\ro-RO\Transaction.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Amount.resw">
       <Generator>ReswFileCodeGenerator</Generator>
-      <LastGenOutput>Transaction.cs</LastGenOutput>
+      <LastGenOutput>Amount.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
     </PRIResource>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\ro-RO\Transaction.resw" />
+    <PRIResource Include="Strings\en\CurrencyDisplayFormat.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>CurrencyDisplayFormat.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Expense.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Expense.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\ExpenseCategory.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>ExpenseCategory.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Settings.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Settings.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Transaction.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Transaction.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    </PRIResource>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

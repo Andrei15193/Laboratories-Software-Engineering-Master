@@ -17,20 +17,21 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 09/27/2015 10:39:27
+// 	Generated: 10/10/2015 10:51:17
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace BillPath.Modern.Strings
 {
     using Windows.ApplicationModel.Resources;
     using Windows.UI.Core;
-
-    public partial class SettingsFlyout
+    
+    
+    public partial class IncomesView
     {
-
+        
         private static ResourceLoader resourceLoader;
-
-        static SettingsFlyout()
+        
+        static IncomesView()
         {
             string executingAssemblyName;
             executingAssemblyName = Windows.UI.Xaml.Application.Current.GetType().AssemblyQualifiedName;
@@ -38,7 +39,7 @@ namespace BillPath.Modern.Strings
             executingAssemblySplit = executingAssemblyName.Split(',');
             executingAssemblyName = executingAssemblySplit[1];
             string currentAssemblyName;
-            currentAssemblyName = typeof(SettingsFlyout).AssemblyQualifiedName;
+            currentAssemblyName = typeof(IncomesView).AssemblyQualifiedName;
             string[] currentAssemblySplit;
             currentAssemblySplit = currentAssemblyName.Split(',');
             currentAssemblyName = currentAssemblySplit[1];
@@ -46,23 +47,45 @@ namespace BillPath.Modern.Strings
             {
                 if (executingAssemblyName.Equals(currentAssemblyName))
                 {
-                    resourceLoader = ResourceLoader.GetForCurrentView("ExpenseCategory");
+                    resourceLoader = ResourceLoader.GetForCurrentView("IncomesView");
                 }
                 else
                 {
-                    resourceLoader = ResourceLoader.GetForCurrentView(currentAssemblyName + "/ExpenseCategory");
+                    resourceLoader = ResourceLoader.GetForCurrentView(currentAssemblyName + "/IncomesView");
                 }
             }
             else
             {
                 if (executingAssemblyName.Equals(currentAssemblyName))
                 {
-                    resourceLoader = ResourceLoader.GetForViewIndependentUse("ExpenseCategory");
+                    resourceLoader = ResourceLoader.GetForViewIndependentUse("IncomesView");
                 }
                 else
                 {
-                    resourceLoader = ResourceLoader.GetForViewIndependentUse(currentAssemblyName + "/ExpenseCategory");
+                    resourceLoader = ResourceLoader.GetForViewIndependentUse(currentAssemblyName + "/IncomesView");
                 }
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "Page {0},"
+        /// </summary>
+        public static string Page
+        {
+            get
+            {
+                return resourceLoader.GetString("Page");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "The total of pages is {0}."
+        /// </summary>
+        public static string PageCount
+        {
+            get
+            {
+                return resourceLoader.GetString("PageCount");
             }
         }
     }

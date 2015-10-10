@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Currency.Title" xml:space="preserve">
+  <data name="Currency/Title" xml:space="preserve">
     <value>Currency</value>
   </data>
-  <data name="CurrencyDisplayFormat.Text" xml:space="preserve">
+  <data name="CurrencyDisplayFormat/Text" xml:space="preserve">
     <value>Display format</value>
   </data>
 </root>

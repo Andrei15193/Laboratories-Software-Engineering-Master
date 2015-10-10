@@ -4,7 +4,6 @@ using BillPath.DataAccess.Xml;
 using BillPath.UserInterface.ViewModels;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Resources;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -73,21 +72,16 @@ namespace BillPath.Modern
         }
 
         private void OnCommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs settingsPaneCommandsRequestedEventArgs)
-        {
-            var settingsResource = ResourceLoader.GetForViewIndependentUse("/SettingsFlyout");
-
-            settingsPaneCommandsRequestedEventArgs
+            => settingsPaneCommandsRequestedEventArgs
                 .Request
                 .ApplicationCommands
                 .Add(new SettingsCommand(
                     "Currency",
-                    settingsResource.GetString("Currency/Title"),
+                    Strings.SettingsFlyout.Currency_Title,
                     delegate
                     {
                         new CurrencySettingsFlyout().Show();
                     }));
-
-        }
 
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
