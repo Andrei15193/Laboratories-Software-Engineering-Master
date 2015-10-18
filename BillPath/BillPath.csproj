@@ -106,6 +106,8 @@
     <Compile Include="DataAccess\IExpenseCategoryRepository.cs" />
     <Compile Include="DataAccess\IExpenseRepository.cs" />
     <Compile Include="DataAccess\IIncomeRepository.cs" />
+    <Compile Include="DataAccess\IItemReader.cs" />
+    <Compile Include="DataAccess\IItemReaderProvider.cs" />
     <Compile Include="DataAccess\IncomeRepository.cs" />
     <Compile Include="DataAccess\ISettingsRepository.cs" />
     <Compile Include="DataAccess\ITransactionRepository.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="UserInterface\ViewModels\DelegateCommand.cs" />
     <Compile Include="UserInterface\ViewModels\IncomesViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\IncomeViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\PaginationViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\StatsViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\ViewModel.cs" />
