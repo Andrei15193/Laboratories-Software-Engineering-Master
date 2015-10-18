@@ -117,10 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="GoToPageButton/Content" xml:space="preserve">
+    <value>sari la</value>
+  </data>
+  <data name="GoToPageFlyoutButton/Content" xml:space="preserve">
+    <value>Sari</value>
+  </data>
+  <data name="NextPageButton/Content" xml:space="preserve">
+    <value>precedenta</value>
+  </data>
   <data name="Page" xml:space="preserve">
-    <value>Page {0},</value>
+    <value>Pagina {0},</value>
   </data>
   <data name="PageCount" xml:space="preserve">
-    <value>The total of pages is {0}.</value>
+    <value>Numarul total de pagini este {0}.</value>
+  </data>
+  <data name="PageNumberTextBlock/Text" xml:space="preserve">
+    <value>Pagina:</value>
+  </data>
+  <data name="PreviousPageButton/Content" xml:space="preserve">
+    <value>următoarea</value>
   </data>
 </root>

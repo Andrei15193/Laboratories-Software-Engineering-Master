@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 10/10/2015 10:51:17
+// 	Generated: 10/18/2015 23:18:22
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace BillPath.Modern.Strings
@@ -26,12 +26,12 @@ namespace BillPath.Modern.Strings
     using Windows.UI.Core;
     
     
-    public partial class IncomesView
+    public partial class IncomesPagedView
     {
         
         private static ResourceLoader resourceLoader;
         
-        static IncomesView()
+        static IncomesPagedView()
         {
             string executingAssemblyName;
             executingAssemblyName = Windows.UI.Xaml.Application.Current.GetType().AssemblyQualifiedName;
@@ -39,7 +39,7 @@ namespace BillPath.Modern.Strings
             executingAssemblySplit = executingAssemblyName.Split(',');
             executingAssemblyName = executingAssemblySplit[1];
             string currentAssemblyName;
-            currentAssemblyName = typeof(IncomesView).AssemblyQualifiedName;
+            currentAssemblyName = typeof(IncomesPagedView).AssemblyQualifiedName;
             string[] currentAssemblySplit;
             currentAssemblySplit = currentAssemblyName.Split(',');
             currentAssemblyName = currentAssemblySplit[1];
@@ -47,23 +47,56 @@ namespace BillPath.Modern.Strings
             {
                 if (executingAssemblyName.Equals(currentAssemblyName))
                 {
-                    resourceLoader = ResourceLoader.GetForCurrentView("IncomesView");
+                    resourceLoader = ResourceLoader.GetForCurrentView("IncomesPagedView");
                 }
                 else
                 {
-                    resourceLoader = ResourceLoader.GetForCurrentView(currentAssemblyName + "/IncomesView");
+                    resourceLoader = ResourceLoader.GetForCurrentView(currentAssemblyName + "/IncomesPagedView");
                 }
             }
             else
             {
                 if (executingAssemblyName.Equals(currentAssemblyName))
                 {
-                    resourceLoader = ResourceLoader.GetForViewIndependentUse("IncomesView");
+                    resourceLoader = ResourceLoader.GetForViewIndependentUse("IncomesPagedView");
                 }
                 else
                 {
-                    resourceLoader = ResourceLoader.GetForViewIndependentUse(currentAssemblyName + "/IncomesView");
+                    resourceLoader = ResourceLoader.GetForViewIndependentUse(currentAssemblyName + "/IncomesPagedView");
                 }
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "go to"
+        /// </summary>
+        public static string GoToPageButton_Content
+        {
+            get
+            {
+                return resourceLoader.GetString("GoToPageButton/Content");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "Go"
+        /// </summary>
+        public static string GoToPageFlyoutButton_Content
+        {
+            get
+            {
+                return resourceLoader.GetString("GoToPageFlyoutButton/Content");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "next"
+        /// </summary>
+        public static string NextPageButton_Content
+        {
+            get
+            {
+                return resourceLoader.GetString("NextPageButton/Content");
             }
         }
         
@@ -79,13 +112,35 @@ namespace BillPath.Modern.Strings
         }
         
         /// <summary>
-        /// Localized resource similar to "The total of pages is {0}."
+        /// Localized resource similar to "The total number of pages is {0}."
         /// </summary>
         public static string PageCount
         {
             get
             {
                 return resourceLoader.GetString("PageCount");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "Page:"
+        /// </summary>
+        public static string PageNumberTextBlock_Text
+        {
+            get
+            {
+                return resourceLoader.GetString("PageNumberTextBlock/Text");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "previous"
+        /// </summary>
+        public static string PreviousPageButton_Content
+        {
+            get
+            {
+                return resourceLoader.GetString("PreviousPageButton/Content");
             }
         }
     }

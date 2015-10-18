@@ -157,18 +157,18 @@
                 <TextBlock
                     Style="{StaticResource BodyTextBlockStyle}"
                     VerticalAlignment="Top"
-                    Text="{Binding CurrentPage, Converter={StaticResource ResourceFormatConverter}, ConverterParameter=IncomesView Page, Mode=OneWay}" />
+                    Text="{Binding CurrentPage, Converter={StaticResource ResourceFormatConverter}, ConverterParameter=IncomesPagedView Page, Mode=OneWay}" />
                 <Button
                     x:Name="PreviousPageButton"
-                    Content="previous"
+                    x:Uid="/IncomesPagedView/PreviousPageButton"
                     Command="{Binding GoToPreviousPageCommand, Converter={StaticResource CommandConverter}, Mode=OneWay}" />
                 <Button
                     x:Name="NextPageButton"
-                    Content="next"
+                    x:Uid="/IncomesPagedView/NextPageButton"
                     Command="{Binding GoToNextPageCommand, Converter={StaticResource CommandConverter}, Mode=OneWay}" />
                 <Button
                     x:Name="GoToPageButton"
-                    Content="go to">
+                    x:Uid="/IncomesPagedView/GoToPageButton">
                     <Button.Flyout>
                         <Flyout>
                             <Grid>
@@ -188,10 +188,11 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <TextBlock
+                                    x:Name="PageNumberTextBlock"
+                                    x:Uid="/IncomesPagedView/PageNumberTextBlock"
                                     Grid.Column="0"
                                     Grid.Row="0"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Page:" />
+                                    Style="{StaticResource BodyTextBlockStyle}" />
                                 <TextBox
                                     x:Name="PageNumberTextBox"
                                     Grid.Column="2"
@@ -201,10 +202,10 @@
                                     TextChanged="_PageNumberTextChanged"
                                     KeyDown="_PageNumberKeyDown" />
                                 <Button
-                                    x:Name="SelectPageButton"
+                                    x:Name="GoToPageFlyoutButton"
+                                    x:Uid="/IncomesPagedView/GoToPageFlyoutButton"
                                     Grid.Column="4"
                                     Grid.Row="0"
-                                    Content="Go"
                                     Command="{Binding GoToPageCommand, Converter={StaticResource CommandConverter}, Mode=OneTime}"
                                     HorizontalAlignment="Right" />
                                 <TextBlock
@@ -212,7 +213,7 @@
                                     Grid.ColumnSpan="5"
                                     Grid.Row="1"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{Binding PageCount, Converter={StaticResource ResourceFormatConverter}, ConverterParameter=IncomesView PageCount, Mode=OneWay}" />
+                                    Text="{Binding PageCount, Converter={StaticResource ResourceFormatConverter}, ConverterParameter=IncomesPagedView PageCount, Mode=OneWay}" />
                             </Grid>
                         </Flyout>
                     </Button.Flyout>

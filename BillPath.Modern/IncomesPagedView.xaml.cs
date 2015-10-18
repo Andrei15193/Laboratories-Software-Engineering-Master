@@ -107,19 +107,19 @@ namespace BillPath.Modern
                 && 1 <= pageNumber
                 && pageNumber <= _ViewModel.PageCount)
             {
-                SelectPageButton.IsEnabled = true;
-                SelectPageButton.CommandParameter = pageNumber;
+                GoToPageFlyoutButton.IsEnabled = true;
+                GoToPageFlyoutButton.CommandParameter = pageNumber;
             }
             else
-                SelectPageButton.IsEnabled = false;
+                GoToPageFlyoutButton.IsEnabled = false;
         }
 
         private void _PageNumberKeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter
-                && SelectPageButton.IsEnabled
-                && SelectPageButton.Command.CanExecute(SelectPageButton.CommandParameter))
-                SelectPageButton.Command.Execute(SelectPageButton.CommandParameter);
+                && GoToPageFlyoutButton.IsEnabled
+                && GoToPageFlyoutButton.Command.CanExecute(GoToPageFlyoutButton.CommandParameter))
+                GoToPageFlyoutButton.Command.Execute(GoToPageFlyoutButton.CommandParameter);
         }
     }
 }

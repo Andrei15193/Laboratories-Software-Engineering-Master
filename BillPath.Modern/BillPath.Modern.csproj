@@ -157,10 +157,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converters\ArgbColorToColorConverter.cs" />
     <Compile Include="Converters\IdealReadingColorCoverter.cs" />
-    <Compile Include="Strings\en\IncomesView.cs">
+    <Compile Include="Strings\en\IncomesPagedView.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IncomesView.resw</DependentUpon>
+      <DependentUpon>IncomesPagedView.resw</DependentUpon>
     </Compile>
     <Compile Include="Strings\en\SettingsFlyout.cs">
       <AutoGen>True</AutoGen>
@@ -175,11 +175,11 @@
     </AppxManifest>
     <None Include="BillPath_StoreKey.pfx" />
     <None Include="packages.config" />
-    <PRIResource Include="Strings\ro-RO\IncomesView.resw" />
-    <PRIResource Include="Strings\en\IncomesView.resw">
-      <CustomToolNamespace>BillPath.Modern.Strings</CustomToolNamespace>
+    <PRIResource Include="Strings\ro-RO\IncomesPagedView.resw" />
+    <PRIResource Include="Strings\en\IncomesPagedView.resw">
       <Generator>ReswFileCodeGenerator</Generator>
-      <LastGenOutput>IncomesView.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Modern.Strings</CustomToolNamespace>
+      <LastGenOutput>IncomesPagedView.cs</LastGenOutput>
     </PRIResource>
   </ItemGroup>
   <ItemGroup>

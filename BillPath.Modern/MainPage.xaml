@@ -49,7 +49,6 @@
                     <AppBarButton
                         Icon="FourBars"
                         IsCompact="True" />
-
                 </StackPanel>
             </StackPanel>
         </Hub.Header>
