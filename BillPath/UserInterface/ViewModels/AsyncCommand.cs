@@ -55,9 +55,13 @@ namespace BillPath.UserInterface.ViewModels
             }
             protected set
             {
-                _canExecute = value;
-                if (CanExecute != value)
+                if (CanExecute == value)
+                    _canExecute = value;
+                else
+                {
+                    _canExecute = value;
                     OnCanExecuteChanged(EventArgs.Empty);
+                }
             }
         }
         protected virtual void OnCanExecuteChanged(EventArgs eventArgs)

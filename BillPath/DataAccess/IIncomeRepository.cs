@@ -7,6 +7,7 @@ using BillPath.Models;
 namespace BillPath.DataAccess
 {
     public interface IIncomeRepository
+        : IItemReaderProvider<Income>
     {
         Task SaveAsync(Income income);
         Task SaveAsync(Income income, CancellationToken cancellationToken);

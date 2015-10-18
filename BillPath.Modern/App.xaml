@@ -29,7 +29,8 @@
 
         <mocks:IncomeRepository
             x:Key="DEBUG_IncomeRepository"
-            MillisecondsDelay="1000" />
+            MillisecondsDelay="1000"
+            ReaderMillisecondsDelay="100"/>
         <mocks:SettingsRepository
             x:Key="DEBUG_SettingsRepository"
             MillisecondsDelay="1000" />

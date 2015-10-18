@@ -23,5 +23,11 @@ namespace BillPath.DataAccess
         public Task<int> GetPageCountAsync()
             => GetPageCountAsync(CancellationToken.None);
         public abstract Task<int> GetPageCountAsync(CancellationToken cancellationToken);
+
+        public abstract IItemReader<Income> GetReader();
+
+        public Task<int> GetItemCountAsync()
+            => GetItemCountAsync(CancellationToken.None);
+        public abstract Task<int> GetItemCountAsync(CancellationToken cancellationToken);
     }
 }

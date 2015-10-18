@@ -139,6 +139,9 @@
       <DependentUpon>CurrencyTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="GoToStateCommand.cs" />
+    <Compile Include="IncomesPagedView.xaml.cs">
+      <DependentUpon>IncomesPagedView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IncomesView.xaml.cs">
       <DependentUpon>IncomesView.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mocks\IncomeRepository.cs" />
+    <Compile Include="ResourceBinders\IncomesPaginationViewModel.cs" />
     <Compile Include="ResourceBinders\IncomesViewModel.cs" />
     <Compile Include="Mocks\SettingsRepository.cs" />
     <Compile Include="ResourceBinders\SettingsViewModel.cs" />
@@ -198,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CurrencyTextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="IncomesPagedView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -120,18 +120,29 @@ namespace BillPath.UserInterface.ViewModels.Tests
         }
 
         [TestMethod]
-        public async Task TestExceptionIsThrownIfPageCountIsAccessedWithoutLoad()
+        public async Task TestPageCountIs0WhenAccessedWithoutLoad()
         {
             _SkipLoad = true;
             var viewModel = await _GetViewModelAsync();
-            Assert.ThrowsException<InvalidOperationException>(() => viewModel.PageCount);
+            Assert.AreEqual(
+                0,
+                viewModel.PageCount);
         }
         [TestMethod]
-        public async Task TestExceptionIsThrownIfPageItemsAreAccessedWithoutLoad()
+        public async Task TestCurrentPageIs0WhenAccessedWithoutLoad()
         {
             _SkipLoad = true;
             var viewModel = await _GetViewModelAsync();
-            Assert.ThrowsException<InvalidOperationException>(() => viewModel.Items);
+            Assert.AreEqual(
+                0,
+                viewModel.CurrentPage);
+        }
+        [TestMethod]
+        public async Task TestItemsIsNullWhenAccessedWithoutLoad()
+        {
+            _SkipLoad = true;
+            var viewModel = await _GetViewModelAsync();
+            Assert.IsNull(viewModel.Items);
         }
         [TestMethod]
         public async Task TestExceptionIsThrownWhenExecutingGoToPageCommandWithoutLoad()
@@ -193,8 +204,10 @@ namespace BillPath.UserInterface.ViewModels.Tests
             await viewModel.GoToPageCommand.ExecuteAsync(1);
 
             Assert.AreEqual(
-                nameof(PaginationViewModel<int>.Items),
-                _PropertyChanges.Last());
+                2,
+                _PropertyChanges.Count(propertyChange => nameof(PaginationViewModel<int>.Items).Equals(
+                    propertyChange,
+                    StringComparison.OrdinalIgnoreCase)));
         }
         [TestMethod]
         public async Task TestExceptionIsThrownWhenExecutingGoToPageWhenPageCountIs0()
@@ -248,6 +261,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
                 pageItemStart,
                 pageItemCount);
 
+            Assert.AreEqual(pageNumber, viewModel.CurrentPage);
             _AssertItems(viewModel, expectedItems);
         }
 
@@ -281,8 +295,10 @@ namespace BillPath.UserInterface.ViewModels.Tests
             await viewModel.GoToNextPageCommand.ExecuteAsync(null);
 
             Assert.AreEqual(
-                nameof(PaginationViewModel<int>.Items),
-                _PropertyChanges.Last());
+                2,
+                _PropertyChanges.Count(propertyChange => nameof(PaginationViewModel<int>.Items).Equals(
+                    propertyChange,
+                    StringComparison.OrdinalIgnoreCase)));
         }
         [TestMethod]
         [DataRow(15, 0, 10)]
@@ -298,6 +314,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
                 pageItemStart,
                 pageItemCount);
 
+            Assert.AreEqual(1, viewModel.CurrentPage);
             _AssertItems(viewModel, expectedItems);
         }
         [TestMethod]
@@ -316,6 +333,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
                 pageItemStart,
                 pageItemCount);
 
+            Assert.AreEqual(initialPage + 1, viewModel.CurrentPage);
             _AssertItems(viewModel, expectedItems);
         }
 
@@ -350,8 +368,10 @@ namespace BillPath.UserInterface.ViewModels.Tests
             await viewModel.GoToPreviousPageCommand.ExecuteAsync(null);
 
             Assert.AreEqual(
-                nameof(PaginationViewModel<int>.Items),
-                _PropertyChanges.Last());
+                3,
+                _PropertyChanges.Count(propertyChange => nameof(PaginationViewModel<int>.Items).Equals(
+                    propertyChange,
+                    StringComparison.OrdinalIgnoreCase)));
         }
 
         [TestMethod]
@@ -370,6 +390,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
                 pageItemStart,
                 pageItemCount);
 
+            Assert.AreEqual(initialPage - 1, viewModel.CurrentPage);
             _AssertItems(viewModel, expectedItems);
         }
 

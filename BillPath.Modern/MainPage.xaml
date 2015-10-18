@@ -16,43 +16,76 @@
     <Page.DataContext>
         <viewModels:StatsViewModel />
     </Page.DataContext>
-    <Page.Content>
-        <Hub
-            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-            Header="BillPath">
-            <HubSection
-                VerticalContentAlignment="Stretch">
-                <DataTemplate>
-                    <local:Overview MinWidth="400" />
-                </DataTemplate>
-            </HubSection>
-            <HubSection>
-                <DataTemplate>
-                    <ItemsControl
-                        ItemsSource="{Binding CurrencyCategories}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel
-                                    Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Grid
-                                    Margin="10,0"
-                                    Width="500">
-                                    <Border
-                                        Height="200"
-                                        Background="Red">
-                                        <TextBlock
-                                            Text="Category" />
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </DataTemplate>
-            </HubSection>
-        </Hub>
-    </Page.Content>
+    <Hub
+        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Hub.Header>
+            <StackPanel
+                Orientation="Horizontal">
+                <TextBlock
+                    Style="{StaticResource HeaderTextBlockStyle}"
+                    Margin="0,10,0,0"
+                    Text="BillPath" />
+                <StackPanel
+                    Margin="20,0,0,0"
+                    Orientation="Horizontal">
+                    <AppBarButton
+                        Icon="Add"
+                        IsCompact="True">
+                        <AppBarButton.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem
+                                    Text="Add income" />
+                                <MenuFlyoutItem
+                                    Text="Add expense" />
+                            </MenuFlyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton>
+                    <AppBarButton
+                        Icon="Edit"
+                        IsCompact="True" />
+                    <AppBarButton
+                        Icon="Delete"
+                        IsCompact="True" />
+                    <AppBarButton
+                        Icon="FourBars"
+                        IsCompact="True" />
+
+                </StackPanel>
+            </StackPanel>
+        </Hub.Header>
+        <HubSection
+            VerticalContentAlignment="Stretch">
+            <DataTemplate>
+                <local:Overview
+                    MinWidth="400" />
+            </DataTemplate>
+        </HubSection>
+        <HubSection>
+            <DataTemplate>
+                <ItemsControl
+                    ItemsSource="{Binding CurrencyCategories}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel
+                                Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid
+                                Margin="10,0"
+                                Width="500">
+                                <Border
+                                    Height="200"
+                                    Background="Red">
+                                    <TextBlock
+                                        Text="Category" />
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </DataTemplate>
+        </HubSection>
+    </Hub>
 </Page>

@@ -50,6 +50,11 @@ namespace BillPath.UserInterface.ViewModels
                 get;
             }
 
+            public abstract int CurrentPage
+            {
+                get;
+            }
+
             protected PaginationViewModel<TItem> Context
             {
                 get;
@@ -63,6 +68,12 @@ namespace BillPath.UserInterface.ViewModels
                     pageCount++;
 
                 Context._state = new LoadedState(Context, pageCount);
+
+                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.PageCount));
+                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.Items));
+                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToNextPageCommand));
+                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToPreviousPageCommand));
+                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToPageCommand));
             }
         }
 
@@ -103,7 +114,7 @@ namespace BillPath.UserInterface.ViewModels
             {
                 get
                 {
-                    throw new InvalidOperationException();
+                    return null;
                 }
             }
 
@@ -111,7 +122,15 @@ namespace BillPath.UserInterface.ViewModels
             {
                 get
                 {
-                    throw new InvalidOperationException();
+                    return 0;
+                }
+            }
+
+            public override int CurrentPage
+            {
+                get
+                {
+                    return 0;
                 }
             }
         }
@@ -134,10 +153,16 @@ namespace BillPath.UserInterface.ViewModels
                         throw new ArgumentNullException(nameof(context));
 
                     _context = context;
-                    _context._PageInfoChanged +=
-                        delegate
+                    _context.Context.PropertyChanged +=
+                        (sender, e) =>
                         {
-                            RefreshCanExecute();
+                            if (nameof(PaginationViewModel<TItem>.PageCount).Equals(
+                                    e.PropertyName,
+                                    StringComparison.OrdinalIgnoreCase) ||
+                                nameof(PaginationViewModel<TItem>.CurrentPage).Equals(
+                                    e.PropertyName,
+                                    StringComparison.OrdinalIgnoreCase))
+                                RefreshCanExecute();
                         };
 
                     RefreshCanExecute();
@@ -161,7 +186,7 @@ namespace BillPath.UserInterface.ViewModels
                 {
                     get
                     {
-                        return _context._currentPage;
+                        return _context.CurrentPage;
                     }
                 }
 
@@ -216,15 +241,7 @@ namespace BillPath.UserInterface.ViewModels
                 GoToPageCommand = new DelegateAsyncCommand<int>(_GoToPageAsync);
                 GoToNextPageCommand = new GoToNextPageAsyncCommand(this);
                 GoToPreviousPageCommand = new GoToPreviousPageAsyncCommand(this);
-
-                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.PageCount));
-                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.Items));
-                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToNextPageCommand));
-                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToPreviousPageCommand));
-                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToPageCommand));
             }
-
-            private event EventHandler _PageInfoChanged;
 
             public override AsyncCommand<int> GoToPageCommand
             {
@@ -257,6 +274,14 @@ namespace BillPath.UserInterface.ViewModels
                 }
             }
 
+            public override int CurrentPage
+            {
+                get
+                {
+                    return _currentPage;
+                }
+            }
+
             private async Task _GoToPageAsync(int pageNumber, CancellationToken cancellationToken)
             {
                 if (pageNumber < 1 || PageCount < pageNumber)
@@ -276,11 +301,11 @@ namespace BillPath.UserInterface.ViewModels
                         && items.Count < _itemsPerPage);
                 }
 
-                _currentPage = pageNumber;
                 _items = items;
+                _currentPage = pageNumber;
 
-                _PageInfoChanged?.Invoke(this, EventArgs.Empty);
                 Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.Items));
+                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.CurrentPage));
             }
         }
 
@@ -341,6 +366,14 @@ namespace BillPath.UserInterface.ViewModels
             get
             {
                 return _state.PageCount;
+            }
+        }
+
+        public int CurrentPage
+        {
+            get
+            {
+                return _state.CurrentPage;
             }
         }
     }

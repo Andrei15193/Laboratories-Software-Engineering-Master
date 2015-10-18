@@ -59,5 +59,15 @@ namespace BillPath.DataAccess.Xml
         {
             throw new NotImplementedException();
         }
+
+        public override IItemReader<Income> GetReader()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task<int> GetItemCountAsync(CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
