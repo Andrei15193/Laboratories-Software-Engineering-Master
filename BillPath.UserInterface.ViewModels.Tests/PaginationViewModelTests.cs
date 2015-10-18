@@ -145,6 +145,18 @@ namespace BillPath.UserInterface.ViewModels.Tests
                     .ContinueWith(goToPageTask => goToPageTask.Exception.InnerException),
                 typeof(InvalidOperationException));
         }
+        [TestMethod]
+        public async Task TestExceptionIsThrownWhenExecutingGoToNextPageCommandWithoutLoad()
+        {
+            _SkipLoad = true;
+            var viewModel = await _GetViewModelAsync();
+            Assert.IsInstanceOfType(
+                await viewModel
+                    .GoToNextPageCommand
+                    .ExecuteAsync(null)
+                    .ContinueWith(goToNextPageTask => goToNextPageTask.Exception.InnerException),
+                typeof(InvalidOperationException));
+        }
 
         [TestMethod]
         public async Task TestPropertyChangedIsCalledAccordinglyAfterExecutingLoad()
@@ -236,10 +248,137 @@ namespace BillPath.UserInterface.ViewModels.Tests
                 pageItemStart,
                 pageItemCount);
 
+            _AssertItems(viewModel, expectedItems);
+        }
+
+        [TestMethod]
+        public async Task TestCannotExecuteGoToNextPageCommandWhenThereAreNoPages()
+        {
+            _ItemCount = 0;
+            var viewModel = await _GetViewModelAsync();
+
+            Assert.IsFalse(viewModel.GoToNextPageCommand.CanExecute);
+        }
+        [DataTestMethod]
+        [DataRow(5)]
+        [DataRow(10)]
+        [DataRow(15)]
+        [DataRow(20)]
+        [DataRow(25)]
+        public async Task TestCannotExecuteGoToNextPageCommandWhenLastPageIsSelected(int itemsCount)
+        {
+            _ItemCount = itemsCount;
+            var viewModel = await _GetViewModelAsync();
+            await viewModel.GoToPageCommand.ExecuteAsync(viewModel.PageCount);
+
+            Assert.IsFalse(viewModel.GoToNextPageCommand.CanExecute);
+        }
+        [TestMethod]
+        public async Task TestPropertyChangedEventIsRaisedWhenGoToNextPageCommandIsExecuted()
+        {
+            _ItemCount = 15;
+            var viewModel = await _GetViewModelAsync();
+            await viewModel.GoToNextPageCommand.ExecuteAsync(null);
+
+            Assert.AreEqual(
+                nameof(PaginationViewModel<int>.Items),
+                _PropertyChanges.Last());
+        }
+        [TestMethod]
+        [DataRow(15, 0, 10)]
+        [DataRow(20, 0, 10)]
+        [DataRow(25, 0, 10)]
+        public async Task TestItemsAreLoadedFromFirstPageWhenGoToNextPageIsCalledFirst(int itemCount, int pageItemStart, int pageItemCount)
+        {
+            _ItemCount = itemCount;
+            var viewModel = await _GetViewModelAsync();
+            await viewModel.GoToNextPageCommand.ExecuteAsync(null);
+
+            var expectedItems = Enumerable.Range(
+                pageItemStart,
+                pageItemCount);
+
+            _AssertItems(viewModel, expectedItems);
+        }
+        [TestMethod]
+        [DataRow(15, 1, 10, 5)]
+        [DataRow(20, 1, 10, 10)]
+        [DataRow(25, 1, 10, 10)]
+        [DataRow(25, 2, 20, 5)]
+        public async Task TestItemsAreLoadedFromNextPageWhenGoToPageCommandWasExecutedPreviously(int itemCount, int initialPage, int pageItemStart, int pageItemCount)
+        {
+            _ItemCount = itemCount;
+            var viewModel = await _GetViewModelAsync();
+            await viewModel.GoToPageCommand.ExecuteAsync(initialPage);
+            await viewModel.GoToNextPageCommand.ExecuteAsync(null);
+
+            var expectedItems = Enumerable.Range(
+                pageItemStart,
+                pageItemCount);
+
+            _AssertItems(viewModel, expectedItems);
+        }
+
+        [TestMethod]
+        public async Task TestCannotExecuteGoToPreviousPageCommandWhenThereAreNoPages()
+        {
+            _ItemCount = 0;
+            var viewModel = await _GetViewModelAsync();
+
+            Assert.IsFalse(viewModel.GoToPreviousPageCommand.CanExecute);
+        }
+        [DataTestMethod]
+        [DataRow(5)]
+        [DataRow(10)]
+        [DataRow(15)]
+        [DataRow(20)]
+        [DataRow(25)]
+        public async Task TestCannotExecuteGoToPreviousPageCommandWhenFirstPageIsSelected(int itemsCount)
+        {
+            _ItemCount = itemsCount;
+            var viewModel = await _GetViewModelAsync();
+            await viewModel.GoToPageCommand.ExecuteAsync(1);
+
+            Assert.IsFalse(viewModel.GoToPreviousPageCommand.CanExecute);
+        }
+        [TestMethod]
+        public async Task TestPropertyChangedEventIsRaisedWhenGoToPreviousPageCommandIsExecuted()
+        {
+            _ItemCount = 15;
+            var viewModel = await _GetViewModelAsync();
+            await viewModel.GoToPageCommand.ExecuteAsync(2);
+            await viewModel.GoToPreviousPageCommand.ExecuteAsync(null);
+
+            Assert.AreEqual(
+                nameof(PaginationViewModel<int>.Items),
+                _PropertyChanges.Last());
+        }
+
+        [TestMethod]
+        [DataRow(15, 2, 0, 10)]
+        [DataRow(20, 2, 0, 10)]
+        [DataRow(25, 2, 0, 10)]
+        [DataRow(25, 3, 10, 10)]
+        public async Task TestItemsAreLoadedFromPreviousPageWhenGoToPageCommandWasExecutedPreviously(int itemCount, int initialPage, int pageItemStart, int pageItemCount)
+        {
+            _ItemCount = itemCount;
+            var viewModel = await _GetViewModelAsync();
+            await viewModel.GoToPageCommand.ExecuteAsync(initialPage);
+            await viewModel.GoToPreviousPageCommand.ExecuteAsync(null);
+
+            var expectedItems = Enumerable.Range(
+                pageItemStart,
+                pageItemCount);
+
+            _AssertItems(viewModel, expectedItems);
+        }
+
+        private static void _AssertItems(PaginationViewModel<int> viewModel, IEnumerable<int> expectedItems)
+        {
             Assert.IsTrue(
                 expectedItems.SequenceEqual(viewModel.Items),
                 string.Format(
-                    "Expected {{{0}}} but instead the page contains {{{0}}}",
+                    "Expected {{{0}}} but instead the page contains {{{1}}}",
                     string.Join(", ", expectedItems),
                     string.Join(", ", viewModel.Items)));
         }

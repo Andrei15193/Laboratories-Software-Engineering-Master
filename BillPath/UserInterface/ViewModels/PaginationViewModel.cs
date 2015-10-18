@@ -25,6 +25,16 @@ namespace BillPath.UserInterface.ViewModels
                 get;
             }
 
+            public abstract AsyncCommand GoToNextPageCommand
+            {
+                get;
+            }
+
+            public abstract AsyncCommand GoToPreviousPageCommand
+            {
+                get;
+            }
+
             public abstract IEnumerable<TItem> Items
             {
                 get;
@@ -62,6 +72,11 @@ namespace BillPath.UserInterface.ViewModels
             public InitialState(PaginationViewModel<TItem> context)
                 : base(context)
             {
+                GoToNextPageCommand = GoToPreviousPageCommand =
+                    new DelegateAsyncCommand(delegate
+                    {
+                        throw new InvalidOperationException();
+                    });
                 GoToPageCommand = new DelegateAsyncCommand<int>(
                     delegate
                     {
@@ -70,6 +85,16 @@ namespace BillPath.UserInterface.ViewModels
             }
 
             public override AsyncCommand<int> GoToPageCommand
+            {
+                get;
+            }
+
+            public override AsyncCommand GoToNextPageCommand
+            {
+                get;
+            }
+
+            public override AsyncCommand GoToPreviousPageCommand
             {
                 get;
             }
@@ -95,21 +120,123 @@ namespace BillPath.UserInterface.ViewModels
             : State
         {
             private int _pageCount;
+            private int _currentPage;
             private IEnumerable<TItem> _items;
+
+            private abstract class GoToAdjacentPageCommand
+                : AsyncCommand
+            {
+                private readonly LoadedState _context;
+
+                protected GoToAdjacentPageCommand(LoadedState context)
+                {
+                    if (context == null)
+                        throw new ArgumentNullException(nameof(context));
+
+                    _context = context;
+                    _context._PageInfoChanged +=
+                        delegate
+                        {
+                            RefreshCanExecute();
+                        };
+
+                    RefreshCanExecute();
+                }
+
+                protected AsyncCommand<int> GoToPageCommand
+                {
+                    get
+                    {
+                        return _context.GoToPageCommand;
+                    }
+                }
+                protected int PageCount
+                {
+                    get
+                    {
+                        return _context._pageCount;
+                    }
+                }
+                protected int CurrentPage
+                {
+                    get
+                    {
+                        return _context._currentPage;
+                    }
+                }
+
+                protected abstract void RefreshCanExecute();
+            }
+
+            private sealed class GoToNextPageAsyncCommand
+                : GoToAdjacentPageCommand
+            {
+                public GoToNextPageAsyncCommand(LoadedState context)
+                    : base(context)
+                {
+                }
+
+                protected override Task OnExecuteAsync(object parameter)
+                {
+                    return GoToPageCommand.ExecuteAsync(CurrentPage + 1);
+                }
+
+                protected override void RefreshCanExecute()
+                {
+                    CanExecute = PageCount > CurrentPage;
+                }
+            }
+
+            private sealed class GoToPreviousPageAsyncCommand
+                : GoToAdjacentPageCommand
+            {
+                public GoToPreviousPageAsyncCommand(LoadedState context)
+                    : base(context)
+                {
+                }
+
+                protected override Task OnExecuteAsync(object parameter)
+                {
+                    return GoToPageCommand.ExecuteAsync(CurrentPage - 1);
+                }
+
+                protected override void RefreshCanExecute()
+                {
+                    CanExecute = 1 < CurrentPage;
+                }
+            }
 
             public LoadedState(PaginationViewModel<TItem> context, int pageCount)
                 : base(context)
             {
+                _currentPage = 0;
                 _pageCount = pageCount;
                 _items = Enumerable.Empty<TItem>();
+
                 GoToPageCommand = new DelegateAsyncCommand<int>(_GoToPageAsync);
+                GoToNextPageCommand = new GoToNextPageAsyncCommand(this);
+                GoToPreviousPageCommand = new GoToPreviousPageAsyncCommand(this);
 
                 Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.PageCount));
                 Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.Items));
+                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToNextPageCommand));
+                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToPreviousPageCommand));
                 Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToPageCommand));
             }
 
+            private event EventHandler _PageInfoChanged;
+
             public override AsyncCommand<int> GoToPageCommand
+            {
+                get;
+            }
+
+            public override AsyncCommand GoToNextPageCommand
+            {
+                get;
+            }
+
+            public override AsyncCommand GoToPreviousPageCommand
             {
                 get;
             }
@@ -149,7 +276,10 @@ namespace BillPath.UserInterface.ViewModels
                         && items.Count < _itemsPerPage);
                 }
 
+                _currentPage = pageNumber;
                 _items = items;
+
+                _PageInfoChanged?.Invoke(this, EventArgs.Empty);
                 Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.Items));
             }
         }
@@ -171,6 +301,22 @@ namespace BillPath.UserInterface.ViewModels
             get
             {
                 return _state.GoToPageCommand;
+            }
+        }
+
+        public AsyncCommand GoToNextPageCommand
+        {
+            get
+            {
+                return _state.GoToNextPageCommand;
+            }
+        }
+
+        public AsyncCommand GoToPreviousPageCommand
+        {
+            get
+            {
+                return _state.GoToPreviousPageCommand;
             }
         }
 
