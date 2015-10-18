@@ -142,8 +142,8 @@
     <Compile Include="IncomesPagedView.xaml.cs">
       <DependentUpon>IncomesPagedView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="DashboardPage.xaml.cs">
+      <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mocks\IncomeRepository.cs" />
     <Compile Include="ResourceBinders\IncomesPaginationViewModel.cs" />
@@ -206,7 +206,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="DashboardPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

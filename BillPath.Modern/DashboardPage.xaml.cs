@@ -2,10 +2,10 @@
 
 namespace BillPath.Modern
 {
-    public sealed partial class MainPage
+    public sealed partial class DashboardPage
         : Page
     {
-        public MainPage()
+        public DashboardPage()
         {
             InitializeComponent();
         }
