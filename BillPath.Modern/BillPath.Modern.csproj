@@ -114,6 +114,9 @@
     <PRIResource Include="Strings\ro-RO\SettingsFlyout.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmountView.xaml.cs">
+      <DependentUpon>AmountView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -134,9 +137,6 @@
     <Compile Include="Converters\PieChartSlicesConverter.cs" />
     <Compile Include="CurrencySettingsFlyout.xaml.cs">
       <DependentUpon>CurrencySettingsFlyout.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CurrencyTextBlock.xaml.cs">
-      <DependentUpon>CurrencyTextBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="GoToStateCommand.cs" />
     <Compile Include="IncomesPagedView.xaml.cs">
@@ -205,11 +205,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CurrencySettingsFlyout.xaml">
+    <Page Include="AmountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CurrencyTextBlock.xaml">
+    <Page Include="CurrencySettingsFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

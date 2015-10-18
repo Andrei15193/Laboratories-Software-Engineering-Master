@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using BillPath.Models;
 
 namespace BillPath.UserInterface.ViewModels
@@ -15,31 +13,27 @@ namespace BillPath.UserInterface.ViewModels
             {
                 new CurrencyCategoryViewModel
                 {
+                    Amount = new Amount(100m,new Currency(new RegionInfo("RO"))),
                     Color = new ArgbColor(0xFF, 0xFF, 0x00, 0x00),
-                    Currency = new Currency(new RegionInfo("RO")),
-                    Name = "Red",
-                    Amount = 100m
+                    Name = "Red"
                 },
                 new CurrencyCategoryViewModel
                 {
+                    Amount = new Amount(11m, new Currency(new RegionInfo("US"))),
                     Color = new ArgbColor(0xFF, 0xFF, 0x00, 0x00),
-                    Currency = new Currency(new RegionInfo("US")),
-                    Name = "Red",
-                    Amount = 11m
+                    Name = "Red"
                 },
                 new CurrencyCategoryViewModel
                 {
+                    Amount = new Amount(54m, new Currency(new RegionInfo("RO"))),
                     Color = new ArgbColor(0xFF, 0x00, 0xFF, 0x00),
-                    Currency = new Currency(new RegionInfo("RO")),
-                    Name = "Green",
-                    Amount = 54m
+                    Name = "Green"
                 },
                 new CurrencyCategoryViewModel
                 {
+                    Amount = new Amount(111m,  new Currency(new RegionInfo("RO"))),
                     Color = new ArgbColor(0xFF, 0x00, 0x00, 0xFF),
-                    Currency = new Currency(new RegionInfo("RO")),
-                    Name = "Blue",
-                    Amount = 111m
+                    Name = "Blue"
                 }
             };
         }
@@ -71,7 +65,7 @@ namespace BillPath.UserInterface.ViewModels
             set;
         }
 
-        public decimal Amount
+        public Amount Amount
         {
             get;
             set;

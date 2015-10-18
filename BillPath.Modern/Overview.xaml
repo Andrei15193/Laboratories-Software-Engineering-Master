@@ -174,16 +174,10 @@
                                     Grid.Row="0"
                                     Style="{StaticResource SubheaderTextBlockStyle}"
                                     Text="{Binding Name}" />
-                                <StackPanel
+                                <local:AmountView
                                     Grid.Column="1"
                                     Grid.Row="1"
-                                    Orientation="Horizontal"
-                                    Margin="0,0,0,10">
-                                    <TextBlock
-                                        Text="{Binding Amount, Mode=OneWay}" />
-                                    <local:CurrencyTextBlock
-                                        Currency="{Binding Currency, Mode=OneWay}" />
-                                </StackPanel>
+                                    Amount="{Binding Amount, Mode=OneWay}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>

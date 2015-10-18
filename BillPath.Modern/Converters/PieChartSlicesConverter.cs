@@ -12,14 +12,14 @@ namespace BillPath.Modern.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var curencyCategoryViewModels = ((IEnumerable<CurrencyCategoryViewModel>)value);
-            var totalAmount = curencyCategoryViewModels.Sum(vm => vm.Amount) + curencyCategoryViewModels.Count() / 2;
+            var totalAmount = curencyCategoryViewModels.Sum(vm => vm.Amount.Value) + curencyCategoryViewModels.Count() / 2;
 
             var previousEnd = 0m;
             return curencyCategoryViewModels.Select((vm, index)
                 => new
                 {
                     Start = (double)(previousEnd = previousEnd + 0.5m),
-                    End = (double)(previousEnd = previousEnd + vm.Amount * 360 / totalAmount),
+                    End = (double)(previousEnd = previousEnd + vm.Amount.Value * 360 / totalAmount),
                     Color = vm.Color
                 });
         }

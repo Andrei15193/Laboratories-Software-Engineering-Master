@@ -105,20 +105,16 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <StackPanel
+                            <local:AmountView
                                 Grid.Column="0"
                                 Grid.Row="0"
-                                Orientation="Horizontal">
-                                <StackPanel.Resources>
+                                Amount="{Binding Amount, Mode=OneWay}">
+                                <local:AmountView.Resources>
                                     <Style
                                         TargetType="TextBlock"
                                         BasedOn="{StaticResource SubheaderTextBlockStyle}" />
-                                </StackPanel.Resources>
-                                <TextBlock
-                                    Text="{Binding Amount.Value, Mode=OneWay}" />
-                                <local:CurrencyTextBlock
-                                    Currency="{Binding Amount.Currency, Mode=OneWay}" />
-                            </StackPanel>
+                                </local:AmountView.Resources>
+                            </local:AmountView>
                             <TextBlock
                                 Grid.Column="1"
                                 Grid.Row="0"
