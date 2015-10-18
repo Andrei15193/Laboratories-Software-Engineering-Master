@@ -29,24 +29,32 @@
                     Margin="20,0,0,0"
                     Orientation="Horizontal">
                     <AppBarButton
+                        x:Uid="/DashboardPage/AddButton"
                         Icon="Add"
                         IsCompact="True">
                         <AppBarButton.Flyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem
-                                    Text="Add income" />
+                                    x:Uid="/DashboardPage/AddIncomeButton" />
                                 <MenuFlyoutItem
-                                    Text="Add expense" />
+                                    x:Uid="/DashboardPage/AddExpenseButton" />
+                                <MenuFlyoutItem
+                                    x:Uid="/DashboardPage/AddExpenseCategoryButton" />
                             </MenuFlyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>
                     <AppBarButton
+                        x:Uid="/DashboardPage/EditButton"
                         Icon="Edit"
-                        IsCompact="True" />
+                        IsCompact="True"
+                        IsEnabled="False" />
                     <AppBarButton
+                        x:Uid="/DashboardPage/DeleteButton"
                         Icon="Delete"
-                        IsCompact="True" />
+                        IsCompact="True"
+                        IsEnabled="False" />
                     <AppBarButton
+                        x:Uid="/DashboardPage/ChartsButton"
                         Icon="FourBars"
                         IsCompact="True" />
                 </StackPanel>

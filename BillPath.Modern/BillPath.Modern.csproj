@@ -157,6 +157,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converters\ArgbColorToColorConverter.cs" />
     <Compile Include="Converters\IdealReadingColorCoverter.cs" />
+    <Compile Include="Strings\en\DashboardPage.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DashboardPage.resw</DependentUpon>
+    </Compile>
     <Compile Include="Strings\en\IncomesPagedView.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -175,6 +180,12 @@
     </AppxManifest>
     <None Include="BillPath_StoreKey.pfx" />
     <None Include="packages.config" />
+    <PRIResource Include="Strings\ro-RO\DashboardPage.resw" />
+    <PRIResource Include="Strings\en\DashboardPage.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>DashboardPage.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Modern.Strings</CustomToolNamespace>
+    </PRIResource>
     <PRIResource Include="Strings\ro-RO\IncomesPagedView.resw" />
     <PRIResource Include="Strings\en\IncomesPagedView.resw">
       <Generator>ReswFileCodeGenerator</Generator>
