@@ -63,13 +63,13 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
         <ProgressRing
             x:Name="ProgressRing"
             Width="60"
             Height="60"
             IsActive="False">
         </ProgressRing>
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -135,6 +135,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
             <StackPanel
                 Grid.Row="1"
                 Orientation="Horizontal">

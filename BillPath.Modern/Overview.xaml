@@ -189,7 +189,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackPanel>
-            <local:IncomesView
+            <local:IncomesPagedView
                 x:Name="IncomesView" />
         </Grid>
     </Grid>

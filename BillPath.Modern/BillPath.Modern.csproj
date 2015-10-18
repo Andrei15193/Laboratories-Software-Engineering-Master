@@ -142,9 +142,6 @@
     <Compile Include="IncomesPagedView.xaml.cs">
       <DependentUpon>IncomesPagedView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IncomesView.xaml.cs">
-      <DependentUpon>IncomesView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -206,10 +203,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="IncomesPagedView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="IncomesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
