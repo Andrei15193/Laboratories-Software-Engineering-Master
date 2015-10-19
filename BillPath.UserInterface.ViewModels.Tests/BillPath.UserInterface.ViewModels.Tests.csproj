@@ -118,6 +118,7 @@
     <Compile Include="CommandTests.cs" />
     <Compile Include="DelegateAsyncCommandTests.cs" />
     <Compile Include="DelegateCommandTests.cs" />
+    <Compile Include="IncomeViewModelReaderProviderTests.cs" />
     <Compile Include="IncomeViewModelTests.cs" />
     <Compile Include="PaginationViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

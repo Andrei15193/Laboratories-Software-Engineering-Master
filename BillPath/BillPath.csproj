@@ -171,6 +171,7 @@
     <Compile Include="UserInterface\ViewModels\DelegateCommand.cs" />
     <Compile Include="UserInterface\ViewModels\IncomesViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\IncomeViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\IncomeViewModelReaderProvider.cs" />
     <Compile Include="UserInterface\ViewModels\PaginationViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\StatsViewModel.cs" />

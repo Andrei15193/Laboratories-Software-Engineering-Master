@@ -22,12 +22,12 @@ namespace BillPath.Modern
         }
 
         private ViewState _currentViewState;
-        private Lazy<PaginationViewModel<Income>> _viewModel;
+        private Lazy<PaginationViewModel<IncomeViewModel>> _viewModel;
 
         public IncomesPagedView()
         {
             _currentViewState = ViewState.Invalid;
-            _viewModel = new Lazy<PaginationViewModel<Income>>(() => (PaginationViewModel<Income>)DataContext);
+            _viewModel = new Lazy<PaginationViewModel<IncomeViewModel>>(() => (PaginationViewModel<IncomeViewModel>)DataContext);
             InitializeComponent();
             SelectedIncomes = IncomesListView.SelectedItems.Cast<Income>();
         }
@@ -48,7 +48,7 @@ namespace BillPath.Modern
             }
         }
 
-        private PaginationViewModel<Income> _ViewModel
+        private PaginationViewModel<IncomeViewModel> _ViewModel
         {
             get
             {
