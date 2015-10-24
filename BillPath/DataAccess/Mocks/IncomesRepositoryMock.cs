@@ -8,7 +8,7 @@ using BillPath.Models;
 namespace BillPath.DataAccess.Mocks
 {
     public class IncomesRepositoryMock
-        : IIncomeRepository
+        : Observable<IncomeRepositoryChange>, IIncomeRepository
     {
         private readonly IList<Income> _incomes;
 
@@ -44,11 +44,7 @@ namespace BillPath.DataAccess.Mocks
 
             await Task.Yield();
             _incomes.Add(income);
-        }
-
-        public IDisposable Subscribe(IObserver<IncomeRepositoryChanged> observer)
-        {
-            throw new NotImplementedException();
+            Notify(new IncomeRepositoryChange(income, IncomeRepositoryChangeAction.Add));
         }
     }
 }

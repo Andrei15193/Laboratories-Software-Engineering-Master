@@ -30,7 +30,9 @@ namespace BillPath.DataAccess.Mocks.Tests
         [DataRow(21)]
         public async Task TestItemCountIsEqualToItemsInProvidedCollection(int expectedIncomesCount)
         {
-            var incomesRepository = new IncomesRepositoryMock(Enumerable.Repeat(new Income(), expectedIncomesCount));
+            var incomesRepository = new IncomesRepositoryMock(Enumerable.Repeat(
+                new Income(),
+                expectedIncomesCount));
 
             var actualIncomesCount = await incomesRepository.GetItemCountAsync();
 
@@ -48,12 +50,16 @@ namespace BillPath.DataAccess.Mocks.Tests
         [DataRow(21)]
         public async Task TestSavingANewIncomeIncrementsTheCountByOne(int incomesCount)
         {
-            var incomesRepository = new IncomesRepositoryMock(Enumerable.Repeat(new Income(), incomesCount));
+            var incomesRepository = new IncomesRepositoryMock(Enumerable.Repeat(
+                new Income(),
+                incomesCount));
 
             await incomesRepository.SaveAsync(new Income());
             var actualIncomesCount = await incomesRepository.GetItemCountAsync();
 
-            Assert.AreEqual(incomesCount + 1, actualIncomesCount);
+            Assert.AreEqual(
+                incomesCount + 1,
+                actualIncomesCount);
         }
 
         [TestMethod]
@@ -65,14 +71,45 @@ namespace BillPath.DataAccess.Mocks.Tests
                 .SaveAsync(null)
                 .ContinueWith(saveTask => saveTask.Exception.InnerException);
 
-            Assert.IsInstanceOfType(exception, typeof(ArgumentNullException));
+            Assert.IsInstanceOfType(
+                exception,
+                typeof(ArgumentNullException));
         }
 
         [TestMethod]
         public async Task TestNotificationIsSentWhenAnItemIsAddedToTheRepository()
         {
+            var invocationCount = 0;
             var incomesRepository = new IncomesRepositoryMock();
-            
+            incomesRepository.Subscribe(new DelegateObserver<IncomeRepositoryChange>(
+                onNext: delegate { invocationCount++; }));
+
+            await incomesRepository.SaveAsync(new Income());
+
+            Assert.AreEqual(
+                1,
+                invocationCount);
+        }
+        [TestMethod]
+        public async Task TestNotificationIsReceivedWithSavedIncome()
+        {
+            var income = new Income();
+            var incomesRepository = new IncomesRepositoryMock();
+            incomesRepository.Subscribe(new DelegateObserver<IncomeRepositoryChange>(
+                onNext: change => Assert.AreSame(
+                    income,
+                    change.Income)));
+
+            await incomesRepository.SaveAsync(income);
+        }
+        [TestMethod]
+        public async Task TestNotificationIsReceivedWithAddActionWhenSavingIncome()
+        {
+            var incomesRepository = new IncomesRepositoryMock();
+            incomesRepository.Subscribe(new DelegateObserver<IncomeRepositoryChange>(
+                onNext: change => Assert.AreEqual(
+                    IncomeRepositoryChangeAction.Add,
+                    change.Action)));
 
             await incomesRepository.SaveAsync(new Income());
         }
