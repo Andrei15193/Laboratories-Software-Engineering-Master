@@ -81,7 +81,7 @@ namespace BillPath.DataAccess.Mocks.Tests
         {
             var invocationCount = 0;
             var incomesRepository = new IncomesRepositoryMock();
-            incomesRepository.Subscribe(new DelegateObserver<IncomeRepositoryChange>(
+            incomesRepository.Subscribe(new DelegateObserver<RepositoryChange<Income>>(
                 onNext: delegate { invocationCount++; }));
 
             await incomesRepository.SaveAsync(new Income());
@@ -95,10 +95,10 @@ namespace BillPath.DataAccess.Mocks.Tests
         {
             var income = new Income();
             var incomesRepository = new IncomesRepositoryMock();
-            incomesRepository.Subscribe(new DelegateObserver<IncomeRepositoryChange>(
+            incomesRepository.Subscribe(new DelegateObserver<RepositoryChange<Income>>(
                 onNext: change => Assert.AreSame(
                     income,
-                    change.Income)));
+                    change.Item)));
 
             await incomesRepository.SaveAsync(income);
         }
@@ -106,9 +106,9 @@ namespace BillPath.DataAccess.Mocks.Tests
         public async Task TestNotificationIsReceivedWithAddActionWhenSavingIncome()
         {
             var incomesRepository = new IncomesRepositoryMock();
-            incomesRepository.Subscribe(new DelegateObserver<IncomeRepositoryChange>(
+            incomesRepository.Subscribe(new DelegateObserver<RepositoryChange<Income>>(
                 onNext: change => Assert.AreEqual(
-                    IncomeRepositoryChangeAction.Add,
+                    RepositoryChangeAction.Add,
                     change.Action)));
 
             await incomesRepository.SaveAsync(new Income());

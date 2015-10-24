@@ -319,6 +319,19 @@ namespace BillPath.UserInterface.ViewModels
 
             _itemReaderProvider = itemReaderProvider;
             _state = new InitialState(this);
+
+            (_itemReaderProvider as IObservable<RepositoryChange<TItem>>)?.Subscribe(
+                new DelegateObserver<RepositoryChange<TItem>>(
+                    onNext: async change =>
+                    {
+                        if (_state is LoadedState)
+                        {
+                            var currentPage = CurrentPage;
+                            await _state.LoadCommand.ExecuteAsync(null);
+                            if (currentPage != 0)
+                                await _state.GoToPageCommand.ExecuteAsync(currentPage);
+                        }
+                    }));
         }
 
         public AsyncCommand<int> GoToPageCommand

@@ -1,6 +1,6 @@
 ﻿namespace BillPath.DataAccess
 {
-    public enum IncomeRepositoryChangeAction
+    public enum RepositoryChangeAction
     {
         Add
     }

@@ -5,8 +5,8 @@ using BillPath.Models;
 
 namespace BillPath.DataAccess
 {
-    public interface IIncomeRepository
-        : IItemReaderProvider<Income>, IObservable<IncomeRepositoryChange>
+    public interface IIncomesRepository
+        : IItemReaderProvider<Income>, IObservable<RepositoryChange<Income>>
     {
         Task SaveAsync(Income income);
         Task SaveAsync(Income income, CancellationToken cancellationToken);

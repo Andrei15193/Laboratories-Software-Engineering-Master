@@ -11,7 +11,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
     [TestClass]
     public class PaginationViewModelTests
     {
-        private sealed class ItemReaderProviderCollectionMock<TItem>
+        private class ItemReaderProviderCollectionMock<TItem>
             : IItemReaderProvider<TItem>
         {
             private readonly IEnumerable<TItem> _items;
@@ -66,6 +66,34 @@ namespace BillPath.UserInterface.ViewModels.Tests
                     _enumerator.Dispose();
                 }
             }
+        }
+
+        private sealed class ObservableItemReaderProviderCollectionMock<TItem>
+            : Observable<RepositoryChange<TItem>>, IItemReaderProvider<TItem>
+        {
+            private readonly ItemReaderProviderCollectionMock<TItem> _itemReaderProvider;
+            private readonly ICollection<TItem> _items;
+
+            public ObservableItemReaderProviderCollectionMock()
+            {
+                _items = new List<TItem>();
+                _itemReaderProvider = new ItemReaderProviderCollectionMock<TItem>(_items);
+            }
+
+            public void Add(TItem item)
+            {
+                _items.Add(item);
+                Notify(new RepositoryChange<TItem>(item, RepositoryChangeAction.Add));
+            }
+
+            public Task<int> GetItemCountAsync()
+                => _itemReaderProvider.GetItemCountAsync();
+
+            public Task<int> GetItemCountAsync(CancellationToken cancellationToken)
+                => _itemReaderProvider.GetItemCountAsync(cancellationToken);
+
+            public IItemReader<TItem> GetReader()
+                => _itemReaderProvider.GetReader();
         }
 
         private PaginationViewModel<int> _viewModel;
@@ -402,6 +430,37 @@ namespace BillPath.UserInterface.ViewModels.Tests
                     "Expected {{{0}}} but instead the page contains {{{1}}}",
                     string.Join(", ", expectedItems),
                     string.Join(", ", viewModel.Items)));
+        }
+
+        [TestMethod]
+        public async Task TestAddingANewItemInObservableProviderUpdatesPageCount()
+        {
+            var itemReaderProvider = new ObservableItemReaderProviderCollectionMock<int>();
+            var viewModel = new PaginationViewModel<int>(itemReaderProvider);
+
+            await viewModel.LoadCommand.ExecuteAsync(null);
+            Assert.AreEqual(0, viewModel.PageCount);
+
+            itemReaderProvider.Add(0);
+
+            Assert.AreEqual(1, viewModel.PageCount);
+        }
+
+        [TestMethod]
+        public async Task TestAddingNewItemInObservableProviderUpdatedItemsOnSelectedPage()
+        {
+            var itemReaderProvider = new ObservableItemReaderProviderCollectionMock<int>();
+            itemReaderProvider.Add(0);
+            var viewModel = new PaginationViewModel<int>(itemReaderProvider);
+
+            await viewModel.LoadCommand.ExecuteAsync(null);
+            await viewModel.GoToPageCommand.ExecuteAsync(1);
+
+            _AssertItems(viewModel, Enumerable.Range(0, 1));
+
+            itemReaderProvider.Add(1);
+
+            _AssertItems(viewModel, Enumerable.Range(0, 2));
         }
     }
 }

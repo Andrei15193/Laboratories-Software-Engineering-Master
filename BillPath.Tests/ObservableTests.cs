@@ -6,6 +6,20 @@ namespace BillPath.Tests
     [TestClass]
     public class ObservableTests
     {
+        private sealed class ObservableMock<T>
+            : Observable<T>
+        {
+            new public void Notify(T value)
+            {
+                base.Notify(value);
+            }
+
+            new public void NotifyError(Exception error)
+            {
+                base.NotifyError(error);
+            }
+        }
+
         [TestMethod]
         public void TestSubscribingToAnObservableDoesNotReturnNull()
         {
@@ -229,20 +243,6 @@ namespace BillPath.Tests
             observable.Subscribe(observer);
 
             observable.NotifyError(expectedError);
-        }
-
-        private sealed class ObservableMock<T>
-            : Observable<T>
-        {
-            new public void Notify(T value)
-            {
-                base.Notify(value);
-            }
-
-            new public void NotifyError(Exception error)
-            {
-                base.NotifyError(error);
-            }
         }
     }
 }

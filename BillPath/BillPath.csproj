@@ -105,12 +105,12 @@
     <Compile Include="DataAccess\ExpenseRepository.cs" />
     <Compile Include="DataAccess\IExpenseCategoryRepository.cs" />
     <Compile Include="DataAccess\IExpenseRepository.cs" />
-    <Compile Include="DataAccess\IIncomeRepository.cs" />
+    <Compile Include="DataAccess\IIncomesRepository.cs" />
     <Compile Include="DataAccess\IItemReader.cs" />
     <Compile Include="DataAccess\IItemReaderProvider.cs" />
     <Compile Include="DataAccess\IncomeRepository.cs" />
-    <Compile Include="DataAccess\IncomeRepositoryChange.cs" />
-    <Compile Include="DataAccess\IncomeRepositoryChangeAction.cs" />
+    <Compile Include="DataAccess\RepositoryChange.cs" />
+    <Compile Include="DataAccess\RepositoryChangeAction.cs" />
     <Compile Include="DataAccess\ISettingsRepository.cs" />
     <Compile Include="DataAccess\ITransactionRepository.cs" />
     <Compile Include="DataAccess\Mocks\IncomeReaderMock.cs" />

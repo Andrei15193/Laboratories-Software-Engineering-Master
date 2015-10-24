@@ -9,19 +9,19 @@ namespace BillPath.DataAccess.Tests
     {
         [TestMethod]
         public void TestCannotCreateWithNullIncome()
-            => Assert.ThrowsException<ArgumentNullException>(() => new IncomeRepositoryChange(
+            => Assert.ThrowsException<ArgumentNullException>(() => new RepositoryChange<Income>(
                 null,
-                default(IncomeRepositoryChangeAction)));
+                default(RepositoryChangeAction)));
 
         [TestMethod]
         public void TestProvidedIncomeIsReturnedByIncomeProperty()
         {
             var expectedIncome = new Income();
-            var incomeRepositoryChanged = new IncomeRepositoryChange(
+            var incomeRepositoryChanged = new RepositoryChange<Income>(
                 expectedIncome,
-                default(IncomeRepositoryChangeAction));
+                default(RepositoryChangeAction));
 
-            var actualIncome = incomeRepositoryChanged.Income;
+            var actualIncome = incomeRepositoryChanged.Item;
 
             Assert.AreSame(
                 expectedIncome,
@@ -31,8 +31,8 @@ namespace BillPath.DataAccess.Tests
         [TestMethod]
         public void TestProvidedActionIsReturnedByActionProperty()
         {
-            var expectedAction = IncomeRepositoryChangeAction.Add;
-            var incomeRepositoryChange = new IncomeRepositoryChange(
+            var expectedAction = RepositoryChangeAction.Add;
+            var incomeRepositoryChange = new RepositoryChange<Income>(
                 new Income(),
                 expectedAction);
 

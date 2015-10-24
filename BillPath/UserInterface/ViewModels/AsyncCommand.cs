@@ -140,7 +140,7 @@ namespace BillPath.UserInterface.ViewModels
     {
         protected sealed override Task OnExecuteAsync(object parameter)
         {
-            if (parameter is TParameter)
+            if (parameter == null || parameter is TParameter)
                 return OnExecuteAsync((TParameter)parameter);
             else
                 return OnExecuteAsync(Convert.ChangeType(parameter, typeof(TParameter)));
