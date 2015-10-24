@@ -6,7 +6,7 @@ using BillPath.Models;
 namespace BillPath.DataAccess.Xml
 {
     public class XmlIncomeRepository
-        : IncomeRepository
+        : IncomesRepository
     {
         private readonly FileProvider _fileProvider;
         private readonly string _fileName;

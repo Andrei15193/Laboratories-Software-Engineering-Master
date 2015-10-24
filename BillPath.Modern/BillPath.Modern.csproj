@@ -145,7 +145,7 @@
     <Compile Include="DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mocks\IncomeRepository.cs" />
+    <Compile Include="Mocks\IncomesRepository.cs" />
     <Compile Include="ResourceBinders\IncomesPaginationViewModel.cs" />
     <Compile Include="ResourceBinders\IncomesViewModel.cs" />
     <Compile Include="Mocks\SettingsRepository.cs" />

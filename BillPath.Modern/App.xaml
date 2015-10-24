@@ -11,7 +11,7 @@
             x:Key="CurrencyProvider" />
         <providers:CurrencyDisplayFormatProvider
             x:Key="CurrencyDisplayFormatProvider" />
-        
+
         <x:String
             x:Key="SettingsFileName">Settings.xml</x:String>
         <converters:LocalizationConverter
@@ -27,15 +27,15 @@
         <converters:IsMatchConverter
             x:Key="IsMatchConverter" />
 
-        <mocks:IncomeRepository
-            x:Key="DEBUG_IncomeRepository"
+        <mocks:IncomesRepository
+            x:Key="DEBUG_IncomesRepository"
             MillisecondsDelay="1000"
-            ReaderMillisecondsDelay="100"/>
+            ReaderMillisecondsDelay="100" />
         <mocks:SettingsRepository
             x:Key="DEBUG_SettingsRepository"
             MillisecondsDelay="1000" />
-        <mocks:IncomeRepository
-            x:Key="IncomeRepository"
+        <mocks:IncomesRepository
+            x:Key="IncomesRepository"
             MillisecondsDelay="1000" />
         <mocks:SettingsRepository
             x:Key="SettingsRepository"

@@ -10,7 +10,7 @@ namespace BillPath.DataAccess.Mocks
     public class IncomesRepositoryMock
         : Observable<RepositoryChange<Income>>, IIncomesRepository
     {
-        private readonly IList<Income> _incomes;
+        private readonly List<Income> _incomes;
 
         public IncomesRepositoryMock(IEnumerable<Income> incomes)
         {
@@ -43,7 +43,12 @@ namespace BillPath.DataAccess.Mocks
                 throw new ArgumentNullException(nameof(income));
 
             await Task.Yield();
-            _incomes.Add(income);
+
+            var insertIndex = _incomes.FindIndex(existingIncome => income.DateRealized > existingIncome.DateRealized);
+            if (insertIndex == -1)
+                _incomes.Insert(0, income);
+            else
+                _incomes.Insert(insertIndex, income);
             Notify(new RepositoryChange<Income>(income, RepositoryChangeAction.Add));
         }
     }

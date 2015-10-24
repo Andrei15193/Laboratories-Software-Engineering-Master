@@ -17,42 +17,6 @@ namespace BillPath.UserInterface.ViewModels
             public State(PaginationViewModel<TItem> context)
             {
                 Context = context;
-                LoadCommand = new DelegateAsyncCommand(_LoadAsync);
-            }
-
-            public abstract AsyncCommand<int> GoToPageCommand
-            {
-                get;
-            }
-
-            public abstract AsyncCommand GoToNextPageCommand
-            {
-                get;
-            }
-
-            public abstract AsyncCommand GoToPreviousPageCommand
-            {
-                get;
-            }
-
-            public abstract IEnumerable<TItem> Items
-            {
-                get;
-            }
-
-            public AsyncCommand LoadCommand
-            {
-                get;
-            }
-
-            public abstract int PageCount
-            {
-                get;
-            }
-
-            public abstract int CurrentPage
-            {
-                get;
             }
 
             protected PaginationViewModel<TItem> Context
@@ -60,7 +24,9 @@ namespace BillPath.UserInterface.ViewModels
                 get;
             }
 
-            private async Task _LoadAsync(object parameter, CancellationToken cancellationToken)
+            public Task LoadAsync()
+                => LoadAsync(CancellationToken.None);
+            public async Task LoadAsync(CancellationToken cancellationToken)
             {
                 var itemCount = await Context._itemReaderProvider.GetItemCountAsync(cancellationToken);
                 var pageCount = (itemCount / _itemsPerPage);
@@ -71,9 +37,23 @@ namespace BillPath.UserInterface.ViewModels
 
                 Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.PageCount));
                 Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.Items));
-                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToNextPageCommand));
-                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToPreviousPageCommand));
-                Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.GoToPageCommand));
+            }
+
+            public Task GoToPageAsync(int pageNumber)
+                => GoToPageAsync(pageNumber, CancellationToken.None);
+            public abstract Task GoToPageAsync(int pageNumber, CancellationToken cancellationToken);
+
+            public abstract int PageCount
+            {
+                get;
+            }
+            public abstract int CurrentPage
+            {
+                get;
+            }
+            public abstract IEnumerable<TItem> Items
+            {
+                get;
             }
         }
 
@@ -83,33 +63,27 @@ namespace BillPath.UserInterface.ViewModels
             public InitialState(PaginationViewModel<TItem> context)
                 : base(context)
             {
-                GoToNextPageCommand = GoToPreviousPageCommand =
-                    new DelegateAsyncCommand(delegate
-                    {
-                        throw new InvalidOperationException();
-                    });
-                GoToPageCommand = new DelegateAsyncCommand<int>(
-                    delegate
-                    {
-                        throw new InvalidOperationException();
-                    });
             }
 
-            public override AsyncCommand<int> GoToPageCommand
+            public override Task GoToPageAsync(int pageNumber, CancellationToken cancellationToken)
             {
-                get;
+                throw new InvalidOperationException();
             }
 
-            public override AsyncCommand GoToNextPageCommand
+            public override int PageCount
             {
-                get;
+                get
+                {
+                    return 0;
+                }
             }
-
-            public override AsyncCommand GoToPreviousPageCommand
+            public override int CurrentPage
             {
-                get;
+                get
+                {
+                    return 0;
+                }
             }
-
             public override IEnumerable<TItem> Items
             {
                 get
@@ -117,119 +91,14 @@ namespace BillPath.UserInterface.ViewModels
                     return null;
                 }
             }
-
-            public override int PageCount
-            {
-                get
-                {
-                    return 0;
-                }
-            }
-
-            public override int CurrentPage
-            {
-                get
-                {
-                    return 0;
-                }
-            }
         }
 
-        private sealed class LoadedState
+        private class LoadedState
             : State
         {
             private int _pageCount;
             private int _currentPage;
             private IEnumerable<TItem> _items;
-
-            private abstract class GoToAdjacentPageCommand
-                : AsyncCommand
-            {
-                private readonly LoadedState _context;
-
-                protected GoToAdjacentPageCommand(LoadedState context)
-                {
-                    if (context == null)
-                        throw new ArgumentNullException(nameof(context));
-
-                    _context = context;
-                    _context.Context.PropertyChanged +=
-                        (sender, e) =>
-                        {
-                            if (nameof(PaginationViewModel<TItem>.PageCount).Equals(
-                                    e.PropertyName,
-                                    StringComparison.OrdinalIgnoreCase) ||
-                                nameof(PaginationViewModel<TItem>.CurrentPage).Equals(
-                                    e.PropertyName,
-                                    StringComparison.OrdinalIgnoreCase))
-                                RefreshCanExecute();
-                        };
-
-                    RefreshCanExecute();
-                }
-
-                protected AsyncCommand<int> GoToPageCommand
-                {
-                    get
-                    {
-                        return _context.GoToPageCommand;
-                    }
-                }
-                protected int PageCount
-                {
-                    get
-                    {
-                        return _context._pageCount;
-                    }
-                }
-                protected int CurrentPage
-                {
-                    get
-                    {
-                        return _context.CurrentPage;
-                    }
-                }
-
-                protected abstract void RefreshCanExecute();
-            }
-
-            private sealed class GoToNextPageAsyncCommand
-                : GoToAdjacentPageCommand
-            {
-                public GoToNextPageAsyncCommand(LoadedState context)
-                    : base(context)
-                {
-                }
-
-                protected override Task OnExecuteAsync(object parameter)
-                {
-                    return GoToPageCommand.ExecuteAsync(CurrentPage + 1);
-                }
-
-                protected override void RefreshCanExecute()
-                {
-                    CanExecute = PageCount > CurrentPage;
-                }
-            }
-
-            private sealed class GoToPreviousPageAsyncCommand
-                : GoToAdjacentPageCommand
-            {
-                public GoToPreviousPageAsyncCommand(LoadedState context)
-                    : base(context)
-                {
-                }
-
-                protected override Task OnExecuteAsync(object parameter)
-                {
-                    return GoToPageCommand.ExecuteAsync(CurrentPage - 1);
-                }
-
-                protected override void RefreshCanExecute()
-                {
-                    CanExecute = 1 < CurrentPage;
-                }
-            }
 
             public LoadedState(PaginationViewModel<TItem> context, int pageCount)
                 : base(context)
@@ -237,52 +106,9 @@ namespace BillPath.UserInterface.ViewModels
                 _currentPage = 0;
                 _pageCount = pageCount;
                 _items = Enumerable.Empty<TItem>();
-
-                GoToPageCommand = new DelegateAsyncCommand<int>(_GoToPageAsync);
-                GoToNextPageCommand = new GoToNextPageAsyncCommand(this);
-                GoToPreviousPageCommand = new GoToPreviousPageAsyncCommand(this);
             }
 
-            public override AsyncCommand<int> GoToPageCommand
-            {
-                get;
-            }
-
-            public override AsyncCommand GoToNextPageCommand
-            {
-                get;
-            }
-
-            public override AsyncCommand GoToPreviousPageCommand
-            {
-                get;
-            }
-
-            public override IEnumerable<TItem> Items
-            {
-                get
-                {
-                    return _items;
-                }
-            }
-
-            public override int PageCount
-            {
-                get
-                {
-                    return _pageCount;
-                }
-            }
-
-            public override int CurrentPage
-            {
-                get
-                {
-                    return _currentPage;
-                }
-            }
-
-            private async Task _GoToPageAsync(int pageNumber, CancellationToken cancellationToken)
+            public override async Task GoToPageAsync(int pageNumber, CancellationToken cancellationToken)
             {
                 if (pageNumber < 1 || PageCount < pageNumber)
                     throw new ArgumentException(nameof(pageNumber));
@@ -307,6 +133,139 @@ namespace BillPath.UserInterface.ViewModels
                 Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.Items));
                 Context.OnPropertyChanged(nameof(PaginationViewModel<TItem>.CurrentPage));
             }
+
+            public override int PageCount
+            {
+                get
+                {
+                    return _pageCount;
+                }
+            }
+            public override int CurrentPage
+            {
+                get
+                {
+                    return _currentPage;
+                }
+            }
+            public override IEnumerable<TItem> Items
+            {
+                get
+                {
+                    return _items;
+                }
+            }
+        }
+
+        private class ReloadPageState
+            : State
+        {
+            public ReloadPageState(PaginationViewModel<TItem> context)
+                : base(context)
+            {
+            }
+
+            public override async Task GoToPageAsync(int pageNumber, CancellationToken cancellationToken)
+            {
+                await LoadAsync();
+                await Context._state.GoToPageAsync(pageNumber);
+            }
+
+            public override int PageCount
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+            public override int CurrentPage
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+            public override IEnumerable<TItem> Items
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+        }
+
+        private abstract class GoToAdjacentPageCommand
+            : AsyncCommand
+        {
+            private readonly PaginationViewModel<TItem> _context;
+
+            protected GoToAdjacentPageCommand(PaginationViewModel<TItem> context)
+            {
+                if (context == null)
+                    throw new ArgumentNullException(nameof(context));
+
+                _context = context;
+                _context.PropertyChanged +=
+                    (sender, e) =>
+                    {
+                        if (nameof(PaginationViewModel<TItem>.PageCount).Equals(
+                                e.PropertyName,
+                                StringComparison.OrdinalIgnoreCase) ||
+                            nameof(PaginationViewModel<TItem>.CurrentPage).Equals(
+                                e.PropertyName,
+                                StringComparison.OrdinalIgnoreCase))
+                            RefreshCanExecute();
+                    };
+
+                RefreshCanExecute();
+            }
+
+            protected AsyncCommand<int> GoToPageCommand
+                => _context.GoToPageCommand;
+            protected int PageCount
+                => _context.PageCount;
+            protected int CurrentPage
+                => _context.CurrentPage;
+
+            protected abstract void RefreshCanExecute();
+        }
+
+        private sealed class GoToNextPageAsyncCommand
+            : GoToAdjacentPageCommand
+        {
+            public GoToNextPageAsyncCommand(PaginationViewModel<TItem> context)
+                : base(context)
+            {
+            }
+
+            protected override Task OnExecuteAsync(object parameter)
+            {
+                return GoToPageCommand.ExecuteAsync(CurrentPage + 1);
+            }
+
+            protected override void RefreshCanExecute()
+            {
+                CanExecute = PageCount > CurrentPage;
+            }
+        }
+
+        private sealed class GoToPreviousPageAsyncCommand
+            : GoToAdjacentPageCommand
+        {
+            public GoToPreviousPageAsyncCommand(PaginationViewModel<TItem> context)
+                : base(context)
+            {
+            }
+
+            protected override Task OnExecuteAsync(object parameter)
+            {
+                return GoToPageCommand.ExecuteAsync(CurrentPage - 1);
+            }
+
+            protected override void RefreshCanExecute()
+            {
+                CanExecute = 1 < CurrentPage;
+            }
         }
 
         private readonly IItemReaderProvider<TItem> _itemReaderProvider;
@@ -327,51 +286,37 @@ namespace BillPath.UserInterface.ViewModels
                         if (_state is LoadedState)
                         {
                             var currentPage = CurrentPage;
-                            await _state.LoadCommand.ExecuteAsync(null);
-                            if (currentPage != 0)
-                                await _state.GoToPageCommand.ExecuteAsync(currentPage);
+                            _state = new ReloadPageState(this);
+                            await GoToPageCommand.ExecuteAsync(currentPage == 0 ? 1 : currentPage);
                         }
                     }));
-        }
 
-        public AsyncCommand<int> GoToPageCommand
-        {
-            get
-            {
-                return _state.GoToPageCommand;
-            }
-        }
+            LoadCommand = new DelegateAsyncCommand(
+                (parameter, cancellationToken) => _state.LoadAsync(cancellationToken));
+            GoToPageCommand = new DelegateAsyncCommand<int>(
+                (pageNumber, cancellationToken) => _state.GoToPageAsync(pageNumber, cancellationToken));
 
-        public AsyncCommand GoToNextPageCommand
-        {
-            get
-            {
-                return _state.GoToNextPageCommand;
-            }
-        }
-
-        public AsyncCommand GoToPreviousPageCommand
-        {
-            get
-            {
-                return _state.GoToPreviousPageCommand;
-            }
-        }
-
-        public IEnumerable<TItem> Items
-        {
-            get
-            {
-                return _state.Items;
-            }
+            GoToNextPageCommand = new GoToNextPageAsyncCommand(this);
+            GoToPreviousPageCommand = new GoToPreviousPageAsyncCommand(this);
         }
 
         public AsyncCommand LoadCommand
         {
-            get
-            {
-                return _state.LoadCommand;
-            }
+            get;
+        }
+
+
+        public AsyncCommand<int> GoToPageCommand
+        {
+            get;
+        }
+        public AsyncCommand GoToNextPageCommand
+        {
+            get;
+        }
+        public AsyncCommand GoToPreviousPageCommand
+        {
+            get;
         }
 
         public int PageCount
@@ -381,12 +326,18 @@ namespace BillPath.UserInterface.ViewModels
                 return _state.PageCount;
             }
         }
-
         public int CurrentPage
         {
             get
             {
                 return _state.CurrentPage;
+            }
+        }
+        public IEnumerable<TItem> Items
+        {
+            get
+            {
+                return _state.Items;
             }
         }
     }

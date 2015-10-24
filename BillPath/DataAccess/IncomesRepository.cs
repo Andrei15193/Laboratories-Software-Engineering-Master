@@ -4,7 +4,7 @@ using BillPath.Models;
 
 namespace BillPath.DataAccess
 {
-    public abstract class IncomeRepository
+    public abstract class IncomesRepository
         : Observable<RepositoryChange<Income>>, IIncomesRepository
     {
         public Task SaveAsync(Income income)

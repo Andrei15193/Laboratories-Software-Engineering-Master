@@ -9,7 +9,7 @@ namespace BillPath.Modern.ResourceBinders
         : PaginationViewModel<IncomeViewModel>
     {
         public IncomesPaginationViewModel()
-            : base(new IncomeViewModelReaderProvider(Application.Current.GetResource<IItemReaderProvider<Income>>(nameof(IncomeRepository))))
+            : base(new IncomeViewModelReaderProvider(Application.Current.GetResource<IItemReaderProvider<Income>>(nameof(IncomesRepository))))
         {
         }
     }

@@ -61,7 +61,8 @@ namespace BillPath.Modern
             _TransitionTo(ViewState.Loading);
 
             await _ViewModel.LoadCommand.ExecuteAsync(null);
-            await _ViewModel.GoToPageCommand.ExecuteAsync(1);
+            if (_ViewModel.PageCount > 0)
+                await _ViewModel.GoToPageCommand.ExecuteAsync(1);
 
             _ViewModel.LoadCommand.PropertyChanged += _ExecutingPropertyChanged;
             _ViewModel.GoToPageCommand.PropertyChanged += _ExecutingPropertyChanged;

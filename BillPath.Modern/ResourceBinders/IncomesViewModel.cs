@@ -7,7 +7,7 @@ namespace BillPath.Modern.ResourceBinders
         : UserInterface.ViewModels.IncomesViewModel
     {
         public IncomesViewModel()
-            : base(Application.Current.GetResource<IIncomesRepository>(nameof(IncomeRepository)))
+            : base(Application.Current.GetResource<IIncomesRepository>(nameof(IncomesRepository)))
         {
         }
     }

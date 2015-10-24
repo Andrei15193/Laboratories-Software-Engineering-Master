@@ -35,11 +35,15 @@
                         <AppBarButton.Flyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem
-                                    x:Uid="/DashboardPage/AddIncomeButton" />
+                                    x:Uid="/DashboardPage/AddIncomeButton"
+                                    Click="MenuFlyoutItem_Click"
+                                    CommandParameter="{Binding SaveCommand, Source={StaticResource IncomesViewModel}}" />
                                 <MenuFlyoutItem
-                                    x:Uid="/DashboardPage/AddExpenseButton" />
+                                    x:Uid="/DashboardPage/AddExpenseButton"
+                                    IsEnabled="False" />
                                 <MenuFlyoutItem
-                                    x:Uid="/DashboardPage/AddExpenseCategoryButton" />
+                                    x:Uid="/DashboardPage/AddExpenseCategoryButton"
+                                    IsEnabled="False" />
                             </MenuFlyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>

@@ -7,7 +7,7 @@ using BillPath.Models;
 namespace BillPath.UserInterface.ViewModels
 {
     public class IncomeViewModelReaderProvider
-        : IItemReaderProvider<IncomeViewModel>
+        : IObservable<RepositoryChange<IncomeViewModel>>, IItemReaderProvider<IncomeViewModel>
     {
         private readonly IItemReaderProvider<Income> _incomeReaderProvider;
 
@@ -75,5 +75,16 @@ namespace BillPath.UserInterface.ViewModels
 
         public IItemReader<IncomeViewModel> GetReader()
             => new IncomeViewModelReader(_incomeReaderProvider.GetReader());
+
+        public IDisposable Subscribe(IObserver<RepositoryChange<IncomeViewModel>> observer)
+        {
+            return (_incomeReaderProvider as IObservable<RepositoryChange<Income>>)?.Subscribe(
+                new DelegateObserver<RepositoryChange<Income>>(
+                    onNext: change => observer.OnNext(new RepositoryChange<IncomeViewModel>(
+                        new IncomeViewModel(change.Item),
+                        change.Action)),
+                    onError: observer.OnError,
+                    onCompleted: observer.OnCompleted));
+        }
     }
 }
