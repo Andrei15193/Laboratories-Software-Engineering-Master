@@ -12,53 +12,6 @@ namespace BillPath.UserInterface.ViewModels.Tests
     [TestClass]
     public class IncomeViewModelReaderProviderTests
     {
-        private sealed class IncomeReaderProviderMock
-            : IItemReaderProvider<Income>
-        {
-            private readonly IEnumerable<Income> _incomes;
-
-            private sealed class IncomeReaderMock
-                : IItemReader<Income>
-            {
-                private readonly IEnumerator<Income> _incomeEnumerator;
-
-                public IncomeReaderMock(IEnumerator<Income> incomeEnumerator)
-                {
-                    _incomeEnumerator = incomeEnumerator;
-                }
-
-                public Income Current
-                    => _incomeEnumerator.Current;
-
-                public void Dispose()
-                    => _incomeEnumerator.Dispose();
-
-                public Task<bool> ReadAsync()
-                    => ReadAsync(CancellationToken.None);
-
-                public Task<bool> ReadAsync(CancellationToken cancellationToken)
-                    => Task.FromResult(_incomeEnumerator.MoveNext());
-            }
-
-            public IncomeReaderProviderMock(IEnumerable<Income> incomes)
-            {
-                _incomes = incomes;
-            }
-            public IncomeReaderProviderMock(params Income[] incomes)
-                : this(incomes.AsEnumerable())
-            {
-            }
-
-            public Task<int> GetItemCountAsync()
-                => GetItemCountAsync(CancellationToken.None);
-
-            public Task<int> GetItemCountAsync(CancellationToken cancellationToken)
-                => Task.FromResult(_incomes.Count());
-
-            public IItemReader<Income> GetReader()
-                => new IncomeReaderMock(_incomes.GetEnumerator());
-        }
-
         private sealed class NullReturningIncomeReaderProvider
             : IItemReaderProvider<Income>
         {

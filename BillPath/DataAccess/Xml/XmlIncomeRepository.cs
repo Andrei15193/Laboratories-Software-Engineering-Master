@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using BillPath.Models;
@@ -28,34 +25,7 @@ namespace BillPath.DataAccess.Xml
             _fileName = fileName;
         }
 
-        public override async Task SaveAsync(Income income, CancellationToken cancellationToken)
-        {
-            var incomeSerializer = new DataContractSerializer(typeof(Income), new[] { typeof(List<Income>) });
-            var incomes = (await GetAllAsync(cancellationToken)).ToList();
-
-            incomes.Add(income);
-            using (var incomesStream = await _fileProvider.GetWriteStreamForAsync(_fileName, cancellationToken))
-                incomeSerializer.WriteObject(incomesStream, incomes);
-        }
-
-        public override async Task<IEnumerable<Income>> GetAllAsync(CancellationToken cancellationToken)
-        {
-            var incomeSerializer = new DataContractSerializer(typeof(Income), new[] { typeof(List<Income>) });
-
-            if (await _fileProvider.FileExistsAsync(_fileName, cancellationToken))
-                using (var incomesStream = await _fileProvider.GetReadStreamForAsync(_fileName, cancellationToken))
-                    return (IEnumerable<Income>)incomeSerializer.ReadObject(incomesStream);
-            else
-                return Enumerable.Empty<Income>();
-
-        }
-
-        public override Task<IEnumerable<Income>> GetOnPageAsync(int pageNumber, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Task<int> GetPageCountAsync(CancellationToken cancellationToken)
+        public override Task SaveAsync(Income income, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

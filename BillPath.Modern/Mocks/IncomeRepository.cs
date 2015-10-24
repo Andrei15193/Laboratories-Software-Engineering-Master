@@ -79,24 +79,6 @@ namespace BillPath.Modern.Mocks
             }
         }
 
-
-        public override Task<IEnumerable<Income>> GetAllAsync(CancellationToken cancellationToken)
-            => Task.FromResult<IEnumerable<Income>>(Incomes);
-
-        public override async Task<IEnumerable<Income>> GetOnPageAsync(int pageNumber, CancellationToken cancellationToken)
-        {
-            await Task.Delay(MillisecondsDelay);
-
-            return Incomes.Skip((pageNumber - 1) * 10).Take(10);
-        }
-
-        public override async Task<int> GetPageCountAsync(CancellationToken cancellationToken)
-        {
-            await Task.Delay(MillisecondsDelay);
-
-            return 1 + Incomes.Count / 10;
-        }
-
         public override async Task SaveAsync(Income income, CancellationToken cancellationToken)
         {
             await Task.Delay(MillisecondsDelay);

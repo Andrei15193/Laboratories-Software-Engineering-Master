@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{458AE041-D984-4417-BBD7-05FEE3F4F59E}</ProjectGuid>
+    <ProjectGuid>{E6EB82C3-3919-49A0-B807-770DCBE510B7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BillPath.UserInterface.ViewModels.Tests</RootNamespace>
-    <AssemblyName>BillPath.UserInterface.ViewModels.Tests</AssemblyName>
+    <RootNamespace>BillPath.Tests</RootNamespace>
+    <AssemblyName>BillPath.Tests</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
@@ -115,18 +115,10 @@
     <SDKReference Include="TestPlatform, Version=14.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandTests.cs" />
-    <Compile Include="DelegateAsyncCommandTests.cs" />
-    <Compile Include="DelegateCommandTests.cs" />
-    <Compile Include="IncomeReaderMock.cs" />
-    <Compile Include="IncomeReaderProviderMock.cs" />
-    <Compile Include="IncomesViewModelTests.cs" />
-    <Compile Include="IncomeViewModelReaderProviderTests.cs" />
-    <Compile Include="IncomeViewModelTests.cs" />
-    <Compile Include="PaginationViewModelTests.cs" />
+    <Compile Include="ObservableTests.cs" />
+    <Compile Include="ObserverSubscriptionTests.cs" />
+    <Compile Include="DelegateObserverTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingsViewModelTests.cs" />
-    <Compile Include="ViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -154,13 +146,10 @@
       <Name>BillPath</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-  </ItemGroup>
+  <Import Project="..\BillPath.Properties\BillPath.Properties.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
-  <Import Project="..\BillPath.Properties\BillPath.Properties.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

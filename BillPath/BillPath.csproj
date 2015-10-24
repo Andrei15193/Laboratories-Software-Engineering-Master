@@ -109,8 +109,11 @@
     <Compile Include="DataAccess\IItemReader.cs" />
     <Compile Include="DataAccess\IItemReaderProvider.cs" />
     <Compile Include="DataAccess\IncomeRepository.cs" />
+    <Compile Include="DataAccess\IncomeRepositoryChanged.cs" />
     <Compile Include="DataAccess\ISettingsRepository.cs" />
     <Compile Include="DataAccess\ITransactionRepository.cs" />
+    <Compile Include="DataAccess\Mocks\IncomeReaderMock.cs" />
+    <Compile Include="DataAccess\Mocks\IncomesRepositoryMock.cs" />
     <Compile Include="DataAccess\SettingsRepository.cs" />
     <Compile Include="DataAccess\TransactionRepository.cs" />
     <Compile Include="DataAccess\Xml\FileProvider.cs" />
@@ -132,6 +135,9 @@
     <Compile Include="Models\ModelValidator.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Observable.cs" />
+    <Compile Include="DelegateObserver.cs" />
+    <Compile Include="ObserverSubscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CurrencyDisplayFormatProvider.cs" />
     <Compile Include="Providers\CurrencyProvider.cs" />
