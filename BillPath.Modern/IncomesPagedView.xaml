@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BillPath.Modern"
     xmlns:viewModels="using:BillPath.Modern.ResourceBinders"
+    xmlns:converters="using:BillPath.Modern.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -11,6 +12,10 @@
     d:DesignWidth="400"
     local:VisualStateHelper.DefaultState="Loading"
     Loaded="_LoadedIncomesListView">
+    <UserControl.Resources>
+        <converters:NullableIntToStringConverter
+            x:Name="NullableIntToStringConverter" />
+    </UserControl.Resources>
     <UserControl.DataContext>
         <viewModels:IncomesPaginationViewModel />
     </UserControl.DataContext>
@@ -78,7 +83,9 @@
             <ListView
                 x:Name="IncomesListView"
                 Grid.Row="0"
-                ItemsSource="{Binding Items, Mode=OneWay}"
+                ItemsSource="{Binding
+                    Path=Items,
+                    Mode=OneWay}"
                 SelectionMode="Multiple">
                 <ListView.Resources>
                     <Style
@@ -107,7 +114,9 @@
                             <local:AmountView
                                 Grid.Column="0"
                                 Grid.Row="0"
-                                Amount="{Binding Amount, Mode=OneWay}">
+                                Amount="{Binding
+                                    Path=Amount,
+                                    Mode=OneWay}">
                                 <local:AmountView.Resources>
                                     <Style
                                         TargetType="TextBlock"
@@ -119,13 +128,17 @@
                                 Grid.Row="0"
                                 VerticalAlignment="Bottom"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{Binding DateRealized, Mode=OneWay}" />
+                                Text="{Binding
+                                    Path=DateRealized,
+                                    Mode=OneWay}" />
                             <TextBlock
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
                                 Grid.Row="1"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{Binding Description, Mode=OneWay}" />
+                                Text="{Binding
+                                    Path=Description,
+                                    Mode=OneWay}" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -152,15 +165,25 @@
                 <TextBlock
                     Style="{StaticResource BodyTextBlockStyle}"
                     VerticalAlignment="Top"
-                    Text="{Binding CurrentPage, Converter={StaticResource ResourceFormatConverter}, ConverterParameter=IncomesPagedView Page, Mode=OneWay}" />
+                    Text="{Binding
+                        Path=CurrentPage,
+                        Converter={StaticResource ResourceFormatConverter},
+                        ConverterParameter=IncomesPagedView Page,
+                        Mode=OneWay}" />
                 <Button
                     x:Name="PreviousPageButton"
                     x:Uid="/IncomesPagedView/PreviousPageButton"
-                    Command="{Binding GoToPreviousPageCommand, Converter={StaticResource CommandConverter}, Mode=OneWay}" />
+                    Command="{Binding
+                        Path=GoToPreviousPageCommand,
+                        Converter={StaticResource CommandConverter},
+                        Mode=OneWay}" />
                 <Button
                     x:Name="NextPageButton"
                     x:Uid="/IncomesPagedView/NextPageButton"
-                    Command="{Binding GoToNextPageCommand, Converter={StaticResource CommandConverter}, Mode=OneWay}" />
+                    Command="{Binding
+                        Path=GoToNextPageCommand,
+                        Converter={StaticResource CommandConverter},
+                        Mode=OneWay}" />
                 <Button
                     x:Name="GoToPageButton"
                     x:Uid="/IncomesPagedView/GoToPageButton">
@@ -193,22 +216,32 @@
                                     Grid.Column="2"
                                     Grid.Row="0"
                                     InputScope="Number"
-                                    Text="{Binding CurrentPage, Mode=OneTime}"
-                                    TextChanged="_PageNumberTextChanged"
+                                    Text="{Binding
+                                        Path=GoToPageCommand.PageNumber,
+                                        Converter={StaticResource NullableIntToStringConverter},
+                                        Mode=TwoWay,
+                                        UpdateSourceTrigger=PropertyChanged}"
                                     KeyDown="_PageNumberKeyDown" />
                                 <Button
                                     x:Name="GoToPageFlyoutButton"
                                     x:Uid="/IncomesPagedView/GoToPageFlyoutButton"
                                     Grid.Column="4"
                                     Grid.Row="0"
-                                    Command="{Binding GoToPageCommand, Converter={StaticResource CommandConverter}, Mode=OneTime}"
+                                    Command="{Binding
+                                        Path=GoToPageCommand,
+                                        Converter={StaticResource CommandConverter},
+                                        Mode=OneTime}"
                                     HorizontalAlignment="Right" />
                                 <TextBlock
                                     Grid.Column="0"
                                     Grid.ColumnSpan="5"
                                     Grid.Row="1"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{Binding PageCount, Converter={StaticResource ResourceFormatConverter}, ConverterParameter=IncomesPagedView PageCount, Mode=OneWay}" />
+                                    Text="{Binding
+                                        Path=PageCount,
+                                        Converter={StaticResource ResourceFormatConverter},
+                                        ConverterParameter=IncomesPagedView PageCount,
+                                        Mode=OneWay}" />
                             </Grid>
                         </Flyout>
                     </Button.Flyout>

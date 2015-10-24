@@ -62,7 +62,7 @@ namespace BillPath.Modern
 
             await _ViewModel.LoadCommand.ExecuteAsync(null);
             if (_ViewModel.PageCount > 0)
-                await _ViewModel.GoToPageCommand.ExecuteAsync(1);
+                await _ViewModel.GoToNextPageCommand.ExecuteAsync(null);
 
             _ViewModel.LoadCommand.PropertyChanged += _ExecutingPropertyChanged;
             _ViewModel.GoToPageCommand.PropertyChanged += _ExecutingPropertyChanged;
@@ -100,27 +100,12 @@ namespace BillPath.Modern
                 _currentViewState = viewState;
         }
 
-        private void _PageNumberTextChanged(object sender, TextChangedEventArgs e)
-        {
-            int pageNumber;
-
-            if (int.TryParse(PageNumberTextBox.Text, out pageNumber)
-                && 1 <= pageNumber
-                && pageNumber <= _ViewModel.PageCount)
-            {
-                GoToPageFlyoutButton.IsEnabled = true;
-                GoToPageFlyoutButton.CommandParameter = pageNumber;
-            }
-            else
-                GoToPageFlyoutButton.IsEnabled = false;
-        }
-
         private void _PageNumberKeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == VirtualKey.Enter
                 && GoToPageFlyoutButton.IsEnabled
-                && GoToPageFlyoutButton.Command.CanExecute(GoToPageFlyoutButton.CommandParameter))
-                GoToPageFlyoutButton.Command.Execute(GoToPageFlyoutButton.CommandParameter);
+                && GoToPageFlyoutButton.Command.CanExecute(null))
+                GoToPageFlyoutButton.Command.Execute(null);
         }
     }
 }

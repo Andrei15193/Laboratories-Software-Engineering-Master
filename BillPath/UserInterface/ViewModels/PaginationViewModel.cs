@@ -194,6 +194,42 @@ namespace BillPath.UserInterface.ViewModels
             }
         }
 
+        public class GoToPageAsyncCommand
+            : AsyncCommand
+        {
+            private readonly PaginationViewModel<TItem> _context;
+            private int? _pageNumber;
+
+            public GoToPageAsyncCommand(PaginationViewModel<TItem> context)
+            {
+                if (context == null)
+                    throw new ArgumentNullException(nameof(context));
+
+                _context = context;
+                PageNumber = _context.CurrentPage;
+            }
+
+            public int? PageNumber
+            {
+                get
+                {
+                    return _pageNumber;
+                }
+                set
+                {
+                    _pageNumber = value;
+                    CanExecute = _pageNumber.HasValue
+                        && 1 <= _pageNumber.Value
+                        && _pageNumber.Value <= _context.PageCount;
+                }
+            }
+
+            protected override Task OnExecuteAsync(object parameter)
+            {
+                return _context._state.GoToPageAsync(PageNumber.Value, CancellationToken);
+            }
+        }
+
         private abstract class GoToAdjacentPageCommand
             : AsyncCommand
         {
@@ -220,7 +256,7 @@ namespace BillPath.UserInterface.ViewModels
                 RefreshCanExecute();
             }
 
-            protected AsyncCommand<int> GoToPageCommand
+            protected GoToPageAsyncCommand GoToPageCommand
                 => _context.GoToPageCommand;
             protected int PageCount
                 => _context.PageCount;
@@ -240,7 +276,8 @@ namespace BillPath.UserInterface.ViewModels
 
             protected override Task OnExecuteAsync(object parameter)
             {
-                return GoToPageCommand.ExecuteAsync(CurrentPage + 1);
+                GoToPageCommand.PageNumber = CurrentPage + 1;
+                return GoToPageCommand.ExecuteAsync(null);
             }
 
             protected override void RefreshCanExecute()
@@ -259,7 +296,8 @@ namespace BillPath.UserInterface.ViewModels
 
             protected override Task OnExecuteAsync(object parameter)
             {
-                return GoToPageCommand.ExecuteAsync(CurrentPage - 1);
+                GoToPageCommand.PageNumber = CurrentPage - 1;
+                return GoToPageCommand.ExecuteAsync(null);
             }
 
             protected override void RefreshCanExecute()
@@ -293,9 +331,8 @@ namespace BillPath.UserInterface.ViewModels
 
             LoadCommand = new DelegateAsyncCommand(
                 (parameter, cancellationToken) => _state.LoadAsync(cancellationToken));
-            GoToPageCommand = new DelegateAsyncCommand<int>(
-                (pageNumber, cancellationToken) => _state.GoToPageAsync(pageNumber, cancellationToken));
 
+            GoToPageCommand = new GoToPageAsyncCommand(this);
             GoToNextPageCommand = new GoToNextPageAsyncCommand(this);
             GoToPreviousPageCommand = new GoToPreviousPageAsyncCommand(this);
         }
@@ -305,8 +342,7 @@ namespace BillPath.UserInterface.ViewModels
             get;
         }
 
-
-        public AsyncCommand<int> GoToPageCommand
+        public GoToPageAsyncCommand GoToPageCommand
         {
             get;
         }
