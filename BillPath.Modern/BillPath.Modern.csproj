@@ -114,19 +114,29 @@
     <PRIResource Include="Strings\ro-RO\SettingsFlyout.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AmountView.xaml.cs">
+    <Compile Include="Controls\Display\AmountView.xaml.cs">
       <DependentUpon>AmountView.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationExtensions.cs" />
+    <Compile Include="Commands\ShowAttachedFlyoutCommand.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Controls\Display\ErrorsView.xaml.cs">
+      <DependentUpon>ErrorsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Edit\AmountView.xaml.cs">
+      <DependentUpon>AmountView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ArgbColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\AsyncCommandToCommandConverter.cs" />
+    <Compile Include="Converters\BooleanNotConverter.cs" />
+    <Compile Include="Converters\DecimalToStringConverter.cs" />
+    <Compile Include="Converters\IndexerConverter.cs" />
     <Compile Include="Converters\IsMatchConverter.cs" />
     <Compile Include="Converters\ChainedConverter.cs" />
     <Compile Include="Converters\CommandConverter.cs" />
@@ -139,14 +149,19 @@
     <Compile Include="CurrencySettingsFlyout.xaml.cs">
       <DependentUpon>CurrencySettingsFlyout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GoToStateCommand.cs" />
+    <Compile Include="Commands\GoToStateCommand.cs" />
     <Compile Include="IncomesPagedView.xaml.cs">
       <DependentUpon>IncomesPagedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Edit\IncomeView.xaml.cs">
+      <DependentUpon>IncomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Mocks\AmountViewModel.cs" />
     <Compile Include="Mocks\IncomesRepository.cs" />
+    <Compile Include="Mocks\IncomeViewModel.cs" />
     <Compile Include="ResourceBinders\IncomesPaginationViewModel.cs" />
     <Compile Include="ResourceBinders\IncomesViewModel.cs" />
     <Compile Include="Mocks\SettingsRepository.cs" />
@@ -206,7 +221,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AmountView.xaml">
+    <Page Include="Controls\Display\AmountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Display\ErrorsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Edit\AmountView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -222,9 +245,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\Edit\IncomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Overview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Resources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
   <ItemGroup>

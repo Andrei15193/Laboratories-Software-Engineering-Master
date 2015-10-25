@@ -17,19 +17,20 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 09/27/2015 10:38:53
+// 	Generated: 10/25/2015 12:47:04
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace BillPath.Strings
 {
     using Windows.ApplicationModel.Resources;
     using Windows.UI.Core;
-
+    
+    
     public partial class Settings
     {
-
+        
         private static ResourceLoader resourceLoader;
-
+        
         static Settings()
         {
             string executingAssemblyName;
@@ -46,23 +47,34 @@ namespace BillPath.Strings
             {
                 if (executingAssemblyName.Equals(currentAssemblyName))
                 {
-                    resourceLoader = ResourceLoader.GetForCurrentView("ExpenseCategory");
+                    resourceLoader = ResourceLoader.GetForCurrentView("Settings");
                 }
                 else
                 {
-                    resourceLoader = ResourceLoader.GetForCurrentView(currentAssemblyName + "/ExpenseCategory");
+                    resourceLoader = ResourceLoader.GetForCurrentView(currentAssemblyName + "/Settings");
                 }
             }
             else
             {
                 if (executingAssemblyName.Equals(currentAssemblyName))
                 {
-                    resourceLoader = ResourceLoader.GetForViewIndependentUse("ExpenseCategory");
+                    resourceLoader = ResourceLoader.GetForViewIndependentUse("Settings");
                 }
                 else
                 {
-                    resourceLoader = ResourceLoader.GetForViewIndependentUse(currentAssemblyName + "/ExpenseCategory");
+                    resourceLoader = ResourceLoader.GetForViewIndependentUse(currentAssemblyName + "/Settings");
                 }
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "Preferred currency"
+        /// </summary>
+        public static string PreferredCurrency_Header
+        {
+            get
+            {
+                return resourceLoader.GetString("PreferredCurrency/Header");
             }
         }
     }

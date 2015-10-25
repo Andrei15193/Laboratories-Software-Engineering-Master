@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -39,7 +38,7 @@ namespace BillPath.UserInterface.ViewModels
     }
 
     public class ViewModel<TModel>
-        : ViewModel, INotifyDataErrorInfo
+        : ViewModel
     {
         private static readonly ModelValidator _modelValidator = new ModelValidator();
         private readonly IReadOnlyDictionary<string, ObservableCollection<string>> _errorsByPropertyNames;
@@ -63,18 +62,28 @@ namespace BillPath.UserInterface.ViewModels
             _readonlyErrorsByPropertyNames = _errorsByPropertyNames
                 .ToDictionary(
                     errorsByPropertyName => errorsByPropertyName.Key,
-                    errorsByPropertyName => new ReadOnlyObservableCollection<string>(errorsByPropertyName.Value));
-            _ValidateModel();
+                    errorsByPropertyName => new ReadOnlyObservableCollection<string>(errorsByPropertyName.Value),
+                    StringComparer.OrdinalIgnoreCase);
+            ValidateModel();
 
-            PropertyChanged += delegate { _ValidateModel(); };
+            PropertyChanged +=
+                (sender, e) =>
+                {
+                    if (!nameof(IsValid).Equals(
+                        e.PropertyName,
+                        StringComparison.OrdinalIgnoreCase))
+                        ValidateModel();
+                };
         }
 
-        private void _ValidateModel()
+        protected void ValidateModel()
         {
             _ClearAllErrors();
             foreach (var validationResultsByMemberName in _GetValidationResultsByMemberName())
-                _AddRange(_errorsByPropertyNames[validationResultsByMemberName.Key], validationResultsByMemberName);
-            _RaiseErrorsChangedForAllProperties();
+                _AddRange(
+                    _errorsByPropertyNames[validationResultsByMemberName.Key],
+                    validationResultsByMemberName);
+            OnPropertyChanged(nameof(IsValid));
         }
 
         private IEnumerable<IGrouping<string, string>> _GetValidationResultsByMemberName()
@@ -83,7 +92,7 @@ namespace BillPath.UserInterface.ViewModels
                    let memberNames = from memberName in (validationResult.MemberNames ?? Enumerable.Empty<string>())
                                      select string.IsNullOrWhiteSpace(memberName) ? string.Empty : memberName
                    from memberName in memberNames.DefaultIfEmpty(string.Empty)
-                   group validationResult.ErrorMessage by memberName.ToUpperInvariant();
+                   group validationResult.ErrorMessage by memberName.ToLowerInvariant();
         }
 
         private void _ClearAllErrors()
@@ -97,47 +106,20 @@ namespace BillPath.UserInterface.ViewModels
                 collection.Add(item);
         }
 
-        private void _RaiseErrorsChangedForAllProperties()
-        {
-            foreach (var propertyName in _errorsByPropertyNames.Keys)
-                _RaiseErrorsFor(propertyName);
-        }
-        private void _RaiseErrorsFor(string propertyName)
-        {
-            var dataErrorsChangedEventArgs = new DataErrorsChangedEventArgs(propertyName);
-            ErrorsChanged?.Invoke(this, dataErrorsChangedEventArgs);
-            OnErrorsChanged(dataErrorsChangedEventArgs);
-        }
-        protected virtual void OnErrorsChanged(DataErrorsChangedEventArgs dataErrorsChangedEventArgs)
-        {
-        }
-
         public TModel Model
         {
             get;
+            protected set;
         }
 
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-
-        public bool HasErrors
+        public bool IsValid
         {
             get
             {
-                return _errorsByPropertyNames.Values.Any(Enumerable.Any);
+                return !_errorsByPropertyNames.Values.Any(Enumerable.Any);
             }
         }
-
-        public ReadOnlyObservableCollection<string> GetErrors(string propertyName)
-        {
-            return _readonlyErrorsByPropertyNames[
-                string.IsNullOrWhiteSpace(propertyName)
-                ? string.Empty
-                : propertyName];
-        }
-
-        IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
-        {
-            return GetErrors(propertyName);
-        }
+        public IReadOnlyDictionary<string, ReadOnlyObservableCollection<string>> Errors
+            => _readonlyErrorsByPropertyNames;
     }
 }

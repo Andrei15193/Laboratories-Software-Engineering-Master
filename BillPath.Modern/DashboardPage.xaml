@@ -3,6 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BillPath.Modern"
+    xmlns:edit="using:BillPath.Modern.Controls.Edit"
+    xmlns:mocks="using:BillPath.Modern.Mocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tk="using:WinRTXamlToolkit.Controls"
@@ -31,13 +33,34 @@
                     <AppBarButton
                         x:Uid="/DashboardPage/AddButton"
                         Icon="Add"
-                        IsCompact="True">
+                        IsCompact="True"
+                        DataContext="{Binding RelativeSource={RelativeSource Self}}">
                         <AppBarButton.Flyout>
                             <MenuFlyout>
                                 <MenuFlyoutItem
                                     x:Uid="/DashboardPage/AddIncomeButton"
-                                    Click="MenuFlyoutItem_Click"
-                                    CommandParameter="{Binding SaveCommand, Source={StaticResource IncomesViewModel}}" />
+                                    Command="{StaticResource ShowAttachedFlyoutCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout>
+                                            <StackPanel>
+                                                <StackPanel.DataContext>
+                                                    <mocks:IncomeViewModel />
+                                                </StackPanel.DataContext>
+                                                <edit:IncomeView />
+                                                <Button
+                                                    Content="Add"
+                                                    IsEnabled="{Binding IsValid}"
+                                                    Command="{Binding
+                                                        Source={StaticResource IncomesViewModel},
+                                                        Path=SaveCommand,
+                                                        Converter={StaticResource CommandConverter}}"
+                                                    CommandParameter="{Binding}" />
+                                            </StackPanel>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                </MenuFlyoutItem>
+
                                 <MenuFlyoutItem
                                     x:Uid="/DashboardPage/AddExpenseButton"
                                     IsEnabled="False" />

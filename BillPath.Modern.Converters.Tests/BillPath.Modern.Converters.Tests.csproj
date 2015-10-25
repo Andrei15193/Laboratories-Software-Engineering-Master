@@ -115,7 +115,10 @@
     <SDKReference Include="TestPlatform, Version=14.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BooleanNotConverterTests.cs" />
     <Compile Include="CurrencyDisplayConverterTests.cs" />
+    <Compile Include="DecimalToStringConverterTests.cs" />
+    <Compile Include="IndexerConverterTests.cs" />
     <Compile Include="NullableIntToStringConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

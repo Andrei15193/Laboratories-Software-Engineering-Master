@@ -34,7 +34,7 @@ namespace BillPath.Modern.Converters.Tests
             Assert.AreEqual(string.Empty, actualValue);
         }
 
-        [TestMethod]
+        [DataTestMethod]
         [DataRow(0)]
         [DataRow(1)]
         [DataRow(2)]
@@ -64,7 +64,7 @@ namespace BillPath.Modern.Converters.Tests
             Assert.AreEqual(expectedValue, actualValue);
         }
 
-        [TestMethod]
+        [DataTestMethod]
         [DataRow("0a")]
         [DataRow("1a")]
         [DataRow("2a")]

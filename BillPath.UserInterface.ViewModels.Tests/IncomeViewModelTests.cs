@@ -45,29 +45,28 @@ namespace BillPath.UserInterface.ViewModels.Tests
                 _ViewModel.Amount);
 
         [TestMethod]
-        public void TestSettingNewAmountAlsoChangesTheModel()
+        public void TestSettingNewAmountValueAlsoChangesTheModel()
         {
             var newAmount = new Amount(
                 20,
                 new Currency(new RegionInfo("en-AU")));
-            _ViewModel.Amount = newAmount;
+            _ViewModel.Amount.Value = newAmount.Value;
 
             Assert.AreEqual(
                 newAmount,
                _Model.Amount);
         }
-
         [TestMethod]
-        public void TestSettingAmountRaisesPropertyChangedAccordingly()
+        public void TestSettingNewAmountCurrencyAlsoChangesTheModel()
         {
-            _ViewModel.Amount = new Amount(
+            var newAmount = new Amount(
                 20,
                 new Currency(new RegionInfo("en-AU")));
+            _ViewModel.Amount.Currency = newAmount.Currency;
 
             Assert.AreEqual(
-                nameof(IncomeViewModel.Amount),
-                _ChangedProperties.Single(),
-                ignoreCase: true);
+                newAmount,
+               _Model.Amount);
         }
 
         [TestMethod]

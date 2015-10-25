@@ -4,6 +4,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BillPath.Modern"
+    xmlns:display="using:BillPath.Modern.Controls.Display"
+    xmlns:commands="using:BillPath.Modern.Commands"
     xmlns:converters="using:BillPath.Modern.Converters"
     xmlns:tk="using:WinRTXamlToolkit.Controls"
     xmlns:viewModels="using:BillPath.UserInterface.ViewModels"
@@ -16,7 +18,7 @@
     <UserControl.Resources>
         <converters:ArgbColorToSolidColorBrushConverter
             x:Key="ArgbColorToSolidColorBrushConverter" />
-        <local:GoToStateCommand
+        <commands:GoToStateCommand
             x:Name="GoToStateCommand"
             Control="{Binding ElementName=Self}" />
     </UserControl.Resources>
@@ -174,7 +176,7 @@
                                     Grid.Row="0"
                                     Style="{StaticResource SubheaderTextBlockStyle}"
                                     Text="{Binding Name}" />
-                                <local:AmountView
+                                <display:AmountView
                                     Grid.Column="1"
                                     Grid.Row="1"
                                     Amount="{Binding Amount, Mode=OneWay}" />

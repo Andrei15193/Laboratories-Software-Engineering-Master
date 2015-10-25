@@ -172,6 +172,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="UserInterface\ViewModels\AmountViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\AsyncCommand.cs" />
     <Compile Include="UserInterface\ViewModels\Command.cs" />
     <Compile Include="UserInterface\ViewModels\DelegateAsyncCommand.cs" />

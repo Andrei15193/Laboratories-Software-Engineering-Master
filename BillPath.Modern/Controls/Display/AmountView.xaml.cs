@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
-using BillPath.Models;
 using BillPath.Modern.Converters;
-using BillPath.Modern.ResourceBinders;
+using BillPath.UserInterface.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace BillPath.Modern
+namespace BillPath.Modern.Controls.Display
 {
     public sealed partial class AmountView
         : UserControl
@@ -16,10 +15,10 @@ namespace BillPath.Modern
         public static readonly DependencyProperty AmountProperty =
             DependencyProperty.Register(
                 nameof(Amount),
-                typeof(Amount),
+                typeof(AmountViewModel),
                 typeof(AmountView),
                 new PropertyMetadata(
-                    new Amount(),
+                    null,
                     (d, e) => ((AmountView)d)._UpdateAmountTextBlockText()));
 
         public AmountView()
@@ -28,16 +27,15 @@ namespace BillPath.Modern
             Loaded +=
                 delegate
                 {
-                    var settingsViewModel = (SettingsViewModel)Application.Current.Resources[nameof(SettingsViewModel)];
-                    settingsViewModel.PropertyChanged += _SettingsViewModelPropertyChanged;
+                    Application.Current.GetResource<SettingsViewModel>().PropertyChanged += _SettingsViewModelPropertyChanged;
                 };
         }
 
-        public Amount Amount
+        public AmountViewModel Amount
         {
             get
             {
-                return (Amount)GetValue(AmountProperty);
+                return (AmountViewModel)GetValue(AmountProperty);
             }
             set
             {
@@ -47,12 +45,14 @@ namespace BillPath.Modern
 
         private void _SettingsViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (nameof(SettingsViewModel.PreferredCurrencyDisplayFormat).Equals(e.PropertyName, StringComparison.OrdinalIgnoreCase))
+            if (nameof(ResourceBinders.SettingsViewModel.PreferredCurrencyDisplayFormat).Equals(
+                e.PropertyName,
+                StringComparison.OrdinalIgnoreCase))
                 _UpdateAmountTextBlockText();
         }
         private void _UpdateAmountTextBlockText()
         {
-            AmountTextBlock.Text = Amount.Value.ToString("g") + _GetCurrencyText();
+            AmountTextBlock.Text = Amount.Value.ToString("N") + _GetCurrencyText();
         }
 
         private string _GetCurrencyText()

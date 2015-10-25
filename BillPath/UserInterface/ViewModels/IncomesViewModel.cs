@@ -27,10 +27,10 @@ namespace BillPath.UserInterface.ViewModels
         {
             if (incomeViewModel == null)
                 throw new ArgumentNullException(nameof(incomeViewModel));
-            if (incomeViewModel.HasErrors)
+            if (!incomeViewModel.IsValid)
                 throw new InvalidOperationException();
 
-            await _repository.SaveAsync(incomeViewModel.Model, cancellationToken);
+            await _repository.SaveAsync(incomeViewModel.Model.Clone(), cancellationToken);
         }
     }
 }

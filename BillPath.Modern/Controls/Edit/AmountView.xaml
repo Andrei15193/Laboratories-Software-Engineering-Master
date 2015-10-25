@@ -1,0 +1,46 @@
+﻿<UserControl
+    x:Class="BillPath.Modern.Controls.Edit.AmountView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:BillPath.Modern.Converters"
+    xmlns:mocks="using:BillPath.Modern.Mocks"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <d:UserControl.DataContext>
+        <mocks:AmountViewModel />
+    </d:UserControl.DataContext>
+    <UserControl.Resources>
+        <converters:DecimalToStringConverter
+            x:Key="DecimalToStringConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition
+                Width="20" />
+            <ColumnDefinition
+                Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBox
+            Grid.Column="0"
+            Text="{Binding
+                Path=Value,
+                Converter={StaticResource DecimalToStringConverter},
+                ConverterParameter=N,
+                Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}" />
+        <ComboBox
+            x:Name="CurrencyComboBox"
+            Grid.Column="2"
+            DisplayMemberPath="IsoCode"
+            ItemsSource="{Binding
+                Path=Currencies,
+                Source={StaticResource CurrencyProvider},
+                Mode=OneTime}"
+            SelectedItem="{Binding
+                Path=Currency,
+                Mode=TwoWay}"
+            Loaded="CurrencyComboBoxLoaded" />
+    </Grid>
+</UserControl>

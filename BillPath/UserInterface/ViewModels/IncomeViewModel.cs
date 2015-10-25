@@ -9,19 +9,18 @@ namespace BillPath.UserInterface.ViewModels
         public IncomeViewModel(Income model)
             : base(model)
         {
+            Amount = new AmountViewModel(model.Amount);
+            Amount.PropertyChanged +=
+                delegate
+                {
+                    Model.Amount = Amount.Model;
+                    ValidateModel();
+                };
         }
 
-        public Amount Amount
+        public AmountViewModel Amount
         {
-            get
-            {
-                return Model.Amount;
-            }
-            set
-            {
-                Model.Amount = value;
-                OnPropertyChanged();
-            }
+            get;
         }
 
         public string Description

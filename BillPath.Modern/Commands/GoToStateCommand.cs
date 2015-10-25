@@ -3,7 +3,7 @@ using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace BillPath.Modern
+namespace BillPath.Modern.Commands
 {
     public class GoToStateCommand
         : DependencyObject, ICommand

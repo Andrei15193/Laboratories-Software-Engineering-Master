@@ -44,11 +44,9 @@ namespace BillPath.DataAccess.Mocks
 
             await Task.Yield();
 
-            var insertIndex = _incomes.FindIndex(existingIncome => income.DateRealized > existingIncome.DateRealized);
-            if (insertIndex == -1)
-                _incomes.Insert(0, income);
-            else
-                _incomes.Insert(insertIndex, income);
+            _incomes.Insert(
+                _incomes.FindLastIndex(existingIncome => income.DateRealized < existingIncome.DateRealized) + 1,
+                income);
             Notify(new RepositoryChange<Income>(income, RepositoryChangeAction.Add));
         }
     }

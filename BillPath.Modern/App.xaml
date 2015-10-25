@@ -2,11 +2,15 @@
     x:Class="BillPath.Modern.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:providers="using:BillPath.Providers"
+    xmlns:commands="using:BillPath.Modern.Commands"
     xmlns:converters="using:BillPath.Modern.Converters"
     xmlns:mocks="using:BillPath.Modern.Mocks"
+    xmlns:providers="using:BillPath.Providers"
     xmlns:resourceBinders="using:BillPath.Modern.ResourceBinders">
     <Application.Resources>
+        <commands:ShowAttachedFlyoutCommand
+            x:Key="ShowAttachedFlyoutCommand" />
+
         <providers:CurrencyProvider
             x:Key="CurrencyProvider" />
         <providers:CurrencyDisplayFormatProvider
@@ -26,6 +30,8 @@
             x:Key="StringToIntConverter" />
         <converters:IsMatchConverter
             x:Key="IsMatchConverter" />
+        <converters:IndexerConverter
+            x:Key="IndexerConverter" />
 
         <mocks:IncomesRepository
             x:Key="DEBUG_IncomesRepository"

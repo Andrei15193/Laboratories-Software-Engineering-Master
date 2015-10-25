@@ -6,9 +6,7 @@ namespace BillPath.Modern
     public static class ApplicationExtensions
     {
         public static object GetResource(this Application application, string key)
-        {
-            return GetResource<object>(application, key);
-        }
+            => GetResource<object>(application, key);
         public static TResource GetResource<TResource>(this Application application, string key)
         {
             if (application == null)
@@ -26,5 +24,7 @@ namespace BillPath.Modern
 #endif
             return (TResource)application.Resources[key];
         }
+        public static TResource GetResource<TResource>(this Application application)
+            => GetResource<TResource>(application, typeof(TResource).Name);
     }
 }
