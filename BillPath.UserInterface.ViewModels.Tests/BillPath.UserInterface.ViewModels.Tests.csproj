@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AmountViewModel.cs" />
+    <Compile Include="BindingSourceTests.cs" />
     <Compile Include="CommandTests.cs" />
     <Compile Include="DelegateAsyncCommandTests.cs" />
     <Compile Include="DelegateCommandTests.cs" />
