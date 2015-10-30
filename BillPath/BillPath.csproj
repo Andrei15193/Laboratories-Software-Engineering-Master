@@ -174,7 +174,7 @@
     </Compile>
     <Compile Include="UserInterface\ViewModels\AmountViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\AsyncCommand.cs" />
-    <Compile Include="UserInterface\ViewModels\BindingSource.cs" />
+    <Compile Include="UserInterface\ViewModels\ModelContext.cs" />
     <Compile Include="UserInterface\ViewModels\Command.cs" />
     <Compile Include="UserInterface\ViewModels\DelegateAsyncCommand.cs" />
     <Compile Include="UserInterface\ViewModels\DelegateCommand.cs" />
