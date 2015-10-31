@@ -131,9 +131,11 @@
     <Compile Include="Models\ExpenseCategory.cs" />
     <Compile Include="Models\ICloneable.cs" />
     <Compile Include="Models\ICurrencyFormatter.cs" />
+    <Compile Include="IModelErrors.cs" />
     <Compile Include="Models\Income.cs" />
-    <Compile Include="Models\IValidatableObject.cs" />
-    <Compile Include="Models\ModelValidator.cs" />
+    <Compile Include="IValidatableObject.cs" />
+    <Compile Include="ModelErrors.cs" />
+    <Compile Include="ModelValidator.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Observable.cs" />
@@ -174,14 +176,13 @@
     </Compile>
     <Compile Include="UserInterface\ViewModels\AmountViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\AsyncCommand.cs" />
-    <Compile Include="UserInterface\ViewModels\ModelContext.cs" />
+    <Compile Include="ModelState.cs" />
     <Compile Include="UserInterface\ViewModels\Command.cs" />
     <Compile Include="UserInterface\ViewModels\DelegateAsyncCommand.cs" />
     <Compile Include="UserInterface\ViewModels\DelegateCommand.cs" />
     <Compile Include="UserInterface\ViewModels\IncomesViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\IncomeViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\IncomeViewModelReaderProvider.cs" />
-    <Compile Include="UserInterface\ViewModels\ModelState.cs" />
     <Compile Include="UserInterface\ViewModels\PaginationViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\StatsViewModel.cs" />

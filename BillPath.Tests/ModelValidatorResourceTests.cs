@@ -17,12 +17,13 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 09/26/2015 19:09:34
+// 	Generated: 10/31/2015 16:16:24
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
-namespace BillPath.Models.Tests
+namespace BillPath.Tests
 {
     using Windows.ApplicationModel.Resources;
+    using Windows.UI.Core;
 
 
     public partial class ModelValidatorResourceTests
@@ -42,7 +43,21 @@ namespace BillPath.Models.Tests
             string[] currentAssemblySplit;
             currentAssemblySplit = currentAssemblyName.Split(',');
             currentAssemblyName = currentAssemblySplit[1];
-            resourceLoader = ResourceLoader.GetForViewIndependentUse("ModelValidatorResourceTests");
+            if (CoreWindow.GetForCurrentThread() != null)
+            {
+                if (executingAssemblyName.Equals(currentAssemblyName))
+                {
+                    resourceLoader = ResourceLoader.GetForCurrentView("ModelValidatorResourceTests");
+                }
+                else
+                {
+                    resourceLoader = ResourceLoader.GetForCurrentView(currentAssemblyName + "/ModelValidatorResourceTests");
+                }
+            }
+            else
+            {
+                resourceLoader = ResourceLoader.GetForViewIndependentUse("ModelValidatorResourceTests");
+            }
         }
 
         /// <summary>
@@ -57,7 +72,7 @@ namespace BillPath.Models.Tests
         }
 
         /// <summary>
-        /// Localized resource similar to ""This is a test error message for {0}.""
+        /// Localized resource similar to "This is a test error message for {0}."
         /// </summary>
         public static string TestErrorMessageFormat
         {

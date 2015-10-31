@@ -116,7 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AmountViewModel.cs" />
-    <Compile Include="ModelContextTests.cs" />
     <Compile Include="CommandTests.cs" />
     <Compile Include="DelegateAsyncCommandTests.cs" />
     <Compile Include="DelegateCommandTests.cs" />
@@ -125,7 +124,6 @@
     <Compile Include="IncomesViewModelTests.cs" />
     <Compile Include="IncomeViewModelReaderProviderTests.cs" />
     <Compile Include="IncomeViewModelTests.cs" />
-    <Compile Include="ModelStateTests.cs" />
     <Compile Include="PaginationViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsViewModelTests.cs" />

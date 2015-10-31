@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
-namespace BillPath.Models.Tests
+namespace BillPath.Tests
 {
     [TestClass]
     public class ModelValidatorTests
@@ -284,6 +284,48 @@ namespace BillPath.Models.Tests
             }
             [Required]
             public string Property
+            {
+                get;
+                set;
+            }
+        }
+
+        [TestMethod]
+        public void TestStaticPropertiesAreValidated()
+        {
+            var validationResults =
+                new ModelValidator().Validate(new RequiredStaticPropertyObjectModel());
+
+            Assert.AreEqual(
+                1,
+                validationResults.Count());
+        }
+
+        public class RequiredStaticPropertyObjectModel
+        {
+            [Required]
+            public static object Property
+            {
+                get;
+                set;
+            }
+        }
+
+        [TestMethod]
+        public void TestPrivatePropertiesAreValidated()
+        {
+            var validationResults =
+                new ModelValidator().Validate(new RequiredPrivatePropertyObjectModel());
+
+            Assert.AreEqual(
+                1,
+                validationResults.Count());
+        }
+
+        public class RequiredPrivatePropertyObjectModel
+        {
+            [Required]
+            private static object Property
             {
                 get;
                 set;

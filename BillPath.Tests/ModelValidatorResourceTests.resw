@@ -121,7 +121,7 @@
     <value>This is a test error message</value>
   </data>
   <data name="TestErrorMessageFormat" xml:space="preserve">
-    <value>"This is a test error message for {0}."</value>
+    <value>This is a test error message for {0}.</value>
   </data>
   <data name="TestPropertyName" xml:space="preserve">
     <value>PropertyTest</value>

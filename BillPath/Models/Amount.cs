@@ -23,6 +23,9 @@ namespace BillPath.Models
         public Currency Currency
             => _currency;
 
+        public override string ToString()
+            => $"{{{nameof(Value)} = {Value}, {nameof(Currency)} = {Currency}}}";
+
         public bool Equals(Amount other)
             => Value == other.Value
                && Currency == other.Currency;

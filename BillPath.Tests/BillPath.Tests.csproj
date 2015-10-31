@@ -115,6 +115,14 @@
     <SDKReference Include="TestPlatform, Version=14.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModelErrorsTests.cs" />
+    <Compile Include="ModelStateTests.cs" />
+    <Compile Include="ModelValidatorResourceTests.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelValidatorResourceTests.resw</DependentUpon>
+    </Compile>
+    <Compile Include="ModelValidatorTests.cs" />
     <Compile Include="ObservableTests.cs" />
     <Compile Include="ObserverSubscriptionTests.cs" />
     <Compile Include="DelegateObserverTests.cs" />
@@ -125,6 +133,11 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="BillPath.Tests_TemporaryKey.pfx" />
+    <PRIResource Include="ModelValidatorResourceTests.resw">
+      <CustomToolNamespace>BillPath.Tests</CustomToolNamespace>
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>ModelValidatorResourceTests.cs</LastGenOutput>
+    </PRIResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\UnitTestLogo.scale-100.png">

@@ -6,9 +6,9 @@ using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 
-namespace BillPath.UserInterface.ViewModels
+namespace BillPath
 {
-    public class ModelContext
+    public class ModelState
         : DynamicObject, INotifyPropertyChanged
     {
         private static ConcurrentDictionary<Type, Lazy<IReadOnlyDictionary<string, PropertyInfo>>> _runtimePropertiesTypeCahce =
@@ -26,13 +26,14 @@ namespace BillPath.UserInterface.ViewModels
         private object _model;
         private readonly Lazy<IReadOnlyDictionary<string, PropertyInfo>> _runtimePropertiesByNames;
 
-        public ModelContext(object model)
+        public ModelState(object model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
             _model = model;
             _runtimePropertiesByNames = _GetRuntimePropertiesByNamesFor(model.GetType());
+            Errors = new ModelErrors(this);
         }
 
         public object Model
@@ -50,11 +51,17 @@ namespace BillPath.UserInterface.ViewModels
             }
         }
 
+        public IModelErrors Errors
+        {
+            get;
+        }
+
+        public bool IsValid
+            => !Errors.EnumerateAll().Any();
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            PropertyChanged?.Invoke(this, propertyChangedEventArgs);
-        }
+            => PropertyChanged?.Invoke(this, propertyChangedEventArgs);
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
@@ -79,8 +86,13 @@ namespace BillPath.UserInterface.ViewModels
                 && runtimeProperty.CanWrite
                 && runtimeProperty.PropertyType.GetTypeInfo().IsAssignableFrom(binder.ReturnType.GetTypeInfo()))
             {
+                var wasValid = IsValid;
+
                 runtimeProperty.SetValue(_model, value);
                 OnPropertyChanged(new PropertyChangedEventArgs(runtimeProperty.Name));
+
+                if (wasValid != IsValid)
+                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
                 return true;
             }
 
@@ -90,5 +102,26 @@ namespace BillPath.UserInterface.ViewModels
         private bool _TryGetRuntimeProperty(string propertyName, bool ignoreCase, out PropertyInfo runtimeProperty)
             => (_runtimePropertiesByNames.Value.TryGetValue(propertyName, out runtimeProperty)
                 && (ignoreCase || propertyName.Equals(runtimeProperty.Name, StringComparison.Ordinal)));
+    }
+
+    public class ModelState<TModel>
+        : ModelState
+    {
+        public ModelState(TModel model)
+            : base(model)
+        {
+        }
+
+        new public TModel Model
+        {
+            get
+            {
+                return (TModel)base.Model;
+            }
+            protected set
+            {
+                base.Model = value;
+            }
+        }
     }
 }

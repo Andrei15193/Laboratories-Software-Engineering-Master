@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using BillPath.Models;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
@@ -42,14 +41,14 @@ namespace BillPath.UserInterface.ViewModels.Tests
         public void TestAmountReturnedByViewModelIsEqualToTheOneOfTheModel()
             => Assert.AreEqual(
                 _Model.Amount,
-                _ViewModel.Amount);
+                _ViewModel.Amount.Model);
 
         [TestMethod]
         public void TestSettingNewAmountValueAlsoChangesTheModel()
         {
             var newAmount = new Amount(
                 20,
-                new Currency(new RegionInfo("en-AU")));
+                _Model.Amount.Currency);
             _ViewModel.Amount.Value = newAmount.Value;
 
             Assert.AreEqual(
@@ -60,7 +59,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
         public void TestSettingNewAmountCurrencyAlsoChangesTheModel()
         {
             var newAmount = new Amount(
-                20,
+                _Model.Amount.Value,
                 new Currency(new RegionInfo("en-AU")));
             _ViewModel.Amount.Currency = newAmount.Currency;
 
@@ -91,10 +90,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
         {
             _ViewModel.Description = "new description";
 
-            Assert.AreEqual(
-                nameof(IncomeViewModel.Description),
-                _ChangedProperties.Single(),
-                ignoreCase: true);
+            Assert.IsTrue(_ChangedProperties.Contains(nameof(IncomeViewModel.Description)));
         }
 
 
@@ -120,10 +116,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
         {
             _ViewModel.DateRealized = DateTimeOffset.Now.AddMonths(-10);
 
-            Assert.AreEqual(
-                nameof(IncomeViewModel.DateRealized),
-                _ChangedProperties.Single(),
-                ignoreCase: true);
+            Assert.IsTrue(_ChangedProperties.Contains(nameof(IncomeViewModel.DateRealized)));
         }
     }
 }
