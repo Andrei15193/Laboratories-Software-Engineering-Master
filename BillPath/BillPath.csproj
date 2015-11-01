@@ -120,6 +120,7 @@
     <Compile Include="DataAccess\Xml\FileProvider.cs" />
     <Compile Include="DataAccess\Xml\XmlIncomeRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlSettingsRepository.cs" />
+    <Compile Include="ModelStates.cs" />
     <Compile Include="Models\Amount.cs" />
     <Compile Include="Models\ArgbColor.cs" />
     <Compile Include="Models\Currency.cs" />
@@ -174,6 +175,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="TypeHelper.cs" />
     <Compile Include="UserInterface\ViewModels\AmountViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\AsyncCommand.cs" />
     <Compile Include="ModelState.cs" />

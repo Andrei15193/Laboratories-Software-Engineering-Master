@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,13 +8,6 @@ namespace BillPath
 {
     public sealed class ModelValidator
     {
-        private static readonly ConcurrentDictionary<Type, IEnumerable<PropertyInfo>> _runtimePropertiesCache
-            = new ConcurrentDictionary<Type, IEnumerable<PropertyInfo>>();
-        private static IEnumerable<PropertyInfo> _GetRuntimePropertiesFor(Type type)
-            => _runtimePropertiesCache.GetOrAdd(
-                type,
-                typeToCache => typeToCache.GetRuntimeProperties().ToList());
-
         public IEnumerable<ValidationResult> Validate(object model)
         {
             if (model == null)
@@ -23,8 +15,11 @@ namespace BillPath
 
             var instanceType = model.GetType();
 
-            return (from runtimeProperty in _GetRuntimePropertiesFor(instanceType)
-                    where runtimeProperty.CanRead && runtimeProperty.GetIndexParameters().Length == 0
+            return (from runtimeProperty in instanceType.GetRuntimeProperties()
+                    let hasPublicGetter = runtimeProperty.GetMethod?.IsPublic ?? false
+                    let isStatic = runtimeProperty.GetMethod?.IsStatic ?? false
+                    let hasParameters = runtimeProperty.GetIndexParameters().Length > 0
+                    where hasPublicGetter && !hasParameters && !isStatic
                     let validationContext =
                         new ValidationContext(model)
                         {

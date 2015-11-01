@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 
 namespace BillPath
 {
-    public class ModelErrors
+    public sealed class ModelErrors
         : DynamicObject, IModelErrors
     {
         private struct PropertyErrors
@@ -143,25 +142,14 @@ namespace BillPath
         }
 
         private IEnumerable<object> _GetPropertyValuesFrom(object @object)
-            => @object
-                ?.GetType()
-                ?.GetRuntimeProperties()
-                ?.Where(runtimeProperty => runtimeProperty.CanRead
-                    && runtimeProperty.GetIndexParameters().Length == 0
-                    && (typeof(IValidatableObject)
-                        .GetTypeInfo()
-                        .IsAssignableFrom(runtimeProperty.PropertyType.GetTypeInfo())
-                        || runtimeProperty
-                            .PropertyType
-                            .GetRuntimeProperties()
-                            .SelectMany(property => property.GetCustomAttributes(true))
-                            .Any(customAttribute => typeof(ValidationAttribute)
-                                .GetTypeInfo()
-                                .IsAssignableFrom(customAttribute
-                                    .GetType()
-                                    .GetTypeInfo()))))
-                ?.Select(runtimeProperty => runtimeProperty.GetValue(@object))
-                ?? Enumerable.Empty<object>();
+            => from runtimeProperty in @object.GetType().GetRuntimeProperties()
+               let hasPublicGetter = runtimeProperty.GetMethod?.IsPublic ?? false
+               let hasParameters = runtimeProperty.GetIndexParameters().Length > 0
+               let isStatuc = runtimeProperty?.GetMethod?.IsStatic ?? false
+               where hasPublicGetter && !hasParameters && !isStatuc
+               let runtimePropertyValue = runtimeProperty.GetValue(@object)
+               where runtimePropertyValue != null
+               select runtimePropertyValue;
 
         private void _FillErrors()
         {

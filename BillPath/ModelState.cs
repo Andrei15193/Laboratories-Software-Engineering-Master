@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Dynamic;
@@ -11,107 +10,48 @@ namespace BillPath
     public class ModelState
         : DynamicObject, INotifyPropertyChanged
     {
-        private static IEnumerable<Type> _primitiveTypes = new HashSet<Type>
-        {
-            typeof(object),
-
-            typeof(byte),
-            typeof(byte?),
-            typeof(sbyte),
-            typeof(sbyte?),
-
-            typeof(short),
-            typeof(short?),
-            typeof(ushort),
-            typeof(ushort?),
-
-            typeof(int),
-            typeof(int?),
-            typeof(uint),
-            typeof(uint?),
-
-            typeof(long),
-            typeof(long?),
-            typeof(ulong),
-            typeof(ulong?),
-
-            typeof(float),
-            typeof(float?),
-            typeof(double),
-            typeof(double?),
-            typeof(decimal),
-            typeof(decimal?),
-
-            typeof(char),
-            typeof(char?),
-            typeof(string),
-
-            typeof(DateTime),
-            typeof(DateTime?),
-            typeof(DateTimeOffset),
-            typeof(DateTimeOffset?)
-        };
-        internal static bool IsPrimitive(Type type)
-            => _primitiveTypes.Contains(type)
-            || typeof(Enum).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo())
-            || typeof(Delegate).GetTypeInfo().IsAssignableFrom(type.GetTypeInfo());
-
-        private static ConcurrentDictionary<TypeInfo, IReadOnlyDictionary<string, PropertyInfo>> _runtimePropertiesTypeCahce =
-            new ConcurrentDictionary<TypeInfo, IReadOnlyDictionary<string, PropertyInfo>>();
-        private static IReadOnlyDictionary<string, PropertyInfo> _GetRuntimePropertiesByNamesFor(TypeInfo typeInfo)
-            => _runtimePropertiesTypeCahce.GetOrAdd(typeInfo, _GetRuntimePropertiesByNamesFrom);
-        private static IReadOnlyDictionary<string, PropertyInfo> _GetRuntimePropertiesByNamesFrom(TypeInfo typeInfo)
-            => typeInfo
-            .AsType()
-            .GetRuntimeProperties()
+        private static IReadOnlyDictionary<string, PropertyInfo> _GetRuntimePropertiesByNamesFor(Type type)
+            => (from runtimeProperty in type.GetRuntimeProperties()
+                let hasPublicGetter = runtimeProperty.GetMethod?.IsPublic ?? false
+                let hasPublicSetter = runtimeProperty.SetMethod?.IsPublic ?? false
+                let hasParameters = runtimeProperty.GetIndexParameters().Length > 0
+                let isStatic = runtimeProperty.GetMethod?.IsStatic ?? runtimeProperty.SetMethod?.IsStatic ?? false
+                where (hasPublicGetter || hasPublicSetter)
+                    && !hasParameters
+                    && !isStatic
+                select runtimeProperty)
             .ToDictionary(
                 runtimeProperty => runtimeProperty.Name,
                 StringComparer.OrdinalIgnoreCase);
 
-        private readonly object _model;
-        private readonly IDictionary<object, ModelState> _modelStatesByValue;
         private readonly IReadOnlyDictionary<string, PropertyInfo> _runtimePropertiesByNames;
-        private readonly IDictionary<PropertyInfo, ModelState> _modelPropertyStates;
+        private readonly Lazy<IDictionary<PropertyInfo, ModelState>> _modelPropertyStates;
 
-        public ModelState(object model)
+        internal ModelState(object model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            _model = model;
-            _modelStatesByValue = new Dictionary<object, ModelState> { { model, this } };
-            _runtimePropertiesByNames = _GetRuntimePropertiesByNamesFor(_model.GetType().GetTypeInfo());
-            _modelPropertyStates = _GetModelStateProperties();
-            Errors = new ModelErrors(this);
-        }
-        private ModelState(object model, IDictionary<object, ModelState> modelStatesByValue)
-        {
-            if (model == null)
-                throw new ArgumentNullException(nameof(model));
-
-            _model = model;
-            _modelStatesByValue = modelStatesByValue;
-            _runtimePropertiesByNames = _GetRuntimePropertiesByNamesFor(_model.GetType().GetTypeInfo());
-            _modelPropertyStates = _GetModelStateProperties();
+            Model = model;
+            _runtimePropertiesByNames = _GetRuntimePropertiesByNamesFor(Model.GetType());
+            _modelPropertyStates = new Lazy<IDictionary<PropertyInfo, ModelState>>(_GetModelStateProperties);
             Errors = new ModelErrors(this);
         }
 
         private IDictionary<PropertyInfo, ModelState> _GetModelStateProperties()
-            => _runtimePropertiesByNames
-            .Values
-            .Where(runtimeProperty => runtimeProperty.CanRead
-                && runtimeProperty.GetIndexParameters().Length == 0
-                && !IsPrimitive(runtimeProperty.PropertyType))
+            => (from publicRuntimeProperty in _runtimePropertiesByNames.Values
+                let hasPublicGetter = publicRuntimeProperty.GetMethod?.IsPublic ?? false
+                where hasPublicGetter && !publicRuntimeProperty.PropertyType.IsPrimitive()
+                select publicRuntimeProperty)
             .ToDictionary(
                 runtimeProperty => runtimeProperty,
                 runtimeProperty =>
                 {
-                    var propertyValue = runtimeProperty.GetValue(_model);
-                    return propertyValue == null ? null : _GetOrAddModelState(propertyValue);
+                    var propertyValue = runtimeProperty.GetValue(Model);
+                    return propertyValue == null ? null : ModelStates.GetFor(propertyValue);
                 });
 
-        public object Model
-            => _model;
+        public object Model { get; }
 
         public IModelErrors Errors
         {
@@ -132,7 +72,7 @@ namespace BillPath
                 && runtimeProperty.CanRead)
             {
                 ModelState modelPropertyState;
-                if (_modelPropertyStates.TryGetValue(runtimeProperty, out modelPropertyState)
+                if (_modelPropertyStates.Value.TryGetValue(runtimeProperty, out modelPropertyState)
                     && binder.ReturnType.GetTypeInfo().IsAssignableFrom(modelPropertyState.GetType().GetTypeInfo()))
                 {
                     result = modelPropertyState;
@@ -140,7 +80,7 @@ namespace BillPath
                 }
                 if (binder.ReturnType.GetTypeInfo().IsAssignableFrom(runtimeProperty.PropertyType.GetTypeInfo()))
                 {
-                    result = runtimeProperty.GetValue(_model);
+                    result = runtimeProperty.GetValue(Model);
                     return true;
                 }
             }
@@ -158,7 +98,7 @@ namespace BillPath
             {
                 var wasValid = IsValid;
 
-                _SetPropertyValue(_model, runtimeProperty, value);
+                _SetPropertyValue(runtimeProperty, value);
 
                 if (wasValid != IsValid)
                     OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
@@ -167,30 +107,17 @@ namespace BillPath
 
             return false;
         }
-
-        private void _SetPropertyValue(object model, PropertyInfo runtimeProperty, object value)
+        private void _SetPropertyValue(PropertyInfo runtimeProperty, object value)
         {
-            runtimeProperty.SetValue(model, value);
+            runtimeProperty.SetValue(Model, value);
 
-            if (_modelPropertyStates.ContainsKey(runtimeProperty))
+            if (_modelPropertyStates.Value.ContainsKey(runtimeProperty))
                 if (value == null)
-                    _modelPropertyStates[runtimeProperty] = null;
+                    _modelPropertyStates.Value[runtimeProperty] = null;
                 else
-                    _modelPropertyStates[runtimeProperty] = _GetOrAddModelState(value);
+                    _modelPropertyStates.Value[runtimeProperty] = ModelStates.GetFor(value);
 
             OnPropertyChanged(new PropertyChangedEventArgs(runtimeProperty.Name));
-        }
-
-        private ModelState _GetOrAddModelState(object value)
-        {
-            ModelState modelState;
-            if (!_modelStatesByValue.TryGetValue(value, out modelState))
-            {
-                modelState = new ModelState(value, _modelStatesByValue);
-                _modelStatesByValue.Add(value, modelState);
-            }
-
-            return modelState;
         }
 
         private bool _TryGetRuntimeProperty(string propertyName, bool ignoreCase, out PropertyInfo runtimeProperty)
@@ -201,11 +128,7 @@ namespace BillPath
     public class ModelState<TModel>
         : ModelState
     {
-        public ModelState()
-            : base(typeof(TModel))
-        {
-        }
-        public ModelState(TModel model)
+        protected ModelState(TModel model)
             : base(model)
         {
         }

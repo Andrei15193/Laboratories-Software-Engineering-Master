@@ -11,16 +11,12 @@ namespace BillPath.Tests
     {
         [TestMethod]
         public void TestValidateNull()
-        {
-            Assert.ThrowsException<ArgumentNullException>(
-                () => new ModelValidator().Validate(null));
-        }
+            => Assert.ThrowsException<ArgumentNullException>(() => new ModelValidator().Validate(null));
 
         [TestMethod]
         public void TestValidateEmptyModelInstance()
         {
-            var validationResults =
-                new ModelValidator().Validate(new EmptyModel());
+            var validationResults = new ModelValidator().Validate(new EmptyModel());
 
             Assert.AreEqual(
                 0,
@@ -33,8 +29,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestValidateModelInstanceWithAnnotatedPropertyWithoutError()
         {
-            var validationResults =
-                new ModelValidator().Validate(new ValidAnnotatedModel());
+            var validationResults = new ModelValidator().Validate(new ValidAnnotatedModel());
 
             Assert.AreEqual(
                 0,
@@ -53,8 +48,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestValidateModelInstanceWithAnnotatedPropertyWithError()
         {
-            var validationResults =
-                new ModelValidator().Validate(new InvalidAnnotatedModel());
+            var validationResults = new ModelValidator().Validate(new InvalidAnnotatedModel());
 
             Assert.AreEqual(
                 1,
@@ -73,8 +67,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestValidateInvalidModelAndGetErrorMessageSpecifiedByAttribute()
         {
-            var validationResult =
-                new ModelValidator().Validate(new InvalidAnnotatedWithErrorMessageModel()).Single();
+            var validationResult = new ModelValidator().Validate(new InvalidAnnotatedWithErrorMessageModel()).Single();
 
             Assert.AreEqual(
                 InvalidAnnotatedWithErrorMessageModel.ErrorMessage,
@@ -95,8 +88,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestValidateInvalidModelAndGetLocalizedErrorMessageSpecifiedByAttribute()
         {
-            var validationResult =
-                new ModelValidator().Validate(new InvalidAnnotatedWithLocalizedErrorMessageModel()).Single();
+            var validationResult = new ModelValidator().Validate(new InvalidAnnotatedWithLocalizedErrorMessageModel()).Single();
 
             Assert.AreEqual(
                 ModelValidatorResourceTests.TestErrorMessage,
@@ -117,8 +109,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestPartiallyInvalidAnnotatedModel()
         {
-            var validationResult =
-                new ModelValidator().Validate(new PartiallyInvalidAnnotatedModel()).Single();
+            var validationResult = new ModelValidator().Validate(new PartiallyInvalidAnnotatedModel()).Single();
 
             Assert.AreEqual(
                 nameof(PartiallyInvalidAnnotatedModel.Property1),
@@ -145,8 +136,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestFormatIsAppliedToErrorMessage()
         {
-            var validationResult =
-                new ModelValidator().Validate(new InvalidWithErrorMessageFormatModel()).Single();
+            var validationResult = new ModelValidator().Validate(new InvalidWithErrorMessageFormatModel()).Single();
 
             Assert.AreEqual(
                 string.Format(
@@ -169,8 +159,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestFormatIsAppliedToLocalizedErrorMessage()
         {
-            var validationResult =
-                new ModelValidator().Validate(new InvalidWithLocalizedErrorMessageFormatModel()).Single();
+            var validationResult = new ModelValidator().Validate(new InvalidWithLocalizedErrorMessageFormatModel()).Single();
 
             Assert.AreEqual(
                 string.Format(
@@ -193,8 +182,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestFormatIsAppliedToErrorMessageUsingProvidedDisplayName()
         {
-            var validationResult =
-                new ModelValidator().Validate(new InvalidWithErrorMessageFormatWithDisplayOnPropertyModel()).Single();
+            var validationResult = new ModelValidator().Validate(new InvalidWithErrorMessageFormatWithDisplayOnPropertyModel()).Single();
 
             Assert.AreEqual(
                 string.Format(
@@ -219,8 +207,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestFormatIsAppliedToErrorMessageUsingProvidedLocalizedDisplayName()
         {
-            var validationResult =
-                new ModelValidator().Validate(new InvalidWithErrorMessageFormatWithDisplayOnPropertyModel()).Single();
+            var validationResult = new ModelValidator().Validate(new InvalidWithErrorMessageFormatWithDisplayOnPropertyModel()).Single();
 
             Assert.AreEqual(
                 string.Format(
@@ -246,8 +233,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestValidationErrorsAreReturnedIfModelImplementsIValidatableObject()
         {
-            var validationResult =
-                new ModelValidator().Validate(new ValidatableObjectModel()).Single();
+            var validationResult = new ModelValidator().Validate(new ValidatableObjectModel()).Single();
 
             Assert.AreEqual(ValidatableObjectModel.ErrorMessage, validationResult.ErrorMessage);
         }
@@ -268,8 +254,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestValidationIsDoneForBothAnnotationsAndIValidatableObjectImplementation()
         {
-            var validationResults =
-                new ModelValidator().Validate(new InvalidAnntoatedValidatableObjectModel());
+            var validationResults = new ModelValidator().Validate(new InvalidAnntoatedValidatableObjectModel());
 
             Assert.AreEqual(
                 2,
@@ -291,14 +276,11 @@ namespace BillPath.Tests
         }
 
         [TestMethod]
-        public void TestStaticPropertiesAreValidated()
+        public void TestStaticPropertiesAreNotValidated()
         {
-            var validationResults =
-                new ModelValidator().Validate(new RequiredStaticPropertyObjectModel());
+            var validationResults = new ModelValidator().Validate(new RequiredStaticPropertyObjectModel());
 
-            Assert.AreEqual(
-                1,
-                validationResults.Count());
+            Assert.IsFalse(validationResults.Any());
         }
 
         public class RequiredStaticPropertyObjectModel
@@ -312,14 +294,11 @@ namespace BillPath.Tests
         }
 
         [TestMethod]
-        public void TestPrivatePropertiesAreValidated()
+        public void TestPrivatePropertiesAreNotValidated()
         {
-            var validationResults =
-                new ModelValidator().Validate(new RequiredPrivatePropertyObjectModel());
+            var validationResults = new ModelValidator().Validate(new RequiredPrivatePropertyObjectModel());
 
-            Assert.AreEqual(
-                1,
-                validationResults.Count());
+            Assert.IsFalse(validationResults.Any());
         }
 
         public class RequiredPrivatePropertyObjectModel
