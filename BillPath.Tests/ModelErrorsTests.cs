@@ -69,5 +69,53 @@ namespace BillPath.Tests
 
             Assert.AreEqual(1, Enumerable.Count(modelErrors.EnumerateAll()));
         }
+
+        private sealed class AggregateRootModel
+        {
+            public class ChildModel
+            {
+                [Required]
+                public object Property
+                {
+                    get;
+                    set;
+                }
+            }
+
+            public ChildModel Property
+            {
+                get;
+                set;
+            }
+        }
+        [TestMethod]
+        public void TestEnumerateAllReturnsErrorsFromAggregates()
+        {
+            var modelErrors = new ModelErrors(new ModelState(new AggregateRootModel { Property = new AggregateRootModel.ChildModel() }));
+
+            var errors = modelErrors.EnumerateAll();
+
+            Assert.AreEqual(1, errors.Count());
+        }
+
+        private sealed class CircularReferenceAggregate
+        {
+            public CircularReferenceAggregate CircularReferenceProperty
+            {
+                get;
+                set;
+            }
+        }
+        [TestMethod]
+        public void TestCircularReferenceDoesNotCrashWhenEnumeratingAllErrors()
+        {
+            var model = new CircularReferenceAggregate();
+            model.CircularReferenceProperty = model;
+            var modelErrors = new ModelErrors(new ModelState(model));
+
+            var errors = modelErrors.EnumerateAll();
+
+            Assert.IsFalse(errors.Any());
+        }
     }
 }

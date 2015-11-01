@@ -11,10 +11,10 @@ namespace BillPath.Tests
     [TestClass]
     public class ModelStateTests
     {
-        private sealed class ModelContextMock
+        private sealed class ModelStateMock
             : ModelState
         {
-            public ModelContextMock(object model)
+            public ModelStateMock(object model)
                 : base(model)
             {
             }
@@ -24,10 +24,6 @@ namespace BillPath.Tests
                 get
                 {
                     return base.Model;
-                }
-                set
-                {
-                    base.Model = value;
                 }
             }
         }
@@ -61,8 +57,7 @@ namespace BillPath.Tests
 
         [TestMethod]
         public void TestModelCannotBeNull()
-            => Assert.ThrowsException<ArgumentNullException>(
-                () => new ModelState(null));
+            => Assert.ThrowsException<ArgumentNullException>(() => new ModelState(model: null));
 
         [TestMethod]
         public void TestGettingModelPropertyValueThroughContext()
@@ -73,9 +68,9 @@ namespace BillPath.Tests
                 {
                     Property = expectedPropertyValue
                 };
-            dynamic modelContext = new ModelState(modelMock);
+            dynamic modelState = new ModelState(modelMock);
 
-            object actualPropertyValue = modelContext.Property;
+            object actualPropertyValue = modelState.Property;
 
             Assert.AreSame(expectedPropertyValue, actualPropertyValue);
         }
@@ -84,18 +79,18 @@ namespace BillPath.Tests
         public void TestTryingToGetTheValueOfAPropertyNotDefinedOnTheModelThrowsAnException()
         {
             var modelMock = new ModelMock();
-            dynamic modelContext = new ModelState(modelMock);
+            dynamic modelState = new ModelState(modelMock);
 
-            Assert.ThrowsException<RuntimeBinderException>(() => modelContext.PropertyThatDoesNotExist);
+            Assert.ThrowsException<RuntimeBinderException>(() => modelState.PropertyThatDoesNotExist);
         }
 
         [TestMethod]
         public void TestTryingToGetTheValueOfAPropertyThatIsSetOnlyThrowsAnException()
         {
             var modelMock = new ModelMock();
-            dynamic modelContext = new ModelState(modelMock);
+            dynamic modelState = new ModelState(modelMock);
 
-            Assert.ThrowsException<RuntimeBinderException>(() => modelContext.SetOnlyProperty);
+            Assert.ThrowsException<RuntimeBinderException>(() => modelState.SetOnlyProperty);
         }
 
         [TestMethod]
@@ -107,9 +102,9 @@ namespace BillPath.Tests
                 {
                     StringProperty = expectedPropertyValue
                 };
-            dynamic modelContext = new ModelState(modelMock);
+            dynamic modelState = new ModelState(modelMock);
 
-            object actualPropertyValue = modelContext.StringProperty;
+            object actualPropertyValue = modelState.StringProperty;
 
             Assert.AreSame(expectedPropertyValue, actualPropertyValue);
         }
@@ -123,9 +118,9 @@ namespace BillPath.Tests
                 {
                     Property = null
                 };
-            dynamic modelContext = new ModelState(modelMock);
+            dynamic modelState = new ModelState(modelMock);
 
-            modelContext.Property = propertyValue;
+            modelState.Property = propertyValue;
 
             Assert.AreSame(propertyValue, modelMock.Property);
         }
@@ -139,9 +134,9 @@ namespace BillPath.Tests
                 {
                     Property = null
                 };
-            dynamic modelContext = new ModelState(modelMock);
+            dynamic modelState = new ModelState(modelMock);
 
-            modelContext.Property = propertyValue;
+            modelState.Property = propertyValue;
 
             Assert.AreSame(propertyValue, modelMock.Property);
         }
@@ -150,28 +145,28 @@ namespace BillPath.Tests
         public void TestTryingToSetTheValueOfAPropertyNotDefinedOnTheModelThrowsAnException()
         {
             var modelMock = new ModelMock();
-            dynamic modelContext = new ModelState(modelMock);
+            dynamic modelState = new ModelState(modelMock);
 
-            Assert.ThrowsException<RuntimeBinderException>(() => modelContext.PropertyThatDoesNotExist = null);
+            Assert.ThrowsException<RuntimeBinderException>(() => modelState.PropertyThatDoesNotExist = null);
         }
 
         [TestMethod]
         public void TestTryingToSetTheValueOfAPropertyThatIsGetOnlyThrowsAnException()
         {
             var modelMock = new ModelMock();
-            dynamic modelContext = new ModelState(modelMock);
+            dynamic modelState = new ModelState(modelMock);
 
-            Assert.ThrowsException<RuntimeBinderException>(() => modelContext.GetOnlyProperty = null);
+            Assert.ThrowsException<RuntimeBinderException>(() => modelState.GetOnlyProperty = null);
         }
 
         [TestMethod]
         public void TestSettingTheValueOfAPropertyRaisesPropertyChanged()
         {
             var raiseCount = 0;
-            dynamic modelContext = new ModelState(new ModelMock());
-            ((INotifyPropertyChanged)modelContext).PropertyChanged += (sender, e) => raiseCount++;
+            dynamic modelState = new ModelState(new ModelMock());
+            ((INotifyPropertyChanged)modelState).PropertyChanged += (sender, e) => raiseCount++;
 
-            modelContext.Property = new object();
+            modelState.Property = new object();
 
             Assert.AreEqual(1, raiseCount);
         }
@@ -180,22 +175,22 @@ namespace BillPath.Tests
         public void TestSettingTheValueOfAPropertyRaisesPropertyChangedWithTheContextAsSender()
         {
             object actualSender = null;
-            dynamic modelContext = new ModelState(new ModelMock());
-            ((INotifyPropertyChanged)modelContext).PropertyChanged += (sender, e) => actualSender = sender;
+            dynamic modelState = new ModelState(new ModelMock());
+            ((INotifyPropertyChanged)modelState).PropertyChanged += (sender, e) => actualSender = sender;
 
-            modelContext.Property = new object();
+            modelState.Property = new object();
 
-            Assert.AreSame(modelContext, actualSender);
+            Assert.AreSame(modelState, actualSender);
         }
 
         [TestMethod]
         public void TestSettingTheValueOfAPropertyRaisesPropertyChangedWithTheCorrespondingPropertyName()
         {
             string actualPropertyName = null;
-            dynamic modelContext = new ModelState(new ModelMock());
-            ((INotifyPropertyChanged)modelContext).PropertyChanged += (sender, e) => actualPropertyName = e.PropertyName;
+            dynamic modelState = new ModelState(new ModelMock());
+            ((INotifyPropertyChanged)modelState).PropertyChanged += (sender, e) => actualPropertyName = e.PropertyName;
 
-            modelContext.Property = new object();
+            modelState.Property = new object();
 
             Assert.AreEqual("Property", actualPropertyName);
         }
@@ -204,42 +199,21 @@ namespace BillPath.Tests
         public void TestPropertiesOnContextAreCaseSensitive()
         {
             var modelMock = new ModelMock();
-            dynamic modelContext = new ModelState(modelMock);
+            dynamic modelState = new ModelState(modelMock);
 
-            Assert.ThrowsException<RuntimeBinderException>(() => modelContext.property = null);
+            Assert.ThrowsException<RuntimeBinderException>(() => modelState.property = null);
         }
 
         [TestMethod]
         public void TestModelPropertyReturnsTheSameModel()
         {
             var modelMock = new ModelMock();
-            dynamic modelContext = new ModelState(modelMock);
+            dynamic modelState = new ModelState(modelMock);
 
-            var actualModel = modelContext.Model;
+            var actualModel = modelState.Model;
 
             Assert.AreSame(modelMock, actualModel);
         }
-
-        [TestMethod]
-        public void TestSettingTheModelPropertyChangesTheUnderlyingModel()
-        {
-            var expectedModel = new ModelMock();
-            dynamic modelContext = new ModelContextMock(new ModelMock());
-
-            modelContext.Model = expectedModel;
-            var actualModel = modelContext.Model;
-
-            Assert.AreSame(expectedModel, actualModel);
-        }
-
-        [TestMethod]
-        public void TestTryingToSetTheModelToNullThrowsException()
-        {
-            dynamic modelContext = new ModelContextMock(new ModelMock());
-
-            Assert.ThrowsException<ArgumentNullException>(() => modelContext.Model = null);
-        }
-
 
         private class AttributeValidation
         {
@@ -395,6 +369,195 @@ namespace BillPath.Tests
 
             Assert.IsFalse(modelState.IsValid);
             Assert.AreEqual(1, Enumerable.Count(modelState.Errors));
+        }
+
+        private sealed class AggregateRootModel
+        {
+            public class ChildModel
+            {
+            }
+
+            public ChildModel Property
+            {
+                get;
+                set;
+            }
+        }
+        [TestMethod]
+        public void TestModelStateIsReturnedForNonPrimitiveProperties()
+        {
+            dynamic modelState = new ModelState(new AggregateRootModel { Property = new AggregateRootModel.ChildModel() });
+
+            dynamic propertyModelState = modelState.Property;
+
+            Assert.IsInstanceOfType(propertyModelState, typeof(ModelState));
+        }
+
+        [TestMethod]
+        public void TestObjectPropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState(new object());
+
+        [TestMethod]
+        public void TestBytePropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<byte>();
+        [TestMethod]
+        public void TestSBytePropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<sbyte>();
+        [TestMethod]
+        public void TestInt16PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<short>();
+        [TestMethod]
+        public void TestUInt16PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<ushort>();
+        [TestMethod]
+        public void TestInt32PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<int>();
+        [TestMethod]
+        public void TestUInt32PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<uint>();
+        [TestMethod]
+        public void TestInt64PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<long>();
+        [TestMethod]
+        public void TestUInt64PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<ulong>();
+
+        [TestMethod]
+        public void TestSinglePropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<float>();
+        [TestMethod]
+        public void TestDoublePropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<double>();
+        [TestMethod]
+        public void TestDecimalPropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<decimal>();
+
+        [TestMethod]
+        public void TestCharPropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<char>();
+        [TestMethod]
+        public void TestStringPropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState(string.Empty);
+
+        [TestMethod]
+        public void TestDateTimePropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<DateTime>();
+        [TestMethod]
+        public void TestDateTimeOffsetPropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<DateTimeOffset>();
+
+        [TestMethod]
+        public void TestNullableBytePropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<byte?>(default(byte));
+        [TestMethod]
+        public void TestNullableSBytePropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<sbyte?>(default(sbyte));
+        [TestMethod]
+        public void TestNullableInt16PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<short?>(default(short));
+        [TestMethod]
+        public void TestNullableUInt16PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<ushort?>(default(ushort));
+        [TestMethod]
+        public void TestNullableInt32PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<int?>(default(int));
+        [TestMethod]
+        public void TestNullableUInt32PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<uint?>(default(uint));
+        [TestMethod]
+        public void TestNullableInt64PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<long?>(default(long));
+        [TestMethod]
+        public void TestNullableUInt64PropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<ulong?>(default(ulong));
+
+        [TestMethod]
+        public void TestNullableSinglePropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<float?>(default(float));
+        [TestMethod]
+        public void TestNullableDoublePropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<double?>(default(double));
+        [TestMethod]
+        public void TestNullableDecimalPropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<decimal?>(default(decimal));
+
+        [TestMethod]
+        public void TestNullableCharPropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<char?>(default(char));
+
+        [TestMethod]
+        public void TestNullableDateTimePropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<DateTime?>(default(DateTime));
+        [TestMethod]
+        public void TestNullableDateTimeOffsetPropertyIsNotWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<DateTimeOffset?>(default(DateTimeOffset));
+
+        private void _AssertIsNotWrappedInModelState<T>(T propertyValue = default(T))
+        {
+            dynamic modelState = new ModelState(new { Property = propertyValue });
+
+            object value = modelState.Property;
+
+            Assert.IsInstanceOfType(value, typeof(T));
+        }
+
+        private enum CustomEnum
+        {
+        }
+        [TestMethod]
+        public void TestCustomEnumPropertyIsWrappedInModelState()
+            => _AssertIsNotWrappedInModelState<CustomEnum>();
+        private delegate void CustomDelegate();
+        [TestMethod]
+        public void TestCustomDelegatePropertyIsWrappedInModelState()
+            => _AssertIsNotWrappedInModelState(new CustomDelegate(delegate { }));
+
+        private sealed class CustomClass
+            : ICustomInterface
+        {
+        }
+        private interface ICustomInterface
+        {
+        }
+        private struct CustomStruct
+        {
+        }
+
+        [TestMethod]
+        public void TestCustomClassPropertyIsWrappedInModelState()
+            => _AssertIsWrappedInModelState(new CustomClass());
+        [TestMethod]
+        public void TestCustomInterfacePropertyIsWrappedInModelState()
+            => _AssertIsWrappedInModelState<ICustomInterface>(new CustomClass());
+        [TestMethod]
+        public void TestCustomStructPropertyIsWrappedInModelState()
+            => _AssertIsWrappedInModelState<CustomStruct>();
+
+        private void _AssertIsWrappedInModelState<T>(T propertyValue = default(T))
+        {
+            dynamic modelState = new ModelState(new { Property = propertyValue });
+
+            object value = modelState.Property;
+
+            Assert.IsInstanceOfType(value, typeof(ModelState));
+        }
+
+        private sealed class CircularReferenceAggregate
+        {
+            public CircularReferenceAggregate CircularReferenceProperty
+            {
+                get;
+                set;
+            }
+        }
+        [TestMethod]
+        public void TestCircularReferenceUsesSameViewStateForSameValues()
+        {
+            var model = new CircularReferenceAggregate();
+            model.CircularReferenceProperty = model;
+            dynamic modelState = new ModelState(model);
+
+            Assert.AreSame(modelState, modelState.CircularReferenceProperty);
         }
     }
 }

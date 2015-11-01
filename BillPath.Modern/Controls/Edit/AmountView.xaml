@@ -31,7 +31,6 @@
                 Mode=TwoWay,
                 UpdateSourceTrigger=PropertyChanged}" />
         <ComboBox
-            x:Name="CurrencyComboBox"
             Grid.Column="2"
             DisplayMemberPath="IsoCode"
             ItemsSource="{Binding

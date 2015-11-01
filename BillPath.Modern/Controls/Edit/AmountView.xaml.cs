@@ -13,6 +13,6 @@ namespace BillPath.Modern.Controls.Edit
         }
 
         private void CurrencyComboBoxLoaded(object sender, RoutedEventArgs e)
-            => CurrencyComboBox.SelectedItem = Application.Current.GetResource<SettingsViewModel>().PreferredCurrency;
+            => ((ComboBox)sender).SelectedItem = Application.Current.GetResource<SettingsViewModel>().PreferredCurrency;
     }
 }

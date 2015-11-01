@@ -24,7 +24,7 @@ namespace BillPath
             var instanceType = model.GetType();
 
             return (from runtimeProperty in _GetRuntimePropertiesFor(instanceType)
-                    where runtimeProperty.CanRead
+                    where runtimeProperty.CanRead && runtimeProperty.GetIndexParameters().Length == 0
                     let validationContext =
                         new ValidationContext(model)
                         {

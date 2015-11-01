@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
@@ -116,16 +117,60 @@ namespace BillPath
             => GetEnumerator();
 
         public IEnumerable<string> EnumerateAll()
-            => _modelErrors.Concat(
-                _propertyErrorsByNames.Values.SelectMany(propertyErrorsByName => propertyErrorsByName));
+        {
+            foreach (var error in _modelErrors)
+                yield return error;
+            foreach (var propertyErrors in _propertyErrorsByNames.Values)
+                foreach (var propertyError in propertyErrors)
+                    yield return propertyError;
+
+            var modelValidator = new ModelValidator();
+            var validated = new HashSet<object> { this };
+            var toValidate = new Queue<object>(_GetPropertyValuesFrom(_modelState.Model));
+
+            while (toValidate.Any())
+            {
+                var objectToValidate = toValidate.Dequeue();
+
+                foreach (var error in modelValidator.Validate(objectToValidate))
+                    yield return error.ErrorMessage;
+
+                validated.Add(objectToValidate);
+                foreach (var objectPropertyValuesToValidate in _GetPropertyValuesFrom(objectToValidate))
+                    if (!validated.Contains(objectPropertyValuesToValidate))
+                        toValidate.Enqueue(objectPropertyValuesToValidate);
+            }
+        }
+
+        private IEnumerable<object> _GetPropertyValuesFrom(object @object)
+            => @object
+                ?.GetType()
+                ?.GetRuntimeProperties()
+                ?.Where(runtimeProperty => runtimeProperty.CanRead
+                    && runtimeProperty.GetIndexParameters().Length == 0
+                    && (typeof(IValidatableObject)
+                        .GetTypeInfo()
+                        .IsAssignableFrom(runtimeProperty.PropertyType.GetTypeInfo())
+                        || runtimeProperty
+                            .PropertyType
+                            .GetRuntimeProperties()
+                            .SelectMany(property => property.GetCustomAttributes(true))
+                            .Any(customAttribute => typeof(ValidationAttribute)
+                                .GetTypeInfo()
+                                .IsAssignableFrom(customAttribute
+                                    .GetType()
+                                    .GetTypeInfo()))))
+                ?.Select(runtimeProperty => runtimeProperty.GetValue(@object))
+                ?? Enumerable.Empty<object>();
 
         private void _FillErrors()
         {
-            foreach (var errorsByMemberName in _GetErrorsByMemberName())
-                if (string.IsNullOrWhiteSpace(errorsByMemberName.Key))
-                    _AddRange(_modelErrors, errorsByMemberName);
-                else
-                    _GetOrAddPropertyErrors(errorsByMemberName.Key).AddRange(errorsByMemberName);
+            if (_modelState.Model != null)
+                foreach (var errorsByMemberName in _GetErrorsByMemberName())
+                    if (string.IsNullOrWhiteSpace(errorsByMemberName.Key))
+                        _AddRange(_modelErrors, errorsByMemberName);
+                    else
+                        _GetOrAddPropertyErrors(errorsByMemberName.Key).AddRange(errorsByMemberName);
         }
         private IEnumerable<IGrouping<string, string>> _GetErrorsByMemberName()
             => from validationResult in new ModelValidator().Validate(_modelState.Model)
