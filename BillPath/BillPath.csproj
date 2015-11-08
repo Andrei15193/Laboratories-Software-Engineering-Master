@@ -120,6 +120,10 @@
     <Compile Include="DataAccess\Xml\FileProvider.cs" />
     <Compile Include="DataAccess\Xml\XmlIncomeRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlSettingsRepository.cs" />
+    <Compile Include="DefaultModelStateProvider.cs" />
+    <Compile Include="IModelStateProvider.cs" />
+    <Compile Include="ModelStateCache.cs" />
+    <Compile Include="ModelStateProviders.cs" />
     <Compile Include="ModelStates.cs" />
     <Compile Include="Models\Amount.cs" />
     <Compile Include="Models\ArgbColor.cs" />

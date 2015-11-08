@@ -24,18 +24,35 @@ namespace BillPath
                 runtimeProperty => runtimeProperty.Name,
                 StringComparer.OrdinalIgnoreCase);
 
+        private ModelStateCache _modelStateCache;
         private readonly IReadOnlyDictionary<string, PropertyInfo> _runtimePropertiesByNames;
         private readonly Lazy<IDictionary<PropertyInfo, ModelState>> _modelPropertyStates;
 
-        internal ModelState(object model)
+        public ModelState(object model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
             Model = model;
+            Errors = new ModelErrors(this);
+
+            _modelStateCache = new ModelStateCache(this);
             _runtimePropertiesByNames = _GetRuntimePropertiesByNamesFor(Model.GetType());
             _modelPropertyStates = new Lazy<IDictionary<PropertyInfo, ModelState>>(_GetModelStateProperties);
+        }
+        internal ModelState(object model, ModelStateCache modelStateCache)
+        {
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+            if (modelStateCache == null)
+                throw new ArgumentNullException(nameof(modelStateCache));
+
+            Model = model;
             Errors = new ModelErrors(this);
+
+            _modelStateCache = modelStateCache;
+            _runtimePropertiesByNames = _GetRuntimePropertiesByNamesFor(Model.GetType());
+            _modelPropertyStates = new Lazy<IDictionary<PropertyInfo, ModelState>>(_GetModelStateProperties);
         }
 
         private IDictionary<PropertyInfo, ModelState> _GetModelStateProperties()
@@ -48,7 +65,15 @@ namespace BillPath
                 runtimeProperty =>
                 {
                     var propertyValue = runtimeProperty.GetValue(Model);
-                    return propertyValue == null ? null : ModelStates.GetFor(propertyValue);
+                    if (propertyValue == null)
+                        return null;
+                    else
+                    {
+                        var propertyValueModelState = _modelStateCache.GetFor(Model, propertyValue);
+                        propertyValueModelState._modelStateCache = _modelStateCache;
+
+                        return propertyValueModelState;
+                    }
                 });
 
         public object Model { get; }

@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Concurrent;
-
-namespace BillPath
+﻿namespace BillPath
 {
     public static class ModelStates
     {
-        private static readonly ConcurrentDictionary<object, ModelState> _modelStates
-            = new ConcurrentDictionary<object, ModelState>();
+        private static volatile ModelStateCache _globalCache = new ModelStateCache();
 
         public static ModelState GetFor(object model)
-        {
-            if (model == null)
-                throw new ArgumentNullException(nameof(model));
-
-            return _modelStates.GetOrAdd(model, newModel => new ModelState(newModel));
-        }
+            => _globalCache.GetFor(model);
 
         public static void Clear()
-            => _modelStates.Clear();
+            => _globalCache = new ModelStateCache();
     }
 }

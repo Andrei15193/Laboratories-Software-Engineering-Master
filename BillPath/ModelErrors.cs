@@ -153,12 +153,11 @@ namespace BillPath
 
         private void _FillErrors()
         {
-            if (_modelState.Model != null)
-                foreach (var errorsByMemberName in _GetErrorsByMemberName())
-                    if (string.IsNullOrWhiteSpace(errorsByMemberName.Key))
-                        _AddRange(_modelErrors, errorsByMemberName);
-                    else
-                        _GetOrAddPropertyErrors(errorsByMemberName.Key).AddRange(errorsByMemberName);
+            foreach (var errorsByMemberName in _GetErrorsByMemberName())
+                if (string.IsNullOrWhiteSpace(errorsByMemberName.Key))
+                    _AddRange(_modelErrors, errorsByMemberName);
+                else
+                    _GetOrAddPropertyErrors(errorsByMemberName.Key).AddRange(errorsByMemberName);
         }
         private IEnumerable<IGrouping<string, string>> _GetErrorsByMemberName()
             => from validationResult in new ModelValidator().Validate(_modelState.Model)
