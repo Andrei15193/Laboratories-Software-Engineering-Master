@@ -1,0 +1,1 @@
+test(Y, X) :-  Y:'get_Value'(X).
