@@ -51,7 +51,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Psharp, Version=1.1.3.0, Culture=neutral, PublicKeyToken=f2230d3e2134a494">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Models\Predicates\.vscode\Psharp.dll</HintPath>
+      <HintPath>..\Dependencies\Psharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
