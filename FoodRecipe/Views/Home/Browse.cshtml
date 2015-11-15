@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="container">
+    <form role="form">
+        <div class="form-group">
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <div class="input-group">
+                            <input type="text" placeholder="What recipe are you looking for?" class="form-control">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span></button>
+                                <button data-target="#collapse1" data-toggle="collapse" type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>What would you like to cook?</label>
+                                    <select class="form-control">
+                                        <option>Soup</option>
+                                        <option>Main Course</option>
+                                        <option>Dessert</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>How much time should it take?</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="text" placeholder="at least (minutes)" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" placeholder="at most (minutes)" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>What ingredients to include?</label>
+                                    <div>
+                                        <label><input type="checkbox" /> Apples</label>
+                                    </div>
+                                    <div>
+                                        <label><input type="checkbox" /> Curry</label>
+                                    </div>
+                                    <div>
+                                        <label><input type="checkbox" /> Potatoes</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>What ingredients to exclude?</label>
+                                    <div>
+                                        <label><input type="checkbox" /> Apples</label>
+                                    </div>
+                                    <div>
+                                        <label><input type="checkbox" /> Curry</label>
+                                    </div>
+                                    <div>
+                                        <label><input type="checkbox" /> Potatoes</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

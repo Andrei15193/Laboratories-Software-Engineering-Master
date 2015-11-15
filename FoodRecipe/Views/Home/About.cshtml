@@ -2,6 +2,18 @@
     ViewBag.Title = "About";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<p>
+    This is a school project for Rule Based Programming. You can check the source code at
+    <a href="https://bitbucket.org/Andrei15193/foodrecipe">https://bitbucket.org/Andrei15193/foodrecipe</a>.
+</p>
+<p>
+    For the rules part I have used P# which can be downloaded at
+    <a href="http://homepages.inf.ed.ac.uk/stg/research/Psharp/">http://homepages.inf.ed.ac.uk/stg/research/Psharp/</a>,
+    it is not a very polished tool and lacks some features like proper error reporting but for this project it helped me
+    get the job done. If you look into this projects sources and start wondering what
+    <small><em>PSharpCodeFileGenerator</em></small> is about, well I made a
+    <span class="text-info" title="Hardly final, but if you &quot;install&quot; P# in a specific folder and build the project you will be able to generate C# source files from a P# source file. It's just to speed things up a bit.">custom tool</span>
+    for Visual Studio so I can include P# source files into the solution and have C# source files generated from it.
+    It is all done by the P# interpreter behind the scenes, I just passed in the right arguments and concatenated the resulting files.
+</p>
