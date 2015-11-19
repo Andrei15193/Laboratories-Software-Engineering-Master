@@ -26,10 +26,11 @@ namespace BillPath.UserInterface.ViewModels.Tests
 
             public Task<int> GetItemCountAsync()
                 => GetItemCountAsync(CancellationToken.None);
-            public Task<int> GetItemCountAsync(CancellationToken cancellationToken)
+            public async Task<int> GetItemCountAsync(CancellationToken cancellationToken)
             {
+                await Task.Yield();
                 cancellationToken.ThrowIfCancellationRequested();
-                return Task.FromResult(_items.Count());
+                return _items.Count();
             }
 
             public IItemReader<TItem> GetReader()
@@ -55,10 +56,11 @@ namespace BillPath.UserInterface.ViewModels.Tests
 
                 public Task<bool> ReadAsync()
                     => ReadAsync(CancellationToken.None);
-                public Task<bool> ReadAsync(CancellationToken cancellationToken)
+                public async Task<bool> ReadAsync(CancellationToken cancellationToken)
                 {
+                    await Task.Yield();
                     cancellationToken.ThrowIfCancellationRequested();
-                    return Task.FromResult(_enumerator.MoveNext());
+                    return _enumerator.MoveNext();
                 }
 
                 public void Dispose()
@@ -435,6 +437,8 @@ namespace BillPath.UserInterface.ViewModels.Tests
         [TestMethod]
         public async Task TestAddingANewItemInObservableProviderUpdatesPageCount()
         {
+            Assert.Fail("Test engine hangs for some reason");
+
             var itemReaderProvider = new ObservableItemReaderProviderCollectionMock<int>();
             var viewModel = new PaginationViewModel<int>(itemReaderProvider);
 

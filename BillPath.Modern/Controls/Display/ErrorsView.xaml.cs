@@ -1,6 +1,4 @@
-﻿using BillPath.Modern.Converters;
-using BillPath.UserInterface.ViewModels;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
@@ -39,9 +37,7 @@ namespace BillPath.Modern.Controls.Display
                 ItemsControl.ItemsSourceProperty,
                 new Binding
                 {
-                    Path = new PropertyPath(nameof(ViewModel<object>.Errors)),
-                    Converter = Application.Current.GetResource<IndexerConverter>(),
-                    ConverterParameter = e.NewValue,
+                    Path = new PropertyPath(e.NewValue as string),
                     Mode = BindingMode.OneTime
                 });
     }

@@ -47,10 +47,10 @@
                                                 <StackPanel.DataContext>
                                                     <mocks:IncomeViewModel />
                                                 </StackPanel.DataContext>
-                                                <edit:IncomeView />
+                                                <edit:IncomeView DataContext="{Binding Context}" />
                                                 <Button
                                                     Content="Add"
-                                                    IsEnabled="{Binding IsValid}"
+                                                    IsEnabled="{Binding Context.IsValid, Mode=OneWay}"
                                                     Command="{Binding
                                                         Source={StaticResource IncomesViewModel},
                                                         Path=SaveCommand,

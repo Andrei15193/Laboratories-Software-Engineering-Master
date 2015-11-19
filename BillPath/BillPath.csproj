@@ -140,6 +140,7 @@
     <Compile Include="Models\Income.cs" />
     <Compile Include="IValidatableObject.cs" />
     <Compile Include="ModelErrors.cs" />
+    <Compile Include="Models\States\AmountModelState.cs" />
     <Compile Include="ModelValidator.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Transaction.cs" />

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 
 namespace BillPath
 {
     public class ModelState
-        : DynamicObject, INotifyPropertyChanged
+        : INotifyPropertyChanged
     {
         private static IReadOnlyDictionary<string, PropertyInfo> _GetRuntimePropertiesByNamesFor(Type type)
             => (from runtimeProperty in type.GetRuntimeProperties()
@@ -69,7 +68,7 @@ namespace BillPath
                         return null;
                     else
                     {
-                        var propertyValueModelState = _modelStateCache.GetFor(Model, propertyValue);
+                        var propertyValueModelState = _modelStateCache.GetFor(this, propertyValue);
                         propertyValueModelState._modelStateCache = _modelStateCache;
 
                         return propertyValueModelState;
@@ -90,48 +89,37 @@ namespace BillPath
         protected void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
             => PropertyChanged?.Invoke(this, propertyChangedEventArgs);
 
-        public override bool TryGetMember(GetMemberBinder binder, out object result)
+        public object this[string propertyName]
         {
-            PropertyInfo runtimeProperty;
-            if (_TryGetRuntimeProperty(binder.Name, binder.IgnoreCase, out runtimeProperty)
-                && runtimeProperty.CanRead)
+            get
             {
-                ModelState modelPropertyState;
-                if (_modelPropertyStates.Value.TryGetValue(runtimeProperty, out modelPropertyState)
-                    && binder.ReturnType.GetTypeInfo().IsAssignableFrom(modelPropertyState.GetType().GetTypeInfo()))
+                PropertyInfo runtimeProperty;
+                if (_TryGetRuntimeProperty(propertyName, false, out runtimeProperty)
+                    && runtimeProperty.CanRead)
                 {
-                    result = modelPropertyState;
-                    return true;
+                    ModelState modelPropertyState;
+                    if (_modelPropertyStates.Value.TryGetValue(runtimeProperty, out modelPropertyState))
+                        return modelPropertyState;
+                    else
+                        return runtimeProperty.GetValue(Model);
                 }
-                if (binder.ReturnType.GetTypeInfo().IsAssignableFrom(runtimeProperty.PropertyType.GetTypeInfo()))
-                {
-                    result = runtimeProperty.GetValue(Model);
-                    return true;
-                }
+                else
+                    throw new ArgumentException(nameof(propertyName));
             }
-
-            result = null;
-            return false;
+            set
+            {
+                PropertyInfo runtimeProperty;
+                if (_TryGetRuntimeProperty(propertyName, false, out runtimeProperty)
+                    && (runtimeProperty.SetMethod?.IsPublic ?? false))
+                {
+                    _SetPropertyValue(runtimeProperty, value);
+                    OnPropertyChanged(new PropertyChangedEventArgs($"[{runtimeProperty.Name}]"));
+                }
+                else
+                    throw new ArgumentException(nameof(propertyName));
+            }
         }
 
-        public override bool TrySetMember(SetMemberBinder binder, object value)
-        {
-            PropertyInfo runtimeProperty;
-            if (_TryGetRuntimeProperty(binder.Name, binder.IgnoreCase, out runtimeProperty)
-                && runtimeProperty.CanWrite
-                && runtimeProperty.PropertyType.GetTypeInfo().IsAssignableFrom(binder.ReturnType.GetTypeInfo()))
-            {
-                var wasValid = IsValid;
-
-                _SetPropertyValue(runtimeProperty, value);
-
-                if (wasValid != IsValid)
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
-                return true;
-            }
-
-            return false;
-        }
         private void _SetPropertyValue(PropertyInfo runtimeProperty, object value)
         {
             runtimeProperty.SetValue(Model, value);
@@ -141,8 +129,6 @@ namespace BillPath
                     _modelPropertyStates.Value[runtimeProperty] = null;
                 else
                     _modelPropertyStates.Value[runtimeProperty] = ModelStates.GetFor(value);
-
-            OnPropertyChanged(new PropertyChangedEventArgs(runtimeProperty.Name));
         }
 
         private bool _TryGetRuntimeProperty(string propertyName, bool ignoreCase, out PropertyInfo runtimeProperty)

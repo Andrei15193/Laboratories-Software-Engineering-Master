@@ -29,7 +29,7 @@ namespace BillPath
                 model,
                 delegate { return ModelStateProviders.GetFor(model.GetType()).GetForRoot(model); });
         }
-        public ModelState GetFor(object owner, object aggregate)
+        public ModelState GetFor(ModelState owner, object aggregate)
         {
             if (owner == null)
                 throw new ArgumentNullException(nameof(owner));
@@ -38,7 +38,7 @@ namespace BillPath
 
             return _modelStates.GetOrAdd(
                 aggregate,
-                delegate { return ModelStateProviders.GetFor(aggregate.GetType()).GetForAggregate(owner, aggregate); });
+                delegate { return ModelStateProviders.GetFor(owner.Model.GetType(), aggregate.GetType()).GetForAggregate(owner, aggregate); });
         }
     }
 }

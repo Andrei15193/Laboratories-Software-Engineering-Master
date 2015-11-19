@@ -3,6 +3,6 @@
     public interface IModelStateProvider
     {
         ModelState GetForRoot(object model);
-        ModelState GetForAggregate(object owner, object aggregate);
+        ModelState GetForAggregate(ModelState owner, object aggregate);
     }
 }

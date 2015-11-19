@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Dynamic;
 
 namespace BillPath
 {
     public interface IModelErrors
-        : IDynamicMetaObjectProvider, INotifyPropertyChanged, IReadOnlyList<string>, INotifyCollectionChanged
+        : INotifyPropertyChanged, IEnumerable<string>, IReadOnlyDictionary<string, ReadOnlyObservableCollection<string>>, INotifyCollectionChanged
     {
         IEnumerable<string> EnumerateAll();
     }

@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 
 namespace BillPath
 {
     public sealed class ModelErrors
-        : DynamicObject, IModelErrors
+        : IModelErrors
     {
         private struct PropertyErrors
             : IEnumerable<string>
@@ -61,25 +60,11 @@ namespace BillPath
 
             _FillErrors();
             _modelState.PropertyChanged +=
-                delegate
+                (sender, e) =>
                 {
                     _ClearAllErrors();
                     _FillErrors();
                 };
-        }
-
-        public override bool TryGetMember(GetMemberBinder binder, out object result)
-        {
-            result = null;
-            if (binder.ReturnType.GetTypeInfo().IsAssignableFrom(typeof(ReadOnlyObservableCollection<string>).GetTypeInfo()))
-            {
-                var propertyErrors = _GetOrAddPropertyErrors(binder.Name);
-
-                if (binder.IgnoreCase || binder.Name.Equals(propertyErrors.PropertyName, StringComparison.Ordinal))
-                    result = propertyErrors.AsReadOnly();
-            }
-
-            return result != null;
         }
 
         public event PropertyChangedEventHandler PropertyChanged
@@ -107,13 +92,38 @@ namespace BillPath
 
         public int Count
             => _modelErrors.Count;
-        public string this[int index]
-            => _modelErrors[index];
+
+        IEnumerable<string> IReadOnlyDictionary<string, ReadOnlyObservableCollection<string>>.Keys
+            => _propertyErrorsByNames.Keys;
+
+        IEnumerable<ReadOnlyObservableCollection<string>> IReadOnlyDictionary<string, ReadOnlyObservableCollection<string>>.Values
+            => _propertyErrorsByNames.Values.Select(propertyErrors => propertyErrors.AsReadOnly());
+
+        public ReadOnlyObservableCollection<string> this[string propertyName]
+            => _GetOrAddPropertyErrors(propertyName).AsReadOnly();
+
+        bool IReadOnlyDictionary<string, ReadOnlyObservableCollection<string>>.ContainsKey(string key)
+            => _propertyErrorsByNames.ContainsKey(key);
+        bool IReadOnlyDictionary<string, ReadOnlyObservableCollection<string>>.TryGetValue(string key, out ReadOnlyObservableCollection<string> value)
+        {
+            PropertyErrors propertyErrors;
+
+            value = null;
+            if (_propertyErrorsByNames.TryGetValue(key, out propertyErrors))
+                value = propertyErrors.AsReadOnly();
+
+            return value != null;
+        }
 
         public IEnumerator<string> GetEnumerator()
             => _modelErrors.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
+        IEnumerator<KeyValuePair<string, ReadOnlyObservableCollection<string>>> IEnumerable<KeyValuePair<string, ReadOnlyObservableCollection<string>>>.GetEnumerator()
+            => _propertyErrorsByNames.Select(propertyErrors => new KeyValuePair<string, ReadOnlyObservableCollection<string>>(
+                propertyErrors.Key,
+                propertyErrors.Value.AsReadOnly()))
+            .GetEnumerator();
 
         public IEnumerable<string> EnumerateAll()
         {

@@ -6,12 +6,12 @@
     xmlns:display="using:BillPath.Modern.Controls.Display"
     xmlns:edit="using:BillPath.Modern.Controls.Edit"
     xmlns:mocks="using:BillPath.Modern.Mocks"
-    xmlns:design="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="design">
-    <design:UserControl.DataContext>
-        <mocks:IncomeViewModel />
-    </design:UserControl.DataContext>
+    mc:Ignorable="d">
+    <d:UserControl.DataContext>
+        <mocks:IncomeModelState />
+    </d:UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -31,16 +31,18 @@
         </StackPanel.Resources>
         <edit:AmountView
             DataContext="{Binding
-                Path=Amount,
-                Mode=OneTime}" />
+                Path=[Amount]}" />
         <display:ErrorsView
-            PropertyName="Amount" />
+            PropertyName="Errors[Amount]" />
 
         <DatePicker
             Header="Transaction date"
             Date="{Binding
-                Path=DateRealized,
+                Path=[DateRealized],
                 Mode=TwoWay}" />
+        <display:ErrorsView
+            PropertyName="Errors[DateRealized]" />
+        
         <TextBox
             Header="Description"
             AcceptsReturn="True"
@@ -48,8 +50,10 @@
             MinHeight="150"
             ScrollViewer.VerticalScrollBarVisibility="Auto"
             Text="{Binding
-                Path=Description,
+                Path=[Description],
                 Mode=TwoWay}"
             TextWrapping="Wrap" />
+        <display:ErrorsView
+            PropertyName="Errors[Description]" />
     </StackPanel>
 </UserControl>

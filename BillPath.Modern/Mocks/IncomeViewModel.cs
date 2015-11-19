@@ -1,17 +1,18 @@
 ﻿using System;
+using BillPath.Models;
+using BillPath.UserInterface.ViewModels;
 
 namespace BillPath.Modern.Mocks
 {
     public class IncomeViewModel
-        : UserInterface.ViewModels.IncomeViewModel
+        : ViewModel<Income>
     {
         public IncomeViewModel()
-            : base(
-                  new Models.Income
-                  {
-                      DateRealized = DateTimeOffset.Now.Date
-                  })
+            : base(new Income { DateRealized = DateTimeOffset.Now.Date })
         {
+            Context = new IncomeModelState();
         }
+
+        public dynamic Context { get; }
     }
 }

@@ -160,6 +160,7 @@
       <DependentUpon>IncomeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mocks\AmountViewModel.cs" />
+    <Compile Include="Mocks\IncomeModelState.cs" />
     <Compile Include="Mocks\IncomesRepository.cs" />
     <Compile Include="Mocks\IncomeViewModel.cs" />
     <Compile Include="ResourceBinders\IncomesPaginationViewModel.cs" />
