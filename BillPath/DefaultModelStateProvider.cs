@@ -1,12 +1,16 @@
-﻿namespace BillPath
-{
-    internal sealed class DefaultModelStateProvider
-        : IModelStateProvider
-    {
-        public ModelState GetForRoot(object model)
-            => new ModelState(model);
+﻿using System;
 
-        public ModelState GetForAggregate(ModelState owner, object aggregate)
+namespace BillPath
+{
+    public class DefaultModelStateProvider
+        : ModelStateProvider
+    {
+        public override Type ModelType
+            => typeof(object);
+
+        protected override ModelState GetModelStateFor(object model)
+            => new ModelState(model);
+        protected override ModelState GetModelStateFor(object container, object aggregate)
             => new ModelState(aggregate);
     }
 }

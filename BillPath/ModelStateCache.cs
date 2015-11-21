@@ -29,16 +29,16 @@ namespace BillPath
                 model,
                 delegate { return ModelStateProviders.GetFor(model.GetType()).GetForRoot(model); });
         }
-        public ModelState GetFor(ModelState owner, object aggregate)
+        public ModelState GetFor(object container, object aggregate)
         {
-            if (owner == null)
-                throw new ArgumentNullException(nameof(owner));
+            if (container == null)
+                throw new ArgumentNullException(nameof(container));
             if (aggregate == null)
                 throw new ArgumentNullException(nameof(aggregate));
 
             return _modelStates.GetOrAdd(
                 aggregate,
-                delegate { return ModelStateProviders.GetFor(owner.Model.GetType(), aggregate.GetType()).GetForAggregate(owner, aggregate); });
+                delegate { return ModelStateProviders.GetFor(aggregate.GetType(), container.GetType()).GetForAggregate(container, aggregate); });
         }
     }
 }

@@ -45,26 +45,26 @@ namespace BillPath
                 => GetEnumerator();
         }
 
-        private readonly ModelState _modelState;
+        private readonly object _model;
         private readonly ObservableCollection<string> _modelErrors;
         private readonly IDictionary<string, PropertyErrors> _propertyErrorsByNames;
 
-        public ModelErrors(ModelState modelState)
+        public ModelErrors(object model)
         {
-            if (modelState == null)
-                throw new ArgumentNullException(nameof(modelState));
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
 
-            _modelState = modelState;
+            _model = model;
             _modelErrors = new ObservableCollection<string>();
             _propertyErrorsByNames = new Dictionary<string, PropertyErrors>(StringComparer.OrdinalIgnoreCase);
 
             _FillErrors();
-            _modelState.PropertyChanged +=
-                (sender, e) =>
-                {
-                    _ClearAllErrors();
-                    _FillErrors();
-                };
+        }
+
+        internal void Refresh()
+        {
+            _ClearAllErrors();
+            _FillErrors();
         }
 
         public event PropertyChangedEventHandler PropertyChanged
@@ -104,6 +104,7 @@ namespace BillPath
 
         bool IReadOnlyDictionary<string, ReadOnlyObservableCollection<string>>.ContainsKey(string key)
             => _propertyErrorsByNames.ContainsKey(key);
+
         bool IReadOnlyDictionary<string, ReadOnlyObservableCollection<string>>.TryGetValue(string key, out ReadOnlyObservableCollection<string> value)
         {
             PropertyErrors propertyErrors;
@@ -135,7 +136,7 @@ namespace BillPath
 
             var modelValidator = new ModelValidator();
             var validated = new HashSet<object> { this };
-            var toValidate = new Queue<object>(_GetPropertyValuesFrom(_modelState.Model));
+            var toValidate = new Queue<object>(_GetPropertyValuesFrom(_model));
 
             while (toValidate.Any())
             {
@@ -170,7 +171,7 @@ namespace BillPath
                     _GetOrAddPropertyErrors(errorsByMemberName.Key).AddRange(errorsByMemberName);
         }
         private IEnumerable<IGrouping<string, string>> _GetErrorsByMemberName()
-            => from validationResult in new ModelValidator().Validate(_modelState.Model)
+            => from validationResult in new ModelValidator().Validate(_model)
                let memberNames = from memberName in (validationResult.MemberNames ?? Enumerable.Empty<string>())
                                  select string.IsNullOrWhiteSpace(memberName) ? string.Empty : memberName
                from memberName in memberNames.DefaultIfEmpty(string.Empty)

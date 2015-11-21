@@ -24,6 +24,7 @@ namespace BillPath
                 StringComparer.OrdinalIgnoreCase);
 
         private ModelStateCache _modelStateCache;
+        private readonly ModelErrors _errors;
         private readonly IReadOnlyDictionary<string, PropertyInfo> _runtimePropertiesByNames;
         private readonly Lazy<IDictionary<PropertyInfo, ModelState>> _modelPropertyStates;
 
@@ -33,7 +34,7 @@ namespace BillPath
                 throw new ArgumentNullException(nameof(model));
 
             Model = model;
-            Errors = new ModelErrors(this);
+            _errors = new ModelErrors(model);
 
             _modelStateCache = new ModelStateCache(this);
             _runtimePropertiesByNames = _GetRuntimePropertiesByNamesFor(Model.GetType());
@@ -47,7 +48,7 @@ namespace BillPath
                 throw new ArgumentNullException(nameof(modelStateCache));
 
             Model = model;
-            Errors = new ModelErrors(this);
+            _errors = new ModelErrors(model);
 
             _modelStateCache = modelStateCache;
             _runtimePropertiesByNames = _GetRuntimePropertiesByNamesFor(Model.GetType());
@@ -68,8 +69,9 @@ namespace BillPath
                         return null;
                     else
                     {
-                        var propertyValueModelState = _modelStateCache.GetFor(this, propertyValue);
+                        var propertyValueModelState = _modelStateCache.GetFor(Model, propertyValue);
                         propertyValueModelState._modelStateCache = _modelStateCache;
+                        propertyValueModelState.PropertyChanged += delegate { _RefreshErrors(); };
 
                         return propertyValueModelState;
                     }
@@ -79,11 +81,19 @@ namespace BillPath
 
         public IModelErrors Errors
         {
-            get;
+            get
+            {
+                return _errors;
+            }
         }
 
         public bool IsValid
             => !Errors.EnumerateAll().Any();
+        private void _RefreshErrors()
+        {
+            _errors.Refresh();
+            OnPropertyChanged(new PropertyChangedEventArgs(nameof(IsValid)));
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(PropertyChangedEventArgs propertyChangedEventArgs)
@@ -114,6 +124,8 @@ namespace BillPath
                 {
                     _SetPropertyValue(runtimeProperty, value);
                     OnPropertyChanged(new PropertyChangedEventArgs($"[{runtimeProperty.Name}]"));
+                    _errors.Refresh();
+                    _RefreshErrors();
                 }
                 else
                     throw new ArgumentException(nameof(propertyName));

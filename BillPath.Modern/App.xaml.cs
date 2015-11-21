@@ -1,9 +1,9 @@
 ﻿using System;
 #if DEBUG
 using System.Diagnostics;
-#endif
 using BillPath.Models;
-using BillPath.Models.States;
+#endif
+using BillPath.Models.States.Providers;
 using BillPath.UserInterface.ViewModels;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -21,8 +21,8 @@ namespace BillPath.Modern
         {
             InitializeComponent();
 
-            ModelStateProviders.SetFor<Income, Amount>(new AmountModelStateModelStateProvider<Income>());
-            ModelStateProviders.SetFor<Expense, Amount>(new AmountModelStateModelStateProvider<Expense>());
+            ModelStateProviders.Add(new AmountModelStateModelStateProvider<Income>());
+            ModelStateProviders.Add(new AmountModelStateModelStateProvider<Expense>());
 
             Suspending += OnSuspending;
         }

@@ -121,7 +121,7 @@
     <Compile Include="DataAccess\Xml\XmlIncomeRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlSettingsRepository.cs" />
     <Compile Include="DefaultModelStateProvider.cs" />
-    <Compile Include="IModelStateProvider.cs" />
+    <Compile Include="ModelStateProvider.cs" />
     <Compile Include="ModelStateCache.cs" />
     <Compile Include="ModelStateProviders.cs" />
     <Compile Include="ModelStates.cs" />
@@ -141,6 +141,7 @@
     <Compile Include="IValidatableObject.cs" />
     <Compile Include="ModelErrors.cs" />
     <Compile Include="Models\States\AmountModelState.cs" />
+    <Compile Include="Models\States\Providers\AmountModelStateModelStateProvider.cs" />
     <Compile Include="ModelValidator.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Transaction.cs" />
