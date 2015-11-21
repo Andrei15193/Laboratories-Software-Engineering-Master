@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using BillPath.Models;
 
 namespace BillPath.UserInterface.ViewModels
 {

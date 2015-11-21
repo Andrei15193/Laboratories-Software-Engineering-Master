@@ -37,6 +37,6 @@ namespace BillPath
 
             return GetModelStateFor(container, aggregate);
         }
-        protected abstract ModelState GetModelStateFor(object root, object aggregate);
+        protected abstract ModelState GetModelStateFor(object container, object aggregate);
     }
 }

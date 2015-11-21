@@ -1,17 +1,10 @@
-﻿using System;
-
-namespace BillPath.Models.States.Providers
+﻿namespace BillPath.Models.States.Providers
 {
     public class AmountModelStateModelStateProvider<TTransaction>
-        : DefaultModelStateProvider
+        : DefaultModelStateProvider<Amount, TTransaction>
         where TTransaction : Transaction<TTransaction>
     {
-        public override Type ModelType
-            => typeof(Amount);
-        public override Type ModelContainerType
-            => typeof(TTransaction);
-
-        protected override ModelState GetModelStateFor(object container, object aggregate)
-            => new AmountModelState<TTransaction>((TTransaction)container);
+        protected override ModelState GetModelStateFor(TTransaction transaction, Amount amount)
+            => new AmountModelState<TTransaction>(transaction);
     }
 }
