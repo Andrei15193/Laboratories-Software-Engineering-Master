@@ -19,6 +19,18 @@ namespace BillPath.UserInterface.ViewModels
             _callback = callback;
         }
 
+        new public bool CanExecute
+        {
+            get
+            {
+                return base.CanExecute;
+            }
+            set
+            {
+                base.CanExecute = value;
+            }
+        }
+
         protected override Task OnExecuteAsync(object parameter)
         {
             return _callback(parameter, CancellationToken);

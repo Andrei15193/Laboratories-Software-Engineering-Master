@@ -1,5 +1,4 @@
 ﻿using BillPath.DataAccess;
-using BillPath.Models;
 using BillPath.UserInterface.ViewModels;
 using Windows.UI.Xaml;
 
@@ -9,7 +8,7 @@ namespace BillPath.Modern.ResourceBinders
         : PaginationViewModel<IncomeViewModel>
     {
         public IncomesPaginationViewModel()
-            : base(new IncomeViewModelReaderProvider(Application.Current.GetResource<IItemReaderProvider<Income>>(nameof(IncomesRepository))))
+            : base(new IncomeViewModelReaderProvider(Application.Current.GetResource<IIncomesRepository>(nameof(IncomesRepository))))
         {
         }
     }

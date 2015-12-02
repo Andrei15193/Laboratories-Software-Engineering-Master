@@ -117,7 +117,10 @@
     <Compile Include="DataAccess\Mocks\IncomesRepositoryMock.cs" />
     <Compile Include="DataAccess\SettingsRepository.cs" />
     <Compile Include="DataAccess\TransactionRepository.cs" />
+    <Compile Include="DataAccess\Xml\IncomeXmlTranslator.cs" />
     <Compile Include="DataAccess\Xml\FileProvider.cs" />
+    <Compile Include="DataAccess\Xml\XmlReaderHelper.cs" />
+    <Compile Include="DataAccess\Xml\XmlTranslator.cs" />
     <Compile Include="DataAccess\Xml\XmlIncomeRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlSettingsRepository.cs" />
     <Compile Include="DefaultModelStateProvider.cs" />

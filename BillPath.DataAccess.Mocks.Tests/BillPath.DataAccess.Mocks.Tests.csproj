@@ -115,8 +115,6 @@
     <SDKReference Include="TestPlatform, Version=14.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IncomeReaderMockTests.cs" />
-    <Compile Include="IncomesRepositoryMockTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,11 @@ namespace BillPath
     public class ModelState
         : INotifyPropertyChanged
     {
+        public static ModelState GetFor<TModel>(TModel model)
+            => ModelStateProviders.GetFor<TModel>().GetForRoot(model);
+        public static ModelState GetFor<TModelContainer, TAggregate>(TModelContainer model, TAggregate aggregate)
+            => ModelStateProviders.GetFor<TAggregate, TModelContainer>().GetForAggregate(model, aggregate);
+
         private static IReadOnlyDictionary<string, PropertyInfo> _GetRuntimePropertiesByNamesFor(Type type)
             => (from runtimeProperty in type.GetRuntimeProperties()
                 let hasPublicGetter = runtimeProperty.GetMethod?.IsPublic ?? false

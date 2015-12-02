@@ -14,14 +14,15 @@ namespace BillPath.UserInterface.ViewModels.Tests
         public async Task TestSaveNewValidIncome()
         {
             var repository = new IncomesRepositoryMock();
-            var viewModel = new IncomesViewModel(repository);
+            var viewModel = new IncomeViewModel(repository);
             var expectedIncome =
                 new Income
                 {
                     Amount = new Amount(1, new Currency(new RegionInfo("en-AU")))
                 };
+            viewModel.ModelState = ModelState.GetFor(expectedIncome);
 
-            await viewModel.SaveCommand.ExecuteAsync(new IncomeViewModel(expectedIncome));
+            await viewModel.SaveCommand.ExecuteAsync(null);
 
             using (var incomeReader = repository.GetReader())
             {
@@ -36,16 +37,17 @@ namespace BillPath.UserInterface.ViewModels.Tests
         [TestMethod]
         public async Task TestExceptionIsThrownWhenTryingToSaveInvalidIncome()
         {
-            var viewModel = new IncomesViewModel(new IncomesRepositoryMock());
+            var viewModel = new IncomeViewModel(new IncomesRepositoryMock());
             var invalidIncome =
                 new Income
                 {
                     Amount = new Amount(-1, new Currency(new RegionInfo("en-AU")))
                 };
+            viewModel.ModelState = ModelState.GetFor(invalidIncome);
 
             var exception = await viewModel
                 .SaveCommand
-                .ExecuteAsync(new IncomeViewModel(invalidIncome))
+                .ExecuteAsync(null)
                 .ContinueWith(saveTask => saveTask.Exception.InnerException);
 
             Assert.IsInstanceOfType(exception, typeof(InvalidOperationException));
@@ -53,7 +55,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
         [TestMethod]
         public async Task TextExceptionIsThrownWhenTryingToSaveNullIncome()
         {
-            var viewModel = new IncomesViewModel(new IncomesRepositoryMock());
+            var viewModel = new IncomeViewModel(new IncomesRepositoryMock());
 
             var exception = await viewModel
                 .SaveCommand

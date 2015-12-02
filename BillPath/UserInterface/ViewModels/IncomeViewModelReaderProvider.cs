@@ -9,21 +9,23 @@ namespace BillPath.UserInterface.ViewModels
     public class IncomeViewModelReaderProvider
         : IObservable<RepositoryChange<IncomeViewModel>>, IItemReaderProvider<IncomeViewModel>
     {
-        private readonly IItemReaderProvider<Income> _incomeReaderProvider;
+        private readonly IIncomesRepository _repository;
 
         private sealed class IncomeViewModelReader
             : IItemReader<IncomeViewModel>
         {
             private IncomeViewModel _current;
+            private readonly IIncomesRepository _repository;
             private readonly IItemReader<Income> _incomeReader;
 
-            public IncomeViewModelReader(IItemReader<Income> incomeReader)
+            public IncomeViewModelReader(IIncomesRepository repository)
             {
-                if (incomeReader == null)
-                    throw new ArgumentNullException(nameof(incomeReader));
+                if (repository == null)
+                    throw new ArgumentNullException(nameof(repository));
 
                 _current = null;
-                _incomeReader = incomeReader;
+                _repository = repository;
+                _incomeReader = repository.GetReader();
             }
 
             public IncomeViewModel Current
@@ -49,7 +51,7 @@ namespace BillPath.UserInterface.ViewModels
             {
                 if (await _incomeReader.ReadAsync(cancellationToken))
                 {
-                    _current = new IncomeViewModel(_incomeReader.Current);
+                    _current = new IncomeViewModel(_repository) { ModelState = ModelState.GetFor(_incomeReader.Current) };
                     return true;
                 }
                 else
@@ -60,28 +62,31 @@ namespace BillPath.UserInterface.ViewModels
             }
         }
 
-        public IncomeViewModelReaderProvider(IItemReaderProvider<Income> incomeReaderProvider)
+        public IncomeViewModelReaderProvider(IIncomesRepository repository)
         {
-            if (incomeReaderProvider == null)
-                throw new ArgumentNullException(nameof(incomeReaderProvider));
+            if (repository == null)
+                throw new ArgumentNullException(nameof(repository));
 
-            _incomeReaderProvider = incomeReaderProvider;
+            _repository = repository;
         }
 
         public Task<int> GetItemCountAsync()
             => GetItemCountAsync(CancellationToken.None);
         public Task<int> GetItemCountAsync(CancellationToken cancellationToken)
-            => _incomeReaderProvider.GetItemCountAsync(cancellationToken);
+            => _repository.GetItemCountAsync(cancellationToken);
 
         public IItemReader<IncomeViewModel> GetReader()
-            => new IncomeViewModelReader(_incomeReaderProvider.GetReader());
+            => new IncomeViewModelReader(_repository);
 
         public IDisposable Subscribe(IObserver<RepositoryChange<IncomeViewModel>> observer)
         {
-            return (_incomeReaderProvider as IObservable<RepositoryChange<Income>>)?.Subscribe(
+            return (_repository as IObservable<RepositoryChange<Income>>)?.Subscribe(
                 new DelegateObserver<RepositoryChange<Income>>(
                     onNext: change => observer.OnNext(new RepositoryChange<IncomeViewModel>(
-                        new IncomeViewModel(change.Item),
+                        new IncomeViewModel(_repository)
+                        {
+                            ModelState = ModelState.GetFor(change.Item)
+                        },
                         change.Action)),
                     onError: observer.OnError,
                     onCompleted: observer.OnCompleted));

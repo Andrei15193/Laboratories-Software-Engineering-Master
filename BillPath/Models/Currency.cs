@@ -21,6 +21,11 @@ namespace BillPath.Models
             _isoCode = regionInfo.ISOCurrencySymbol;
             _symbol = regionInfo.CurrencySymbol;
         }
+        internal Currency(string isoCode, string symbol)
+        {
+            _isoCode = isoCode;
+            _symbol = symbol;
+        }
 
         public string IsoCode
         {
