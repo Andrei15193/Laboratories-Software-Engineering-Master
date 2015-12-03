@@ -14,7 +14,7 @@ namespace BillPath.DataAccess.Xml
         public override async Task<Income> ReadFromAsync(XmlReader xmlReader, CancellationToken cancellationToken)
         {
             if (!await xmlReader.ReadUntilAsync(nameof(Income).ToXmlName(), cancellationToken))
-                throw new ArgumentException("The XmlReader could not reach a valid income element", nameof(xmlReader));
+                return null;
 
             var income = new Income();
 

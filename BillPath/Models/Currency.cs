@@ -28,47 +28,35 @@ namespace BillPath.Models
         }
 
         public string IsoCode
-        {
-            get
-            {
-                return _isoCode;
-            }
-        }
+            => _isoCode;
         public string Symbol
-        {
-            get
-            {
-                return _symbol;
-            }
-        }
+            => _symbol;
 
         public static bool operator ==(Currency left, Currency right)
-        {
-            return left.Equals(right);
-        }
+            => left.Equals(right);
         public static bool operator !=(Currency left, Currency right)
-        {
-            return !left.Equals(right);
-        }
+            => !left.Equals(right);
         public bool Equals(Currency other)
+            => _AreEqual(_isoCode, other._isoCode)
+            && _AreEqual(_symbol, other._symbol);
+        private bool _AreEqual(string x, string y)
         {
-            return StringComparer.OrdinalIgnoreCase.Equals(_isoCode, other._isoCode)
-                   && StringComparer.OrdinalIgnoreCase.Equals(_symbol, other._symbol);
+            if (string.IsNullOrWhiteSpace(x))
+                return string.IsNullOrWhiteSpace(y);
+            else
+                return !string.IsNullOrWhiteSpace(y) && StringComparer.OrdinalIgnoreCase.Equals(x, y);
         }
+
         public override bool Equals(object obj)
         {
             var currency = obj as Currency?;
             return (currency != null && Equals(currency.Value));
         }
         public override int GetHashCode()
-        {
-            return StringComparer.OrdinalIgnoreCase.GetHashCode(_isoCode ?? string.Empty)
-                   ^ StringComparer.OrdinalIgnoreCase.GetHashCode(_symbol ?? string.Empty);
-        }
+            => StringComparer.OrdinalIgnoreCase.GetHashCode(_isoCode ?? string.Empty)
+            ^ StringComparer.OrdinalIgnoreCase.GetHashCode(_symbol ?? string.Empty);
 
         public override string ToString()
-        {
-            return $"{{{nameof(IsoCode)} = {_isoCode}, {nameof(Symbol)} = {_symbol}}}";
-        }
+            => $"{{{nameof(IsoCode)} = {_isoCode}, {nameof(Symbol)} = {_symbol}}}";
     }
 }

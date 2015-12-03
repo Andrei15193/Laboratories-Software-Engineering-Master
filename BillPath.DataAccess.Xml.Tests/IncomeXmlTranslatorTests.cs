@@ -93,20 +93,18 @@ namespace BillPath.DataAccess.Xml.Tests
 
             var actualIncome = await _GetIncomeFrom(incomeXmlString);
 
-            _AssertAreEqual(expectedIncome, actualIncome);
+            Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(expectedIncome, actualIncome));
         }
 
         [TestMethod]
-        public async Task TestTryingToReadIncomeFromXmlThatDoesNotContainsOneThrowsException()
+        public async Task TestTryingToReadIncomeFromXmlThatDoesNotContainsOneReturnsNull()
         {
             var incomeXmlString = @"<notAnIncome dateRealized=""2015/12/1 +00:00"" description=""Test description"">"
                                     + @"<amount value=""100"" isoCode=""USD"" symbol=""$"" />"
                                 + @"</notAnIncome>";
+            var income = await _GetIncomeFrom(incomeXmlString);
 
-            var exception = await _GetIncomeFrom(incomeXmlString)
-                .ContinueWith(task => task.Exception.InnerException);
-
-            Assert.ThrowsException<ArgumentException>(() => { throw exception; });
+            Assert.IsNull(income);
         }
 
         [TestMethod]
@@ -122,14 +120,7 @@ namespace BillPath.DataAccess.Xml.Tests
             var incomeXmlString = await _GetXmlStringFromAsync(expectedIncome);
             var actualIncome = await _GetIncomeFrom(incomeXmlString);
 
-            _AssertAreEqual(expectedIncome, actualIncome);
-        }
-
-        private void _AssertAreEqual(Income expectedIncome, Income actualIncome)
-        {
-            Assert.AreEqual(expectedIncome.Amount, actualIncome.Amount);
-            Assert.AreEqual(expectedIncome.DateRealized, actualIncome.DateRealized);
-            Assert.AreEqual(expectedIncome.Description, actualIncome.Description, ignoreCase: false);
+            Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(expectedIncome, actualIncome));
         }
 
         private static async Task<string> _GetXmlStringFromAsync(Income income)

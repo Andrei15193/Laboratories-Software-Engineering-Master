@@ -117,8 +117,10 @@
     <Compile Include="DataAccess\Mocks\IncomesRepositoryMock.cs" />
     <Compile Include="DataAccess\SettingsRepository.cs" />
     <Compile Include="DataAccess\TransactionRepository.cs" />
+    <Compile Include="DataAccess\Xml\IncomeXmlRepository.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlTranslator.cs" />
     <Compile Include="DataAccess\Xml\FileProvider.cs" />
+    <Compile Include="DataAccess\Xml\Mock\IncomeXmlRepositoryMock.cs" />
     <Compile Include="DataAccess\Xml\XmlReaderHelper.cs" />
     <Compile Include="DataAccess\Xml\XmlTranslator.cs" />
     <Compile Include="DataAccess\Xml\XmlIncomeRepository.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="Models\Income.cs" />
     <Compile Include="IValidatableObject.cs" />
     <Compile Include="ModelErrors.cs" />
+    <Compile Include="Models\IncomeEqualityComparer.cs" />
     <Compile Include="Models\States\AmountModelState.cs" />
     <Compile Include="Models\States\Providers\AmountModelStateModelStateProvider.cs" />
     <Compile Include="ModelValidator.cs" />

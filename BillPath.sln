@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillPath.Tests", "BillPath.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillPath.DataAccess.Xml.Tests", "BillPath.DataAccess.Xml.Tests\BillPath.DataAccess.Xml.Tests.csproj", "{A0076326-410F-4B26-9FB2-1C89BEBBA3BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillPath.DataAccess.Xml.Mock.Tests", "BillPath.DataAccess.Xml.Mock.Tests\BillPath.DataAccess.Xml.Mock.Tests.csproj", "{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		BillPath.Properties\BillPath.Properties.projitems*{458ae041-d984-4417-bbd7-05fee3f4f59e}*SharedItemsImports = 4
@@ -49,6 +51,7 @@ Global
 		BillPath.Properties\BillPath.Properties.projitems*{dbb98127-57d7-4b35-81fe-6bc43d941100}*SharedItemsImports = 4
 		BillPath.Properties\BillPath.Properties.projitems*{dfbbc8f9-0f5e-446f-8ff5-2b4513c62b2f}*SharedItemsImports = 4
 		BillPath.Properties\BillPath.Properties.projitems*{a0076326-410f-4b26-9fb2-1c89bebba3bd}*SharedItemsImports = 4
+		BillPath.Properties\BillPath.Properties.projitems*{4fb98f5a-7f40-42fb-ac7c-2123b6178cc4}*SharedItemsImports = 4
 		BillPath.Properties\BillPath.Properties.projitems*{3911cb56-0c7b-432f-a220-74b9c63dc1d2}*SharedItemsImports = 4
 		BillPath.Properties\BillPath.Properties.projitems*{e6de2565-02bc-4478-9083-a7851c323cc0}*SharedItemsImports = 13
 		BillPath.Properties\BillPath.Properties.projitems*{f42f6bb6-3fd3-4d38-98be-8c7b7e17d66e}*SharedItemsImports = 4
@@ -345,6 +348,30 @@ Global
 		{A0076326-410F-4B26-9FB2-1C89BEBBA3BD}.Release|x86.ActiveCfg = Release|x86
 		{A0076326-410F-4B26-9FB2-1C89BEBBA3BD}.Release|x86.Build.0 = Release|x86
 		{A0076326-410F-4B26-9FB2-1C89BEBBA3BD}.Release|x86.Deploy.0 = Release|x86
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|ARM.ActiveCfg = Debug|ARM
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|ARM.Build.0 = Debug|ARM
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|ARM.Deploy.0 = Debug|ARM
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|x64.ActiveCfg = Debug|x64
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|x64.Build.0 = Debug|x64
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|x64.Deploy.0 = Debug|x64
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|x86.ActiveCfg = Debug|x86
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|x86.Build.0 = Debug|x86
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Debug|x86.Deploy.0 = Debug|x86
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|ARM.ActiveCfg = Release|ARM
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|ARM.Build.0 = Release|ARM
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|ARM.Deploy.0 = Release|ARM
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|x64.ActiveCfg = Release|x64
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|x64.Build.0 = Release|x64
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|x64.Deploy.0 = Release|x64
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|x86.ActiveCfg = Release|x86
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|x86.Build.0 = Release|x86
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -363,5 +390,6 @@ Global
 		{DBB98127-57D7-4B35-81FE-6BC43D941100} = {8FC3D751-2D21-47AB-9D0A-945FC5CF5708}
 		{E6EB82C3-3919-49A0-B807-770DCBE510B7} = {8FC3D751-2D21-47AB-9D0A-945FC5CF5708}
 		{A0076326-410F-4B26-9FB2-1C89BEBBA3BD} = {8FC3D751-2D21-47AB-9D0A-945FC5CF5708}
+		{4FB98F5A-7F40-42FB-AC7C-2123B6178CC4} = {8FC3D751-2D21-47AB-9D0A-945FC5CF5708}
 	EndGlobalSection
 EndGlobal

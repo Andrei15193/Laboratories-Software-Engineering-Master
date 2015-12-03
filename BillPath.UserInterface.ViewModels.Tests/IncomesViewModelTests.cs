@@ -29,7 +29,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
                 Assert.IsTrue(await incomeReader.ReadAsync());
 
                 var actualIncome = incomeReader.Current;
-                _AssertAreEqual(expectedIncome, actualIncome);
+                Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(expectedIncome, actualIncome));
 
                 Assert.IsFalse(await incomeReader.ReadAsync());
             }
@@ -63,19 +63,6 @@ namespace BillPath.UserInterface.ViewModels.Tests
                 .ContinueWith(saveTask => saveTask.Exception.InnerException);
 
             Assert.IsInstanceOfType(exception, typeof(ArgumentNullException));
-        }
-
-        private void _AssertAreEqual(Income expectedIncome, Income actualIncome)
-        {
-            Assert.AreEqual(
-                expectedIncome.Amount,
-                actualIncome.Amount);
-            Assert.AreEqual(
-                expectedIncome.DateRealized,
-                actualIncome.DateRealized);
-            Assert.AreEqual(
-                expectedIncome.Description,
-                actualIncome.Description);
         }
 
         [TestMethod]

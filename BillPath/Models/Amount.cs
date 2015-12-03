@@ -28,7 +28,7 @@ namespace BillPath.Models
 
         public bool Equals(Amount other)
             => Value == other.Value
-               && Currency == other.Currency;
+            && Currency == other.Currency;
         public override bool Equals(object obj)
         {
             var other = obj as Amount?;
@@ -37,7 +37,7 @@ namespace BillPath.Models
         }
         public override int GetHashCode()
             => Value.GetHashCode()
-               ^ Currency.GetHashCode();
+            ^ Currency.GetHashCode();
         public static bool operator ==(Amount left, Amount right)
             => left.Equals(right);
         public static bool operator !=(Amount left, Amount right)
