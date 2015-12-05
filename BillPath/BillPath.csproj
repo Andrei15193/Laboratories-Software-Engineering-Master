@@ -119,7 +119,6 @@
     <Compile Include="ModelStateProvider.cs" />
     <Compile Include="ModelStateCache.cs" />
     <Compile Include="ModelStateProviders.cs" />
-    <Compile Include="ModelStates.cs" />
     <Compile Include="Models\Amount.cs" />
     <Compile Include="Models\ArgbColor.cs" />
     <Compile Include="Models\Currency.cs" />

@@ -24,7 +24,7 @@ namespace BillPath.DataAccess.Xml.Tests
                     DateRealized = new DateTimeOffset(new DateTime(2015, 12, 1), new TimeSpan()),
                     Description = "Test description"
                 };
-            var expectedResult = @"<income dateRealized=""2015/12/1 +00:00"" description=""Test description"">"
+            var expectedResult = @"<income dateRealized=""2015/12/1 00:00:00:0000000 +00:00"" description=""Test description"">"
                                    + @"<amount value=""100"" isoCode=""USD"" symbol=""$"" />"
                                + @"</income>";
 
@@ -68,7 +68,7 @@ namespace BillPath.DataAccess.Xml.Tests
                     DateRealized = new DateTimeOffset(new DateTime(2015, 12, 1), new TimeSpan()),
                     Description = description
                 };
-            var expectedResult = @"<income dateRealized=""2015/12/1 +00:00"">"
+            var expectedResult = @"<income dateRealized=""2015/12/1 00:00:00:0000000 +00:00"">"
                                     + @"<amount value=""100"" isoCode=""USD"" symbol=""$"" />"
                                + @"</income>";
 
@@ -80,7 +80,7 @@ namespace BillPath.DataAccess.Xml.Tests
         [TestMethod]
         public async Task TestReadIncomeFromXml()
         {
-            var incomeXmlString = @"<income dateRealized=""2015/12/1 +00:00"" description=""Test description"">"
+            var incomeXmlString = @"<income dateRealized=""2015/12/1 00:00:00:0000000 +00:00"" description=""Test description"">"
                                     + @"<amount value=""100"" isoCode=""USD"" symbol=""$"" />"
                                 + @"</income>";
             var expectedIncome =

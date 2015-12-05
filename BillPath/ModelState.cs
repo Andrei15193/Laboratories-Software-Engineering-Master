@@ -145,7 +145,11 @@ namespace BillPath
                 if (value == null)
                     _modelPropertyStates.Value[runtimeProperty] = null;
                 else
-                    _modelPropertyStates.Value[runtimeProperty] = ModelStates.GetFor(value);
+                    _modelPropertyStates.Value[runtimeProperty] =
+                        new ModelState(value)
+                        {
+                            _modelStateCache = _modelStateCache
+                        };
         }
 
         private bool _TryGetRuntimeProperty(string propertyName, bool ignoreCase, out PropertyInfo runtimeProperty)

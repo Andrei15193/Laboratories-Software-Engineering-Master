@@ -56,7 +56,7 @@ namespace BillPath.Tests
 
         [TestMethod]
         public void TestModelCannotBeNull()
-            => Assert.ThrowsException<ArgumentNullException>(() => ModelStates.GetFor(model: null));
+            => Assert.ThrowsException<ArgumentNullException>(() => new ModelState(model: null));
 
         [TestMethod]
         public void TestGettingModelPropertyValueThroughContext()
@@ -67,7 +67,7 @@ namespace BillPath.Tests
                 {
                     Property = expectedPropertyValue
                 };
-            var modelState = ModelStates.GetFor(modelMock);
+            var modelState = new ModelState(modelMock);
 
             object actualPropertyValue = modelState[nameof(ModelMock.Property)];
 
@@ -78,7 +78,7 @@ namespace BillPath.Tests
         public void TestTryingToGetTheValueOfAPropertyNotDefinedOnTheModelThrowsAnException()
         {
             var modelMock = new ModelMock();
-            var modelState = ModelStates.GetFor(modelMock);
+            var modelState = new ModelState(modelMock);
 
             Assert.ThrowsException<ArgumentException>(() => modelState["PropertyThatDoesNotExist"]);
         }
@@ -87,7 +87,7 @@ namespace BillPath.Tests
         public void TestTryingToGetTheValueOfAPropertyThatIsSetOnlyThrowsAnException()
         {
             var modelMock = new ModelMock();
-            var modelState = ModelStates.GetFor(modelMock);
+            var modelState = new ModelState(modelMock);
 
             Assert.ThrowsException<ArgumentException>(() => modelState[nameof(ModelMock.SetOnlyProperty)]);
         }
@@ -101,7 +101,7 @@ namespace BillPath.Tests
                 {
                     StringProperty = expectedPropertyValue
                 };
-            var modelState = ModelStates.GetFor(modelMock);
+            var modelState = new ModelState(modelMock);
 
             object actualPropertyValue = modelState[nameof(ModelMock.StringProperty)];
 
@@ -117,7 +117,7 @@ namespace BillPath.Tests
                 {
                     Property = null
                 };
-            var modelState = ModelStates.GetFor(modelMock);
+            var modelState = new ModelState(modelMock);
 
             modelState[nameof(ModelMock.Property)] = propertyValue;
 
@@ -133,7 +133,7 @@ namespace BillPath.Tests
                 {
                     Property = null
                 };
-            var modelState = ModelStates.GetFor(modelMock);
+            var modelState = new ModelState(modelMock);
 
             modelState[nameof(ModelMock.Property)] = propertyValue;
 
@@ -144,7 +144,7 @@ namespace BillPath.Tests
         public void TestTryingToSetTheValueOfAPropertyNotDefinedOnTheModelThrowsAnException()
         {
             var modelMock = new ModelMock();
-            var modelState = ModelStates.GetFor(modelMock);
+            var modelState = new ModelState(modelMock);
 
             Assert.ThrowsException<ArgumentException>(() => modelState["PropertyThatDoesNotExist"] = null);
         }
@@ -153,7 +153,7 @@ namespace BillPath.Tests
         public void TestTryingToSetTheValueOfAPropertyThatIsGetOnlyThrowsAnException()
         {
             var modelMock = new ModelMock();
-            var modelState = ModelStates.GetFor(modelMock);
+            var modelState = new ModelState(modelMock);
 
             Assert.ThrowsException<ArgumentException>(() => modelState[nameof(ModelMock.GetOnlyProperty)] = null);
         }
@@ -162,19 +162,19 @@ namespace BillPath.Tests
         public void TestSettingTheValueOfAPropertyRaisesPropertyChanged()
         {
             var raiseCount = 0;
-            var modelState = ModelStates.GetFor(new ModelMock());
+            var modelState = new ModelState(new ModelMock());
             modelState.PropertyChanged += (sender, e) => raiseCount++;
 
             modelState[nameof(ModelMock.Property)] = new object();
 
-            Assert.AreEqual(1, raiseCount);
+            Assert.AreEqual(2, raiseCount);
         }
 
         [TestMethod]
         public void TestSettingTheValueOfAPropertyRaisesPropertyChangedWithTheContextAsSender()
         {
             object actualSender = null;
-            var modelState = ModelStates.GetFor(new ModelMock());
+            var modelState = new ModelState(new ModelMock());
             ((INotifyPropertyChanged)modelState).PropertyChanged += (sender, e) => actualSender = sender;
 
             modelState[nameof(ModelMock.Property)] = new object();
@@ -185,20 +185,20 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestSettingTheValueOfAPropertyRaisesPropertyChangedWithTheCorrespondingPropertyName()
         {
-            string actualPropertyName = null;
-            var modelState = ModelStates.GetFor(new ModelMock());
-            modelState.PropertyChanged += (sender, e) => actualPropertyName = e.PropertyName;
+            var propertyChanges = new List<string>();
+            var modelState = new ModelState(new ModelMock());
+            modelState.PropertyChanged += (sender, e) => propertyChanges.Add(e.PropertyName);
 
             modelState[nameof(ModelMock.Property)] = new object();
 
-            Assert.AreEqual($"[{nameof(ModelMock.Property)}]", actualPropertyName);
+            Assert.AreEqual(1, propertyChanges.Count($"[{nameof(ModelMock.Property)}]".Equals));
         }
 
         [TestMethod]
         public void TestPropertiesOnContextAreCaseSensitive()
         {
             var modelMock = new ModelMock();
-            var modelState = ModelStates.GetFor(modelMock);
+            var modelState = new ModelState(modelMock);
 
             Assert.ThrowsException<ArgumentException>(() => modelState[nameof(ModelMock.Property).ToLowerInvariant()] = null);
         }
@@ -207,7 +207,7 @@ namespace BillPath.Tests
         public void TestModelPropertyReturnsTheSameModel()
         {
             var modelMock = new ModelMock();
-            var modelState = ModelStates.GetFor(modelMock);
+            var modelState = new ModelState(modelMock);
 
             var actualModel = modelState.Model;
 
@@ -226,7 +226,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestRequiredAttributeValidationWithNull()
         {
-            var modelState = ModelStates.GetFor(new AttributeValidation());
+            var modelState = new ModelState(new AttributeValidation());
 
             Assert.IsFalse(modelState.IsValid);
             Assert.AreEqual(1, modelState.Errors[nameof(AttributeValidation.Value)].Count);
@@ -234,7 +234,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestRequiredAttributeValidationWithoutNull()
         {
-            var modelState = ModelStates.GetFor(
+            var modelState = new ModelState(
                new AttributeValidation
                {
                    Value = new object()
@@ -272,7 +272,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestValidatableObjectWithError()
         {
-            var modelState = ModelStates.GetFor(new ValidatableObject(new ValidationResult("Error", new[] { "Property" })));
+            var modelState = new ModelState(new ValidatableObject(new ValidationResult("Error", new[] { "Property" })));
 
             Assert.IsFalse(modelState.IsValid);
             Assert.AreEqual(1, modelState.Errors[nameof(ValidatableObject.Property)].Count);
@@ -281,7 +281,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestValidatableObjectWithoutError()
         {
-            var modelState = ModelStates.GetFor(new ValidatableObject());
+            var modelState = new ModelState(new ValidatableObject());
 
             Assert.IsTrue(modelState.IsValid);
             Assert.AreEqual(0, modelState.Errors.Count);
@@ -314,31 +314,6 @@ namespace BillPath.Tests
                 : base(new ValidatableObjectWithDependentProperties())
             {
             }
-
-            public object Property1
-            {
-                get
-                {
-                    return ((ValidatableObjectWithDependentProperties)Model).Property1;
-                }
-                set
-                {
-                    Model.Property1 = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(Property1)));
-                }
-            }
-            public object Property2
-            {
-                get
-                {
-                    return ((ValidatableObjectWithDependentProperties)Model).Property2;
-                }
-                set
-                {
-                    Model.Property2 = value;
-                    OnPropertyChanged(new PropertyChangedEventArgs(nameof(Property2)));
-                }
-            }
         }
         [TestMethod]
         public void TestValidatableObjectWithDependentProperties()
@@ -346,10 +321,10 @@ namespace BillPath.Tests
             var modelState = new ValidatableObjectWithDependentPropertiesModelState();
             Assert.IsTrue(modelState.IsValid);
 
-            modelState.Property1 = new object();
+            modelState[nameof(ValidatableObjectWithDependentProperties.Property1)] = new object();
             Assert.IsFalse(modelState.IsValid);
-            Assert.AreEqual(1, modelState.Errors[nameof(ValidatableObjectWithDependentPropertiesModelState.Property1)].Count);
-            Assert.AreEqual(1, modelState.Errors[nameof(ValidatableObjectWithDependentPropertiesModelState.Property2)].Count);
+            Assert.AreEqual(1, modelState.Errors[nameof(ValidatableObjectWithDependentProperties.Property1)].Count);
+            Assert.AreEqual(1, modelState.Errors[nameof(ValidatableObjectWithDependentProperties.Property2)].Count);
             Assert.AreEqual(0, modelState.Errors.Count);
         }
 
@@ -364,7 +339,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestValidatableObjectWithInstanceLevelErrors()
         {
-            var modelState = ModelStates.GetFor(new ValidatableObjectWithInstanceLevelErrors());
+            var modelState = new ModelState(new ValidatableObjectWithInstanceLevelErrors());
 
             Assert.IsFalse(modelState.IsValid);
             Assert.AreEqual(1, modelState.Errors.Count);
@@ -385,7 +360,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestModelStateIsReturnedForNonPrimitiveProperties()
         {
-            var modelState = ModelStates.GetFor(new AggregateRootModel { Property = new AggregateRootModel.ChildModel() });
+            var modelState = new ModelState(new AggregateRootModel { Property = new AggregateRootModel.ChildModel() });
 
             var propertyModelState = modelState[nameof(AggregateRootModel.Property)];
 
@@ -494,7 +469,7 @@ namespace BillPath.Tests
         private void _AssertIsNotWrappedInModelState<T>(T propertyValue = default(T))
         {
             var model = new { Property = propertyValue };
-            var modelState = ModelStates.GetFor(model);
+            var modelState = new ModelState(model);
 
             object value = modelState[nameof(model.Property)];
 
@@ -536,7 +511,7 @@ namespace BillPath.Tests
         private void _AssertIsWrappedInModelState<T>(T propertyValue = default(T))
         {
             var model = new { Property = propertyValue };
-            var modelState = ModelStates.GetFor(model);
+            var modelState = new ModelState(model);
 
             object value = modelState[nameof(model.Property)];
 
@@ -556,7 +531,7 @@ namespace BillPath.Tests
         {
             var model = new CircularReferenceAggregate();
             model.CircularReferenceProperty = model;
-            var modelState = ModelStates.GetFor(model);
+            var modelState = new ModelState(model);
 
             Assert.AreSame(modelState, modelState[nameof(CircularReferenceAggregate.CircularReferenceProperty)]);
         }

@@ -25,7 +25,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestCreateWithInvalidModelLoadsErrors()
         {
-            var modelErrors = new ModelErrors(ModelStates.GetFor(new ModelMock()));
+            var modelErrors = new ModelErrors(new ModelMock());
 
             Assert.AreEqual(1, modelErrors.EnumerateAll().Count());
             Assert.AreEqual(1, modelErrors[nameof(ModelMock.Property)].Count);
@@ -35,7 +35,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestCreateWithValidModelHasNoErrors()
         {
-            var modelErrors = new ModelErrors(ModelStates.GetFor(
+            var modelErrors = new ModelErrors(new ModelState(
                 new ModelMock
                 {
                     Property = new object()
@@ -47,7 +47,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestCreateWithInvalidModelAndThenChangingItThroughStateUpdatesValidationResults()
         {
-            var modelContext = ModelStates.GetFor(new ModelMock());
+            var modelContext = new ModelState(new ModelMock());
             var modelErrors = new ModelErrors(modelContext);
 
             Assert.AreEqual(1, modelErrors.EnumerateAll().Count());
@@ -61,7 +61,7 @@ namespace BillPath.Tests
         public void TestCreateWithInvalidModelAndThenChangingItThroughModelDoesNotUpdateValidationResults()
         {
             var model = new ModelMock();
-            var modelErrors = new ModelErrors(ModelStates.GetFor(model));
+            var modelErrors = new ModelErrors(model);
 
             Assert.AreEqual(1, modelErrors.EnumerateAll().Count());
 
@@ -91,7 +91,7 @@ namespace BillPath.Tests
         [TestMethod]
         public void TestEnumerateAllReturnsErrorsFromAggregates()
         {
-            var modelErrors = new ModelErrors(ModelStates.GetFor(new AggregateRootModel { Property = new AggregateRootModel.ChildModel() }));
+            var modelErrors = new ModelErrors(new ModelState(new AggregateRootModel { Property = new AggregateRootModel.ChildModel() }));
 
             var errors = modelErrors.EnumerateAll();
 
@@ -111,7 +111,7 @@ namespace BillPath.Tests
         {
             var model = new CircularReferenceAggregate();
             model.CircularReferenceProperty = model;
-            var modelErrors = new ModelErrors(ModelStates.GetFor(model));
+            var modelErrors = new ModelErrors(new ModelState(model));
 
             var errors = modelErrors.EnumerateAll();
 

@@ -9,7 +9,7 @@ namespace BillPath.DataAccess.Xml
     public class IncomeXmlTranslator
         : XmlTranslator<Income>
     {
-        private const string _dateRealizedFormatString = "yyyy/M/d HH:mm:ss:FFFFFFF zzz";
+        private const string _dateRealizedFormatString = "yyyy/M/d HH:mm:ss:fffffff zzz";
 
         public override async Task<Income> ReadFromAsync(XmlReader xmlReader, CancellationToken cancellationToken)
         {

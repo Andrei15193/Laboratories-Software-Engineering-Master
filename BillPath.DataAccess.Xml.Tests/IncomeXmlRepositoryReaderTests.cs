@@ -27,7 +27,7 @@ namespace BillPath.DataAccess.Xml.Tests
                     Amount = new Amount(100, new Currency(new RegionInfo("en-US"))),
                     DateRealized = new DateTimeOffset(new DateTime(2015, 12, 2), new TimeSpan())
                 };
-            using (var inputXmlStream = _GetStreamContaining(@"<income dateRealized=""2015/12/2 +00:00"">"
+            using (var inputXmlStream = _GetStreamContaining(@"<income dateRealized=""2015/12/2 00:00:00:0000000 +00:00"">"
                                                                + @"<amount value=""100"" isoCode=""USD"" symbol=""$"" />"
                                                            + @"</income>"))
             using (var reader = new IncomeXmlRepository.Reader(_RepeatCopy(inputXmlStream, streamRepeatCount).GetEnumerator()))
@@ -52,10 +52,10 @@ namespace BillPath.DataAccess.Xml.Tests
                     Amount = new Amount(100, new Currency(new RegionInfo("en-US"))),
                     DateRealized = new DateTimeOffset(new DateTime(2015, 12, 2), new TimeSpan())
                 };
-            using (var inputXmlStream = _GetStreamContaining(@"<income dateRealized=""2015/12/2 +00:00"">"
+            using (var inputXmlStream = _GetStreamContaining(@"<income dateRealized=""2015/12/2 00:00:00:0000000 +00:00"">"
                                                                + @"<amount value=""99"" isoCode=""USD"" symbol=""$"" />"
                                                            + @"</income>"
-                                                           + @"<income dateRealized=""2015/12/2 +00:00"">"
+                                                           + @"<income dateRealized=""2015/12/2 00:00:00:0000000 +00:00"">"
                                                                + @"<amount value=""100"" isoCode=""USD"" symbol=""$"" />"
                                                            + @"</income>"))
             using (var reader = new IncomeXmlRepository.Reader(Enumerable.Repeat(inputXmlStream, 1).GetEnumerator()))
@@ -80,7 +80,7 @@ namespace BillPath.DataAccess.Xml.Tests
         [DataRow(8)]
         public async Task TestExceptionIsThrownIfCurrentIsAccessedAfterReadReturnedFalse(int streamRepeatCount)
         {
-            using (var inputXmlStream = _GetStreamContaining(@"<income dateRealized=""2015/12/2 +00:00"">"
+            using (var inputXmlStream = _GetStreamContaining(@"<income dateRealized=""2015/12/2 00:00:00:0000000 +00:00"">"
                                                                + @"<amount value=""100"" isoCode=""USD"" symbol=""$"" />"
                                                            + @"</income>"))
             using (var reader = new IncomeXmlRepository.Reader(_RepeatCopy(inputXmlStream, streamRepeatCount).GetEnumerator()))
