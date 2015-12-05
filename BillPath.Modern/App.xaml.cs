@@ -33,7 +33,7 @@ namespace BillPath.Modern
             if (Debugger.IsAttached)
                 DebugSettings.EnableFrameRateCounter = true;
 #endif
-            await this.GetResource<SettingsViewModel>("SettingsViewModel")?.LoadCommand.ExecuteAsync(null);
+            await Current.GetResource<SettingsViewModel>()?.LoadCommand.ExecuteAsync(null);
 
             Frame rootFrame = Window.Current.Content as Frame;
 

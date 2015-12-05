@@ -11,14 +11,13 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    local:VisualStateHelper.DefaultState="Loading"
-    Loaded="_LoadedIncomesListView">
+    local:VisualStateHelper.DefaultState="Loading">
     <UserControl.Resources>
         <converters:NullableIntToStringConverter
             x:Name="NullableIntToStringConverter" />
     </UserControl.Resources>
     <UserControl.DataContext>
-        <viewModels:IncomesPaginationViewModel />
+        <viewModels:IncomesPageViewModel />
     </UserControl.DataContext>
     <Grid
         HorizontalAlignment="Stretch"
@@ -31,7 +30,7 @@
                     x:Name="Loading">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames
-                            Storyboard.TargetName="ProgressRing"
+                            Storyboard.TargetName="LoadingRing"
                             Storyboard.TargetProperty="IsActive">
                             <DiscreteObjectKeyFrame
                                 Value="True"
@@ -70,7 +69,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <ProgressRing
-            x:Name="ProgressRing"
+            x:Name="LoadingRing"
             Width="60"
             Height="60"
             IsActive="False" />
@@ -112,25 +111,25 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <display:AmountView
+                            <display:AmountView2
                                 Grid.Column="0"
                                 Grid.Row="0"
                                 Amount="{Binding
-                                    Path=Amount,
+                                    Path=ModelState[Amount],
                                     Mode=OneWay}">
-                                <display:AmountView.Resources>
+                                <display:AmountView2.Resources>
                                     <Style
                                         TargetType="TextBlock"
                                         BasedOn="{StaticResource SubheaderTextBlockStyle}" />
-                                </display:AmountView.Resources>
-                            </display:AmountView>
+                                </display:AmountView2.Resources>
+                            </display:AmountView2>
                             <TextBlock
                                 Grid.Column="1"
                                 Grid.Row="0"
                                 VerticalAlignment="Bottom"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="{Binding
-                                    Path=DateRealized,
+                                    Path=ModelState[DateRealized],
                                     Mode=OneWay}" />
                             <TextBlock
                                 Grid.Column="0"
@@ -138,7 +137,7 @@
                                 Grid.Row="1"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{Binding
-                                    Path=Description,
+                                    Path=ModelState[Description],
                                     Mode=OneWay}" />
                         </Grid>
                     </DataTemplate>
@@ -167,7 +166,7 @@
                     Style="{StaticResource BodyTextBlockStyle}"
                     VerticalAlignment="Top"
                     Text="{Binding
-                        Path=CurrentPage,
+                        Path=SelectedPage,
                         Converter={StaticResource ResourceFormatConverter},
                         ConverterParameter=IncomesPagedView Page,
                         Mode=OneWay}" />
@@ -239,9 +238,9 @@
                                     Grid.Row="1"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="{Binding
-                                        Path=PageCount,
+                                        Path=PagesCount,
                                         Converter={StaticResource ResourceFormatConverter},
-                                        ConverterParameter=IncomesPagedView PageCount,
+                                        ConverterParameter=IncomesPagedView PagesCount,
                                         Mode=OneWay}" />
                             </Grid>
                         </Flyout>

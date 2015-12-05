@@ -16,7 +16,7 @@ namespace BillPath.DataAccess.Xml.Mock
         public void Dispose()
             => _memoryStream.Dispose();
 
-        public Reader GetReader()
+        public override Reader GetReader()
         {
             var memoryStreamCopy = new MemoryStream();
 
@@ -27,9 +27,7 @@ namespace BillPath.DataAccess.Xml.Mock
             return new Reader(Enumerable.Repeat(memoryStreamCopy, 1).GetEnumerator());
         }
 
-        public Task SaveAsync(Income income)
-            => SaveAsync(income, CancellationToken.None);
-        public async Task SaveAsync(Income income, CancellationToken cancellationToken)
+        public override async Task SaveAsync(Income income, CancellationToken cancellationToken)
         {
             using (var resultStream = new MemoryStream())
             {

@@ -129,11 +129,11 @@
   <data name="Page" xml:space="preserve">
     <value>Page {0},</value>
   </data>
-  <data name="PageCount" xml:space="preserve">
-    <value>The total number of pages is {0}.</value>
-  </data>
   <data name="PageNumberTextBlock/Text" xml:space="preserve">
     <value>Page:</value>
+  </data>
+  <data name="PagesCount" xml:space="preserve">
+    <value>The total number of pages is {0}.</value>
   </data>
   <data name="PreviousPageButton/Content" xml:space="preserve">
     <value>previous</value>

@@ -17,7 +17,7 @@
 // 	This code contains a helper class exposing property representations
 // 	of the string resources defined in the specified .ResW file
 // 
-// 	Generated: 10/18/2015 23:18:22
+// 	Generated: 12/05/2015 22:54:18
 // </auto-generatedInfo>
 // --------------------------------------------------------------------------------------------------
 namespace BillPath.Modern.Strings
@@ -112,17 +112,6 @@ namespace BillPath.Modern.Strings
         }
         
         /// <summary>
-        /// Localized resource similar to "The total number of pages is {0}."
-        /// </summary>
-        public static string PageCount
-        {
-            get
-            {
-                return resourceLoader.GetString("PageCount");
-            }
-        }
-        
-        /// <summary>
         /// Localized resource similar to "Page:"
         /// </summary>
         public static string PageNumberTextBlock_Text
@@ -130,6 +119,17 @@ namespace BillPath.Modern.Strings
             get
             {
                 return resourceLoader.GetString("PageNumberTextBlock/Text");
+            }
+        }
+        
+        /// <summary>
+        /// Localized resource similar to "The total number of pages is {0}."
+        /// </summary>
+        public static string PagesCount
+        {
+            get
+            {
+                return resourceLoader.GetString("PagesCount");
             }
         }
         

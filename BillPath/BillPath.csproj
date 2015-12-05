@@ -102,28 +102,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataAccess\ExpenseCategoryRepository.cs" />
-    <Compile Include="DataAccess\ExpenseRepository.cs" />
     <Compile Include="DataAccess\IExpenseCategoryRepository.cs" />
-    <Compile Include="DataAccess\IExpenseRepository.cs" />
-    <Compile Include="DataAccess\IIncomesRepository.cs" />
-    <Compile Include="DataAccess\IItemReader.cs" />
-    <Compile Include="DataAccess\IItemReaderProvider.cs" />
-    <Compile Include="DataAccess\IncomesRepository.cs" />
     <Compile Include="DataAccess\RepositoryChange.cs" />
     <Compile Include="DataAccess\RepositoryChangeAction.cs" />
     <Compile Include="DataAccess\ISettingsRepository.cs" />
-    <Compile Include="DataAccess\ITransactionRepository.cs" />
-    <Compile Include="DataAccess\Mocks\IncomeReaderMock.cs" />
-    <Compile Include="DataAccess\Mocks\IncomesRepositoryMock.cs" />
     <Compile Include="DataAccess\SettingsRepository.cs" />
-    <Compile Include="DataAccess\TransactionRepository.cs" />
+    <Compile Include="DataAccess\Xml\IncomeXmlObservableRepository.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlRepository.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlTranslator.cs" />
     <Compile Include="DataAccess\Xml\FileProvider.cs" />
     <Compile Include="DataAccess\Xml\Mock\IncomeXmlRepositoryMock.cs" />
     <Compile Include="DataAccess\Xml\XmlReaderHelper.cs" />
     <Compile Include="DataAccess\Xml\XmlTranslator.cs" />
-    <Compile Include="DataAccess\Xml\XmlIncomeRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlSettingsRepository.cs" />
     <Compile Include="DefaultModelStateProvider.cs" />
     <Compile Include="ModelStateProvider.cs" />
@@ -194,10 +184,8 @@
     <Compile Include="UserInterface\ViewModels\Command.cs" />
     <Compile Include="UserInterface\ViewModels\DelegateAsyncCommand.cs" />
     <Compile Include="UserInterface\ViewModels\DelegateCommand.cs" />
-    <Compile Include="UserInterface\ViewModels\IncomesViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\IncomesPageViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\IncomeViewModel.cs" />
-    <Compile Include="UserInterface\ViewModels\IncomeViewModelReaderProvider.cs" />
-    <Compile Include="UserInterface\ViewModels\PaginationViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\StatsViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\ViewModel.cs" />

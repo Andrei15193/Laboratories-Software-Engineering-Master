@@ -22,14 +22,22 @@ namespace BillPath.Modern
         }
 
         private ViewState _currentViewState;
-        private Lazy<PaginationViewModel<IncomeViewModel>> _viewModel;
+        private Lazy<IncomesPageViewModel> _viewModel;
 
         public IncomesPagedView()
         {
             _currentViewState = ViewState.Invalid;
-            _viewModel = new Lazy<PaginationViewModel<IncomeViewModel>>(() => (PaginationViewModel<IncomeViewModel>)DataContext);
+            _viewModel = new Lazy<IncomesPageViewModel>(() => (IncomesPageViewModel)DataContext);
             InitializeComponent();
             SelectedIncomes = IncomesListView.SelectedItems.Cast<Income>();
+            Loaded += delegate
+            {
+                _viewModel.Value.PropertyChanged += delegate
+                {
+                    _EnsureVisualState();
+                };
+                _EnsureVisualState();
+            };
         }
 
         public IEnumerable<Income> SelectedIncomes
@@ -48,7 +56,7 @@ namespace BillPath.Modern
             }
         }
 
-        private PaginationViewModel<IncomeViewModel> _ViewModel
+        private IncomesPageViewModel _ViewModel
         {
             get
             {
@@ -56,34 +64,15 @@ namespace BillPath.Modern
             }
         }
 
-        private async void _LoadedIncomesListView(object sender, RoutedEventArgs e)
-        {
-            _TransitionTo(ViewState.Loading);
-
-            await _ViewModel.LoadCommand.ExecuteAsync(null);
-            if (_ViewModel.PageCount > 0)
-                await _ViewModel.GoToNextPageCommand.ExecuteAsync(null);
-
-            _ViewModel.LoadCommand.PropertyChanged += _ExecutingPropertyChanged;
-            _ViewModel.GoToPageCommand.PropertyChanged += _ExecutingPropertyChanged;
-            _ViewModel.GoToNextPageCommand.PropertyChanged += _ExecutingPropertyChanged;
-            _ViewModel.GoToPreviousPageCommand.PropertyChanged += _ExecutingPropertyChanged;
-
-            _TransitionTo(ViewState.Presenting);
-        }
-
         private void _ExecutingPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (nameof(AsyncCommand.Executing).Equals(e.PropertyName, StringComparison.OrdinalIgnoreCase))
-                _EnsureVisualState();
+            //if (nameof(AsyncCommand.Executing).Equals(e.PropertyName, StringComparison.OrdinalIgnoreCase))
+            //    _EnsureVisualState();
         }
 
         private void _EnsureVisualState()
         {
-            if (_ViewModel.GoToPageCommand.Executing ||
-                _ViewModel.GoToNextPageCommand.Executing ||
-                _ViewModel.GoToPreviousPageCommand.Executing ||
-                _ViewModel.LoadCommand.Executing)
+            if (_ViewModel.Loading)
                 _TransitionTo(ViewState.Loading);
             else
                 _TransitionTo(ViewState.Presenting);

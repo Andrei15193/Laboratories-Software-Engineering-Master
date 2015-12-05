@@ -67,5 +67,11 @@ namespace BillPath.DataAccess.Xml
                 _streamEnumerator.Dispose();
             }
         }
+
+        public abstract Reader GetReader();
+
+        public Task SaveAsync(Income income)
+            => SaveAsync(income, CancellationToken.None);
+        public abstract Task SaveAsync(Income income, CancellationToken cancellationToken);
     }
 }

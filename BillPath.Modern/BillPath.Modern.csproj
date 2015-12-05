@@ -126,6 +126,9 @@
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Controls\Display\AmountView2.xaml.cs">
+      <DependentUpon>AmountView2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Display\ErrorsView.xaml.cs">
       <DependentUpon>ErrorsView.xaml</DependentUpon>
     </Compile>
@@ -161,11 +164,10 @@
     </Compile>
     <Compile Include="Mocks\AmountViewModel.cs" />
     <Compile Include="Mocks\IncomeModelState.cs" />
-    <Compile Include="Mocks\IncomesRepository.cs" />
     <Compile Include="Mocks\IncomeViewModel.cs" />
-    <Compile Include="ResourceBinders\IncomesPaginationViewModel.cs" />
-    <Compile Include="ResourceBinders\IncomesViewModel.cs" />
+    <Compile Include="ResourceBinders\IncomesPageViewModel.cs" />
     <Compile Include="Mocks\SettingsRepository.cs" />
+    <Compile Include="ResourceBinders\IncomeXmlObservableRepository.cs" />
     <Compile Include="ResourceBinders\SettingsViewModel.cs" />
     <Compile Include="ModernAppFileProvider.cs" />
     <Compile Include="Overview.xaml.cs">
@@ -223,6 +225,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\Display\AmountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Display\AmountView2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

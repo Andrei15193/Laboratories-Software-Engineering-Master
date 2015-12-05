@@ -1,18 +1,21 @@
 ﻿using System;
+using BillPath.DataAccess.Xml;
 using BillPath.Models;
-using BillPath.UserInterface.ViewModels;
+using Windows.UI.Xaml;
 
 namespace BillPath.Modern.Mocks
 {
     public class IncomeViewModel
-        : ViewModel<Income>
+        : UserInterface.ViewModels.IncomeViewModel
     {
         public IncomeViewModel()
-            : base(new Income { DateRealized = DateTimeOffset.Now.Date })
+            : base(Application.Current.GetResource<IncomeXmlObservableRepository>())
         {
-            Context = new IncomeModelState();
+            ModelState = new ModelState(
+                new Income
+                {
+                    DateRealized = new DateTimeOffset(DateTime.Now.Date)
+                });
         }
-
-        public dynamic Context { get; }
     }
 }

@@ -123,6 +123,22 @@ namespace BillPath.DataAccess.Xml.Tests
             Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(expectedIncome, actualIncome));
         }
 
+        [TestMethod]
+        public async Task TestWritingAndReadingAnIncomeHavingTheDateRealizedInLocalTimeReturnsTheSameIncome()
+        {
+            var expectedIncome =
+                new Income
+                {
+                    Amount = new Amount(100, new Currency(new RegionInfo("en-US"))),
+                    DateRealized = new DateTimeOffset(new DateTime(2015, 12, 1)),
+                    Description = "Test description"
+                };
+            var incomeXmlString = await _GetXmlStringFromAsync(expectedIncome);
+            var actualIncome = await _GetIncomeFrom(incomeXmlString);
+
+            Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(expectedIncome, actualIncome));
+        }
+
         private static async Task<string> _GetXmlStringFromAsync(Income income)
         {
             var resultBuilder = new StringBuilder();

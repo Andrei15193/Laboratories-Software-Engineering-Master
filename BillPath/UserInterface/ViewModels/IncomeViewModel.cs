@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using BillPath.DataAccess;
+using BillPath.DataAccess.Xml;
 using BillPath.Models;
 
 namespace BillPath.UserInterface.ViewModels
@@ -9,10 +9,10 @@ namespace BillPath.UserInterface.ViewModels
     public class IncomeViewModel
     {
         private ModelState _modelState;
-        private readonly IIncomesRepository _repository;
         private readonly DelegateAsyncCommand _saveCommand;
+        private readonly IncomeXmlRepository _repository;
 
-        public IncomeViewModel(IIncomesRepository repository)
+        public IncomeViewModel(IncomeXmlRepository repository)
         {
             if (repository == null)
                 throw new ArgumentNullException(nameof(repository));
@@ -42,6 +42,7 @@ namespace BillPath.UserInterface.ViewModels
 
         protected virtual void OnModelStateChanged()
         {
+            _modelState.PropertyChanged += delegate { _saveCommand.CanExecute = ModelState?.IsValid ?? false; };
             _saveCommand.CanExecute = ModelState?.IsValid ?? false;
         }
     }
