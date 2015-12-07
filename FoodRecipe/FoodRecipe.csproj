@@ -129,11 +129,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\PrologHelper.cs" />
+    <Compile Include="Models\FilterCriteria.cs" />
+    <Compile Include="Models\FilterIngredientInfo.cs" />
+    <Compile Include="Models\FilterIngredient.cs" />
+    <Compile Include="Models\FilterIngredientInclusionOption.cs" />
     <Compile Include="Models\Predicates\Filtering.Predicates.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Filtering.pl</DependentUpon>
     </Compile>
+    <Compile Include="Models\RecipeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +179,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Browse.cshtml" />
+    <Content Include="Views\Home\_FilterIngredient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

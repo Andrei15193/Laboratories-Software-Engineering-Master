@@ -1,8 +1,10 @@
-﻿@{
+﻿@using FoodRecipe.Models
+@model FilterCriteria
+@{
     ViewBag.Title = "Home Page";
 }
 <div class="container">
-    <form role="form">
+    <form role="form" method="get">
         <div class="form-group">
         </div>
         <div class="panel-group">
@@ -10,7 +12,7 @@
                 <div class="panel-heading">
                     <div class="panel-title">
                         <div class="input-group">
-                            <input type="text" placeholder="What recipe are you looking for?" class="form-control">
+                            <input type="text" name="@nameof(FilterCriteria.RecipeName)" value="@Model.RecipeName" placeholder="What recipe are you looking for?" class="form-control">
                             <div class="input-group-btn">
                                 <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-ok"></span></button>
                                 <button data-target="#collapse1" data-toggle="collapse" type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
@@ -24,53 +26,33 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>What would you like to cook?</label>
-                                    <select class="form-control">
-                                        <option>Soup</option>
-                                        <option>Main Course</option>
-                                        <option>Dessert</option>
-                                    </select>
+                                    @Html.EnumDropDownListFor(model => model.RecipeType, "Anything", new { @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <label>How much time should it take?</label>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input type="text" placeholder="at least (minutes)" class="form-control">
+                                            <input type="number" name="@nameof(FilterCriteria.MinPreparationTime)" value="@Model.MinPreparationTime" placeholder="at least (minutes)" class="form-control">
                                         </div>
                                         <div class="col-md-6">
-                                            <input type="text" placeholder="at most (minutes)" class="form-control">
+                                            <input type="number" name="@nameof(FilterCriteria.MaxPreparationTime)" value="@Model.MaxPreparationTime" placeholder="at most (minutes)" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>What ingredients to include?</label>
-                                    <div>
-                                        <label><input type="checkbox" /> Apples</label>
-                                    </div>
-                                    <div>
-                                        <label><input type="checkbox" /> Curry</label>
-                                    </div>
-                                    <div>
-                                        <label><input type="checkbox" /> Potatoes</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>What ingredients to exclude?</label>
-                                    <div>
-                                        <label><input type="checkbox" /> Apples</label>
-                                    </div>
-                                    <div>
-                                        <label><input type="checkbox" /> Curry</label>
-                                    </div>
-                                    <div>
-                                        <label><input type="checkbox" /> Potatoes</label>
-                                    </div>
-                                </div>
+                            <div class="col-md-8">
+                                <label>What about ingredients?</label>
+                                @foreach (var filterIngredientInfo in Model.Ingredients.Select(
+                                    (ingredient, ingredientIndex) =>
+                                        new FilterIngredientInfo
+                                        {
+                                            Ingredient = ingredient,
+                                            IngredientIndex = ingredientIndex
+                                        }))
+                                {
+                                    Html.RenderPartial("_FilterIngredient", filterIngredientInfo);
+                                }
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,40 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Reflection
+@using FoodRecipe.Models
+@model FilterIngredientInfo
+<div class="form-group">
+    <h4>
+        @(Model.Ingredient.Name)
+        <input type="hidden" name="@nameof(FilterCriteria.Ingredients)_@Model.IngredientIndex" value="@Model.Ingredient.Name" />
+    </h4>
+
+    <div class="row">
+        <div class="col-md-3">
+            @foreach (FilterIngredientInclusionOption inclusionOption in Enum.GetValues(typeof(FilterIngredientInclusionOption)))
+            {
+                <label>
+                    @if (Model.Ingredient.InclusionOption == inclusionOption)
+                    {
+                        <input type="radio" name="@nameof(FilterCriteria.Ingredients)_@(Model.IngredientIndex)@nameof(FilterIngredient.InclusionOption)" value="@inclusionOption.ToString("D")" checked="checked" />
+                    }
+                    else
+                    {
+                        <input type="radio" name="@nameof(FilterCriteria.Ingredients)_@(Model.IngredientIndex)@nameof(FilterIngredient.InclusionOption)" value="@inclusionOption.ToString("D")" />
+                    }
+                    @(typeof(FilterIngredientInclusionOption).GetMember(inclusionOption.ToString()).Single().GetCustomAttribute<DisplayAttribute>().GetName())
+                </label>
+            }
+        </div>
+        <div class="col-md-9">
+            <label>How much should it require?</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="number" name="@nameof(FilterCriteria.Ingredients)_@(Model.IngredientIndex)@nameof(FilterIngredient.MinQuantity)" value="@(Model.Ingredient?.MinQuantity)" placeholder="at least (grams, milliliters)" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <input type="number" name="@nameof(FilterCriteria.Ingredients)_@(Model.IngredientIndex)@nameof(FilterIngredient.MaxQuantity)" value="@(Model.Ingredient?.MaxQuantity)" placeholder="at least (grams, milliliters)" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
