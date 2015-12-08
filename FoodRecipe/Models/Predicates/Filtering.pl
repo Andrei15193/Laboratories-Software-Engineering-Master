@@ -105,10 +105,16 @@ check_ingredient_does_not_satisfy(CriteriaIngredient, RecipeIngredient) :-
 check_ingredient_does_not_satisfy(CriteriaIngredient, RecipeIngredient, 'False').
 check_ingredient_does_not_satisfy(CriteriaIngredient, RecipeIngredient, 'True') :-
     cs_method(CriteriaIngredient, 'get_MinQuantity', MinQuantity),
+    cs_method(CriteriaIngredient, 'get_MaxQuantity', MaxQuantity),
+    cs_object(MinQuantity),
+    cs_object(MaxQuantity),
     cs_method(RecipeIngredient, 'get_Quantity', Quantity),
     is_less_than(Quantity, MinQuantity).
 check_ingredient_does_not_satisfy(CriteriaIngredient, RecipeIngredient, 'True') :-
+    cs_method(CriteriaIngredient, 'get_MinQuantity', MinQuantity),
     cs_method(CriteriaIngredient, 'get_MaxQuantity', MaxQuantity),
+    cs_object(MinQuantity),
+    cs_object(MaxQuantity),
     cs_method(RecipeIngredient, 'get_Quantity', Quantity),
     is_greater_than(Quantity, MaxQuantity).
 

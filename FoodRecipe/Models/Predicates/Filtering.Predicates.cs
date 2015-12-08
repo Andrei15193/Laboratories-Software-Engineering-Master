@@ -643,11 +643,12 @@ sealed class CheckIngredientDoesNotSatisfy_3_1 : CheckIngredientDoesNotSatisfy_3
 sealed class CheckIngredientDoesNotSatisfy_3_2 : CheckIngredientDoesNotSatisfy_3 {
     static internal readonly SymbolTerm s1 = SymbolTerm.MakeSymbol("True");
     static internal readonly SymbolTerm s2 = SymbolTerm.MakeSymbol("get_MinQuantity");
-    static internal readonly SymbolTerm s3 = SymbolTerm.MakeSymbol("get_Quantity");
+    static internal readonly SymbolTerm s3 = SymbolTerm.MakeSymbol("get_MaxQuantity");
+    static internal readonly SymbolTerm s4 = SymbolTerm.MakeSymbol("get_Quantity");
 
     public override Predicate exec( Prolog engine ) {
-        Term a1, a2, a3, a4, a5;
-        Predicate p1, p2;
+        Term a1, a2, a3, a4, a5, a6;
+        Predicate p1, p2, p3, p4, p5;
         a1 = engine.aregs[1].Dereference();
         a2 = engine.aregs[2].Dereference();
         a3 = engine.aregs[3].Dereference();
@@ -656,20 +657,25 @@ sealed class CheckIngredientDoesNotSatisfy_3_2 : CheckIngredientDoesNotSatisfy_3
         if ( !s1.Unify(a3, engine.trail) ) return engine.fail();
         a4 = engine.makeVariable();
         a5 = engine.makeVariable();
-        p1 = new IsLessThan_2(a5, a4, cont);
-        p2 = new dollar_csMethod_3(a2, s3, a5, p1);
-        return new dollar_csMethod_3(a1, s2, a4, p2);
+        a6 = engine.makeVariable();
+        p1 = new IsLessThan_2(a6, a4, cont);
+        p2 = new dollar_csMethod_3(a2, s4, a6, p1);
+        p3 = new dollar_csObject_1(a5, p2);
+        p4 = new dollar_csObject_1(a4, p3);
+        p5 = new dollar_csMethod_3(a1, s3, a5, p4);
+        return new dollar_csMethod_3(a1, s2, a4, p5);
     }
 }
 
 sealed class CheckIngredientDoesNotSatisfy_3_3 : CheckIngredientDoesNotSatisfy_3 {
     static internal readonly SymbolTerm s1 = SymbolTerm.MakeSymbol("True");
-    static internal readonly SymbolTerm s2 = SymbolTerm.MakeSymbol("get_MaxQuantity");
-    static internal readonly SymbolTerm s3 = SymbolTerm.MakeSymbol("get_Quantity");
+    static internal readonly SymbolTerm s2 = SymbolTerm.MakeSymbol("get_MinQuantity");
+    static internal readonly SymbolTerm s3 = SymbolTerm.MakeSymbol("get_MaxQuantity");
+    static internal readonly SymbolTerm s4 = SymbolTerm.MakeSymbol("get_Quantity");
 
     public override Predicate exec( Prolog engine ) {
-        Term a1, a2, a3, a4, a5;
-        Predicate p1, p2;
+        Term a1, a2, a3, a4, a5, a6;
+        Predicate p1, p2, p3, p4, p5;
         a1 = engine.aregs[1].Dereference();
         a2 = engine.aregs[2].Dereference();
         a3 = engine.aregs[3].Dereference();
@@ -678,9 +684,13 @@ sealed class CheckIngredientDoesNotSatisfy_3_3 : CheckIngredientDoesNotSatisfy_3
         if ( !s1.Unify(a3, engine.trail) ) return engine.fail();
         a4 = engine.makeVariable();
         a5 = engine.makeVariable();
-        p1 = new IsGreaterThan_2(a5, a4, cont);
-        p2 = new dollar_csMethod_3(a2, s3, a5, p1);
-        return new dollar_csMethod_3(a1, s2, a4, p2);
+        a6 = engine.makeVariable();
+        p1 = new IsGreaterThan_2(a6, a5, cont);
+        p2 = new dollar_csMethod_3(a2, s4, a6, p1);
+        p3 = new dollar_csObject_1(a5, p2);
+        p4 = new dollar_csObject_1(a4, p3);
+        p5 = new dollar_csMethod_3(a1, s3, a5, p4);
+        return new dollar_csMethod_3(a1, s2, a4, p5);
     }
 }
 }
