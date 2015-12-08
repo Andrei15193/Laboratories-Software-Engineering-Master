@@ -50,6 +50,9 @@ namespace PSharpCodeFileGenerator
                 if (!string.IsNullOrWhiteSpace(wszDefaultNamespace))
                     resultFile.Replace("namespace JJC.Psharp.Predicates", $"namespace {wszDefaultNamespace}");
 
+                resultFile.Replace("using Predicates = JJC.Psharp.Predicates;", "using JJC.Psharp.Predicates;");
+                resultFile.Replace("new Predicates.", "new ");
+
                 byte[] resultFileBytes = Encoding.UTF8.GetBytes(resultFile.ToString());
                 rgbOutputFileContents[0] = Marshal.AllocCoTaskMem(resultFileBytes.Length);
                 Marshal.Copy(resultFileBytes, 0, rgbOutputFileContents[0], resultFileBytes.Length);

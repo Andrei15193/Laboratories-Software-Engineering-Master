@@ -2,32 +2,33 @@
 
 namespace FoodRecipe.Models
 {
-    public class FilterCriteria
+    public class Recipe
     {
-        public string RecipeName
+        public string Name
         {
             get;
             set;
         }
 
-        public RecipeType? RecipeType
+        public string Description
         {
             get;
             set;
         }
 
-        public double? MinPreparationTime
-        {
-            get;
-            set;
-        }
-        public double? MaxPreparationTime
+        public RecipeType RecipeType
         {
             get;
             set;
         }
 
-        public IEnumerable<FilterIngredient> Ingredients
+        public double EstimatedPreparationTimeMinutes
+        {
+            get;
+            set;
+        }
+
+        public IEnumerable<RecipeIngredient> Ingredients
         {
             get;
             set;
