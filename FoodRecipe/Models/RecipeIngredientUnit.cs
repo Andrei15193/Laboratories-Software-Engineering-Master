@@ -2,7 +2,14 @@
 {
     public enum RecipeIngredientUnit
     {
-        Grams,
-        Millileters
+        Lbs,
+        Millileters,
+        Clove,
+        Cups,
+        TableSpoon,
+        TeaSpoon,
+        None,
+        Ounce,
+        Medium
     }
 }

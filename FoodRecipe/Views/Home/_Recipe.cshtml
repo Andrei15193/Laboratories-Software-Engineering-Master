@@ -37,7 +37,7 @@
                     <p style="text-align: left;">
                         <strong>Used ingredients:</strong>
                         @string.Join(", ", from ingredient in Model.Ingredients
-                                           select $"{ingredient.Name} ({ingredient.Quantity} {ingredient.Unit.ToString()})")
+                                           select $"{ingredient.Name} ({ingredient.Quantity}{(ingredient.Unit == RecipeIngredientUnit.None ? string.Empty : " " + ingredient.Unit.ToString().ToLowerInvariant())})")
                     </p>
                 </div>
             </div>

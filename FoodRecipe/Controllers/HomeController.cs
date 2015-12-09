@@ -11,35 +11,12 @@ namespace FoodRecipe.Controllers
     public class HomeController
         : Controller
     {
-        private class RecipeRepositoryMock
-            : IRecipeRepository
-        {
-            public IEnumerable<Recipe> GetAll()
-                => from number in Enumerable.Range(1, 4)
-                   select new Recipe
-                   {
-                       Name = "test " + number.ToString(),
-                       Description = "test",
-                       EstimatedPreparationTimeMinutes = 10 * number,
-                       RecipeType = Enum.GetValues(typeof(RecipeType)).Cast<RecipeType>().ElementAt(number % Enum.GetValues(typeof(RecipeType)).Length),
-                       Ingredients = Enumerable
-                           .Range(1, number)
-                           .Select(ingredientNumber =>
-                               new RecipeIngredient
-                               {
-                                   Name = "test " + ingredientNumber.ToString(),
-                                   Quantity = number * ingredientNumber,
-                                   Unit = RecipeIngredientUnit.Grams
-                               })
-                   };
-        }
-
         private readonly IRecipeRepository _repository;
         private readonly IRecipeFilter _recipeFilter;
 
         public HomeController()
         {
-            _repository = new RecipeRepositoryMock();
+            _repository = new AzureTableRecipeRepository();
             _recipeFilter = new PSharpRecipeFilter(_repository);
         }
 
