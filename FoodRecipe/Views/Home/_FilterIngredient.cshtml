@@ -29,10 +29,10 @@
             <label>How much should it require?</label>
             <div class="row">
                 <div class="col-md-6">
-                    <input type="number" name="@nameof(FilterCriteria.Ingredients)_@(Model.IngredientIndex)@nameof(FilterIngredient.MinQuantity)" value="@(Model.Ingredient?.MinQuantity)" placeholder="at least (grams, milliliters)" class="form-control">
+                    <input type="number" name="@nameof(FilterCriteria.Ingredients)_@(Model.IngredientIndex)@nameof(FilterIngredient.MinQuantity)" value="@(Model.Ingredient?.MinQuantity)" placeholder="at least (lbs, cups and so on)" class="form-control">
                 </div>
                 <div class="col-md-6">
-                    <input type="number" name="@nameof(FilterCriteria.Ingredients)_@(Model.IngredientIndex)@nameof(FilterIngredient.MaxQuantity)" value="@(Model.Ingredient?.MaxQuantity)" placeholder="at least (grams, milliliters)" class="form-control">
+                    <input type="number" name="@nameof(FilterCriteria.Ingredients)_@(Model.IngredientIndex)@nameof(FilterIngredient.MaxQuantity)" value="@(Model.Ingredient?.MaxQuantity)" placeholder="at least (lbs, cups and so on)" class="form-control">
                 </div>
             </div>
         </div>
