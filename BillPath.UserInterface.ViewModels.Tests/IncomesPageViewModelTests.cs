@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using BillPath.DataAccess.Xml;
@@ -12,14 +13,14 @@ namespace BillPath.UserInterface.ViewModels.Tests
     [TestClass]
     public class IncomesPageViewModelTests
     {
-        private IncomeXmlRepositoryMock _repository;
+        private IncomeXmlMemoryStreamRepository _repository;
         private IncomeXmlObservableRepository _observableRepository;
         private IncomesPageViewModel _viewModel;
 
         [TestInitialize]
         public async Task TestInitialize()
         {
-            _repository = new IncomeXmlRepositoryMock();
+            _repository = new IncomeXmlMemoryStreamRepository();
             _observableRepository = new IncomeXmlObservableRepository(_repository);
             _viewModel = new IncomesPageViewModel(_observableRepository);
 
@@ -304,6 +305,60 @@ namespace BillPath.UserInterface.ViewModels.Tests
             Assert.IsFalse(
                 extraIncomeIndexesOnPage.Any(),
                 $"Unexpected incomes: {string.Join(", ", extraIncomeIndexesOnPage)}");
+        }
+
+        [DataTestMethod]
+        [DataRow(1, 0, 0)]
+        [DataRow(11, 0, 1)]
+        [DataRow(11, 5, 1)]
+        [DataRow(11, 10, 1)]
+        [DataRow(21, 0, 2)]
+        [DataRow(21, 1, 2)]
+        [DataRow(21, 2, 2)]
+        [DataRow(21, 3, 2)]
+        [DataRow(21, 5, 2)]
+        [DataRow(21, 8, 2)]
+        [DataRow(21, 13, 2)]
+        [DataRow(21, 20, 2)]
+        public async Task TestRemovingIncomeWhichRemovesAPageUpdatesPagesCount(int totalIncomeCount, int indexToRemove, int expectedPageCount)
+        {
+            var incomeToRemove =
+                new Income
+                {
+                    Amount = new Amount(100, new Currency(new RegionInfo("en-US"))),
+                    DateRealized = new DateTimeOffset(new DateTime(2015, 12, 6), new TimeSpan()),
+                    Description = "Test description " + indexToRemove.ToString()
+                };
+
+            for (var incomeIndex = 0; incomeIndex < totalIncomeCount; incomeIndex++)
+                await _observableRepository.SaveAsync(
+                    new Income
+                    {
+                        Amount = new Amount(100, new Currency(new RegionInfo("en-US"))),
+                        DateRealized = new DateTimeOffset(new DateTime(2015, 12, 6), new TimeSpan()),
+                        Description = "Test description " + incomeIndex.ToString()
+                    });
+
+            await _observableRepository.RemoveAsync(incomeToRemove);
+
+            Assert.AreEqual(expectedPageCount, _viewModel.PagesCount);
+        }
+
+        [DataTestMethod]
+        [DataRow(1)]
+        [DataRow(2)]
+        [DataRow(3)]
+        [DataRow(5)]
+        [DataRow(8)]
+        public async Task TestLoadedIncomesOntoPageCanBeRemoved(int totalIncomeCount)
+        {
+            for (var incomeIndex = 0; incomeIndex < totalIncomeCount; incomeIndex++)
+                await _observableRepository.SaveAsync(new Income());
+
+            await _WaitLoadViewModelAsync();
+
+            foreach (var incomeViewModel in _viewModel.Items)
+                Assert.IsTrue(incomeViewModel.RemoveCommand.CanExecute);
         }
     }
 }

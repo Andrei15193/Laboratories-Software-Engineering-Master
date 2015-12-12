@@ -18,7 +18,7 @@ namespace BillPath.UserInterface.ViewModels
         private IEnumerable<IncomeViewModel> _items;
         private volatile Task _loadingTask;
         private readonly TaskScheduler _taskScheduler;
-        private readonly IncomeXmlRepository _repository;
+        private readonly IIncomeXmlRepository _repository;
 
         public IncomesPageViewModel(IncomeXmlObservableRepository repository)
         {
@@ -32,6 +32,7 @@ namespace BillPath.UserInterface.ViewModels
             _loadingTask = _LoadAsync(1, CancellationToken.None);
 
             repository.SavedIncome += async delegate { await _LoadAsync(SelectedPage, CancellationToken.None); };
+            repository.RemovedIncome += async delegate { await _LoadAsync(SelectedPage, CancellationToken.None); };
         }
 
         private AsyncCommand _GetGoToNextPageCommand()
@@ -72,14 +73,14 @@ namespace BillPath.UserInterface.ViewModels
                 var skippedItems = 0;
                 int totalIncomes;
 
-                using (var reader = _repository.GetReader())
+                using (var reader = await _repository.GetReaderAsync(cancellationToken))
                 {
                     while (skippedItems < _itemsPerPage * (pageNumber - 1) && await reader.ReadAsync(cancellationToken))
                         skippedItems++;
                     totalIncomes = skippedItems;
 
                     while (incomes.Count < _itemsPerPage && await reader.ReadAsync(cancellationToken))
-                        incomes.Add(new IncomeViewModel(_repository) { ModelState = new ModelState(reader.Current) });
+                        incomes.Add(new IncomeViewModel(_repository, reader.Current));
                     totalIncomes += incomes.Count;
 
                     while (await reader.ReadAsync(cancellationToken))

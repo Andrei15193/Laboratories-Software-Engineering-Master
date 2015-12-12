@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BillPath.Models;
@@ -13,13 +11,8 @@ namespace BillPath.DataAccess.Xml.Tests
     [TestClass]
     public class IncomeXmlRepositoryReaderTests
     {
-        [DataTestMethod]
-        [DataRow(1)]
-        [DataRow(2)]
-        [DataRow(3)]
-        [DataRow(5)]
-        [DataRow(8)]
-        public async Task TestCreatingReaderOverStreamsContainingOneIncomeLoadsItInCurrentAfterRead(int streamRepeatCount)
+        [TestMethod]
+        public async Task TestCreatingReaderOverStreamsContainingOneIncomeLoadsItInCurrentAfterRead()
         {
             var expectedIncome =
                 new Income
@@ -30,12 +23,11 @@ namespace BillPath.DataAccess.Xml.Tests
             using (var inputXmlStream = _GetStreamContaining(@"<income dateRealized=""2015/12/2 00:00:00:0000000 +00:00"">"
                                                                + @"<amount value=""100"" isoCode=""USD"" symbol=""$"" />"
                                                            + @"</income>"))
-            using (var reader = new IncomeXmlRepository.Reader(_RepeatCopy(inputXmlStream, streamRepeatCount).GetEnumerator()))
-                for (var incomeIndex = 0; incomeIndex < streamRepeatCount; incomeIndex++)
-                {
-                    Assert.IsTrue(await reader.ReadAsync());
-                    Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(expectedIncome, reader.Current));
-                }
+            using (var reader = new IncomeXmlRepository.Reader(inputXmlStream))
+            {
+                Assert.IsTrue(await reader.ReadAsync());
+                Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(expectedIncome, reader.Current));
+            }
         }
         [TestMethod]
         public async Task TestCreatingReaderOverStreamsContainingTwoIncomesLoadsThemIntoCurrentAfterRead()
@@ -58,7 +50,7 @@ namespace BillPath.DataAccess.Xml.Tests
                                                            + @"<income dateRealized=""2015/12/2 00:00:00:0000000 +00:00"">"
                                                                + @"<amount value=""100"" isoCode=""USD"" symbol=""$"" />"
                                                            + @"</income>"))
-            using (var reader = new IncomeXmlRepository.Reader(Enumerable.Repeat(inputXmlStream, 1).GetEnumerator()))
+            using (var reader = new IncomeXmlRepository.Reader(inputXmlStream))
             {
                 Assert.IsTrue(await reader.ReadAsync());
                 Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(expectedIncome1, reader.Current));
@@ -69,39 +61,10 @@ namespace BillPath.DataAccess.Xml.Tests
 
         [TestMethod]
         public void TestExceptionIsThrownIfCurrentIsAccessedBeforeRead()
-            => Assert.ThrowsException<InvalidOperationException>(
-                () => new IncomeXmlRepository.Reader(Enumerable.Empty<Stream>().GetEnumerator()).Current);
-
-        [DataTestMethod]
-        [DataRow(1)]
-        [DataRow(2)]
-        [DataRow(3)]
-        [DataRow(5)]
-        [DataRow(8)]
-        public async Task TestExceptionIsThrownIfCurrentIsAccessedAfterReadReturnedFalse(int streamRepeatCount)
         {
-            using (var inputXmlStream = _GetStreamContaining(@"<income dateRealized=""2015/12/2 00:00:00:0000000 +00:00"">"
-                                                               + @"<amount value=""100"" isoCode=""USD"" symbol=""$"" />"
-                                                           + @"</income>"))
-            using (var reader = new IncomeXmlRepository.Reader(_RepeatCopy(inputXmlStream, streamRepeatCount).GetEnumerator()))
-            {
-                while (await reader.ReadAsync())
-                    ;
-                Assert.ThrowsException<InvalidOperationException>(() => reader.Current);
-            }
-        }
-
-        private IEnumerable<Stream> _RepeatCopy(Stream stream, int count)
-        {
-            for (var streamIndex = 0; streamIndex < count; streamIndex++)
-            {
-                var streamCopy = new MemoryStream();
-                stream.CopyTo(streamCopy);
-                stream.Seek(0, SeekOrigin.Begin);
-                streamCopy.Seek(0, SeekOrigin.Begin);
-
-                yield return streamCopy;
-            }
+            using (var emptyStream = new MemoryStream())
+                Assert.ThrowsException<InvalidOperationException>(
+                    () => new IncomeXmlRepository.Reader(emptyStream).Current);
         }
 
         private static Stream _GetStreamContaining(string content)

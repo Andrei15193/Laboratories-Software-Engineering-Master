@@ -17,7 +17,7 @@
         <providers:CurrencyDisplayFormatProvider
             x:Key="CurrencyDisplayFormatProvider" />
 
-        <dataAccessMocks:IncomeXmlRepositoryMock
+        <dataAccessMocks:IncomeXmlMemoryStreamRepository
             x:Key="IncomeXmlRepository" />
         <resourceBinders:IncomeXmlObservableRepository
             x:Key="IncomeXmlObservableRepository" />

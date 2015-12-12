@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BillPath.Modern"
     xmlns:display="using:BillPath.Modern.Controls.Display"
+    xmlns:edit="using:BillPath.Modern.Controls.Edit"
     xmlns:viewModels="using:BillPath.Modern.ResourceBinders"
     xmlns:converters="using:BillPath.Modern.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -86,7 +87,27 @@
                 ItemsSource="{Binding
                     Path=Items,
                     Mode=OneWay}"
-                SelectionMode="Multiple">
+                SelectionMode="None"
+                IsItemClickEnabled="True"
+                ItemClick="_ShowIncomeEditFlyout">
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout>
+                        <StackPanel
+                            x:Name="IncomeEditGrid">
+                            <edit:IncomeView
+                                DataContext="{Binding 
+                                    Path=ModelState}" />
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <Button
+                                    Command="{Binding
+                                        Path=RemoveCommand,
+                                        Converter={StaticResource CommandConverter}}"
+                                    Content="Delete"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
                 <ListView.Resources>
                     <Style
                         TargetType="ListViewItem">

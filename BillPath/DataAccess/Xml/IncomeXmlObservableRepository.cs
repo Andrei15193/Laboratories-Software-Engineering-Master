@@ -6,7 +6,7 @@ using BillPath.Models;
 namespace BillPath.DataAccess.Xml
 {
     public class IncomeXmlObservableRepository
-        : IncomeXmlRepository
+        : IIncomeXmlRepository
     {
         private readonly IncomeXmlRepository _repository;
 
@@ -16,14 +16,26 @@ namespace BillPath.DataAccess.Xml
         }
 
         public event EventHandler SavedIncome;
+        public event EventHandler RemovedIncome;
 
-        public override Reader GetReader()
-            => _repository.GetReader();
+        public Task<IIncomeXmlReader> GetReaderAsync()
+            => GetReaderAsync(CancellationToken.None);
+        public Task<IIncomeXmlReader> GetReaderAsync(CancellationToken cancellationToken)
+            => _repository.GetReaderAsync(cancellationToken);
 
-        public override async Task SaveAsync(Income income, CancellationToken cancellationToken)
+        public Task SaveAsync(Income income)
+            => SaveAsync(income, CancellationToken.None);
+        public async Task SaveAsync(Income income, CancellationToken cancellationToken)
         {
             await _repository.SaveAsync(income, cancellationToken);
             SavedIncome?.Invoke(this, EventArgs.Empty);
+        }
+        public Task RemoveAsync(Income income)
+            => RemoveAsync(income, CancellationToken.None);
+        public async Task RemoveAsync(Income income, CancellationToken cancellationToken)
+        {
+            await _repository.RemoveAsync(income, cancellationToken);
+            RemovedIncome?.Invoke(this, EventArgs.Empty);
         }
     }
 }

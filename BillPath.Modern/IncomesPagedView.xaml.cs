@@ -7,6 +7,7 @@ using BillPath.UserInterface.ViewModels;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 
 namespace BillPath.Modern
@@ -95,6 +96,13 @@ namespace BillPath.Modern
                 && GoToPageFlyoutButton.IsEnabled
                 && GoToPageFlyoutButton.Command.CanExecute(null))
                 GoToPageFlyoutButton.Command.Execute(null);
+        }
+
+        private void _ShowIncomeEditFlyout(object sender, ItemClickEventArgs e)
+        {
+            IncomeEditGrid.DataContext = e.ClickedItem;
+            var flyout = (Flyout)FlyoutBase.GetAttachedFlyout(IncomesListView);
+            flyout.ShowAt(IncomesListView);
         }
     }
 }
