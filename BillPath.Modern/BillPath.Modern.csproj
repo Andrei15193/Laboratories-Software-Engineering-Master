@@ -168,6 +168,7 @@
     <Compile Include="ResourceBinders\IncomesPageViewModel.cs" />
     <Compile Include="Mocks\SettingsRepository.cs" />
     <Compile Include="ResourceBinders\IncomeXmlObservableRepository.cs" />
+    <Compile Include="ResourceBinders\IncomeXmlRepository.cs" />
     <Compile Include="ResourceBinders\SettingsViewModel.cs" />
     <Compile Include="ModernAppFileProvider.cs" />
     <Compile Include="Overview.xaml.cs">

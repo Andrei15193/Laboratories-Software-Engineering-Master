@@ -7,7 +7,7 @@ namespace BillPath.Modern.ResourceBinders
         : DataAccess.Xml.IncomeXmlObservableRepository
     {
         public IncomeXmlObservableRepository()
-            : base(Application.Current.GetResource<IncomeXmlRepository>())
+            : base(Application.Current.GetResource<IIncomeXmlRepository>(nameof(IncomeXmlRepository)))
         {
         }
     }

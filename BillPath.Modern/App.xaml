@@ -12,18 +12,23 @@
         <commands:ShowAttachedFlyoutCommand
             x:Key="ShowAttachedFlyoutCommand" />
 
+        <x:String
+            x:Key="SettingsFileName">Settings.xml</x:String>
+        <x:String
+            x:Key="IncomesFileName">Incomes.xml</x:String>
+
         <providers:CurrencyProvider
             x:Key="CurrencyProvider" />
         <providers:CurrencyDisplayFormatProvider
             x:Key="CurrencyDisplayFormatProvider" />
 
         <dataAccess:IncomeXmlMockRepository
+            x:Key="DEBUG_IncomeXmlRepository" />
+        <resourceBinders:IncomeXmlRepository
             x:Key="IncomeXmlRepository" />
         <resourceBinders:IncomeXmlObservableRepository
             x:Key="IncomeXmlObservableRepository" />
-
-        <x:String
-            x:Key="SettingsFileName">Settings.xml</x:String>
+        
         <converters:LocalizationConverter
             x:Key="LocalizationConverter" />
         <converters:IdealReadingColorCoverter

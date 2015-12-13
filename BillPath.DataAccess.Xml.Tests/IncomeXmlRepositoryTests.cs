@@ -14,24 +14,33 @@ namespace BillPath.DataAccess.Xml.Tests
         protected abstract IIncomeXmlRepository CreateRepository();
 
         [TestInitialize]
-        public void TestInitialize()
+        public async Task TestInitialize()
         {
+            await OnTestInitializingAsync();
+
             _repository = CreateRepository();
+
+            await OnTestInitializedAsync();
         }
-        protected virtual void OnTestInitialize()
-        {
-        }
+        protected virtual Task OnTestInitializingAsync()
+            => Task.FromResult(default(object));
+        protected virtual Task OnTestInitializedAsync()
+            => Task.FromResult(default(object));
 
         [TestCleanup]
-        public void TestCleanup()
+        public async Task TestCleanup()
         {
+            await OnTestCleaningUpAsync();
+
             (_repository as IDisposable)?.Dispose();
             _repository = null;
-            OnTestCleanup();
+
+            await OnTestCleanedUpAsync();
         }
-        protected virtual void OnTestCleanup()
-        {
-        }
+        protected virtual Task OnTestCleaningUpAsync()
+            => Task.FromResult(default(object));
+        protected virtual Task OnTestCleanedUpAsync()
+            => Task.FromResult(default(object));
 
         [TestMethod]
         public async Task TestCreatingNewRepositoryRetrievesNoIncomes()

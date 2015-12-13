@@ -1,13 +1,14 @@
 ﻿using System;
 #if DEBUG
 using System.Diagnostics;
-using BillPath.Models;
+using Windows.UI.ApplicationSettings;
 #endif
+using BillPath.Models;
 using BillPath.Models.States.Providers;
 using BillPath.UserInterface.ViewModels;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.UI.ApplicationSettings;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -32,8 +33,14 @@ namespace BillPath.Modern
 #if DEBUG
             if (Debugger.IsAttached)
                 DebugSettings.EnableFrameRateCounter = true;
+
+            Debug.WriteLine($"Version: {ApplicationData.Current.Version}");
+            Debug.WriteLine($"Local folder: {ApplicationData.Current.LocalFolder.Path}");
+            Debug.WriteLine($"Temporary folder: {ApplicationData.Current.TemporaryFolder.Path}");
+            Debug.WriteLine($"Roaming folder: {ApplicationData.Current.RoamingFolder.Path}");
 #endif
             await Current.GetResource<SettingsViewModel>()?.LoadCommand.ExecuteAsync(null);
+
 
             Frame rootFrame = Window.Current.Content as Frame;
 

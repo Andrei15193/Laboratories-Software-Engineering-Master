@@ -8,9 +8,9 @@ namespace BillPath.DataAccess.Xml
     public class IncomeXmlObservableRepository
         : IIncomeXmlRepository
     {
-        private readonly IncomeXmlRepository _repository;
+        private readonly IIncomeXmlRepository _repository;
 
-        public IncomeXmlObservableRepository(IncomeXmlRepository repository)
+        public IncomeXmlObservableRepository(IIncomeXmlRepository repository)
         {
             _repository = repository;
         }

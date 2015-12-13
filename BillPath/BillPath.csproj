@@ -109,6 +109,7 @@
     <Compile Include="DataAccess\SettingsRepository.cs" />
     <Compile Include="DataAccess\Xml\IIncomeXmlReader.cs" />
     <Compile Include="DataAccess\Xml\IIncomeXmlRepository.cs" />
+    <Compile Include="DataAccess\Xml\IncomeXmlFileRepository.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlObservableRepository.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlRepository.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlTranslator.cs" />
