@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BillPath.DataAccess.Xml.Mock
 {
-    public sealed class IncomeXmlMemoryStreamRepository
+    public sealed class IncomeXmlMockRepository
         : IncomeXmlRepository, IDisposable
     {
         private sealed class FakeStream : Stream

@@ -13,14 +13,14 @@ namespace BillPath.UserInterface.ViewModels.Tests
     [TestClass]
     public class IncomesPageViewModelTests
     {
-        private IncomeXmlMemoryStreamRepository _repository;
+        private IncomeXmlMockRepository _repository;
         private IncomeXmlObservableRepository _observableRepository;
         private IncomesPageViewModel _viewModel;
 
         [TestInitialize]
         public async Task TestInitialize()
         {
-            _repository = new IncomeXmlMemoryStreamRepository();
+            _repository = new IncomeXmlMockRepository();
             _observableRepository = new IncomeXmlObservableRepository(_repository);
             _viewModel = new IncomesPageViewModel(_observableRepository);
 

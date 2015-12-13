@@ -11,7 +11,7 @@ namespace BillPath.DataAccess.Xml
         : IIncomeXmlRepository
     {
         private const string _rootElementName = "incomes";
-        protected static XmlTranslator<Income> Translator { get; } = new IncomeXmlTranslator();
+        private static readonly XmlTranslator<Income> _translator = new IncomeXmlTranslator();
 
         public sealed class Reader
             : IIncomeXmlReader
@@ -52,12 +52,23 @@ namespace BillPath.DataAccess.Xml
                             ConformanceLevel = ConformanceLevel.Auto,
                             CloseInput = true
                         });
-                    _currentIncome = await Translator.ReadFromAsync(_currentXmlReader, cancellationToken);
+                    _currentIncome = await _translator.ReadFromAsync(_currentXmlReader, cancellationToken);
                 }
                 else if (_currentIncome != null)
-                    _currentIncome = await Translator.ReadFromAsync(_currentXmlReader, cancellationToken);
+                    _currentIncome = await _translator.ReadFromAsync(_currentXmlReader, cancellationToken);
 
                 return _currentIncome != null;
+            }
+
+            public Task SkipAsync(int count)
+                => SkipAsync(count, CancellationToken.None);
+            public async Task SkipAsync(int count, CancellationToken cancellationToken)
+            {
+                if (count < 0)
+                    throw new ArgumentException("Must be greater than or equal to zero.", nameof(count));
+
+                while (count > 0 && await ReadAsync(cancellationToken))
+                    count--;
             }
 
             public void Dispose()
@@ -84,6 +95,26 @@ namespace BillPath.DataAccess.Xml
         public async Task<IIncomeXmlReader> GetReaderAsync(CancellationToken cancellationToken)
             => new Reader(await GetReadStreamAsync(cancellationToken));
 
+        public Task<int> GetCountAsync()
+            => GetCountAsync(CancellationToken.None);
+        public async Task<int> GetCountAsync(CancellationToken cancellationToken)
+        {
+            using (var xmlReader = XmlReader.Create(
+                await GetReadStreamAsync(cancellationToken),
+                new XmlReaderSettings
+                {
+                    Async = true,
+                    ConformanceLevel = ConformanceLevel.Auto,
+                    CloseInput = true
+                }))
+            {
+                if (await xmlReader.ReadUntilAsync(_rootElementName, cancellationToken))
+                    return int.Parse(xmlReader.GetAttribute("count"));
+                else
+                    return 0;
+            }
+        }
+
         public Task SaveAsync(Income income)
             => SaveAsync(income, CancellationToken.None);
         public async Task SaveAsync(Income income, CancellationToken cancellationToken)
@@ -100,6 +131,7 @@ namespace BillPath.DataAccess.Xml
                 {
                     await xmlWriter.WriteStartDocumentAsync(true);
                     await xmlWriter.WriteStartElementAsync(null, _rootElementName, null);
+                    await xmlWriter.WriteAttributeStringAsync(null, "count", null, (await GetCountAsync(cancellationToken) + 1).ToString());
                     cancellationToken.ThrowIfCancellationRequested();
 
                     using (var incomeReader = await GetReaderAsync(cancellationToken))
@@ -107,15 +139,15 @@ namespace BillPath.DataAccess.Xml
                         var hasCurrent = false;
                         while (!hasCurrent && await incomeReader.ReadAsync(cancellationToken))
                             if (incomeReader.Current.DateRealized > income.DateRealized)
-                                await Translator.WriteToAsync(xmlWriter, incomeReader.Current, cancellationToken);
+                                await _translator.WriteToAsync(xmlWriter, incomeReader.Current, cancellationToken);
                             else
                                 hasCurrent = true;
 
-                        await Translator.WriteToAsync(xmlWriter, income, cancellationToken);
+                        await _translator.WriteToAsync(xmlWriter, income, cancellationToken);
 
                         if (hasCurrent)
                             do
-                                await Translator.WriteToAsync(xmlWriter, incomeReader.Current, cancellationToken);
+                                await _translator.WriteToAsync(xmlWriter, incomeReader.Current, cancellationToken);
                             while (await incomeReader.ReadAsync(cancellationToken));
                     }
 
@@ -136,6 +168,8 @@ namespace BillPath.DataAccess.Xml
         {
             using (var temporaryStream = new MemoryStream())
             {
+                var found = false;
+
                 using (var xmlWriter = XmlWriter.Create(
                     temporaryStream,
                     new XmlWriterSettings
@@ -146,20 +180,19 @@ namespace BillPath.DataAccess.Xml
                 {
                     await xmlWriter.WriteStartDocumentAsync(true);
                     await xmlWriter.WriteStartElementAsync(null, _rootElementName, null);
+                    await xmlWriter.WriteAttributeStringAsync(null, "count", null, (await GetCountAsync(cancellationToken) - 1).ToString());
                     cancellationToken.ThrowIfCancellationRequested();
 
                     using (var incomeReader = await GetReaderAsync(cancellationToken))
                     {
-                        var found = false;
-
                         while (!found && await incomeReader.ReadAsync(cancellationToken))
                             if (IncomeEqualityComparer.Instance.Equals(incomeReader.Current, income))
                                 found = true;
                             else
-                                await Translator.WriteToAsync(xmlWriter, incomeReader.Current, cancellationToken);
+                                await _translator.WriteToAsync(xmlWriter, incomeReader.Current, cancellationToken);
 
                         while (await incomeReader.ReadAsync(cancellationToken))
-                            await Translator.WriteToAsync(xmlWriter, incomeReader.Current, cancellationToken);
+                            await _translator.WriteToAsync(xmlWriter, incomeReader.Current, cancellationToken);
                     }
 
                     await xmlWriter.WriteEndElementAsync();
@@ -167,9 +200,12 @@ namespace BillPath.DataAccess.Xml
                     cancellationToken.ThrowIfCancellationRequested();
                 }
 
-                temporaryStream.Seek(0, SeekOrigin.Begin);
-                using (var resultStream = await GetWriteStreamAsync(cancellationToken))
-                    await temporaryStream.CopyToAsync(resultStream, StreamBufferSize, cancellationToken);
+                if (found)
+                {
+                    temporaryStream.Seek(0, SeekOrigin.Begin);
+                    using (var resultStream = await GetWriteStreamAsync(cancellationToken))
+                        await temporaryStream.CopyToAsync(resultStream, StreamBufferSize, cancellationToken);
+                }
             }
         }
     }

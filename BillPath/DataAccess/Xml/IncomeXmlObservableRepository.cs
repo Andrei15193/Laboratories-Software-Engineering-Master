@@ -23,6 +23,11 @@ namespace BillPath.DataAccess.Xml
         public Task<IIncomeXmlReader> GetReaderAsync(CancellationToken cancellationToken)
             => _repository.GetReaderAsync(cancellationToken);
 
+        public Task<int> GetCountAsync()
+            => GetCountAsync(CancellationToken.None);
+        public Task<int> GetCountAsync(CancellationToken cancellationToken)
+            => _repository.GetCountAsync(cancellationToken);
+
         public Task SaveAsync(Income income)
             => SaveAsync(income, CancellationToken.None);
         public async Task SaveAsync(Income income, CancellationToken cancellationToken)

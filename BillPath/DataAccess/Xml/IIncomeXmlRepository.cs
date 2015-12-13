@@ -9,6 +9,9 @@ namespace BillPath.DataAccess.Xml
         Task<IIncomeXmlReader> GetReaderAsync();
         Task<IIncomeXmlReader> GetReaderAsync(CancellationToken cancellationToken);
 
+        Task<int> GetCountAsync();
+        Task<int> GetCountAsync(CancellationToken cancellationToken);
+
         Task SaveAsync(Income income);
         Task SaveAsync(Income income, CancellationToken cancellationToken);
 

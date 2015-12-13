@@ -16,7 +16,6 @@ namespace BillPath.UserInterface.ViewModels
         private int _selectedPage;
         private int _pagesCount;
         private IEnumerable<IncomeViewModel> _items;
-        private volatile Task _loadingTask;
         private readonly TaskScheduler _taskScheduler;
         private readonly IIncomeXmlRepository _repository;
 
@@ -29,10 +28,12 @@ namespace BillPath.UserInterface.ViewModels
             GoToNextPageCommand = _GetGoToNextPageCommand();
             GoToPreviousPageCommand = _GetGoToPreviousPageCommand();
 
-            _loadingTask = _LoadAsync(1, CancellationToken.None);
-
             repository.SavedIncome += async delegate { await _LoadAsync(SelectedPage, CancellationToken.None); };
             repository.RemovedIncome += async delegate { await _LoadAsync(SelectedPage, CancellationToken.None); };
+
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+            _LoadAsync(1, CancellationToken.None);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
         }
 
         private AsyncCommand _GetGoToNextPageCommand()
@@ -70,23 +71,16 @@ namespace BillPath.UserInterface.ViewModels
             {
                 Loading = true;
                 var incomes = new List<IncomeViewModel>();
-                var skippedItems = 0;
-                int totalIncomes;
 
                 using (var reader = await _repository.GetReaderAsync(cancellationToken))
                 {
-                    while (skippedItems < _itemsPerPage * (pageNumber - 1) && await reader.ReadAsync(cancellationToken))
-                        skippedItems++;
-                    totalIncomes = skippedItems;
+                    await reader.SkipAsync(_itemsPerPage * (pageNumber - 1), cancellationToken);
 
                     while (incomes.Count < _itemsPerPage && await reader.ReadAsync(cancellationToken))
                         incomes.Add(new IncomeViewModel(_repository, reader.Current));
-                    totalIncomes += incomes.Count;
-
-                    while (await reader.ReadAsync(cancellationToken))
-                        totalIncomes++;
                 }
 
+                var totalIncomes = await _repository.GetCountAsync(cancellationToken);
                 if (totalIncomes == 0)
                     PagesCount = 0;
                 else

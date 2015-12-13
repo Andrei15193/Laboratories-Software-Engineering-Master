@@ -13,7 +13,7 @@ namespace BillPath.DataAccess.Xml.Tests
         {
             var raiseCount = 0;
 
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             {
                 var observableRepository = new IncomeXmlObservableRepository(repository);
 
@@ -30,7 +30,7 @@ namespace BillPath.DataAccess.Xml.Tests
             var raiseCount = 0;
             var income = new Income();
 
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             {
                 await repository.SaveAsync(income);
 

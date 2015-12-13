@@ -13,7 +13,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
         [TestMethod]
         public async Task TestInvokingSaveCommandSavesTheModelFromContextToRepository()
         {
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             {
                 var viewModel = new IncomeViewModel(repository);
                 var expectedIncome =
@@ -44,7 +44,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
         [TestMethod]
         public void TestMakingTheModelStateValidEnablesTheSaveCommand()
         {
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             {
                 var viewModel =
                     new IncomeViewModel(repository)
@@ -79,7 +79,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
                     Description = "Test description " + indexToRemove.ToString()
                 };
 
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             {
                 for (var incomeIndex = 0; incomeIndex < totalIncomeCount; incomeIndex++)
                     await repository.SaveAsync(

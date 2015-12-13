@@ -15,5 +15,8 @@ namespace BillPath.DataAccess.Xml
 
         Task<bool> ReadAsync();
         Task<bool> ReadAsync(CancellationToken cancellationToken);
+
+        Task SkipAsync(int count);
+        Task SkipAsync(int count, CancellationToken cancellationToken);
     }
 }

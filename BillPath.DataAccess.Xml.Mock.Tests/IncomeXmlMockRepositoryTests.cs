@@ -7,12 +7,12 @@ using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 namespace BillPath.DataAccess.Xml.Mock.Tests
 {
     [TestClass]
-    public class IncomeXmlRepositoryMockTests
+    public class IncomeXmlMockRepositoryTests
     {
         [TestMethod]
         public async Task TestCreatingNewRepositoryRetrievesNoIncomes()
         {
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             using (var reader = await repository.GetReaderAsync())
                 Assert.IsFalse(await reader.ReadAsync());
         }
@@ -25,7 +25,7 @@ namespace BillPath.DataAccess.Xml.Mock.Tests
         [DataRow(8)]
         public async Task TestSavingAnIncomeRetrievesItWithReader(int incomeSaveRepeatCount)
         {
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             {
                 var expectedIncome = new Income();
 
@@ -46,7 +46,7 @@ namespace BillPath.DataAccess.Xml.Mock.Tests
         [TestMethod]
         public async Task TestSavingNewIncomeWithLaterDateThanAllIsReturnedFirstByReader()
         {
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             {
                 await repository.SaveAsync(
                     new Income
@@ -79,7 +79,7 @@ namespace BillPath.DataAccess.Xml.Mock.Tests
         [TestMethod]
         public async Task TestSavingNewIncomeWithEarlierDateThanAllIsReturnedLastByReader()
         {
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             {
                 await repository.SaveAsync(
                     new Income
@@ -114,7 +114,7 @@ namespace BillPath.DataAccess.Xml.Mock.Tests
         [TestMethod]
         public async Task TestSavingNewIncomeNotHavingTheRealizedDateBetweenTwoExistingIncomesIsReturnedAsSecondItem()
         {
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             {
                 await repository.SaveAsync(
                     new Income
@@ -162,7 +162,7 @@ namespace BillPath.DataAccess.Xml.Mock.Tests
                     Description = "Test description " + indexToRemove.ToString()
                 };
 
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             {
                 for (var incomeIndex = 0; incomeIndex < totalIncomeCount; incomeIndex++)
                     await repository.SaveAsync(
@@ -183,33 +183,36 @@ namespace BillPath.DataAccess.Xml.Mock.Tests
             }
         }
 
-
         [TestMethod]
         public async Task TestRemovingOneIncomeCloneRemovesOnlyOneIncome()
         {
             var income = new Income();
-            using (var repository = new IncomeXmlMemoryStreamRepository())
+            using (var repository = new IncomeXmlMockRepository())
             {
                 await repository.SaveAsync(income);
                 await repository.SaveAsync(income);
 
-                Assert.AreEqual(2, await _GetIncomeCountAsync(repository));
+                Assert.AreEqual(2, await repository.GetCountAsync());
 
                 await repository.RemoveAsync(income);
 
-                Assert.AreEqual(1, await _GetIncomeCountAsync(repository));
+                Assert.AreEqual(1, await repository.GetCountAsync());
             }
         }
 
-        private static async Task<int> _GetIncomeCountAsync(IncomeXmlRepository repository)
+        [TestMethod]
+        public async Task TestGetIncomesCount()
         {
-            var incomeCount = 0;
+            var income = new Income();
+            using (var repository = new IncomeXmlMockRepository())
+            {
+                Assert.AreEqual(0, await repository.GetCountAsync());
 
-            using (var reader = await repository.GetReaderAsync())
-                while (await reader.ReadAsync())
-                    incomeCount++;
+                await repository.SaveAsync(income);
+                await repository.SaveAsync(income);
 
-            return incomeCount;
+                Assert.AreEqual(2, await repository.GetCountAsync());
+            }
         }
     }
 }
