@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading.Tasks;
-using BillPath.DataAccess.Xml.Mock;
+using BillPath.DataAccess.Xml;
 using BillPath.Models;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 

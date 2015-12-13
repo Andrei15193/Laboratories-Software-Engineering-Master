@@ -107,12 +107,31 @@ namespace BillPath.DataAccess.Xml
                     ConformanceLevel = ConformanceLevel.Auto,
                     CloseInput = true
                 }))
-            {
                 if (await xmlReader.ReadUntilAsync(_rootElementName, cancellationToken))
-                    return int.Parse(xmlReader.GetAttribute("count"));
+                    try
+                    {
+                        return XmlConvert.ToInt32(xmlReader.GetAttribute("count"));
+                    }
+                    catch (ArgumentNullException)
+                    {
+                        return await _GetCountAsync(cancellationToken);
+                    }
+                    catch (FormatException)
+                    {
+                        return await _GetCountAsync(cancellationToken);
+                    }
                 else
                     return 0;
-            }
+        }
+        private async Task<int> _GetCountAsync(CancellationToken cancellationToken)
+        {
+            var count = 0;
+
+            using (var reader = await GetReaderAsync(cancellationToken))
+                while (await reader.ReadAsync(cancellationToken))
+                    count++;
+
+            return count;
         }
 
         public Task SaveAsync(Income income)
@@ -131,7 +150,7 @@ namespace BillPath.DataAccess.Xml
                 {
                     await xmlWriter.WriteStartDocumentAsync(true);
                     await xmlWriter.WriteStartElementAsync(null, _rootElementName, null);
-                    await xmlWriter.WriteAttributeStringAsync(null, "count", null, (await GetCountAsync(cancellationToken) + 1).ToString());
+                    await xmlWriter.WriteAttributeStringAsync(null, "count", null, XmlConvert.ToString(await GetCountAsync(cancellationToken) + 1));
                     cancellationToken.ThrowIfCancellationRequested();
 
                     using (var incomeReader = await GetReaderAsync(cancellationToken))
@@ -180,7 +199,7 @@ namespace BillPath.DataAccess.Xml
                 {
                     await xmlWriter.WriteStartDocumentAsync(true);
                     await xmlWriter.WriteStartElementAsync(null, _rootElementName, null);
-                    await xmlWriter.WriteAttributeStringAsync(null, "count", null, (await GetCountAsync(cancellationToken) - 1).ToString());
+                    await xmlWriter.WriteAttributeStringAsync(null, "count", null, XmlConvert.ToString(await GetCountAsync(cancellationToken) - 1));
                     cancellationToken.ThrowIfCancellationRequested();
 
                     using (var incomeReader = await GetReaderAsync(cancellationToken))

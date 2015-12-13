@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BillPath.DataAccess.Xml.Mock
+namespace BillPath.DataAccess.Xml
 {
     public sealed class IncomeXmlMockRepository
         : IncomeXmlRepository, IDisposable

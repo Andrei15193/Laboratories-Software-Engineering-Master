@@ -113,7 +113,7 @@
     <Compile Include="DataAccess\Xml\IncomeXmlRepository.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlTranslator.cs" />
     <Compile Include="DataAccess\Xml\FileProvider.cs" />
-    <Compile Include="DataAccess\Xml\Mock\IncomeXmlMockRepository.cs" />
+    <Compile Include="DataAccess\Xml\IncomeXmlMockRepository.cs" />
     <Compile Include="DataAccess\Xml\XmlReaderHelper.cs" />
     <Compile Include="DataAccess\Xml\XmlTranslator.cs" />
     <Compile Include="DataAccess\Xml\XmlSettingsRepository.cs" />

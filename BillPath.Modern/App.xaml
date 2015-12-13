@@ -2,7 +2,7 @@
     x:Class="BillPath.Modern.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:dataAccessMocks="using:BillPath.DataAccess.Xml.Mock"
+    xmlns:dataAccess="using:BillPath.DataAccess.Xml"
     xmlns:commands="using:BillPath.Modern.Commands"
     xmlns:converters="using:BillPath.Modern.Converters"
     xmlns:mocks="using:BillPath.Modern.Mocks"
@@ -17,7 +17,7 @@
         <providers:CurrencyDisplayFormatProvider
             x:Key="CurrencyDisplayFormatProvider" />
 
-        <dataAccessMocks:IncomeXmlMockRepository
+        <dataAccess:IncomeXmlMockRepository
             x:Key="IncomeXmlRepository" />
         <resourceBinders:IncomeXmlObservableRepository
             x:Key="IncomeXmlObservableRepository" />
