@@ -14,6 +14,7 @@ namespace BillPath.UserInterface.ViewModels
         private readonly DelegateAsyncCommand _removeCommand;
         private readonly DelegateAsyncCommand _updateCommand;
         private readonly DelegateCommand _revertChangesCommand;
+        private Income _unmodifiedIncome;
 
         public IncomeViewModel(IIncomeXmlRepository repository)
             : this(repository, null)
@@ -26,51 +27,51 @@ namespace BillPath.UserInterface.ViewModels
 
             _repository = repository;
             _saveCommand = new DelegateAsyncCommand(_SaveAsync);
-            _removeCommand =
-                new DelegateAsyncCommand(_RemoveAsync)
-                {
-                    CanExecute = _UnmodifiedIncome != null
-                };
-            _updateCommand =
-                new DelegateAsyncCommand(_UpdateAsync)
-                {
-                    CanExecute = _UnmodifiedIncome != null
-                };
-            _revertChangesCommand =
-                new DelegateCommand(_RevertChanges)
-                {
-                    CanExecute = _UnmodifiedIncome != null
-                };
+            _removeCommand = new DelegateAsyncCommand(_RemoveAsync);
+            _updateCommand = new DelegateAsyncCommand(_UpdateAsync);
+            _revertChangesCommand = new DelegateCommand(_RevertChanges);
 
             if (income != null)
             {
-                _UnmodifiedIncome = income.Clone();
                 ModelState = new ModelState(income);
-                _removeCommand.CanExecute = true;
-                _updateCommand.CanExecute = true;
-                _revertChangesCommand.CanExecute = true;
+                _UnmodifiedIncome = income;
             }
             else
             {
-                _UnmodifiedIncome = null;
                 ModelState = null;
-                _removeCommand.CanExecute = false;
-                _updateCommand.CanExecute = false;
-                _revertChangesCommand.CanExecute = false;
+                _UnmodifiedIncome = null;
             }
         }
 
         private Income _UnmodifiedIncome
         {
-            get;
-            set;
+            get
+            {
+                return _unmodifiedIncome;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    _unmodifiedIncome = null;
+                    _removeCommand.CanExecute = false;
+                    _updateCommand.CanExecute = false;
+                    _revertChangesCommand.CanExecute = false;
+                }
+                else
+                {
+                    _unmodifiedIncome = value.Clone();
+                    _removeCommand.CanExecute = true;
+                    _updateCommand.CanExecute = true;
+                    _revertChangesCommand.CanExecute = true;
+                }
+            }
         }
 
         private async Task _SaveAsync(object parameter, CancellationToken cancellationToken)
         {
             await _repository.SaveAsync((Income)ModelState.Model, cancellationToken);
-            _UnmodifiedIncome = ((Income)ModelState.Model).Clone();
-            _removeCommand.CanExecute = true;
+            _UnmodifiedIncome = (Income)ModelState.Model;
         }
         private async Task _RemoveAsync(object parameter, CancellationToken cancellationToken)
             => await _repository.RemoveAsync(_UnmodifiedIncome, cancellationToken);
@@ -81,7 +82,7 @@ namespace BillPath.UserInterface.ViewModels
             {
                 await _repository.RemoveAsync(_UnmodifiedIncome, cancellationToken);
                 await _repository.SaveAsync((Income)ModelState.Model, cancellationToken);
-                _UnmodifiedIncome = ((Income)ModelState.Model).Clone();
+                _UnmodifiedIncome = (Income)ModelState.Model;
             }
         }
         private void _RevertChanges(object parameter)

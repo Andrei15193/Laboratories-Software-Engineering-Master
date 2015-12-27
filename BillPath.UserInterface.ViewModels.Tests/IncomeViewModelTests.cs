@@ -149,6 +149,32 @@ namespace BillPath.UserInterface.ViewModels.Tests
             using (var repository = new IncomeXmlMockRepository())
             {
                 var viewModel = new IncomeViewModel(repository, income);
+                viewModel.ModelState[nameof(Income.Description)] = "New test description";
+
+                await viewModel.UpdateCommand.ExecuteAsync(null);
+
+                using (var reader = await repository.GetReaderAsync())
+                {
+                    Assert.IsTrue(await reader.ReadAsync());
+                    Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(
+                        income,
+                        reader.Current));
+                }
+            }
+        }
+        [TestMethod]
+        public async Task TestExecutingUpdateIncomeCommandDoesNotSaveIfThereAreNoChanges()
+        {
+            var income =
+                new Income
+                {
+                    Amount = new Amount(100, new Currency(new RegionInfo("en-US"))),
+                    DateRealized = new DateTimeOffset(new DateTime(2015, 12, 6), new TimeSpan()),
+                    Description = "Test description"
+                };
+            using (var repository = new IncomeXmlMockRepository())
+            {
+                var viewModel = new IncomeViewModel(repository, income);
                 await viewModel.UpdateCommand.ExecuteAsync(null);
 
                 using (var reader = await repository.GetReaderAsync())

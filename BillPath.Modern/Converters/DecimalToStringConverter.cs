@@ -8,17 +8,25 @@ namespace BillPath.Modern.Converters
         : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
-            => ((decimal)value).ToString(
-                parameter as string,
-                _GetFormatProviderFor(language));
+        {
+            var decimalValue = (decimal)value;
+            var formatOptions = (parameter as string)?.Split(new[] { '/' }, 2);
+
+            if (formatOptions == null)
+                return decimalValue.ToString(null, _GetFormatProviderFor(language));
+            else if (formatOptions.Length == 1
+                || decimalValue == 0
+                || decimalValue >= 0.01M)
+                return decimalValue.ToString(formatOptions[0], _GetFormatProviderFor(language));
+            else
+                return decimalValue.ToString(formatOptions[1], _GetFormatProviderFor(language));
+        }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            return decimal.Parse(
+            => decimal.Parse(
                 (string)value,
                 NumberStyles.Any,
                 _GetFormatProviderFor(language));
-        }
 
         private IFormatProvider _GetFormatProviderFor(string language)
             => string.IsNullOrWhiteSpace(language) ? CultureInfo.CurrentCulture : new CultureInfo(language);

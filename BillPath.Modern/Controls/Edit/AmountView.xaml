@@ -26,7 +26,7 @@
             Text="{Binding
                 Path=[Value],
                 Converter={StaticResource DecimalToStringConverter},
-                ConverterParameter=N,
+                ConverterParameter=N/G,
                 Mode=TwoWay,
                 UpdateSourceTrigger=PropertyChanged}" />
         <ComboBox
