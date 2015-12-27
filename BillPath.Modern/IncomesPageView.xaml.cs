@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using BillPath.Models;
 using BillPath.UserInterface.ViewModels;
 using Windows.System;
 using Windows.UI.Xaml;
@@ -12,7 +8,7 @@ using Windows.UI.Xaml.Input;
 
 namespace BillPath.Modern
 {
-    public sealed partial class IncomesPagedView
+    public sealed partial class IncomesPageView
         : UserControl
     {
         private enum ViewState
@@ -25,12 +21,11 @@ namespace BillPath.Modern
         private ViewState _currentViewState;
         private Lazy<IncomesPageViewModel> _viewModel;
 
-        public IncomesPagedView()
+        public IncomesPageView()
         {
             _currentViewState = ViewState.Invalid;
             _viewModel = new Lazy<IncomesPageViewModel>(() => (IncomesPageViewModel)DataContext);
             InitializeComponent();
-            SelectedIncomes = IncomesListView.SelectedItems.Cast<Income>();
             Loaded += delegate
             {
                 _viewModel.Value.PropertyChanged += delegate
@@ -41,21 +36,6 @@ namespace BillPath.Modern
             };
         }
 
-        public IEnumerable<Income> SelectedIncomes
-        {
-            get;
-        }
-        public event SelectionChangedEventHandler IncomeSelectionChanged
-        {
-            add
-            {
-                IncomesListView.SelectionChanged += value;
-            }
-            remove
-            {
-                IncomesListView.SelectionChanged -= value;
-            }
-        }
 
         private IncomesPageViewModel _ViewModel
         {
@@ -63,12 +43,6 @@ namespace BillPath.Modern
             {
                 return _viewModel.Value;
             }
-        }
-
-        private void _ExecutingPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            //if (nameof(AsyncCommand.Executing).Equals(e.PropertyName, StringComparison.OrdinalIgnoreCase))
-            //    _EnsureVisualState();
         }
 
         private void _EnsureVisualState()
@@ -103,6 +77,17 @@ namespace BillPath.Modern
             IncomeEditGrid.DataContext = e.ClickedItem;
             var flyout = (Flyout)FlyoutBase.GetAttachedFlyout(IncomesListView);
             flyout.ShowAt(IncomesListView);
+        }
+
+        private async void _IncomeFlyoutClosed(object sender, object e)
+        {
+            var incomeViewModel = (IncomeViewModel)IncomeEditGrid.DataContext;
+            if (incomeViewModel.UpdateCommand.CanExecute)
+                await incomeViewModel.UpdateCommand.ExecuteAsync(null);
+            else if (incomeViewModel.RevertChangesCommand.CanExecute)
+                incomeViewModel.RevertChangesCommand.Execute(null);
+
+            IncomeEditGrid.DataContext = null;
         }
     }
 }

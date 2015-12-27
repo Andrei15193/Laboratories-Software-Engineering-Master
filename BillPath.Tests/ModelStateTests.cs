@@ -191,7 +191,7 @@ namespace BillPath.Tests
 
             modelState[nameof(ModelMock.Property)] = new object();
 
-            Assert.AreEqual(1, propertyChanges.Count($"[{nameof(ModelMock.Property)}]".Equals));
+            Assert.AreEqual(1, propertyChanges.Count($"Item[{nameof(ModelMock.Property)}]".Equals));
         }
 
         [TestMethod]

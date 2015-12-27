@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using BillPath.Models;
 using BillPath.Modern.Converters;
 using BillPath.UserInterface.ViewModels;
 using Windows.UI.Xaml;
@@ -28,6 +29,7 @@ namespace BillPath.Modern.Controls.Display
                 delegate
                 {
                     Application.Current.GetResource<SettingsViewModel>().PropertyChanged += _SettingsViewModelPropertyChanged;
+                    Amount.PropertyChanged += delegate { _UpdateAmountTextBlockText(); };
                 };
         }
 
@@ -53,7 +55,13 @@ namespace BillPath.Modern.Controls.Display
         private void _UpdateAmountTextBlockText()
         {
             if (Amount != null)
-                AmountTextBlock.Text = ((decimal)Amount[nameof(Models.Amount.Value)]).ToString("N") + _GetCurrencyText();
+            {
+                var amountValue = (decimal)Amount[nameof(Models.Amount.Value)];
+                if (amountValue < 0.01m)
+                    AmountTextBlock.Text = "<" + 0.01m.ToString("N") + _GetCurrencyText();
+                else
+                    AmountTextBlock.Text = amountValue.ToString("N") + _GetCurrencyText();
+            }
         }
 
         private string _GetCurrencyText()
@@ -62,12 +70,12 @@ namespace BillPath.Modern.Controls.Display
             typeof(string),
             _Currency,
             null) ?? string.Empty;
-        private Models.Currency _Currency
+        private Currency _Currency
         {
             get
             {
                 var currencyModelState = (ModelState)Amount[nameof(Models.Amount.Currency)];
-                var currency = (Models.Currency)currencyModelState.Model;
+                var currency = (Currency)currencyModelState.Model;
 
                 return currency;
             }

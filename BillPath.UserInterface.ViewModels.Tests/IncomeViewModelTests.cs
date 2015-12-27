@@ -100,5 +100,93 @@ namespace BillPath.UserInterface.ViewModels.Tests
                             reader.Current));
             }
         }
+
+        [TestMethod]
+        public async Task TestExecutingUpdateIncomeCommandUpdatesTheIncomeInTheRepository()
+        {
+            using (var repository = new IncomeXmlMockRepository())
+            {
+                await repository.SaveAsync(
+                    new Income
+                    {
+                        Amount = new Amount(100, new Currency(new RegionInfo("en-US"))),
+                        DateRealized = new DateTimeOffset(new DateTime(2015, 12, 6), new TimeSpan()),
+                        Description = "Test description"
+                    });
+
+                IncomeViewModel viewModel;
+                using (var reader = await repository.GetReaderAsync())
+                {
+                    await reader.ReadAsync();
+                    viewModel = new IncomeViewModel(repository, reader.Current);
+                }
+
+                viewModel.ModelState[nameof(Income.Amount)] = new Amount(200, new Currency(new RegionInfo("en-AU")));
+                viewModel.ModelState[nameof(Income.DateRealized)] = new DateTimeOffset(new DateTime(2015, 12, 27), new TimeSpan());
+                viewModel.ModelState[nameof(Income.Description)] = "New test description";
+
+                await viewModel.UpdateCommand.ExecuteAsync(null);
+
+                using (var reader = await repository.GetReaderAsync())
+                {
+                    Assert.IsTrue(await reader.ReadAsync());
+                    Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(
+                        (Income)viewModel.ModelState.Model,
+                        reader.Current));
+                }
+            }
+        }
+        [TestMethod]
+        public async Task TestExecutingUpdateIncomeCommandSavesIncomeIfItDoesNotExist()
+        {
+            var income =
+                new Income
+                {
+                    Amount = new Amount(100, new Currency(new RegionInfo("en-US"))),
+                    DateRealized = new DateTimeOffset(new DateTime(2015, 12, 6), new TimeSpan()),
+                    Description = "Test description"
+                };
+            using (var repository = new IncomeXmlMockRepository())
+            {
+                var viewModel = new IncomeViewModel(repository, income);
+                await viewModel.UpdateCommand.ExecuteAsync(null);
+
+                using (var reader = await repository.GetReaderAsync())
+                {
+                    Assert.IsTrue(await reader.ReadAsync());
+                    Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(
+                        income,
+                        reader.Current));
+                }
+            }
+        }
+        [TestMethod]
+        public void TestExecutingRevertChangesCommandRevertsTheIncomeToTheStateWithWhichTheViewModelWasCreated()
+        {
+            var income =
+                new Income
+                {
+                    Amount = new Amount(100, new Currency(new RegionInfo("en-US"))),
+                    DateRealized = new DateTimeOffset(new DateTime(2015, 12, 6), new TimeSpan()),
+                    Description = "Test description"
+                };
+            using (var repository = new IncomeXmlMockRepository())
+            {
+                var viewModel = new IncomeViewModel(repository, income.Clone());
+                viewModel.ModelState[nameof(Income.Amount)] = new Amount(200, new Currency(new RegionInfo("en-AU")));
+                viewModel.ModelState[nameof(Income.DateRealized)] = new DateTimeOffset(new DateTime(2015, 12, 27), new TimeSpan());
+                viewModel.ModelState[nameof(Income.Description)] = "New test description";
+
+                Assert.IsFalse(IncomeEqualityComparer.Instance.Equals(
+                    (Income)viewModel.ModelState.Model,
+                    income));
+
+                viewModel.RevertChangesCommand.Execute(null);
+
+                Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(
+                    (Income)viewModel.ModelState.Model,
+                    income));
+            }
+        }
     }
 }

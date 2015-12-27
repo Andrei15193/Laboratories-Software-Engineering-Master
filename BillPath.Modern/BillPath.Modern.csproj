@@ -153,8 +153,8 @@
       <DependentUpon>CurrencySettingsFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\GoToStateCommand.cs" />
-    <Compile Include="IncomesPagedView.xaml.cs">
-      <DependentUpon>IncomesPagedView.xaml</DependentUpon>
+    <Compile Include="IncomesPageView.xaml.cs">
+      <DependentUpon>IncomesPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
@@ -245,7 +245,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="IncomesPagedView.xaml">
+    <Page Include="IncomesPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

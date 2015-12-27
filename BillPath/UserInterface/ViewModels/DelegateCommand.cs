@@ -9,6 +9,18 @@ namespace BillPath.UserInterface.ViewModels
 
         private readonly Callback _callback;
 
+        new public bool CanExecute
+        {
+            get
+            {
+                return base.CanExecute;
+            }
+            set
+            {
+                base.CanExecute = value;
+            }
+        }
+
         public DelegateCommand(Callback callback)
         {
             if (callback == null)

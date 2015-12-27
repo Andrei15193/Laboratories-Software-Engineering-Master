@@ -14,6 +14,24 @@
     <Page.Resources>
         <converters:ArgbColorToSolidColorBrushConverter
             x:Key="ArgbColorToSolidColorBrushConverter" />
+        <Flyout
+            x:Name="AddIncomeButtonFlyout"
+            x:Key="AddIncomeButtonFlyout">
+            <StackPanel>
+                <StackPanel.DataContext>
+                    <mocks:IncomeViewModel />
+                </StackPanel.DataContext>
+                <edit:IncomeView
+                    DataContext="{Binding ModelState}" />
+                <Button
+                    Click="_HideAddIncomeFlyout"
+                    Content="Add"
+                    CommandParameter="{Binding}"
+                    Command="{Binding
+                        Path=SaveCommand,
+                        Converter={StaticResource CommandConverter}}" />
+            </StackPanel>
+        </Flyout>
     </Page.Resources>
     <Page.DataContext>
         <viewModels:StatsViewModel />
@@ -39,25 +57,9 @@
                             <MenuFlyout>
                                 <MenuFlyoutItem
                                     x:Uid="/DashboardPage/AddIncomeButton"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
                                     Command="{StaticResource ShowAttachedFlyoutCommand}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}">
-                                    <FlyoutBase.AttachedFlyout>
-                                        <Flyout>
-                                            <StackPanel>
-                                                <StackPanel.DataContext>
-                                                    <mocks:IncomeViewModel />
-                                                </StackPanel.DataContext>
-                                                <edit:IncomeView DataContext="{Binding ModelState}" />
-                                                <Button
-                                                    Content="Add"
-                                                    Command="{Binding
-                                                        Path=SaveCommand,
-                                                        Converter={StaticResource CommandConverter}}"
-                                                    CommandParameter="{Binding}" />
-                                            </StackPanel>
-                                        </Flyout>
-                                    </FlyoutBase.AttachedFlyout>
-                                </MenuFlyoutItem>
+                                    FlyoutBase.AttachedFlyout="{StaticResource AddIncomeButtonFlyout}" />
 
                                 <MenuFlyoutItem
                                     x:Uid="/DashboardPage/AddExpenseButton"
@@ -69,16 +71,6 @@
                         </AppBarButton.Flyout>
                     </AppBarButton>
                     <AppBarButton
-                        x:Uid="/DashboardPage/EditButton"
-                        Icon="Edit"
-                        IsCompact="True"
-                        IsEnabled="False" />
-                    <AppBarButton
-                        x:Uid="/DashboardPage/DeleteButton"
-                        Icon="Delete"
-                        IsCompact="True"
-                        IsEnabled="False" />
-                    <AppBarButton
                         x:Uid="/DashboardPage/ChartsButton"
                         Icon="FourBars"
                         IsCompact="True" />
@@ -89,7 +81,7 @@
             VerticalContentAlignment="Stretch">
             <DataTemplate>
                 <local:Overview
-                    MinWidth="400" />
+                    Width="400" />
             </DataTemplate>
         </HubSection>
         <HubSection>

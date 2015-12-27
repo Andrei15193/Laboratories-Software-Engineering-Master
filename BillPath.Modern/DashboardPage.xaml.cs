@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace BillPath.Modern
 {
@@ -9,5 +10,8 @@ namespace BillPath.Modern
         {
             InitializeComponent();
         }
+
+        private void _HideAddIncomeFlyout(object sender, RoutedEventArgs e)
+            => AddIncomeButtonFlyout.Hide();
     }
 }

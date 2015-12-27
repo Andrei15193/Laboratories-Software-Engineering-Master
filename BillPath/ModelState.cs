@@ -28,6 +28,7 @@ namespace BillPath
                 runtimeProperty => runtimeProperty.Name,
                 StringComparer.OrdinalIgnoreCase);
 
+        private object _model;
         private ModelStateCache _modelStateCache;
         private readonly ModelErrors _errors;
         private readonly IReadOnlyDictionary<string, PropertyInfo> _runtimePropertiesByNames;
@@ -38,24 +39,10 @@ namespace BillPath
             if (model == null)
                 throw new ArgumentNullException(nameof(model));
 
-            Model = model;
+            _model = model;
             _errors = new ModelErrors(model);
 
             _modelStateCache = new ModelStateCache(this);
-            _runtimePropertiesByNames = _GetRuntimePropertiesByNamesFor(Model.GetType());
-            _modelPropertyStates = new Lazy<IDictionary<PropertyInfo, ModelState>>(_GetModelStateProperties);
-        }
-        internal ModelState(object model, ModelStateCache modelStateCache)
-        {
-            if (model == null)
-                throw new ArgumentNullException(nameof(model));
-            if (modelStateCache == null)
-                throw new ArgumentNullException(nameof(modelStateCache));
-
-            Model = model;
-            _errors = new ModelErrors(model);
-
-            _modelStateCache = modelStateCache;
             _runtimePropertiesByNames = _GetRuntimePropertiesByNamesFor(Model.GetType());
             _modelPropertyStates = new Lazy<IDictionary<PropertyInfo, ModelState>>(_GetModelStateProperties);
         }
@@ -82,7 +69,22 @@ namespace BillPath
                     }
                 });
 
-        public object Model { get; }
+        public object Model
+        {
+            get
+            {
+                return _model;
+            }
+            private set
+            {
+                if (value == null)
+                    throw new ArgumentNullException(nameof(Model));
+
+                _model = value;
+                foreach (var propertyName in _runtimePropertiesByNames.Keys)
+                    OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
         public IModelErrors Errors
         {
@@ -128,7 +130,7 @@ namespace BillPath
                     && (runtimeProperty.SetMethod?.IsPublic ?? false))
                 {
                     _SetPropertyValue(runtimeProperty, value);
-                    OnPropertyChanged(new PropertyChangedEventArgs($"[{runtimeProperty.Name}]"));
+                    OnPropertyChanged(new PropertyChangedEventArgs($"Item[{runtimeProperty.Name}]"));
                     _errors.Refresh();
                     _RefreshErrors();
                 }
@@ -145,11 +147,24 @@ namespace BillPath
                 if (value == null)
                     _modelPropertyStates.Value[runtimeProperty] = null;
                 else
-                    _modelPropertyStates.Value[runtimeProperty] =
-                        new ModelState(value)
-                        {
-                            _modelStateCache = _modelStateCache
-                        };
+                {
+                    ModelState aggregateModelState;
+
+                    if (_modelPropertyStates.Value.TryGetValue(runtimeProperty, out aggregateModelState))
+                        aggregateModelState.Model =
+                            ModelStateProviders
+                                .GetFor(value.GetType(), Model.GetType())
+                                .GetForAggregate(Model, value)
+                                .Model;
+                    else
+                    {
+                        aggregateModelState = _modelStateCache.GetFor(Model, value);
+                        aggregateModelState._modelStateCache = _modelStateCache;
+                        _modelPropertyStates.Value.Add(
+                            runtimeProperty,
+                            aggregateModelState);
+                    }
+                }
         }
 
         private bool _TryGetRuntimeProperty(string propertyName, bool ignoreCase, out PropertyInfo runtimeProperty)
