@@ -180,7 +180,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="TypeHelper.cs" />
-    <Compile Include="UserInterface\ViewModels\AmountViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\AsyncCommand.cs" />
     <Compile Include="ModelState.cs" />
     <Compile Include="UserInterface\ViewModels\Command.cs" />

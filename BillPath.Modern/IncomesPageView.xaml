@@ -132,16 +132,16 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <display:AmountView2
+                            <display:AmountView
                                 Grid.Column="0"
                                 Grid.Row="0"
                                 Amount="{Binding Path=[Amount]}">
-                                <display:AmountView2.Resources>
+                                <display:AmountView.Resources>
                                     <Style
                                         TargetType="TextBlock"
                                         BasedOn="{StaticResource SubheaderTextBlockStyle}" />
-                                </display:AmountView2.Resources>
-                            </display:AmountView2>
+                                </display:AmountView.Resources>
+                            </display:AmountView>
                             <TextBlock
                                 Grid.Column="1"
                                 Grid.Row="0"

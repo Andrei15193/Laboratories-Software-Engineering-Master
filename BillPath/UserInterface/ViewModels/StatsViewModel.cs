@@ -13,25 +13,25 @@ namespace BillPath.UserInterface.ViewModels
             {
                 new CurrencyCategoryViewModel
                 {
-                    Amount = new AmountViewModel(new Amount(100m,new Currency(new RegionInfo("RO")))),
+                    Amount = new ModelState(new Amount(100m,new Currency(new RegionInfo("RO")))),
                     Color = new ArgbColor(0xFF, 0xFF, 0x00, 0x00),
                     Name = "Red"
                 },
                 new CurrencyCategoryViewModel
                 {
-                    Amount = new AmountViewModel(new Amount(11m, new Currency(new RegionInfo("US")))),
+                    Amount = new ModelState(new Amount(11m, new Currency(new RegionInfo("US")))),
                     Color = new ArgbColor(0xFF, 0xFF, 0x00, 0x00),
                     Name = "Red"
                 },
                 new CurrencyCategoryViewModel
                 {
-                    Amount = new AmountViewModel(new Amount(54m, new Currency(new RegionInfo("RO")))),
+                    Amount = new ModelState(new Amount(54m, new Currency(new RegionInfo("RO")))),
                     Color = new ArgbColor(0xFF, 0x00, 0xFF, 0x00),
                     Name = "Green"
                 },
                 new CurrencyCategoryViewModel
                 {
-                    Amount = new AmountViewModel(new Amount(111m,  new Currency(new RegionInfo("RO")))),
+                    Amount = new ModelState(new Amount(111m,  new Currency(new RegionInfo("RO")))),
                     Color = new ArgbColor(0xFF, 0x00, 0x00, 0xFF),
                     Name = "Blue"
                 }
@@ -65,7 +65,7 @@ namespace BillPath.UserInterface.ViewModels
             set;
         }
 
-        public AmountViewModel Amount
+        public ModelState Amount
         {
             get;
             set;

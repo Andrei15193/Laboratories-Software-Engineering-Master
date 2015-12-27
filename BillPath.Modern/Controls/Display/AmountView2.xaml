@@ -1,7 +1,0 @@
-﻿<UserControl
-    x:Class="BillPath.Modern.Controls.Display.AmountView2"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <TextBlock
-        x:Name="AmountTextBlock" />
-</UserControl>

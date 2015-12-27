@@ -115,7 +115,6 @@
     <SDKReference Include="TestPlatform, Version=14.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AmountViewModel.cs" />
     <Compile Include="CommandTests.cs" />
     <Compile Include="DelegateAsyncCommandTests.cs" />
     <Compile Include="DelegateCommandTests.cs" />
