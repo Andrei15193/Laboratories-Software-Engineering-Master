@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BillPath.Modern"
     xmlns:edit="using:BillPath.Modern.Controls.Edit"
-    xmlns:mocks="using:BillPath.Modern.Mocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tk="using:WinRTXamlToolkit.Controls"
@@ -16,17 +15,15 @@
             x:Key="ArgbColorToSolidColorBrushConverter" />
         <Flyout
             x:Name="AddIncomeButtonFlyout"
-            x:Key="AddIncomeButtonFlyout">
-            <StackPanel>
-                <StackPanel.DataContext>
-                    <mocks:IncomeViewModel />
-                </StackPanel.DataContext>
+            x:Key="AddIncomeButtonFlyout"
+            Opened="_AddIncomeFlyoutOpened">
+            <StackPanel
+                x:Name="AddIncomeStackPanel">
                 <edit:IncomeView
                     DataContext="{Binding ModelState}" />
                 <Button
                     Click="_HideAddIncomeFlyout"
                     Content="Add"
-                    CommandParameter="{Binding}"
                     Command="{Binding
                         Path=SaveCommand,
                         Converter={StaticResource CommandConverter}}" />

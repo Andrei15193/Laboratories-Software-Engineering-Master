@@ -1,6 +1,4 @@
-﻿using BillPath.Modern.ResourceBinders;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 
 namespace BillPath.Modern.Controls.Edit
 {
@@ -11,8 +9,5 @@ namespace BillPath.Modern.Controls.Edit
         {
             InitializeComponent();
         }
-
-        private void CurrencyComboBoxLoaded(object sender, RoutedEventArgs e)
-            => ((ComboBox)sender).SelectedItem = Application.Current.GetResource<SettingsViewModel>().PreferredCurrency;
     }
 }

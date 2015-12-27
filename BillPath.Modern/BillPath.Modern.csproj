@@ -132,6 +132,7 @@
     <Compile Include="Controls\Edit\AmountView.xaml.cs">
       <DependentUpon>AmountView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ModelFromModelStateConverter.cs" />
     <Compile Include="Converters\ArgbColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\AsyncCommandToCommandConverter.cs" />
     <Compile Include="Converters\BooleanNotConverter.cs" />

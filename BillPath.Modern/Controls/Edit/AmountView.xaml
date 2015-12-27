@@ -7,12 +7,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <d:UserControl.DataContext>
-        <mocks:AmountViewModel />
-    </d:UserControl.DataContext>
     <UserControl.Resources>
         <converters:DecimalToStringConverter
             x:Key="DecimalToStringConverter" />
+        <converters:ModelFromModelStateConverter
+            x:Key="ModelFromModelStateConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -39,7 +38,7 @@
                 Mode=OneTime}"
             SelectedItem="{Binding
                 Path=[Currency],
-                Mode=TwoWay}"
-            Loaded="CurrencyComboBoxLoaded" />
+                Converter={StaticResource ModelFromModelStateConverter},
+                Mode=TwoWay}" />
     </Grid>
 </UserControl>
