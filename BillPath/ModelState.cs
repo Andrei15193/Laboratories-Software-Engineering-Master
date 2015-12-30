@@ -9,10 +9,13 @@ namespace BillPath
     public class ModelState
         : INotifyPropertyChanged
     {
-        public static ModelState GetFor<TModel>(TModel model)
-            => ModelStateProviders.GetFor<TModel>().GetForRoot(model);
-        public static ModelState GetFor<TModelContainer, TAggregate>(TModelContainer model, TAggregate aggregate)
-            => ModelStateProviders.GetFor<TAggregate, TModelContainer>().GetForAggregate(model, aggregate);
+        public static ModelState GetFor(object model)
+        {
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+
+            return ModelStateProviders.GetFor(model.GetType()).GetForRoot(model);
+        }
 
         private static IReadOnlyDictionary<string, PropertyInfo> _GetRuntimePropertiesByNamesFor(Type type)
             => (from runtimeProperty in type.GetRuntimeProperties()
@@ -34,7 +37,7 @@ namespace BillPath
         private readonly IReadOnlyDictionary<string, PropertyInfo> _runtimePropertiesByNames;
         private readonly Lazy<IDictionary<PropertyInfo, ModelState>> _modelPropertyStates;
 
-        public ModelState(object model)
+        internal ModelState(object model)
         {
             if (model == null)
                 throw new ArgumentNullException(nameof(model));

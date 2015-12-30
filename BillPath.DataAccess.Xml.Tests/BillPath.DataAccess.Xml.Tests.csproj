@@ -115,6 +115,7 @@
     <SDKReference Include="TestPlatform, Version=14.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExpenseCategoryXmlTranslatorTests.cs" />
     <Compile Include="IncomeXmlFileRepositoryTests.cs" />
     <Compile Include="IncomeXmlMockRepositoryTests.cs" />
     <Compile Include="IncomeXmlRepositoryTests.cs" />

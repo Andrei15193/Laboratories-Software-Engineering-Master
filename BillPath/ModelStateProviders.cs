@@ -78,11 +78,6 @@ namespace BillPath
                 return _defaultModelStateProvider;
         }
 
-        public static ModelStateProvider GetFor<TModel>()
-           => GetFor(typeof(TModel));
-        public static ModelStateProvider GetFor<TModel, TModelContainer>()
-           => GetFor(typeof(TModel), typeof(TModelContainer));
-
         public static void Add(ModelStateProvider modelStateProvider)
         {
             if (modelStateProvider == null)

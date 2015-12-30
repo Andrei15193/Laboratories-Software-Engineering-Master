@@ -24,7 +24,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
                         Description = "Test description"
                     };
 
-                viewModel.ModelState = new ModelState(expectedIncome.Clone());
+                viewModel.ModelState = ModelState.GetFor(expectedIncome.Clone());
                 await viewModel.SaveCommand.ExecuteAsync(null);
 
                 using (var reader = await repository.GetReaderAsync())
@@ -49,7 +49,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
                 var viewModel =
                     new IncomeViewModel(repository)
                     {
-                        ModelState = new ModelState(
+                        ModelState = ModelState.GetFor(
                             new Income
                             {
                                 Amount = new Amount(0, new Currency(new RegionInfo("en-US")))
@@ -178,12 +178,7 @@ namespace BillPath.UserInterface.ViewModels.Tests
                 await viewModel.UpdateCommand.ExecuteAsync(null);
 
                 using (var reader = await repository.GetReaderAsync())
-                {
-                    Assert.IsTrue(await reader.ReadAsync());
-                    Assert.IsTrue(IncomeEqualityComparer.Instance.Equals(
-                        income,
-                        reader.Current));
-                }
+                    Assert.IsFalse(await reader.ReadAsync());
             }
         }
         [TestMethod]
