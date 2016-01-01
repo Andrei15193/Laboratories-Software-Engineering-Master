@@ -22,8 +22,9 @@ namespace BillPath.Modern
         {
             InitializeComponent();
 
-            ModelStateProviders.Add(new AmountModelStateModelStateProvider<Income>());
-            ModelStateProviders.Add(new AmountModelStateModelStateProvider<Expense>());
+            ModelStateProviders.Add(new AmountModelStateProvider<Income>());
+            ModelStateProviders.Add(new AmountModelStateProvider<Expense>());
+            ModelStateProviders.Add(new ExpenseCategoryModelStateProvider());
 
             Suspending += OnSuspending;
         }

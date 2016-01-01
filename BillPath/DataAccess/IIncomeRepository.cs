@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using BillPath.Models;
 
-namespace BillPath.DataAccess.Xml
+namespace BillPath.DataAccess
 {
-    public interface IIncomeXmlRepository
+    public interface IIncomeRepository
     {
-        Task<IIncomeXmlReader> GetReaderAsync();
-        Task<IIncomeXmlReader> GetReaderAsync(CancellationToken cancellationToken);
+        Task<IIncomeReader> GetReaderAsync();
+        Task<IIncomeReader> GetReaderAsync(CancellationToken cancellationToken);
 
         Task<int> GetCountAsync();
         Task<int> GetCountAsync(CancellationToken cancellationToken);

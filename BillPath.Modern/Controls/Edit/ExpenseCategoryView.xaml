@@ -1,0 +1,81 @@
+﻿<UserControl
+    x:Class="BillPath.Modern.Controls.Edit.ExpenseCategoryView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BillPath.Modern.Controls.Edit"
+    xmlns:display="using:BillPath.Modern.Controls.Display"
+    MinWidth="200"
+    MaxWidth="400">
+    <StackPanel>
+        <StackPanel.Resources>
+            <Style
+                TargetType="display:ErrorsView">
+                <Setter
+                    Property="Margin"
+                    Value="0,10,0,20" />
+            </Style>
+        </StackPanel.Resources>
+
+        <TextBox
+            x:Name="NameTextBox"
+            Grid.Row="0"
+            Text="{Binding
+                Path=[Name],
+                Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}" />
+        <display:ErrorsView
+            PropertyName="Errors[Name]" />
+
+        <ComboBox
+            Grid.Row="1"
+            ItemsSource="{Binding
+                Path=ArgbColors,
+                Source={StaticResource ArgbColorProvider},
+                Mode=OneTime}"
+            SelectedItem="{Binding
+                Path=[Color],
+                Converter={StaticResource ModelFromModelStateConverter},
+                Mode=TwoWay}"
+            HorizontalContentAlignment="Stretch">
+            <ComboBox.Resources>
+                <Style
+                    TargetType="ComboBoxItem">
+                    <Setter
+                        Property="HorizontalContentAlignment"
+                        Value="Stretch" />
+                </Style>
+            </ComboBox.Resources>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch">
+                        <Rectangle>
+                            <Rectangle.Fill>
+                                <SolidColorBrush
+                                    Color="{Binding
+                                        Converter={StaticResource ArgbColorToColorConverter},
+                                        Mode=OneTime}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock
+                            Text="{Binding
+                                Path=Text,
+                                ElementName=NameTextBox,
+                                Mode=OneWay}"
+                            TextAlignment="Center">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush
+                                    Color="{Binding
+                                        Converter={StaticResource IdealReadingColorCoverter},
+                                        Mode=OneTime}" />
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <display:ErrorsView
+            PropertyName="Errors[Color]" />
+    </StackPanel>
+</UserControl>

@@ -7,7 +7,8 @@
     xmlns:converters="using:BillPath.Modern.Converters"
     xmlns:mocks="using:BillPath.Modern.Mocks"
     xmlns:providers="using:BillPath.Providers"
-    xmlns:resourceBinders="using:BillPath.Modern.ResourceBinders">
+    xmlns:resourceBinders="using:BillPath.Modern.ResourceBinders"
+    RequestedTheme="Light">
     <Application.Resources>
         <commands:ShowAttachedFlyoutCommand
             x:Key="ShowAttachedFlyoutCommand" />
@@ -21,18 +22,31 @@
             x:Key="CurrencyProvider" />
         <providers:CurrencyDisplayFormatProvider
             x:Key="CurrencyDisplayFormatProvider" />
+        <providers:ArgbColorProvider
+            x:Key="ArgbColorProvider" />
 
         <dataAccess:IncomeXmlMockRepository
-            x:Key="DEBUG_IncomeXmlRepository" />
+            x:Key="DEBUG_IIncomeRepository" />
         <resourceBinders:IncomeXmlRepository
-            x:Key="IncomeXmlRepository" />
-        <resourceBinders:IncomeXmlObservableRepository
-            x:Key="IncomeXmlObservableRepository" />
-        
+            x:Key="IIncomeRepository" />
+        <resourceBinders:IncomeObservableRepository
+            x:Key="IncomeObservableRepository" />
+
+        <resourceBinders:ExpenseCategoryXmlRepository
+            x:Key="ExpenseCategoryRepositoryImplementation" />
+        <resourceBinders:ExpenseCategoryObservableRepository
+            x:Key="ExpenseCategoryRepository" />
+        <resourceBinders:ExpenseCategoryViewModels
+            x:Key="ExpenseCategoryViewModels" />
+
         <converters:LocalizationConverter
             x:Key="LocalizationConverter" />
+        <converters:ArgbColorToColorConverter
+            x:Key="ArgbColorToColorConverter" />
         <converters:IdealReadingColorCoverter
             x:Key="IdealReadingColorCoverter" />
+        <converters:ModelFromModelStateConverter
+            x:Key="ModelFromModelStateConverter" />
         <converters:ResourceFormatConverter
             x:Key="ResourceFormatConverter" />
         <converters:CommandConverter

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Reflection;
 
 namespace BillPath
 {
@@ -26,6 +27,13 @@ namespace BillPath
                 _modelContainerType = modelContainerType;
             }
 
+            public ModelStateProviderKey GetForBaseClassOrDefault()
+                => _modelType.GetTypeInfo().BaseType != null
+                ? new ModelStateProviderKey(
+                    _modelType.GetTypeInfo().BaseType,
+                    _modelContainerType)
+                : default(ModelStateProviderKey);
+
             public override bool Equals(object obj)
             {
                 var modelStateProviderKey = obj as ModelStateProviderKey?;
@@ -36,7 +44,7 @@ namespace BillPath
                 => Equals(_modelType, other._modelType)
                 && Equals(_modelContainerType, other._modelContainerType);
             public override int GetHashCode()
-                => _modelType.GetHashCode() ^ (_modelContainerType?.GetHashCode() ?? 0);
+                => (_modelType?.GetHashCode() ?? 0) ^ (_modelContainerType?.GetHashCode() ?? 0);
         }
 
         private static ModelStateProvider _defaultModelStateProvider
@@ -59,23 +67,37 @@ namespace BillPath
         public static ModelStateProvider GetFor(Type modelType)
         {
             ModelStateProvider modelStateProvider;
-            if (_modelStateProviders.TryGetValue(new ModelStateProviderKey(modelType),
+            if (_TryGetModelStateProvider(
+                new ModelStateProviderKey(modelType),
                 out modelStateProvider))
                 return modelStateProvider;
             else
                 return _defaultModelStateProvider;
         }
-        public static ModelStateProvider GetFor(Type modelType, Type modelContainerType)
+        public static ModelStateProvider GetFor(Type aggregateType, Type modelContainerType)
         {
             ModelStateProvider modelStateProvider;
-            if (_modelStateProviders.TryGetValue(
+            if (_TryGetModelStateProvider(
                 new ModelStateProviderKey(
-                    modelType,
+                    aggregateType,
                     modelContainerType),
                 out modelStateProvider))
                 return modelStateProvider;
             else
                 return _defaultModelStateProvider;
+        }
+
+        private static bool _TryGetModelStateProvider(ModelStateProviderKey modelStateProviderKey, out ModelStateProvider modelStateProvider)
+        {
+            modelStateProvider = null;
+            while (!modelStateProviderKey.Equals(default(ModelStateProviderKey))
+                && !_modelStateProviders.TryGetValue(modelStateProviderKey, out modelStateProvider))
+            {
+                modelStateProviderKey = modelStateProviderKey.GetForBaseClassOrDefault();
+                modelStateProvider = null;
+            }
+
+            return (modelStateProvider != null);
         }
 
         public static void Add(ModelStateProvider modelStateProvider)

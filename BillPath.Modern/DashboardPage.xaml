@@ -4,11 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BillPath.Modern"
     xmlns:edit="using:BillPath.Modern.Controls.Edit"
+    xmlns:viewModels="using:BillPath.UserInterface.ViewModels"
+    xmlns:converters="using:BillPath.Modern.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tk="using:WinRTXamlToolkit.Controls"
-    xmlns:viewModels="using:BillPath.UserInterface.ViewModels"
-    xmlns:converters="using:BillPath.Modern.Converters"
     mc:Ignorable="d">
     <Page.Resources>
         <converters:ArgbColorToSolidColorBrushConverter
@@ -27,6 +27,22 @@
                     Command="{Binding
                         Path=SaveCommand,
                         Converter={StaticResource CommandConverter}}" />
+            </StackPanel>
+        </Flyout>
+        <Flyout
+            x:Name="AddExpenseCategoryButtonFlyout"
+            x:Key="AddExpenseCategoryButtonFlyout"
+            Opened="_AddExpenseCategoryFlyoutOpened">
+            <StackPanel
+                x:Name="AddExpenseCategoryStackPanel">
+                <edit:ExpenseCategoryView
+                    DataContext="{Binding ModelState}" />
+                <Button
+                    Content="Add"
+                    Click="_HideAddExpenseCategoryFlyout"
+                    Command="{Binding
+                        Path=SaveCommand,
+                        Converter={StaticResource CommandConverter}}"/>
             </StackPanel>
         </Flyout>
     </Page.Resources>
@@ -63,7 +79,9 @@
                                     IsEnabled="False" />
                                 <MenuFlyoutItem
                                     x:Uid="/DashboardPage/AddExpenseCategoryButton"
-                                    IsEnabled="False" />
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                                    Command="{StaticResource ShowAttachedFlyoutCommand}"
+                                    FlyoutBase.AttachedFlyout="{StaticResource AddExpenseCategoryButtonFlyout}" />
                             </MenuFlyout>
                         </AppBarButton.Flyout>
                     </AppBarButton>
@@ -84,7 +102,7 @@
         <HubSection>
             <DataTemplate>
                 <ItemsControl
-                    ItemsSource="{Binding CurrencyCategories}">
+                    ItemsSource="{StaticResource ExpenseCategoryViewModels}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel
@@ -94,14 +112,51 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid
-                                Margin="10,0"
-                                Width="500">
-                                <Border
-                                    Height="200"
-                                    Background="Red">
-                                    <TextBlock
-                                        Text="Category" />
-                                </Border>
+                                Margin="5,0"
+                                MinWidth="300"
+                                DataContext="{Binding
+                                    Path=ModelState}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition
+                                        Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <ListView
+                                    Grid.Row="0"
+                                    SelectionMode="None">
+                                    <ListView.Resources>
+                                        <Style
+                                            TargetType="ListViewItem">
+                                            <Setter
+                                                Property="HorizontalContentAlignment"
+                                                Value="Stretch" />
+                                        </Style>
+                                    </ListView.Resources>
+                                    <Border
+                                        Padding="10"
+                                        MinHeight="100"
+                                        Background="{Binding
+                                        Path=[Color].Model,
+                                        Converter={StaticResource ArgbColorToSolidColorBrushConverter},
+                                        Mode=OneWay}">
+                                        <TextBlock
+                                            Style="{StaticResource SubheaderTextBlockStyle}"
+                                            Text="{Binding
+                                            Path=[Name],
+                                            Mode=OneWay}">
+                                            <TextBlock.Foreground>
+                                                <SolidColorBrush
+                                                    Color="{Binding
+                                                        Path=[Color].Model,
+                                                        Converter={StaticResource IdealReadingColorCoverter},
+                                                        Mode=OneWay}" />
+                                            </TextBlock.Foreground>
+                                        </TextBlock>
+                                    </Border>
+                                </ListView>
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Text="Expenses go here..." />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

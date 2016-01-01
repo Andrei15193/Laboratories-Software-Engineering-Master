@@ -3,14 +3,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using BillPath.Models;
 
-namespace BillPath.DataAccess.Xml
+namespace BillPath.DataAccess
 {
-    public class IncomeXmlObservableRepository
-        : IIncomeXmlRepository
+    public class IncomeObservableRepository
+        : IIncomeRepository
     {
-        private readonly IIncomeXmlRepository _repository;
+        private readonly IIncomeRepository _repository;
 
-        public IncomeXmlObservableRepository(IIncomeXmlRepository repository)
+        public IncomeObservableRepository(IIncomeRepository repository)
         {
             _repository = repository;
         }
@@ -18,9 +18,9 @@ namespace BillPath.DataAccess.Xml
         public event EventHandler SavedIncome;
         public event EventHandler RemovedIncome;
 
-        public Task<IIncomeXmlReader> GetReaderAsync()
+        public Task<IIncomeReader> GetReaderAsync()
             => GetReaderAsync(CancellationToken.None);
-        public Task<IIncomeXmlReader> GetReaderAsync(CancellationToken cancellationToken)
+        public Task<IIncomeReader> GetReaderAsync(CancellationToken cancellationToken)
             => _repository.GetReaderAsync(cancellationToken);
 
         public Task<int> GetCountAsync()

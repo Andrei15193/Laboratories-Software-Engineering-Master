@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using BillPath.DataAccess;
 using BillPath.DataAccess.Xml;
 using BillPath.Models;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
@@ -13,14 +14,14 @@ namespace BillPath.UserInterface.ViewModels.Tests
     public class IncomesPageViewModelTests
     {
         private IncomeXmlMockRepository _repository;
-        private IncomeXmlObservableRepository _observableRepository;
+        private IncomeObservableRepository _observableRepository;
         private IncomesPageViewModel _viewModel;
 
         [TestInitialize]
         public async Task TestInitialize()
         {
             _repository = new IncomeXmlMockRepository();
-            _observableRepository = new IncomeXmlObservableRepository(_repository);
+            _observableRepository = new IncomeObservableRepository(_repository);
             _viewModel = new IncomesPageViewModel(_observableRepository);
 
             await _WaitLoadViewModelAsync();

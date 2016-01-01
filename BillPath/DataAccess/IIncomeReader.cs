@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using BillPath.Models;
 
-namespace BillPath.DataAccess.Xml
+namespace BillPath.DataAccess
 {
-    public interface IIncomeXmlReader
+    public interface IIncomeReader
         : IDisposable
     {
         Income Current

@@ -17,7 +17,7 @@ namespace BillPath.DataAccess.Xml.Tests
             _fileName = Guid.NewGuid().ToString() + ".xml";
         }
 
-        protected override IIncomeXmlRepository CreateRepository()
+        protected override IIncomeRepository CreateRepository()
             => new IncomeXmlFileRepository(_fileName);
 
         protected override async Task OnTestCleanedUpAsync()

@@ -8,13 +8,13 @@ using BillPath.Models;
 namespace BillPath.DataAccess.Xml
 {
     public abstract class IncomeXmlRepository
-        : IIncomeXmlRepository
+        : IIncomeRepository
     {
         private const string _rootElementName = "incomes";
         private static readonly XmlTranslator<Income> _translator = new IncomeXmlTranslator();
 
         public sealed class Reader
-            : IIncomeXmlReader
+            : IIncomeReader
         {
             private readonly Stream _stream;
             private XmlReader _currentXmlReader;
@@ -90,9 +90,9 @@ namespace BillPath.DataAccess.Xml
         protected virtual int StreamBufferSize
             => 2048;
 
-        public Task<IIncomeXmlReader> GetReaderAsync()
+        public Task<IIncomeReader> GetReaderAsync()
             => GetReaderAsync(CancellationToken.None);
-        public async Task<IIncomeXmlReader> GetReaderAsync(CancellationToken cancellationToken)
+        public async Task<IIncomeReader> GetReaderAsync(CancellationToken cancellationToken)
             => new Reader(await GetReadStreamAsync(cancellationToken));
 
         public Task<int> GetCountAsync()

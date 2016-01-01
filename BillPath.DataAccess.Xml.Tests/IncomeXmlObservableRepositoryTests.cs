@@ -14,7 +14,7 @@ namespace BillPath.DataAccess.Xml.Tests
 
             using (var repository = new IncomeXmlMockRepository())
             {
-                var observableRepository = new IncomeXmlObservableRepository(repository);
+                var observableRepository = new IncomeObservableRepository(repository);
 
                 observableRepository.SavedIncome += delegate { raiseCount += 1; };
                 await observableRepository.SaveAsync(new Income());
@@ -33,7 +33,7 @@ namespace BillPath.DataAccess.Xml.Tests
             {
                 await repository.SaveAsync(income);
 
-                var observableRepository = new IncomeXmlObservableRepository(repository);
+                var observableRepository = new IncomeObservableRepository(repository);
 
                 observableRepository.RemovedIncome += delegate { raiseCount += 1; };
                 await observableRepository.RemoveAsync(income);

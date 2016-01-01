@@ -6,7 +6,7 @@ namespace BillPath.DataAccess.Xml.Tests
     public class IncomeXmlMockRepositoryTests
         : IncomeXmlRepositoryTests
     {
-        protected override IIncomeXmlRepository CreateRepository()
+        protected override IIncomeRepository CreateRepository()
             => new IncomeXmlMockRepository();
     }
 }

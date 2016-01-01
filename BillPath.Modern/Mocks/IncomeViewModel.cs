@@ -1,5 +1,4 @@
-﻿using BillPath.DataAccess.Xml;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 
 namespace BillPath.Modern.Mocks
 {
@@ -7,7 +6,7 @@ namespace BillPath.Modern.Mocks
         : UserInterface.ViewModels.IncomeViewModel
     {
         public IncomeViewModel()
-            : base(Application.Current.GetResource<IncomeXmlObservableRepository>())
+            : base(Application.Current.GetResource<DataAccess.IncomeObservableRepository>())
         {
         }
     }

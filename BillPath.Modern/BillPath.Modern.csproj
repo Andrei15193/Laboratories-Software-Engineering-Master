@@ -132,6 +132,9 @@
     <Compile Include="Controls\Edit\AmountView.xaml.cs">
       <DependentUpon>AmountView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Edit\ExpenseCategoryView.xaml.cs">
+      <DependentUpon>ExpenseCategoryView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ModelFromModelStateConverter.cs" />
     <Compile Include="Converters\ArgbColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\AsyncCommandToCommandConverter.cs" />
@@ -162,9 +165,13 @@
     </Compile>
     <Compile Include="Mocks\IncomeModelState.cs" />
     <Compile Include="Mocks\IncomeViewModel.cs" />
+    <Compile Include="ResourceBinders\ExpenseCategoryObservableRepository.cs" />
+    <Compile Include="ResourceBinders\ExpenseCategoryViewModel.cs" />
+    <Compile Include="ResourceBinders\ExpenseCategoryViewModels.cs" />
+    <Compile Include="ResourceBinders\ExpenseCategoryXmlRepository.cs" />
     <Compile Include="ResourceBinders\IncomesPageViewModel.cs" />
     <Compile Include="Mocks\SettingsRepository.cs" />
-    <Compile Include="ResourceBinders\IncomeXmlObservableRepository.cs" />
+    <Compile Include="ResourceBinders\IncomeObservableRepository.cs" />
     <Compile Include="ResourceBinders\IncomeXmlRepository.cs" />
     <Compile Include="ResourceBinders\SettingsViewModel.cs" />
     <Compile Include="ModernAppFileProvider.cs" />
@@ -231,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Edit\AmountView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Edit\ExpenseCategoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

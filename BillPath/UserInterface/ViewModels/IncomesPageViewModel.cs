@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
-using BillPath.DataAccess.Xml;
+using BillPath.DataAccess;
 
 namespace BillPath.UserInterface.ViewModels
 {
@@ -17,9 +17,9 @@ namespace BillPath.UserInterface.ViewModels
         private int _pagesCount;
         private IEnumerable<IncomeViewModel> _items;
         private readonly TaskScheduler _taskScheduler;
-        private readonly IIncomeXmlRepository _repository;
+        private readonly IIncomeRepository _repository;
 
-        public IncomesPageViewModel(IncomeXmlObservableRepository repository)
+        public IncomesPageViewModel(IncomeObservableRepository repository)
         {
             _repository = repository;
             _taskScheduler = TaskScheduler.Current;

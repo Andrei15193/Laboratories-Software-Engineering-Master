@@ -1,6 +1,6 @@
 ﻿namespace BillPath.Models.States.Providers
 {
-    public class AmountModelStateModelStateProvider<TTransaction>
+    public class AmountModelStateProvider<TTransaction>
         : DefaultModelStateProvider<Amount, TTransaction>
         where TTransaction : Transaction<TTransaction>
     {

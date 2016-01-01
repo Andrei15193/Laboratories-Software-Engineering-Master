@@ -6,7 +6,7 @@ namespace BillPath.Modern.ResourceBinders
         : UserInterface.ViewModels.IncomesPageViewModel
     {
         public IncomesPageViewModel()
-            : base(Application.Current.GetResource<IncomeXmlObservableRepository>())
+            : base(Application.Current.GetResource<IncomeObservableRepository>())
         {
         }
     }

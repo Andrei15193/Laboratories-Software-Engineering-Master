@@ -101,17 +101,18 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DataAccess\ExpenseCategoryRepository.cs" />
-    <Compile Include="DataAccess\IExpenseCategoryRepository.cs" />
+    <Compile Include="DataAccess\ExpenseCategoryObservableRepository.cs" />
     <Compile Include="DataAccess\RepositoryChange.cs" />
     <Compile Include="DataAccess\RepositoryChangeAction.cs" />
     <Compile Include="DataAccess\ISettingsRepository.cs" />
     <Compile Include="DataAccess\SettingsRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseCategoryXmlRepository.cs" />
     <Compile Include="DataAccess\Xml\ExpenseCategoryXmlTranslator.cs" />
-    <Compile Include="DataAccess\Xml\IIncomeXmlReader.cs" />
-    <Compile Include="DataAccess\Xml\IIncomeXmlRepository.cs" />
+    <Compile Include="DataAccess\IExpenseCategoryRepository.cs" />
+    <Compile Include="DataAccess\IIncomeReader.cs" />
+    <Compile Include="DataAccess\IIncomeRepository.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlFileRepository.cs" />
-    <Compile Include="DataAccess\Xml\IncomeXmlObservableRepository.cs" />
+    <Compile Include="DataAccess\IncomeObservableRepository.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlRepository.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlTranslator.cs" />
     <Compile Include="DataAccess\Xml\FileProvider.cs" />
@@ -140,7 +141,8 @@
     <Compile Include="ModelErrors.cs" />
     <Compile Include="Models\IncomeEqualityComparer.cs" />
     <Compile Include="Models\States\AmountModelState.cs" />
-    <Compile Include="Models\States\Providers\AmountModelStateModelStateProvider.cs" />
+    <Compile Include="Models\States\Providers\AmountModelStateProvider.cs" />
+    <Compile Include="Models\States\Providers\ExpenseCategoryModelStateProvider.cs" />
     <Compile Include="ModelValidator.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Models\Transaction.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="DelegateObserver.cs" />
     <Compile Include="ObserverSubscription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ArgbColorProvider.cs" />
     <Compile Include="Providers\CurrencyDisplayFormatProvider.cs" />
     <Compile Include="Providers\CurrencyProvider.cs" />
     <Compile Include="Strings\en\Amount.cs">
@@ -186,6 +189,8 @@
     <Compile Include="UserInterface\ViewModels\Command.cs" />
     <Compile Include="UserInterface\ViewModels\DelegateAsyncCommand.cs" />
     <Compile Include="UserInterface\ViewModels\DelegateCommand.cs" />
+    <Compile Include="UserInterface\ViewModels\ExpenseCategoryViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\ExpenseCategoryViewModels.cs" />
     <Compile Include="UserInterface\ViewModels\IncomesPageViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\IncomeViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\SettingsViewModel.cs" />

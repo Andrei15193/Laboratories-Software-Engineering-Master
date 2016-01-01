@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using BillPath.DataAccess.Xml;
+using BillPath.DataAccess;
 using BillPath.Models;
 
 namespace BillPath.UserInterface.ViewModels
@@ -9,18 +9,18 @@ namespace BillPath.UserInterface.ViewModels
     public class IncomeViewModel
     {
         private ModelState _modelState;
-        private readonly IIncomeXmlRepository _repository;
+        private readonly IIncomeRepository _repository;
         private readonly DelegateAsyncCommand _saveCommand;
         private readonly DelegateAsyncCommand _removeCommand;
         private readonly DelegateAsyncCommand _updateCommand;
         private readonly DelegateCommand _revertChangesCommand;
         private Income _unmodifiedIncome;
 
-        public IncomeViewModel(IIncomeXmlRepository repository)
+        public IncomeViewModel(IIncomeRepository repository)
             : this(repository, null)
         {
         }
-        public IncomeViewModel(IIncomeXmlRepository repository, Income income)
+        public IncomeViewModel(IIncomeRepository repository, Income income)
         {
             if (repository == null)
                 throw new ArgumentNullException(nameof(repository));

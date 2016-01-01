@@ -6,13 +6,7 @@
     xmlns:display="using:BillPath.Modern.Controls.Display"
     xmlns:edit="using:BillPath.Modern.Controls.Edit"
     xmlns:mocks="using:BillPath.Modern.Mocks"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
     MaxWidth="400">
-    <d:UserControl.DataContext>
-        <mocks:IncomeModelState />
-    </d:UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

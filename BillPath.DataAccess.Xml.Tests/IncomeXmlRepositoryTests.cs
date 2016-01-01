@@ -9,9 +9,9 @@ namespace BillPath.DataAccess.Xml.Tests
     [TestClass]
     public abstract class IncomeXmlRepositoryTests
     {
-        private IIncomeXmlRepository _repository;
+        private IIncomeRepository _repository;
 
-        protected abstract IIncomeXmlRepository CreateRepository();
+        protected abstract IIncomeRepository CreateRepository();
 
         [TestInitialize]
         public async Task TestInitialize()
