@@ -1,14 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using BillPath.UserInterface.ViewModels;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
 namespace BillPath.Modern
 {
-    public sealed partial class IncomesPageView
+    public sealed partial class ExpensesPageView
         : UserControl
     {
         private enum ViewState
@@ -19,12 +28,12 @@ namespace BillPath.Modern
         }
 
         private ViewState _currentViewState;
-        private Lazy<IncomesPageViewModel> _viewModel;
+        private Lazy<ExpensesPageViewModel> _viewModel;
 
-        public IncomesPageView()
+        public ExpensesPageView()
         {
             _currentViewState = ViewState.Invalid;
-            _viewModel = new Lazy<IncomesPageViewModel>(() => (IncomesPageViewModel)DataContext);
+            _viewModel = new Lazy<ExpensesPageViewModel>(() => (ExpensesPageViewModel)DataContext);
             InitializeComponent();
             Loaded += delegate
             {
@@ -36,7 +45,7 @@ namespace BillPath.Modern
             };
         }
 
-        private IncomesPageViewModel _ViewModel
+        private ExpensesPageViewModel _ViewModel
         {
             get
             {
@@ -71,22 +80,22 @@ namespace BillPath.Modern
                 GoToPageFlyoutButton.Command.Execute(null);
         }
 
-        private void _ShowIncomeEditFlyout(object sender, ItemClickEventArgs e)
+        private void _ShowExpenseEditFlyout(object sender, ItemClickEventArgs e)
         {
-            IncomeEditGrid.DataContext = e.ClickedItem;
-            var flyout = (Flyout)FlyoutBase.GetAttachedFlyout(IncomesListView);
-            flyout.ShowAt(IncomesListView);
+            ExpenseEditGrid.DataContext = e.ClickedItem;
+            var flyout = (Flyout)FlyoutBase.GetAttachedFlyout(ExpensesListView);
+            flyout.ShowAt(ExpensesListView);
         }
 
-        private async void _IncomeFlyoutClosed(object sender, object e)
+        private async void _ExpenseFlyoutClosed(object sender, object e)
         {
-            var incomeViewModel = (IncomeViewModel)IncomeEditGrid.DataContext;
-            if (incomeViewModel.UpdateCommand.CanExecute)
-                await incomeViewModel.UpdateCommand.ExecuteAsync(null);
-            else if (incomeViewModel.RevertChangesCommand.CanExecute)
-                incomeViewModel.RevertChangesCommand.Execute(null);
+            var expenseViewModel = (ExpenseViewModel)ExpenseEditGrid.DataContext;
+            if (expenseViewModel.UpdateCommand.CanExecute)
+                await expenseViewModel.UpdateCommand.ExecuteAsync(null);
+            else if (expenseViewModel.RevertChangesCommand.CanExecute)
+                expenseViewModel.RevertChangesCommand.Execute(null);
 
-            IncomeEditGrid.DataContext = null;
+            ExpenseEditGrid.DataContext = null;
         }
     }
 }

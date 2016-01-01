@@ -30,6 +30,22 @@
             </StackPanel>
         </Flyout>
         <Flyout
+            x:Name="AddExpenseButtonFlyout"
+            x:Key="AddExpenseButtonFlyout"
+            Opened="_AddExpenseFlyoutOpened">
+            <StackPanel
+                x:Name="AddExpenseStackPanel">
+                <edit:ExpenseView
+                    DataContext="{Binding ModelState}" />
+                <Button
+                    Content="Add"
+                    Click="_HideAddExpenseFlyout"
+                    Command="{Binding
+                        Path=SaveCommand,
+                        Converter={StaticResource CommandConverter}}" />
+            </StackPanel>
+        </Flyout>
+        <Flyout
             x:Name="AddExpenseCategoryButtonFlyout"
             x:Key="AddExpenseCategoryButtonFlyout"
             Opened="_AddExpenseCategoryFlyoutOpened">
@@ -93,7 +109,9 @@
 
                                 <MenuFlyoutItem
                                     x:Uid="/DashboardPage/AddExpenseButton"
-                                    IsEnabled="False" />
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                                    Command="{StaticResource ShowAttachedFlyoutCommand}"
+                                    FlyoutBase.AttachedFlyout="{StaticResource AddExpenseButtonFlyout}" />
                                 <MenuFlyoutItem
                                     x:Uid="/DashboardPage/AddExpenseCategoryButton"
                                     CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
@@ -181,9 +199,9 @@
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
-                                <TextBlock
+                                <local:ExpensesPageView
                                     Grid.Row="1"
-                                    Text="Expenses go here..." />
+                                    DataContext="{Binding ExpensesPage}" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

@@ -12,16 +12,18 @@ namespace BillPath.UserInterface.ViewModels
         private string _initialName;
         private ModelState _modelState;
         private readonly IExpenseCategoryRepository _repository;
+        private readonly ExpenseObservableRepository _expensesRepository;
         private readonly DelegateAsyncCommand _saveCommand;
         private readonly DelegateAsyncCommand _removeCommand;
         private readonly DelegateAsyncCommand _updateCommand;
 
-        public ExpenseCategoryViewModel(IExpenseCategoryRepository repository, ExpenseCategory expenseCategory)
+        public ExpenseCategoryViewModel(IExpenseCategoryRepository repository, ExpenseObservableRepository expensesRepository, ExpenseCategory expenseCategory)
         {
             if (repository == null)
                 throw new ArgumentNullException(nameof(repository));
 
             _repository = repository;
+            _expensesRepository = expensesRepository;
 
             _saveCommand = new DelegateAsyncCommand(_SaveAsync) { CanExecute = ModelState?.IsValid ?? false };
             _removeCommand = new DelegateAsyncCommand(_RemoveAsync);
@@ -31,12 +33,15 @@ namespace BillPath.UserInterface.ViewModels
             {
                 ModelState = ModelState.GetFor(expenseCategory);
                 _InitialName = expenseCategory.Name;
+                ExpensesPage = new ExpensesPageViewModel(this, expensesRepository);
             }
         }
         public ExpenseCategoryViewModel(IExpenseCategoryRepository repository)
-            : this(repository, null)
+            : this(repository, null, null)
         {
         }
+
+        public ExpensesPageViewModel ExpensesPage { get; }
 
         public ModelState ModelState
         {
@@ -101,6 +106,7 @@ namespace BillPath.UserInterface.ViewModels
         private async Task _UpdateAsync(object parameter, CancellationToken cancellationToken)
         {
             await _repository.UpdateAsync(_InitialName, (ExpenseCategory)ModelState.Model, cancellationToken);
+            await _expensesRepository.UpdateCategory(expense => expense.Category == null, (ExpenseCategory)ModelState.Model, cancellationToken);
             _InitialName = (string)ModelState[nameof(ExpenseCategory.Name)];
         }
     }

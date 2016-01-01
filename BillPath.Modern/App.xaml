@@ -19,6 +19,8 @@
             x:Key="IncomesFileName">Incomes.xml</x:String>
         <x:String
             x:Key="ExpenseCategoriesFileName">ExpenseCategories.xml</x:String>
+        <x:String
+            x:Key="ExpensesFileName">Expenses.xml</x:String>
 
         <providers:CurrencyProvider
             x:Key="CurrencyProvider" />
@@ -40,6 +42,14 @@
             x:Key="ExpenseCategoryRepositoryImplementation" />
         <resourceBinders:ExpenseCategoryObservableRepository
             x:Key="ExpenseCategoryRepository" />
+
+        <resourceBinders:ExpenseXmlFileRepository
+            x:Key="DEBUG_ExpenseRepositoryImplementation" />
+        <resourceBinders:ExpenseXmlFileRepository
+            x:Key="ExpenseRepositoryImplementation" />
+        <resourceBinders:ExpenseObservableRepository
+            x:Key="ExpenseRepository" />
+
         <resourceBinders:ExpenseCategoryViewModels
             x:Key="ExpenseCategoryViewModels" />
 
@@ -51,6 +61,8 @@
             x:Key="IdealReadingColorCoverter" />
         <converters:ModelFromModelStateConverter
             x:Key="ModelFromModelStateConverter" />
+        <converters:ModelStateToModelOnlyConverter
+            x:Key="ModelStateToModelOnlyConverter" />
         <converters:ResourceFormatConverter
             x:Key="ResourceFormatConverter" />
         <converters:CommandConverter
@@ -63,6 +75,8 @@
             x:Key="IndexerConverter" />
         <converters:ToEnumerableConverter
             x:Key="ToEnumerableConverter" />
+        <converters:SelectModelFromExpenseCategories
+            x:Key="SelectModelFromExpenseCategories" />
 
         <mocks:SettingsRepository
             x:Key="DEBUG_SettingsRepository"

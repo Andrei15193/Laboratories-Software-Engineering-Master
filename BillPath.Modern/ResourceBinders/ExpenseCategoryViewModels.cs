@@ -6,7 +6,9 @@ namespace BillPath.Modern.ResourceBinders
         : UserInterface.ViewModels.ExpenseCategoryViewModels
     {
         public ExpenseCategoryViewModels()
-            : base(Application.Current.GetResource<ExpenseCategoryObservableRepository>("ExpenseCategoryRepository"))
+            : base(
+                  Application.Current.GetResource<ExpenseCategoryObservableRepository>("ExpenseCategoryRepository"),
+                  Application.Current.GetResource<ExpenseObservableRepository>("ExpenseRepository"))
         {
         }
     }

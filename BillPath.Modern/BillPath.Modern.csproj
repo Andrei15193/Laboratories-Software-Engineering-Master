@@ -135,6 +135,9 @@
     <Compile Include="Controls\Edit\ExpenseCategoryView.xaml.cs">
       <DependentUpon>ExpenseCategoryView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Edit\ExpenseView.xaml.cs">
+      <DependentUpon>ExpenseView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\ModelFromModelStateConverter.cs" />
     <Compile Include="Converters\ArgbColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\AsyncCommandToCommandConverter.cs" />
@@ -145,7 +148,9 @@
     <Compile Include="Converters\ChainedConverter.cs" />
     <Compile Include="Converters\CommandConverter.cs" />
     <Compile Include="Converters\CurrencyDisplayConverter.cs" />
+    <Compile Include="Converters\ModelStateToModelOnlyConverter.cs" />
     <Compile Include="Converters\NullableIntToStringConverter.cs" />
+    <Compile Include="Converters\SelectModelFromExpenseCategories.cs" />
     <Compile Include="Converters\StringToIntConverter.cs" />
     <Compile Include="Converters\ResourceFormatConverter.cs" />
     <Compile Include="Converters\LocalizationConverter.cs" />
@@ -155,6 +160,9 @@
       <DependentUpon>CurrencySettingsFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\GoToStateCommand.cs" />
+    <Compile Include="ExpensesPageView.xaml.cs">
+      <DependentUpon>ExpensesPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IncomesPageView.xaml.cs">
       <DependentUpon>IncomesPageView.xaml</DependentUpon>
     </Compile>
@@ -170,6 +178,9 @@
     <Compile Include="ResourceBinders\ExpenseCategoryViewModel.cs" />
     <Compile Include="ResourceBinders\ExpenseCategoryViewModels.cs" />
     <Compile Include="ResourceBinders\ExpenseCategoryXmlFileRepository.cs" />
+    <Compile Include="ResourceBinders\ExpenseObservableRepository.cs" />
+    <Compile Include="ResourceBinders\ExpenseViewModel.cs" />
+    <Compile Include="ResourceBinders\ExpenseXmlFileRepository.cs" />
     <Compile Include="ResourceBinders\IncomesPageViewModel.cs" />
     <Compile Include="Mocks\SettingsRepository.cs" />
     <Compile Include="ResourceBinders\IncomeObservableRepository.cs" />
@@ -186,6 +197,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DashboardPage.resw</DependentUpon>
+    </Compile>
+    <Compile Include="Strings\en\ExpensesPagedView.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExpensesPagedView.resw</DependentUpon>
     </Compile>
     <Compile Include="Strings\en\IncomesPagedView.cs">
       <AutoGen>True</AutoGen>
@@ -205,6 +221,12 @@
     </AppxManifest>
     <None Include="BillPath_StoreKey.pfx" />
     <None Include="packages.config" />
+    <PRIResource Include="Strings\ro-RO\ExpensesPagedView.resw" />
+    <PRIResource Include="Strings\en\ExpensesPagedView.resw">
+      <CustomToolNamespace>BillPath.Modern.Strings</CustomToolNamespace>
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>ExpensesPagedView.cs</LastGenOutput>
+    </PRIResource>
     <PRIResource Include="Strings\ro-RO\DashboardPage.resw" />
     <PRIResource Include="Strings\en\DashboardPage.resw">
       <Generator>ReswFileCodeGenerator</Generator>
@@ -246,7 +268,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Edit\ExpenseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CurrencySettingsFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpensesPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

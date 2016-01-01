@@ -102,6 +102,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataAccess\ExpenseCategoryObservableRepository.cs" />
+    <Compile Include="DataAccess\ExpenseObservableRepository.cs" />
+    <Compile Include="DataAccess\IExpenseReader.cs" />
+    <Compile Include="DataAccess\IExpenseRepository.cs" />
     <Compile Include="DataAccess\RepositoryChange.cs" />
     <Compile Include="DataAccess\RepositoryChangeAction.cs" />
     <Compile Include="DataAccess\ISettingsRepository.cs" />
@@ -113,6 +116,10 @@
     <Compile Include="DataAccess\IExpenseCategoryRepository.cs" />
     <Compile Include="DataAccess\IIncomeReader.cs" />
     <Compile Include="DataAccess\IIncomeRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseXmlFileRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseXmlMockRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseXmlRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseXmlTranslator.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlFileRepository.cs" />
     <Compile Include="DataAccess\IncomeObservableRepository.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlRepository.cs" />
@@ -136,6 +143,7 @@
     <Compile Include="Models\CurrencySynmbolAndIsoCodeFormatter.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\ExpenseCategory.cs" />
+    <Compile Include="Models\ExpenseEqualityComparer.cs" />
     <Compile Include="Models\ICloneable.cs" />
     <Compile Include="Models\ICurrencyFormatter.cs" />
     <Compile Include="IModelErrors.cs" />
@@ -194,7 +202,9 @@
     <Compile Include="UserInterface\ViewModels\DelegateCommand.cs" />
     <Compile Include="UserInterface\ViewModels\ExpenseCategoryViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\ExpenseCategoryViewModels.cs" />
+    <Compile Include="UserInterface\ViewModels\ExpensesPageViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\IncomesPageViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\ExpenseViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\IncomeViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\SettingsViewModel.cs" />
     <Compile Include="UserInterface\ViewModels\StatsViewModel.cs" />

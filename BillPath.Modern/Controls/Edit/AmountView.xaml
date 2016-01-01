@@ -23,6 +23,7 @@
         </Grid.ColumnDefinitions>
         <TextBox
             Grid.Column="0"
+            Header="Amount"
             Text="{Binding
                 Path=[Value],
                 Converter={StaticResource DecimalToStringConverter},
@@ -31,6 +32,7 @@
                 UpdateSourceTrigger=PropertyChanged}" />
         <ComboBox
             Grid.Column="2"
+            Header=" "
             DisplayMemberPath="IsoCode"
             ItemsSource="{Binding
                 Path=Currencies,

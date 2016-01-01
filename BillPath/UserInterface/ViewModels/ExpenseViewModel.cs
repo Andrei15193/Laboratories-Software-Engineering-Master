@@ -6,21 +6,21 @@ using BillPath.Models;
 
 namespace BillPath.UserInterface.ViewModels
 {
-    public class IncomeViewModel
+    public class ExpenseViewModel
     {
         private ModelState _modelState;
-        private readonly IIncomeRepository _repository;
+        private readonly IExpenseRepository _repository;
         private readonly DelegateAsyncCommand _saveCommand;
         private readonly DelegateAsyncCommand _removeCommand;
         private readonly DelegateAsyncCommand _updateCommand;
         private readonly DelegateCommand _revertChangesCommand;
-        private Income _unmodifiedIncome;
+        private Expense _unmodifiedExpense;
 
-        public IncomeViewModel(IIncomeRepository repository)
+        public ExpenseViewModel(IExpenseRepository repository)
             : this(repository, null)
         {
         }
-        public IncomeViewModel(IIncomeRepository repository, Income income)
+        public ExpenseViewModel(IExpenseRepository repository, Expense expense)
         {
             if (repository == null)
                 throw new ArgumentNullException(nameof(repository));
@@ -31,36 +31,36 @@ namespace BillPath.UserInterface.ViewModels
             _updateCommand = new DelegateAsyncCommand(_UpdateAsync);
             _revertChangesCommand = new DelegateCommand(_RevertChanges);
 
-            if (income != null)
+            if (expense != null)
             {
-                ModelState = ModelState.GetFor(income);
-                _UnmodifiedIncome = income;
+                ModelState = ModelState.GetFor(expense);
+                _UnmodifiedExpense = expense;
             }
             else
             {
                 ModelState = null;
-                _UnmodifiedIncome = null;
+                _UnmodifiedExpense = null;
             }
         }
 
-        private Income _UnmodifiedIncome
+        private Expense _UnmodifiedExpense
         {
             get
             {
-                return _unmodifiedIncome;
+                return _unmodifiedExpense;
             }
             set
             {
                 if (value == null)
                 {
-                    _unmodifiedIncome = null;
+                    _unmodifiedExpense = null;
                     _removeCommand.CanExecute = false;
                     _updateCommand.CanExecute = false;
                     _revertChangesCommand.CanExecute = false;
                 }
                 else
                 {
-                    _unmodifiedIncome = value.Clone();
+                    _unmodifiedExpense = value.Clone();
                     _removeCommand.CanExecute = true;
                     _updateCommand.CanExecute = true;
                     _revertChangesCommand.CanExecute = true;
@@ -70,33 +70,34 @@ namespace BillPath.UserInterface.ViewModels
 
         private async Task _SaveAsync(object parameter, CancellationToken cancellationToken)
         {
-            await _repository.SaveAsync((Income)ModelState.Model, cancellationToken);
-            _UnmodifiedIncome = (Income)ModelState.Model;
+            await _repository.SaveAsync((Expense)ModelState.Model, cancellationToken);
+            _UnmodifiedExpense = (Expense)ModelState.Model;
         }
         private async Task _RemoveAsync(object parameter, CancellationToken cancellationToken)
-            => await _repository.RemoveAsync(_UnmodifiedIncome, cancellationToken);
+            => await _repository.RemoveAsync(_UnmodifiedExpense, cancellationToken);
 
         private async Task _UpdateAsync(object parameter, CancellationToken cancellationToken)
         {
             if (_HasChanges)
             {
-                await _repository.RemoveAsync(_UnmodifiedIncome, cancellationToken);
-                await _repository.SaveAsync((Income)ModelState.Model, cancellationToken);
-                _UnmodifiedIncome = (Income)ModelState.Model;
+                await _repository.RemoveAsync(_UnmodifiedExpense, cancellationToken);
+                await _repository.SaveAsync((Expense)ModelState.Model, cancellationToken);
+                _UnmodifiedExpense = (Expense)ModelState.Model;
             }
         }
         private void _RevertChanges(object parameter)
         {
             if (_HasChanges)
             {
-                ModelState[nameof(Income.Amount)] = _UnmodifiedIncome.Amount;
-                ModelState[nameof(Income.DateRealized)] = _UnmodifiedIncome.DateRealized;
-                ModelState[nameof(Income.Description)] = _UnmodifiedIncome.Description;
+                ModelState[nameof(Expense.Amount)] = _UnmodifiedExpense.Amount;
+                ModelState[nameof(Expense.DateRealized)] = _UnmodifiedExpense.DateRealized;
+                ModelState[nameof(Expense.Description)] = _UnmodifiedExpense.Description;
+                ModelState[nameof(Expense.Category)] = _UnmodifiedExpense.Category;
             }
         }
 
         private bool _HasChanges
-            => !IncomeEqualityComparer.Instance.Equals((Income)ModelState.Model, _UnmodifiedIncome);
+            => !ExpenseEqualityComparer.Instance.Equals((Expense)ModelState.Model, _UnmodifiedExpense);
 
         public ModelState ModelState
         {
@@ -106,7 +107,7 @@ namespace BillPath.UserInterface.ViewModels
             }
             set
             {
-                _modelState = value?.Model is Income ? value : null;
+                _modelState = value?.Model is Expense ? value : null;
                 OnModelStateChanged();
             }
         }

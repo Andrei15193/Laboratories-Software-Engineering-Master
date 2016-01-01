@@ -27,7 +27,6 @@ namespace BillPath.DataAccess.Xml
             income.Amount = _ReadAmountFrom(xmlReader);
 
             return income;
-
         }
         private Amount _ReadAmountFrom(XmlReader xmlReader)
             => new Amount(

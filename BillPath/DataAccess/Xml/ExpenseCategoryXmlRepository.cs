@@ -11,7 +11,7 @@ namespace BillPath.DataAccess.Xml
     public abstract class ExpenseCategoryXmlRepository
         : IExpenseCategoryRepository
     {
-        private const string _rootElementName = "expenses";
+        private const string _rootElementName = "expenseCategories";
         private static readonly XmlTranslator<ExpenseCategory> _xmlTranslator = new ExpenseCategoryXmlTranslator();
 
         protected Task<Stream> GetReadStreamAsync()

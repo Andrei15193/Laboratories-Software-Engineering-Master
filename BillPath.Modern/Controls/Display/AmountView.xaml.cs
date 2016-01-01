@@ -29,7 +29,9 @@ namespace BillPath.Modern.Controls.Display
                 delegate
                 {
                     Application.Current.GetResource<SettingsViewModel>().PropertyChanged += _SettingsViewModelPropertyChanged;
-                    Amount.PropertyChanged += delegate { _UpdateAmountTextBlockText(); };
+                    var amount = Amount;
+                    if (amount != null)
+                        amount.PropertyChanged += delegate { _UpdateAmountTextBlockText(); };
                 };
         }
 

@@ -11,14 +11,18 @@ namespace BillPath.UserInterface.ViewModels
         : ReadOnlyObservableCollection<ExpenseCategoryViewModel>
     {
         private readonly IExpenseCategoryRepository _repository;
+        private readonly ExpenseObservableRepository _expenseRepository;
 
-        public ExpenseCategoryViewModels(ExpenseCategoryObservableRepository repository)
+        public ExpenseCategoryViewModels(ExpenseCategoryObservableRepository repository, ExpenseObservableRepository expenseRepository)
             : base(new ObservableCollection<ExpenseCategoryViewModel>())
         {
             if (repository == null)
                 throw new ArgumentNullException(nameof(repository));
+            if (expenseRepository == null)
+                throw new ArgumentNullException(nameof(expenseRepository));
 
             _repository = repository;
+            _expenseRepository = expenseRepository;
             repository.SavedExpenseCategory += _AddExpenseCategory;
             repository.RemovedExpenseCategory += _RemoveExpenseCategory;
 
@@ -26,7 +30,7 @@ namespace BillPath.UserInterface.ViewModels
         }
 
         private void _AddExpenseCategory(object sender, ExpenseCategory expenseCategory)
-            => Items.Add(new ExpenseCategoryViewModel(_repository, expenseCategory));
+            => Items.Add(new ExpenseCategoryViewModel(_repository, _expenseRepository, expenseCategory));
         private void _RemoveExpenseCategory(object sender, string removedCategoryName)
         {
             var index = Items
@@ -46,7 +50,7 @@ namespace BillPath.UserInterface.ViewModels
         private async void _LoadFromAsync(ExpenseCategoryObservableRepository repository)
         {
             foreach (var expenseCategory in await repository.GetAllAsync())
-                Items.Add(new ExpenseCategoryViewModel(repository, expenseCategory));
+                Items.Add(new ExpenseCategoryViewModel(repository, _expenseRepository, expenseCategory));
         }
     }
 }

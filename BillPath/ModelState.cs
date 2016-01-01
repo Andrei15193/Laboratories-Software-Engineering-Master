@@ -153,7 +153,8 @@ namespace BillPath
                 {
                     ModelState aggregateModelState;
 
-                    if (_modelPropertyStates.Value.TryGetValue(runtimeProperty, out aggregateModelState))
+                    if (_modelPropertyStates.Value.TryGetValue(runtimeProperty, out aggregateModelState)
+                        && aggregateModelState != null)
                         aggregateModelState.Model =
                             ModelStateProviders
                                 .GetFor(value.GetType(), Model.GetType())
@@ -163,9 +164,7 @@ namespace BillPath
                     {
                         aggregateModelState = _modelStateCache.GetFor(Model, value);
                         aggregateModelState._modelStateCache = _modelStateCache;
-                        _modelPropertyStates.Value.Add(
-                            runtimeProperty,
-                            aggregateModelState);
+                        _modelPropertyStates.Value[runtimeProperty] = aggregateModelState;
                     }
                 }
         }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BillPath.Models;
 using BillPath.Modern.Mocks;
 using BillPath.Modern.ResourceBinders;
@@ -56,5 +57,21 @@ namespace BillPath.Modern
 
             ExpenseCategoryEditControl.DataContext = null;
         }
+
+        private void _HideAddExpenseFlyout(object sender, RoutedEventArgs e)
+            => AddExpenseButtonFlyout.Hide();
+        private void _AddExpenseFlyoutOpened(object sender, object e)
+            => AddExpenseStackPanel.DataContext =
+            new ExpenseViewModel
+            {
+                ModelState = ModelState.GetFor(
+                    new Expense
+                    {
+                        Amount = new Amount(
+                          0,
+                          Application.Current.GetResource<SettingsViewModel>().PreferredCurrency),
+                        DateRealized = DateTimeOffset.Now.Date
+                    })
+            };
     }
 }
