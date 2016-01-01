@@ -106,6 +106,8 @@
     <Compile Include="DataAccess\RepositoryChangeAction.cs" />
     <Compile Include="DataAccess\ISettingsRepository.cs" />
     <Compile Include="DataAccess\SettingsRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseCategoryXmlFileRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseCategoryXmlMockRepository.cs" />
     <Compile Include="DataAccess\Xml\ExpenseCategoryXmlRepository.cs" />
     <Compile Include="DataAccess\Xml\ExpenseCategoryXmlTranslator.cs" />
     <Compile Include="DataAccess\IExpenseCategoryRepository.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="DataAccess\Xml\IncomeXmlTranslator.cs" />
     <Compile Include="DataAccess\Xml\FileProvider.cs" />
     <Compile Include="DataAccess\Xml\IncomeXmlMockRepository.cs" />
+    <Compile Include="DataAccess\Xml\MemoryStreamMock.cs" />
     <Compile Include="DataAccess\Xml\XmlReaderHelper.cs" />
     <Compile Include="DataAccess\Xml\XmlTranslator.cs" />
     <Compile Include="DataAccess\Xml\XmlSettingsRepository.cs" />

@@ -1,38 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using BillPath.Models;
 
 namespace BillPath.DataAccess.Xml
 {
-    public class ExpenseCategoryXmlRepository
+    public abstract class ExpenseCategoryXmlRepository
         : IExpenseCategoryRepository
     {
+        private const string _rootElementName = "expenses";
         private static readonly XmlTranslator<ExpenseCategory> _xmlTranslator = new ExpenseCategoryXmlTranslator();
-        private readonly IList<ExpenseCategory> _expenseCategories =
-            new List<ExpenseCategory>
-            {
-                new ExpenseCategory
-                {
-                    Name = "red",
-                    Color = new ArgbColor(0xFF, 0xFF, 0x00, 0x00)
-                },
-                new ExpenseCategory
-                {
-                    Name = "Yellow",
-                    Color = new ArgbColor(0xFF, 0xFF, 0xFF, 0x00)
-                }
-            };
+
+        protected Task<Stream> GetReadStreamAsync()
+            => GetReadStreamAsync(CancellationToken.None);
+        protected abstract Task<Stream> GetReadStreamAsync(CancellationToken cancellationToken);
+
+        protected Task<Stream> GetWriteStreamAsync()
+            => GetWriteStreamAsync(CancellationToken.None);
+        protected abstract Task<Stream> GetWriteStreamAsync(CancellationToken cancellationToken);
+
+        protected virtual int StreamBufferSize
+            => 2048;
 
         public Task<IEnumerable<ExpenseCategory>> GetAllAsync()
             => GetAllAsync(CancellationToken.None);
         public async Task<IEnumerable<ExpenseCategory>> GetAllAsync(CancellationToken cancellationToken)
         {
-            await Task.Yield();
+            var expenseCategories = new List<ExpenseCategory>();
 
-            return _expenseCategories;
+            using (var expenseCategoryXmlReader = await _GetXmlReader(cancellationToken))
+            {
+                var expenseCategory = await _xmlTranslator.ReadFromAsync(expenseCategoryXmlReader, cancellationToken);
+                while (expenseCategory != null)
+                {
+                    expenseCategories.Add(expenseCategory);
+                    await expenseCategoryXmlReader.ReadAsync();
+                    expenseCategory = await _xmlTranslator.ReadFromAsync(expenseCategoryXmlReader, cancellationToken);
+                }
+            }
+
+            return expenseCategories;
+        }
+
+        public Task SaveAsync(ExpenseCategory expenseCategory)
+            => SaveAsync(expenseCategory, CancellationToken.None);
+        public async Task SaveAsync(ExpenseCategory expenseCategory, CancellationToken cancellationToken)
+        {
+            if (expenseCategory == null)
+                throw new ArgumentNullException(nameof(expenseCategory));
+
+            using (var temporaryStream = new MemoryStream())
+            {
+                using (var expenseCategoryXmlReader = await _GetXmlReader(cancellationToken))
+                using (var expenseCategoryXmlWriter = _GetXmlWriter(temporaryStream))
+                {
+                    await expenseCategoryXmlWriter.WriteStartElementAsync(null, _rootElementName, null);
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    var existingExpenseCategory = await _xmlTranslator.ReadFromAsync(expenseCategoryXmlReader, cancellationToken);
+                    while (existingExpenseCategory != null)
+                    {
+                        await _xmlTranslator.WriteToAsync(expenseCategoryXmlWriter, existingExpenseCategory, cancellationToken);
+
+                        await expenseCategoryXmlReader.ReadAsync();
+                        existingExpenseCategory = await _xmlTranslator.ReadFromAsync(expenseCategoryXmlReader, cancellationToken);
+                    }
+                    await _xmlTranslator.WriteToAsync(expenseCategoryXmlWriter, expenseCategory, cancellationToken);
+
+                    await expenseCategoryXmlWriter.WriteEndElementAsync();
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+                temporaryStream.Seek(0, SeekOrigin.Begin);
+                using (var resultStream = await GetWriteStreamAsync(cancellationToken))
+                    await temporaryStream.CopyToAsync(resultStream, StreamBufferSize, cancellationToken);
+            }
         }
 
         public Task RemoveAsync(string name)
@@ -45,25 +89,31 @@ namespace BillPath.DataAccess.Xml
                 else
                     throw new ArgumentException("Cannot be empty or white space!", nameof(name));
 
-            await Task.Yield();
+            using (var temporaryStream = new MemoryStream())
+            {
+                using (var expenseCategoryXmlReader = await _GetXmlReader(cancellationToken))
+                using (var expenseCategoryXmlWriter = _GetXmlWriter(temporaryStream))
+                {
+                    await expenseCategoryXmlWriter.WriteStartElementAsync(null, _rootElementName, null);
+                    cancellationToken.ThrowIfCancellationRequested();
 
-            var indexToRemove = _expenseCategories
-                .TakeWhile(expenseCategory => name.Equals(expenseCategory.Name, StringComparison.OrdinalIgnoreCase))
-                .Count();
-            if (indexToRemove < _expenseCategories.Count)
-                _expenseCategories.RemoveAt(indexToRemove);
-        }
+                    var expenseCategory = await _xmlTranslator.ReadFromAsync(expenseCategoryXmlReader, cancellationToken);
+                    while (expenseCategory != null)
+                    {
+                        if (!name.Equals(expenseCategory.Name, StringComparison.OrdinalIgnoreCase))
+                            await _xmlTranslator.WriteToAsync(expenseCategoryXmlWriter, expenseCategory, cancellationToken);
 
-        public Task SaveAsync(ExpenseCategory expenseCategory)
-            => SaveAsync(expenseCategory, CancellationToken.None);
-        public async Task SaveAsync(ExpenseCategory expenseCategory, CancellationToken cancellationToken)
-        {
-            if (expenseCategory == null)
-                throw new ArgumentNullException(nameof(expenseCategory));
+                        await expenseCategoryXmlReader.ReadAsync();
+                        expenseCategory = await _xmlTranslator.ReadFromAsync(expenseCategoryXmlReader, cancellationToken);
+                    }
 
-            await Task.Yield();
-
-            _expenseCategories.Add(expenseCategory);
+                    await expenseCategoryXmlWriter.WriteEndElementAsync();
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+                temporaryStream.Seek(0, SeekOrigin.Begin);
+                using (var resultStream = await GetWriteStreamAsync(cancellationToken))
+                    await temporaryStream.CopyToAsync(resultStream, StreamBufferSize, cancellationToken);
+            }
         }
 
         public Task UpdateAsync(string expenseCategoryName, ExpenseCategory expenseCategory)
@@ -78,16 +128,56 @@ namespace BillPath.DataAccess.Xml
             if (expenseCategory == null)
                 throw new ArgumentNullException(nameof(expenseCategory));
 
-            await Task.Yield();
+            using (var temporaryStream = new MemoryStream())
+            {
+                using (var expenseCategoryXmlReader = await _GetXmlReader(cancellationToken))
+                using (var expenseCategoryXmlWriter = _GetXmlWriter(temporaryStream))
+                {
+                    await expenseCategoryXmlWriter.WriteStartElementAsync(null, _rootElementName, null);
+                    cancellationToken.ThrowIfCancellationRequested();
 
-            var index = _expenseCategories
-                .TakeWhile(existingExpenseCategory => expenseCategoryName.Equals(
-                    existingExpenseCategory.Name,
-                    StringComparison.OrdinalIgnoreCase))
-                .Count();
+                    var existingExpenseCategory = await _xmlTranslator.ReadFromAsync(expenseCategoryXmlReader, cancellationToken);
+                    while (existingExpenseCategory != null)
+                    {
+                        if (expenseCategoryName.Equals(existingExpenseCategory.Name, StringComparison.OrdinalIgnoreCase))
+                            await _xmlTranslator.WriteToAsync(expenseCategoryXmlWriter, expenseCategory, cancellationToken);
+                        else
+                            await _xmlTranslator.WriteToAsync(expenseCategoryXmlWriter, existingExpenseCategory, cancellationToken);
 
-            if (index < _expenseCategories.Count)
-                _expenseCategories[index] = expenseCategory;
+                        await expenseCategoryXmlReader.ReadAsync();
+                        existingExpenseCategory = await _xmlTranslator.ReadFromAsync(expenseCategoryXmlReader, cancellationToken);
+                    }
+
+                    await expenseCategoryXmlWriter.WriteEndElementAsync();
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+                temporaryStream.Seek(0, SeekOrigin.Begin);
+                using (var resultStream = await GetWriteStreamAsync(cancellationToken))
+                    await temporaryStream.CopyToAsync(resultStream, StreamBufferSize, cancellationToken);
+            }
         }
+
+        private async Task<XmlReader> _GetXmlReader(CancellationToken cancellationToken)
+            => XmlReader.Create(
+                await GetReadStreamAsync(cancellationToken),
+                new XmlReaderSettings
+                {
+                    Async = true,
+                    CloseInput = true,
+                    ConformanceLevel = ConformanceLevel.Auto
+                });
+        private XmlWriter _GetXmlWriter(Stream stream)
+            => XmlWriter.Create(
+                stream,
+                new XmlWriterSettings
+                {
+                    Async = true,
+                    CloseOutput = false,
+                    ConformanceLevel = ConformanceLevel.Document,
+                    Indent = false,
+                    NewLineOnAttributes = false,
+                    OmitXmlDeclaration = false,
+                    WriteEndDocumentOnClose = true
+                });
     }
 }

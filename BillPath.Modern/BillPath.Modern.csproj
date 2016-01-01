@@ -169,7 +169,7 @@
     <Compile Include="ResourceBinders\ExpenseCategoryObservableRepository.cs" />
     <Compile Include="ResourceBinders\ExpenseCategoryViewModel.cs" />
     <Compile Include="ResourceBinders\ExpenseCategoryViewModels.cs" />
-    <Compile Include="ResourceBinders\ExpenseCategoryXmlRepository.cs" />
+    <Compile Include="ResourceBinders\ExpenseCategoryXmlFileRepository.cs" />
     <Compile Include="ResourceBinders\IncomesPageViewModel.cs" />
     <Compile Include="Mocks\SettingsRepository.cs" />
     <Compile Include="ResourceBinders\IncomeObservableRepository.cs" />

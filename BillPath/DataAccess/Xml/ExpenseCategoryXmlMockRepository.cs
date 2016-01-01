@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace BillPath.DataAccess.Xml
 {
-    public sealed class IncomeXmlMockRepository
-        : IncomeXmlRepository, IDisposable
+    public sealed class ExpenseCategoryXmlMockRepository
+        : ExpenseCategoryXmlRepository, IDisposable
     {
         private readonly MemoryStream _memoryStream = new MemoryStream();
 
