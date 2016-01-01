@@ -34,7 +34,7 @@ namespace BillPath.Models
             => x.Amount == y.Amount
             && x.DateRealized == y.DateRealized
             && string.Equals(x.Description, y.Description, StringComparison.Ordinal)
-            && string.Equals(x.Category.Name, y.Category.Name, StringComparison.OrdinalIgnoreCase);
+            && string.Equals(x.Category?.Name, y.Category?.Name, StringComparison.OrdinalIgnoreCase);
 
         public int GetHashCode(Expense obj)
         {

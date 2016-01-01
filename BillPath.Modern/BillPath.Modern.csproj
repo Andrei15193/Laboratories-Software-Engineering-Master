@@ -138,6 +138,7 @@
     <Compile Include="Controls\Edit\ExpenseView.xaml.cs">
       <DependentUpon>ExpenseView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\DateOnlyConverter.cs" />
     <Compile Include="Converters\ModelFromModelStateConverter.cs" />
     <Compile Include="Converters\ArgbColorToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\AsyncCommandToCommandConverter.cs" />

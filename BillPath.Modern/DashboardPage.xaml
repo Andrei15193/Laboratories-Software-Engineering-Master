@@ -130,82 +130,95 @@
         <HubSection
             VerticalContentAlignment="Stretch">
             <DataTemplate>
-                <local:Overview
-                    Width="400" />
+                <StackPanel>
+                    <TextBlock
+                        Text="Incomes"
+                        Style="{StaticResource SubheaderTextBlockStyle}"
+                        Margin="0,0,0,20" />
+                    <local:IncomesPageView
+                        x:Name="IncomesView"
+                        Width="400" />
+                </StackPanel>
             </DataTemplate>
         </HubSection>
         <HubSection>
             <DataTemplate>
-                <ItemsControl
-                    ItemsSource="{StaticResource ExpenseCategoryViewModels}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel
-                                Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid
-                                Margin="5,0"
-                                MinWidth="300"
-                                DataContext="{Binding}">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition
-                                        Height="Auto" />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <ListView
-                                    Grid.Row="0"
-                                    SelectionMode="None"
-                                    IsItemClickEnabled="True"
-                                    ItemClick="_ClickedExpenseCategory"
-                                    ItemsSource="{Binding
-                                        Converter={StaticResource ToEnumerableConverter}}"
-                                    FlyoutBase.AttachedFlyout="{StaticResource ExpenseCategoryEditFlyout}">
-                                    <ListView.Resources>
-                                        <Style
-                                            TargetType="ListViewItem">
-                                            <Setter
-                                                Property="HorizontalContentAlignment"
-                                                Value="Stretch" />
-                                        </Style>
-                                    </ListView.Resources>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border
-                                                Padding="10"
-                                                MinHeight="100"
-                                                DataContext="{Binding
-                                                    Path=ModelState}"
-                                                Background="{Binding
-                                                    Path=[Color].Model,
-                                                    Converter={StaticResource ArgbColorToSolidColorBrushConverter},
-                                                    Mode=OneWay}">
-                                                <TextBlock
-                                                    Style="{StaticResource SubheaderTextBlockStyle}"
-                                                    Text="{Binding
+                <StackPanel>
+                    <TextBlock
+                        Text="Expenses"
+                        Style="{StaticResource SubheaderTextBlockStyle}"
+                        Margin="0,0,0,20" />
+                    <ItemsControl
+                        ItemsSource="{StaticResource ExpenseCategoryViewModels}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel
+                                    Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Margin="5,0"
+                                    MinWidth="300"
+                                    DataContext="{Binding}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+                                            Height="Auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <ListView
+                                        Grid.Row="0"
+                                        SelectionMode="None"
+                                        IsItemClickEnabled="True"
+                                        ItemClick="_ClickedExpenseCategory"
+                                        ItemsSource="{Binding
+                                            Converter={StaticResource ToEnumerableConverter}}"
+                                        FlyoutBase.AttachedFlyout="{StaticResource ExpenseCategoryEditFlyout}">
+                                        <ListView.Resources>
+                                            <Style
+                                                TargetType="ListViewItem">
+                                                <Setter
+                                                    Property="HorizontalContentAlignment"
+                                                    Value="Stretch" />
+                                            </Style>
+                                        </ListView.Resources>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border
+                                                    Padding="10"
+                                                    MinHeight="100"
+                                                    DataContext="{Binding
+                                                        Path=ModelState}"
+                                                    Background="{Binding
+                                                        Path=[Color].Model,
+                                                        Converter={StaticResource ArgbColorToSolidColorBrushConverter},
+                                                        Mode=OneWay}">
+                                                    <TextBlock
+                                                        Style="{StaticResource SubheaderTextBlockStyle}"
+                                                        Text="{Binding
                                                         Path=[Name],
                                                         Mode=OneWay}">
-                                                    <TextBlock.Foreground>
-                                                        <SolidColorBrush
-                                                            Color="{Binding
-                                                                Path=[Color].Model,
-                                                                Converter={StaticResource IdealReadingColorCoverter},
-                                                                Mode=OneWay}" />
-                                                    </TextBlock.Foreground>
-                                                </TextBlock>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                                <local:ExpensesPageView
-                                    Grid.Row="1"
-                                    DataContext="{Binding ExpensesPage}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                                                        <TextBlock.Foreground>
+                                                            <SolidColorBrush
+                                                                Color="{Binding
+                                                                    Path=[Color].Model,
+                                                                    Converter={StaticResource IdealReadingColorCoverter},
+                                                                    Mode=OneWay}" />
+                                                        </TextBlock.Foreground>
+                                                    </TextBlock>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    <local:ExpensesPageView
+                                        Grid.Row="1"
+                                        DataContext="{Binding ExpensesPage}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
             </DataTemplate>
         </HubSection>
     </Hub>

@@ -74,7 +74,7 @@ namespace BillPath.DataAccess.Xml
                     expense.Description);
             xmlWriter.WriteAttributeString(
                 nameof(Expense.Category).ToXmlName(),
-                expense.Category.Name);
+                expense.Category?.Name ?? string.Empty);
             cancellationToken.ThrowIfCancellationRequested();
 
             await _WriteAmountAsync(xmlWriter, expense.Amount);

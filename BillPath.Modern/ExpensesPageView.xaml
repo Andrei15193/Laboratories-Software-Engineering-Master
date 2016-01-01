@@ -150,6 +150,7 @@
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="{Binding
                                     Path=[DateRealized],
+                                    Converter={StaticResource DateOnlyConverter},
                                     Mode=OneWay}" />
                             <TextBlock
                                 Grid.Column="0"

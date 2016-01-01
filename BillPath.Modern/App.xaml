@@ -29,8 +29,6 @@
         <providers:ArgbColorProvider
             x:Key="ArgbColorProvider" />
 
-        <dataAccess:IncomeXmlMockRepository
-            x:Key="DEBUG_IIncomeRepository" />
         <resourceBinders:IncomeXmlRepository
             x:Key="IIncomeRepository" />
         <resourceBinders:IncomeObservableRepository
@@ -63,6 +61,8 @@
             x:Key="ModelFromModelStateConverter" />
         <converters:ModelStateToModelOnlyConverter
             x:Key="ModelStateToModelOnlyConverter" />
+        <converters:DateOnlyConverter
+            x:Key="DateOnlyConverter" />
         <converters:ResourceFormatConverter
             x:Key="ResourceFormatConverter" />
         <converters:CommandConverter

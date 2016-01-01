@@ -243,6 +243,52 @@ namespace BillPath.DataAccess.Xml
                 }
             }
         }
+        public Task RemoveAsync(Predicate<Expense> predicate)
+            => RemoveAsync(predicate, CancellationToken.None);
+        public async Task RemoveAsync(Predicate<Expense> predicate, CancellationToken cancellationToken)
+        {
+            if (predicate == null)
+                throw new ArgumentNullException(nameof(predicate));
+
+            using (var temporaryStream = new MemoryStream())
+            {
+                var found = false;
+
+                using (var xmlWriter = XmlWriter.Create(
+                    temporaryStream,
+                    new XmlWriterSettings
+                    {
+                        Async = true,
+                        CloseOutput = false
+                    }))
+                {
+                    await xmlWriter.WriteStartDocumentAsync(true);
+                    await xmlWriter.WriteStartElementAsync(null, _rootElementName, null);
+                    await xmlWriter.WriteAttributeStringAsync(null, "count", null, XmlConvert.ToString(await _GetCountAsync(null, cancellationToken) - 1));
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    using (var expenseReader = await GetReaderAsync(null, cancellationToken))
+                    {
+                        while (await expenseReader.ReadAsync(cancellationToken))
+                            if (predicate(expenseReader.Current))
+                                found = true;
+                            else
+                                await _xmlTranslator.WriteToAsync(xmlWriter, expenseReader.Current, cancellationToken);
+                    }
+
+                    await xmlWriter.WriteEndElementAsync();
+                    await xmlWriter.WriteEndDocumentAsync();
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
+
+                if (found)
+                {
+                    temporaryStream.Seek(0, SeekOrigin.Begin);
+                    using (var resultStream = await GetWriteStreamAsync(cancellationToken))
+                        await temporaryStream.CopyToAsync(resultStream, StreamBufferSize, cancellationToken);
+                }
+            }
+        }
 
         public Task UpdateCategory(Predicate<Expense> predicate, ExpenseCategory expenseCategory)
             => UpdateCategory(predicate, expenseCategory, CancellationToken.None);

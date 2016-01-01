@@ -42,6 +42,13 @@ namespace BillPath.DataAccess
             await _repository.RemoveAsync(expense, cancellationToken);
             RemovedIncome?.Invoke(this, EventArgs.Empty);
         }
+        public Task RemoveAsync(Predicate<Expense> predicate)
+            => RemoveAsync(predicate, CancellationToken.None);
+        public async Task RemoveAsync(Predicate<Expense> predicate, CancellationToken cancellationToken)
+        {
+            await _repository.RemoveAsync(predicate, cancellationToken);
+            RemovedIncome?.Invoke(this, EventArgs.Empty);
+        }
 
         public Task UpdateCategory(Predicate<Expense> predicate, ExpenseCategory expenseCategory)
             => UpdateCategory(predicate, expenseCategory, CancellationToken.None);

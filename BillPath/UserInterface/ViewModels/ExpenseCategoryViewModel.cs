@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -98,6 +99,8 @@ namespace BillPath.UserInterface.ViewModels
         private async Task _RemoveAsync(object parameter, CancellationToken cancellationToken)
         {
             await _repository.RemoveAsync((string)ModelState[nameof(ExpenseCategory.Name)], cancellationToken);
+            await _expensesRepository.RemoveAsync(expense => expense.Category == null);
+
             _InitialName = null;
         }
 

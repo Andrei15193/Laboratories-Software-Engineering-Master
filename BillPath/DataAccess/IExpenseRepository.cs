@@ -18,6 +18,8 @@ namespace BillPath.DataAccess
 
         Task RemoveAsync(Expense expense);
         Task RemoveAsync(Expense expense, CancellationToken cancellationToken);
+        Task RemoveAsync(Predicate<Expense> predicate);
+        Task RemoveAsync(Predicate<Expense> predicate, CancellationToken cancellationToken);
 
         Task UpdateCategory(Predicate<Expense> predicate, ExpenseCategory expenseCategory);
         Task UpdateCategory(Predicate<Expense> predicate, ExpenseCategory expenseCategory, CancellationToken cancellationToken);
