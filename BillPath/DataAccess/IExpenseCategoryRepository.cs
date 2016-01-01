@@ -12,5 +12,11 @@ namespace BillPath.DataAccess
 
         Task SaveAsync(ExpenseCategory expenseCategory);
         Task SaveAsync(ExpenseCategory expenseCategory, CancellationToken cancellationToken);
+
+        Task RemoveAsync(string name);
+        Task RemoveAsync(string name, CancellationToken cancellationToken);
+
+        Task UpdateAsync(string expenseCategoryName, ExpenseCategory expenseCategory);
+        Task UpdateAsync(string expenseCategoryName, ExpenseCategory expenseCategory, CancellationToken cancellationToken);
     }
 }

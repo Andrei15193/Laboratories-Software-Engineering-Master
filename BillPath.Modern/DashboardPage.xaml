@@ -42,7 +42,24 @@
                     Click="_HideAddExpenseCategoryFlyout"
                     Command="{Binding
                         Path=SaveCommand,
-                        Converter={StaticResource CommandConverter}}"/>
+                        Converter={StaticResource CommandConverter}}" />
+            </StackPanel>
+        </Flyout>
+
+        <Flyout
+            x:Name="ExpenseCategoryEditFlyout"
+            x:Key="ExpenseCategoryEditFlyout"
+            Closed="_ExpenseCategoryEditFlyoutClosed">
+            <StackPanel
+                x:Name="ExpenseCategoryEditControl">
+                <edit:ExpenseCategoryView
+                    DataContext="{Binding
+                        Path=ModelState}" />
+                <Button
+                    Content="Remove"
+                    Command="{Binding
+                        Path=RemoveCommand,
+                        Converter={StaticResource CommandConverter}}" />
             </StackPanel>
         </Flyout>
     </Page.Resources>
@@ -114,8 +131,7 @@
                             <Grid
                                 Margin="5,0"
                                 MinWidth="300"
-                                DataContext="{Binding
-                                    Path=ModelState}">
+                                DataContext="{Binding}">
                                 <Grid.RowDefinitions>
                                     <RowDefinition
                                         Height="Auto" />
@@ -123,7 +139,12 @@
                                 </Grid.RowDefinitions>
                                 <ListView
                                     Grid.Row="0"
-                                    SelectionMode="None">
+                                    SelectionMode="None"
+                                    IsItemClickEnabled="True"
+                                    ItemClick="_ClickedExpenseCategory"
+                                    ItemsSource="{Binding
+                                        Converter={StaticResource ToEnumerableConverter}}"
+                                    FlyoutBase.AttachedFlyout="{StaticResource ExpenseCategoryEditFlyout}">
                                     <ListView.Resources>
                                         <Style
                                             TargetType="ListViewItem">
@@ -132,27 +153,33 @@
                                                 Value="Stretch" />
                                         </Style>
                                     </ListView.Resources>
-                                    <Border
-                                        Padding="10"
-                                        MinHeight="100"
-                                        Background="{Binding
-                                        Path=[Color].Model,
-                                        Converter={StaticResource ArgbColorToSolidColorBrushConverter},
-                                        Mode=OneWay}">
-                                        <TextBlock
-                                            Style="{StaticResource SubheaderTextBlockStyle}"
-                                            Text="{Binding
-                                            Path=[Name],
-                                            Mode=OneWay}">
-                                            <TextBlock.Foreground>
-                                                <SolidColorBrush
-                                                    Color="{Binding
-                                                        Path=[Color].Model,
-                                                        Converter={StaticResource IdealReadingColorCoverter},
-                                                        Mode=OneWay}" />
-                                            </TextBlock.Foreground>
-                                        </TextBlock>
-                                    </Border>
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border
+                                                Padding="10"
+                                                MinHeight="100"
+                                                DataContext="{Binding
+                                                    Path=ModelState}"
+                                                Background="{Binding
+                                                    Path=[Color].Model,
+                                                    Converter={StaticResource ArgbColorToSolidColorBrushConverter},
+                                                    Mode=OneWay}">
+                                                <TextBlock
+                                                    Style="{StaticResource SubheaderTextBlockStyle}"
+                                                    Text="{Binding
+                                                        Path=[Name],
+                                                        Mode=OneWay}">
+                                                    <TextBlock.Foreground>
+                                                        <SolidColorBrush
+                                                            Color="{Binding
+                                                                Path=[Color].Model,
+                                                                Converter={StaticResource IdealReadingColorCoverter},
+                                                                Mode=OneWay}" />
+                                                    </TextBlock.Foreground>
+                                                </TextBlock>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
                                 </ListView>
                                 <TextBlock
                                     Grid.Row="1"

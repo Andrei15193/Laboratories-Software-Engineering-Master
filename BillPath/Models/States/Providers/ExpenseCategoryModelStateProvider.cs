@@ -8,8 +8,24 @@ namespace BillPath.Models.States.Providers
     public class ExpenseCategoryModelStateProvider
         : DefaultModelStateProvider<ExpenseCategory>
     {
-        private static readonly ICollection<ModelState> _cachedModelStates =
-            new List<ModelState>();
+        private static readonly IList<ModelState> _cachedModelStates = new List<ModelState>();
+        internal static void RemoveFromCache(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                if (name == null)
+                    throw new ArgumentNullException(nameof(name));
+                else
+                    throw new ArgumentException("Cannot be empty or white space!", nameof(name));
+
+            var indexToRemove = _cachedModelStates
+                .TakeWhile(modelState => !name.Equals(
+                    (string)modelState[nameof(ExpenseCategory.Name)],
+                    StringComparison.OrdinalIgnoreCase))
+                .Count();
+
+            if (indexToRemove < _cachedModelStates.Count)
+                _cachedModelStates.RemoveAt(indexToRemove);
+        }
 
         private sealed class ExpenseCategory
             : Models.ExpenseCategory, IValidatableObject

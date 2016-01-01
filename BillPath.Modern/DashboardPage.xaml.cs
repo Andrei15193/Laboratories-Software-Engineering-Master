@@ -5,6 +5,7 @@ using BillPath.Modern.ResourceBinders;
 using BillPath.Providers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace BillPath.Modern
 {
@@ -38,5 +39,22 @@ namespace BillPath.Modern
                         Color = Application.Current.GetResource<ArgbColorProvider>().ArgbColors.First()
                     })
             };
+
+        private void _ClickedExpenseCategory(object sender, ItemClickEventArgs e)
+        {
+            ExpenseCategoryEditControl.DataContext = e.ClickedItem;
+            var frameworkElement = (FrameworkElement)sender;
+            var flyout = (Flyout)FlyoutBase.GetAttachedFlyout(frameworkElement);
+            flyout.ShowAt(frameworkElement);
+        }
+
+        private async void _ExpenseCategoryEditFlyoutClosed(object sender, object e)
+        {
+            var expenseCategoryViewModel = ExpenseCategoryEditControl.DataContext as UserInterface.ViewModels.ExpenseCategoryViewModel;
+            if (expenseCategoryViewModel?.UpdateCommand.CanExecute ?? false)
+                await expenseCategoryViewModel.UpdateCommand.ExecuteAsync(null);
+
+            ExpenseCategoryEditControl.DataContext = null;
+        }
     }
 }

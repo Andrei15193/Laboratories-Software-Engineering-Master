@@ -95,7 +95,8 @@
                         <StackPanel 
                             x:Name="IncomeEditGrid">
                             <edit:IncomeView
-                                DataContext="{Binding Path=ModelState}" />
+                                DataContext="{Binding
+                                    Path=ModelState}" />
                             <StackPanel
                                 Orientation="Horizontal">
                                 <Button
@@ -121,12 +122,13 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid
-                            DataContext="{Binding Path=ModelState}"
+                            DataContext="{Binding
+                                Path=ModelState}"
                             HorizontalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition
-                                    Width="auto" />
+                                    Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition />
@@ -135,7 +137,8 @@
                             <display:AmountView
                                 Grid.Column="0"
                                 Grid.Row="0"
-                                Amount="{Binding Path=[Amount]}">
+                                Amount="{Binding
+                                    Path=[Amount]}">
                                 <display:AmountView.Resources>
                                     <Style
                                         TargetType="TextBlock"

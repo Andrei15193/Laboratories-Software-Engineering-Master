@@ -57,6 +57,8 @@
             x:Key="IsMatchConverter" />
         <converters:IndexerConverter
             x:Key="IndexerConverter" />
+        <converters:ToEnumerableConverter
+            x:Key="ToEnumerableConverter" />
 
         <mocks:SettingsRepository
             x:Key="DEBUG_SettingsRepository"

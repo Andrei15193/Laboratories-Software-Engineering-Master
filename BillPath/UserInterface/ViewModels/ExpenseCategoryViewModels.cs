@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using BillPath.DataAccess;
 using BillPath.Models;
+using BillPath.Models.States.Providers;
 
 namespace BillPath.UserInterface.ViewModels
 {
@@ -26,17 +27,20 @@ namespace BillPath.UserInterface.ViewModels
 
         private void _AddExpenseCategory(object sender, ExpenseCategory expenseCategory)
             => Items.Add(new ExpenseCategoryViewModel(_repository, expenseCategory));
-        private void _RemoveExpenseCategory(object sender, ExpenseCategory expenseCategory)
+        private void _RemoveExpenseCategory(object sender, string removedCategoryName)
         {
             var index = Items
                 .TakeWhile(
-                    expenseCategoryViewModel => !expenseCategory.Name.Equals(
+                    expenseCategoryViewModel => !removedCategoryName.Equals(
                         (string)expenseCategoryViewModel.ModelState[nameof(ExpenseCategory.Name)],
                         StringComparison.OrdinalIgnoreCase))
                 .Count();
 
             if (index < Items.Count)
+            {
                 Items.RemoveAt(index);
+                ExpenseCategoryModelStateProvider.RemoveFromCache(removedCategoryName);
+            }
         }
 
         private async void _LoadFromAsync(ExpenseCategoryObservableRepository repository)

@@ -20,7 +20,7 @@ namespace BillPath.DataAccess
         }
 
         public event EventHandler<ExpenseCategory> SavedExpenseCategory;
-        public event EventHandler<ExpenseCategory> RemovedExpenseCategory;
+        public event EventHandler<string> RemovedExpenseCategory;
 
         public Task<IEnumerable<ExpenseCategory>> GetAllAsync()
             => GetAllAsync(CancellationToken.None);
@@ -34,5 +34,18 @@ namespace BillPath.DataAccess
             await _repository.SaveAsync(expenseCategory, cancellationToken);
             SavedExpenseCategory?.Invoke(this, expenseCategory);
         }
+
+        public Task RemoveAsync(string name)
+            => RemoveAsync(name, CancellationToken.None);
+        public async Task RemoveAsync(string name, CancellationToken cancellationToken)
+        {
+            await _repository.RemoveAsync(name, cancellationToken);
+            RemovedExpenseCategory?.Invoke(this, name);
+        }
+
+        public Task UpdateAsync(string expenseCategoryName, ExpenseCategory expenseCategory)
+            => UpdateAsync(expenseCategoryName, expenseCategory, CancellationToken.None);
+        public Task UpdateAsync(string expenseCategoryName, ExpenseCategory expenseCategory, CancellationToken cancellationToken)
+            => _repository.UpdateAsync(expenseCategoryName, expenseCategory, cancellationToken);
     }
 }

@@ -150,6 +150,7 @@
     <Compile Include="Converters\ResourceFormatConverter.cs" />
     <Compile Include="Converters\LocalizationConverter.cs" />
     <Compile Include="Converters\PieChartSlicesConverter.cs" />
+    <Compile Include="Converters\ToEnumerableConverter.cs" />
     <Compile Include="CurrencySettingsFlyout.xaml.cs">
       <DependentUpon>CurrencySettingsFlyout.xaml</DependentUpon>
     </Compile>
