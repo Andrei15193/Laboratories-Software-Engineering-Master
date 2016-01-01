@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace BillPath.Models
 {
-    [DataContract]
     public struct Amount
         : IEquatable<Amount>, IComparable<Amount>
     {
-        [DataMember(Name = nameof(Value))]
         private readonly decimal _value;
-        [DataMember(Name = nameof(Currency))]
         private readonly Currency _currency;
 
         public Amount(decimal value, Currency currency)

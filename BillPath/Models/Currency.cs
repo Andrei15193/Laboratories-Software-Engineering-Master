@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Globalization;
-using System.Runtime.Serialization;
 
 namespace BillPath.Models
 {
-    [DataContract]
     public struct Currency
         : IEquatable<Currency>
     {
-        [DataMember(Name = nameof(IsoCode), IsRequired = true)]
         private readonly string _isoCode;
-        [DataMember(Name = nameof(Symbol), IsRequired = true)]
         private readonly string _symbol;
 
         public Currency(RegionInfo regionInfo)

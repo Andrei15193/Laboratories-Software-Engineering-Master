@@ -1,8 +1,5 @@
-﻿using System.Runtime.Serialization;
-
-namespace BillPath.Models
+﻿namespace BillPath.Models
 {
-    [DataContract]
     public class Income
         : Transaction<Income>, IValidatableObject
     {

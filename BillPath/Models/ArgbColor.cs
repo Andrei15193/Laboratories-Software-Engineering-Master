@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace BillPath.Models
 {
-    [DataContract]
     public struct ArgbColor
         : IEquatable<ArgbColor>
     {
-        [DataMember(Name = nameof(Alpha))]
         private readonly byte _alpha;
-        [DataMember(Name = nameof(Red))]
         private readonly byte _red;
-        [DataMember(Name = nameof(Green))]
         private readonly byte _green;
-        [DataMember(Name = nameof(Blue))]
         private readonly byte _blue;
 
         public ArgbColor(byte alpha, byte red, byte green, byte blue)

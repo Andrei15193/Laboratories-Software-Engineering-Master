@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 
 namespace BillPath.Models
 {
-    [DataContract]
     public class ExpenseCategory
         : ICloneable<ExpenseCategory>
     {
-        [DataMember]
         [Required(
             ErrorMessageResourceName = nameof(Strings.ExpenseCategory.Name_Required),
             ErrorMessageResourceType = typeof(Strings.ExpenseCategory)
@@ -17,7 +14,6 @@ namespace BillPath.Models
             get;
             set;
         }
-        [DataMember]
         public ArgbColor Color
         {
             get;

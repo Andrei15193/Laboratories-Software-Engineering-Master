@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
 
 namespace BillPath.Models
 {
-    [DataContract]
     public abstract class Transaction<TTransaction>
         : IValidatableObject, ICloneable<TTransaction>
         where TTransaction : Transaction<TTransaction>
     {
-        [DataMember]
         public string Description
         {
             get;
             set;
         }
-        [DataMember]
         public Amount Amount
         {
             get;
             set;
         }
-        [DataMember]
         public DateTimeOffset DateRealized
         {
             get;
