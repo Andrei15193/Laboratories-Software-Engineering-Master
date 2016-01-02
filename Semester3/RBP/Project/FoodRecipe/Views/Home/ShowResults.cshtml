@@ -1,0 +1,18 @@
+﻿@using FoodRecipe.Models
+@model IEnumerable<Recipe>
+@{
+    Layout = null;
+}
+@foreach (var recipeRow in Model
+    .Select((recipe, recipeIndex) => new { Recipe = recipe, Index = recipeIndex })
+    .GroupBy(rowInfo => rowInfo.Index / 3, (rowIndex, row) => row.Select(info => info.Recipe)))
+{
+    <div class="row">
+        @foreach (var recipe in recipeRow)
+        {
+            <div class="col-md-4">
+                @Html.Partial("_Recipe", recipe)
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,46 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Reflection
+@using FoodRecipe.Models
+@model Recipe
+@{
+    var modalId = Guid.NewGuid().ToString().Replace('-', '_');
+}
+<div>
+    <h3 style="margin-bottom: 0;">@Model.Name</h3>
+    <h6 style="margin-top: 0;">@(typeof(RecipeType).GetMember(Model.RecipeType.ToString()).Single().GetCustomAttribute<DisplayAttribute>().GetName())</h6>
+    <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        @Model.Description
+    </p>
+    <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        <small>
+            @string.Join(", ", Model.Ingredients.Select(ingredient => ingredient.Name).Distinct().OrderBy(name => name))
+        </small>
+    </p>
+    <a style="cursor: pointer;" data-toggle="modal" data-target="#@modalId">View more</a>
+    <hr />
+    <div id="@modalId" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">@Model.Name (@(typeof(RecipeType).GetMember(Model.RecipeType.ToString()).Single().GetCustomAttribute<DisplayAttribute>().GetName()))</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        @Model.Description
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <p style="text-align: left;">
+                        <strong>Estimated preparation time: </strong> @Model.EstimatedPreparationTimeMinutes minutes
+                    </p>
+                    <p style="text-align: left;">
+                        <strong>Used ingredients:</strong>
+                        @string.Join(", ", from ingredient in Model.Ingredients
+                                           select $"{ingredient.Name} ({ingredient.Quantity}{(ingredient.Unit == RecipeIngredientUnit.None ? string.Empty : " " + ingredient.Unit.ToString().ToLowerInvariant())})")
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
