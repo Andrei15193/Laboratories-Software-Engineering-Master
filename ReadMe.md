@@ -1,7 +1,7 @@
 ReadMe
 ======
 Laboratories are grouped into folders as follows:  
-Semester<semester_number>/<class_abbreviation>/(Paper | Project)/<related_files>
+Semester<semester_number>/<class_abbreviation>/<related_files>
 
 Each laboratory task has a corresponding issue in the Issue Tracker.
 
