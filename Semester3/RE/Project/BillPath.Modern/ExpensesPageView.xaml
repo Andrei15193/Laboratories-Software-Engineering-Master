@@ -1,0 +1,274 @@
+﻿<UserControl
+    x:Class="BillPath.Modern.ExpensesPageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BillPath.Modern"
+    xmlns:display="using:BillPath.Modern.Controls.Display"
+    xmlns:edit="using:BillPath.Modern.Controls.Edit"
+    xmlns:viewModels="using:BillPath.Modern.ResourceBinders"
+    xmlns:converters="using:BillPath.Modern.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    local:VisualStateHelper.DefaultState="Loading">
+    <UserControl.Resources>
+        <converters:NullableIntToStringConverter
+            x:Name="NullableIntToStringConverter" />
+    </UserControl.Resources>
+    <Grid
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState
+                    x:Name="Presenting" />
+                <VisualState
+                    x:Name="Loading">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames
+                            Storyboard.TargetName="LoadingRing"
+                            Storyboard.TargetProperty="IsActive">
+                            <DiscreteObjectKeyFrame
+                                Value="True"
+                                KeyTime="0" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames
+                            Storyboard.TargetName="ExpensesListView"
+                            Storyboard.TargetProperty="IsEnabled">
+                            <DiscreteObjectKeyFrame
+                                Value="False"
+                                KeyTime="0" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames
+                            Storyboard.TargetName="PreviousPageButton"
+                            Storyboard.TargetProperty="IsEnabled">
+                            <DiscreteObjectKeyFrame
+                                Value="False"
+                                KeyTime="0" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames
+                            Storyboard.TargetName="NextPageButton"
+                            Storyboard.TargetProperty="IsEnabled">
+                            <DiscreteObjectKeyFrame
+                                Value="False"
+                                KeyTime="0" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames
+                            Storyboard.TargetName="GoToPageButton"
+                            Storyboard.TargetProperty="IsEnabled">
+                            <DiscreteObjectKeyFrame
+                                Value="False"
+                                KeyTime="0" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <ProgressRing
+            x:Name="LoadingRing"
+            Width="60"
+            Height="60"
+            IsActive="False" />
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition
+                    Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListView
+                x:Name="ExpensesListView"
+                Grid.Row="0"
+                ItemsSource="{Binding
+                    Path=Items,
+                    Mode=OneWay}"
+                SelectionMode="None"
+                IsItemClickEnabled="True"
+                ItemClick="_ShowExpenseEditFlyout">
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout
+                        Closed="_ExpenseFlyoutClosed">
+                        <StackPanel
+                            x:Name="ExpenseEditGrid">
+                            <edit:ExpenseView
+                                DataContext="{Binding
+                                    Path=ModelState}" />
+                            <StackPanel
+                                Orientation="Horizontal">
+                                <Button
+                                    Command="{Binding
+                                        Path=RemoveCommand,
+                                        Converter={StaticResource CommandConverter}}"
+                                    Content="Delete" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
+                <ListView.Resources>
+                    <Style
+                        TargetType="ListViewItem">
+                        <Setter
+                            Property="HorizontalContentAlignment"
+                            Value="Stretch" />
+                        <Setter
+                            Property="Padding"
+                            Value="5,0,5,5" />
+                    </Style>
+                </ListView.Resources>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            DataContext="{Binding
+                                Path=ModelState}"
+                            HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition
+                                    Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <display:AmountView
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Amount="{Binding
+                                    Path=[Amount]}">
+                                <display:AmountView.Resources>
+                                    <Style
+                                        TargetType="TextBlock"
+                                        BasedOn="{StaticResource SubheaderTextBlockStyle}" />
+                                </display:AmountView.Resources>
+                            </display:AmountView>
+                            <TextBlock
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                VerticalAlignment="Bottom"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{Binding
+                                    Path=[DateRealized],
+                                    Converter={StaticResource DateOnlyConverter},
+                                    Mode=OneWay}" />
+                            <TextBlock
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Grid.Row="1"
+                                TextWrapping="Wrap"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{Binding
+                                    Path=[Description],
+                                    Mode=OneWay}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackPanel
+                Grid.Row="1"
+                Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style
+                        TargetType="Button"
+                        BasedOn="{StaticResource TextBlockButtonStyle}">
+                        <Setter
+                            Property="Margin"
+                            Value="10,4,0,0" />
+                        <Setter
+                            Property="Padding"
+                            Value="0" />
+                        <Setter
+                            Property="VerticalAlignment"
+                            Value="Top" />
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    VerticalAlignment="Top"
+                    Text="{Binding
+                        Path=SelectedPage,
+                        Converter={StaticResource ResourceFormatConverter},
+                        ConverterParameter=ExpensesPagedView Page,
+                        Mode=OneWay}" />
+                <Button
+                    x:Name="PreviousPageButton"
+                    x:Uid="/ExpensesPagedView/PreviousPageButton"
+                    Command="{Binding
+                        Path=GoToPreviousPageCommand,
+                        Converter={StaticResource CommandConverter},
+                        Mode=OneWay}" />
+                <Button
+                    x:Name="NextPageButton"
+                    x:Uid="/ExpensesPagedView/NextPageButton"
+                    Command="{Binding
+                        Path=GoToNextPageCommand,
+                        Converter={StaticResource CommandConverter},
+                        Mode=OneWay}" />
+                <Button
+                    x:Name="GoToPageButton"
+                    x:Uid="/ExpensesPagedView/GoToPageButton">
+                    <Button.Flyout>
+                        <Flyout>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+                                        Width="Auto" />
+                                    <ColumnDefinition
+                                        Width="5" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition
+                                        Width="5" />
+                                    <ColumnDefinition
+                                        Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    x:Name="PageNumberTextBlock"
+                                    x:Uid="/ExpensesPagedView/PageNumberTextBlock"
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Style="{StaticResource BodyTextBlockStyle}" />
+                                <TextBox
+                                    x:Name="PageNumberTextBox"
+                                    Grid.Column="2"
+                                    Grid.Row="0"
+                                    InputScope="Number"
+                                    Text="{Binding
+                                        Path=GoToPageCommand.PageNumber,
+                                        Converter={StaticResource NullableIntToStringConverter},
+                                        Mode=TwoWay,
+                                        UpdateSourceTrigger=PropertyChanged}"
+                                    KeyDown="_PageNumberKeyDown" />
+                                <Button
+                                    x:Name="GoToPageFlyoutButton"
+                                    x:Uid="/ExpensesPagedView/GoToPageFlyoutButton"
+                                    Grid.Column="4"
+                                    Grid.Row="0"
+                                    Command="{Binding
+                                        Path=GoToPageCommand,
+                                        Converter={StaticResource CommandConverter},
+                                        Mode=OneTime}"
+                                    HorizontalAlignment="Right" />
+                                <TextBlock
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="5"
+                                    Grid.Row="1"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{Binding
+                                        Path=PagesCount,
+                                        Converter={StaticResource ResourceFormatConverter},
+                                        ConverterParameter=ExpensesPagedView PagesCount,
+                                        Mode=OneWay}" />
+                            </Grid>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

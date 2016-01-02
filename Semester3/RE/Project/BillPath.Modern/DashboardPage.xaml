@@ -1,0 +1,225 @@
+﻿<Page
+    x:Class="BillPath.Modern.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BillPath.Modern"
+    xmlns:edit="using:BillPath.Modern.Controls.Edit"
+    xmlns:viewModels="using:BillPath.UserInterface.ViewModels"
+    xmlns:converters="using:BillPath.Modern.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tk="using:WinRTXamlToolkit.Controls"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <converters:ArgbColorToSolidColorBrushConverter
+            x:Key="ArgbColorToSolidColorBrushConverter" />
+        <Flyout
+            x:Name="AddIncomeButtonFlyout"
+            x:Key="AddIncomeButtonFlyout"
+            Opened="_AddIncomeFlyoutOpened">
+            <StackPanel
+                x:Name="AddIncomeStackPanel">
+                <edit:IncomeView
+                    DataContext="{Binding ModelState}" />
+                <Button
+                    Click="_HideAddIncomeFlyout"
+                    Content="Add"
+                    Command="{Binding
+                        Path=SaveCommand,
+                        Converter={StaticResource CommandConverter}}" />
+            </StackPanel>
+        </Flyout>
+        <Flyout
+            x:Name="AddExpenseButtonFlyout"
+            x:Key="AddExpenseButtonFlyout"
+            Opened="_AddExpenseFlyoutOpened">
+            <StackPanel
+                x:Name="AddExpenseStackPanel">
+                <edit:ExpenseView
+                    DataContext="{Binding ModelState}" />
+                <Button
+                    Content="Add"
+                    Click="_HideAddExpenseFlyout"
+                    Command="{Binding
+                        Path=SaveCommand,
+                        Converter={StaticResource CommandConverter}}" />
+            </StackPanel>
+        </Flyout>
+        <Flyout
+            x:Name="AddExpenseCategoryButtonFlyout"
+            x:Key="AddExpenseCategoryButtonFlyout"
+            Opened="_AddExpenseCategoryFlyoutOpened">
+            <StackPanel
+                x:Name="AddExpenseCategoryStackPanel">
+                <edit:ExpenseCategoryView
+                    DataContext="{Binding ModelState}" />
+                <Button
+                    Content="Add"
+                    Click="_HideAddExpenseCategoryFlyout"
+                    Command="{Binding
+                        Path=SaveCommand,
+                        Converter={StaticResource CommandConverter}}" />
+            </StackPanel>
+        </Flyout>
+
+        <Flyout
+            x:Name="ExpenseCategoryEditFlyout"
+            x:Key="ExpenseCategoryEditFlyout"
+            Closed="_ExpenseCategoryEditFlyoutClosed">
+            <StackPanel
+                x:Name="ExpenseCategoryEditControl">
+                <edit:ExpenseCategoryView
+                    DataContext="{Binding
+                        Path=ModelState}" />
+                <Button
+                    Content="Remove"
+                    Command="{Binding
+                        Path=RemoveCommand,
+                        Converter={StaticResource CommandConverter}}" />
+            </StackPanel>
+        </Flyout>
+    </Page.Resources>
+    <Page.DataContext>
+        <viewModels:StatsViewModel />
+    </Page.DataContext>
+    <Hub
+        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Hub.Header>
+            <StackPanel
+                Orientation="Horizontal">
+                <TextBlock
+                    Style="{StaticResource HeaderTextBlockStyle}"
+                    Margin="0,10,0,0"
+                    Text="BillPath" />
+                <StackPanel
+                    Margin="20,0,0,0"
+                    Orientation="Horizontal">
+                    <AppBarButton
+                        x:Uid="/DashboardPage/AddButton"
+                        Icon="Add"
+                        IsCompact="True"
+                        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+                        <AppBarButton.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem
+                                    x:Uid="/DashboardPage/AddIncomeButton"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                                    Command="{StaticResource ShowAttachedFlyoutCommand}"
+                                    FlyoutBase.AttachedFlyout="{StaticResource AddIncomeButtonFlyout}" />
+
+                                <MenuFlyoutItem
+                                    x:Uid="/DashboardPage/AddExpenseButton"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                                    Command="{StaticResource ShowAttachedFlyoutCommand}"
+                                    FlyoutBase.AttachedFlyout="{StaticResource AddExpenseButtonFlyout}" />
+                                <MenuFlyoutItem
+                                    x:Uid="/DashboardPage/AddExpenseCategoryButton"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource Self}}"
+                                    Command="{StaticResource ShowAttachedFlyoutCommand}"
+                                    FlyoutBase.AttachedFlyout="{StaticResource AddExpenseCategoryButtonFlyout}" />
+                            </MenuFlyout>
+                        </AppBarButton.Flyout>
+                    </AppBarButton>
+                    <AppBarButton
+                        x:Uid="/DashboardPage/ChartsButton"
+                        Icon="FourBars"
+                        IsCompact="True" />
+                </StackPanel>
+            </StackPanel>
+        </Hub.Header>
+        <HubSection
+            VerticalContentAlignment="Stretch">
+            <DataTemplate>
+                <StackPanel>
+                    <TextBlock
+                        Text="Incomes"
+                        Style="{StaticResource SubheaderTextBlockStyle}"
+                        Margin="0,0,0,20" />
+                    <local:IncomesPageView
+                        x:Name="IncomesView"
+                        Width="400" />
+                </StackPanel>
+            </DataTemplate>
+        </HubSection>
+        <HubSection>
+            <DataTemplate>
+                <StackPanel>
+                    <TextBlock
+                        Text="Expenses"
+                        Style="{StaticResource SubheaderTextBlockStyle}"
+                        Margin="0,0,0,20" />
+                    <ItemsControl
+                        ItemsSource="{StaticResource ExpenseCategoryViewModels}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel
+                                    Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid
+                                    Margin="5,0"
+                                    MinWidth="300"
+                                    DataContext="{Binding}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
+                                            Height="Auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <ListView
+                                        Grid.Row="0"
+                                        SelectionMode="None"
+                                        IsItemClickEnabled="True"
+                                        ItemClick="_ClickedExpenseCategory"
+                                        ItemsSource="{Binding
+                                            Converter={StaticResource ToEnumerableConverter}}"
+                                        FlyoutBase.AttachedFlyout="{StaticResource ExpenseCategoryEditFlyout}">
+                                        <ListView.Resources>
+                                            <Style
+                                                TargetType="ListViewItem">
+                                                <Setter
+                                                    Property="HorizontalContentAlignment"
+                                                    Value="Stretch" />
+                                            </Style>
+                                        </ListView.Resources>
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border
+                                                    Padding="10"
+                                                    MinHeight="100"
+                                                    DataContext="{Binding
+                                                        Path=ModelState}"
+                                                    Background="{Binding
+                                                        Path=[Color].Model,
+                                                        Converter={StaticResource ArgbColorToSolidColorBrushConverter},
+                                                        Mode=OneWay}">
+                                                    <TextBlock
+                                                        Style="{StaticResource SubheaderTextBlockStyle}"
+                                                        Text="{Binding
+                                                        Path=[Name],
+                                                        Mode=OneWay}">
+                                                        <TextBlock.Foreground>
+                                                            <SolidColorBrush
+                                                                Color="{Binding
+                                                                    Path=[Color].Model,
+                                                                    Converter={StaticResource IdealReadingColorCoverter},
+                                                                    Mode=OneWay}" />
+                                                        </TextBlock.Foreground>
+                                                    </TextBlock>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    <local:ExpensesPageView
+                                        Grid.Row="1"
+                                        DataContext="{Binding ExpensesPage}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </DataTemplate>
+        </HubSection>
+    </Hub>
+</Page>

@@ -1,0 +1,91 @@
+﻿<Application
+    x:Class="BillPath.Modern.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dataAccess="using:BillPath.DataAccess.Xml"
+    xmlns:commands="using:BillPath.Modern.Commands"
+    xmlns:converters="using:BillPath.Modern.Converters"
+    xmlns:mocks="using:BillPath.Modern.Mocks"
+    xmlns:providers="using:BillPath.Providers"
+    xmlns:resourceBinders="using:BillPath.Modern.ResourceBinders"
+    RequestedTheme="Light">
+    <Application.Resources>
+        <commands:ShowAttachedFlyoutCommand
+            x:Key="ShowAttachedFlyoutCommand" />
+
+        <x:String
+            x:Key="SettingsFileName">Settings.xml</x:String>
+        <x:String
+            x:Key="IncomesFileName">Incomes.xml</x:String>
+        <x:String
+            x:Key="ExpenseCategoriesFileName">ExpenseCategories.xml</x:String>
+        <x:String
+            x:Key="ExpensesFileName">Expenses.xml</x:String>
+
+        <providers:CurrencyProvider
+            x:Key="CurrencyProvider" />
+        <providers:CurrencyDisplayFormatProvider
+            x:Key="CurrencyDisplayFormatProvider" />
+        <providers:ArgbColorProvider
+            x:Key="ArgbColorProvider" />
+
+        <resourceBinders:IncomeXmlRepository
+            x:Key="IIncomeRepository" />
+        <resourceBinders:IncomeObservableRepository
+            x:Key="IncomeObservableRepository" />
+
+        <resourceBinders:ExpenseCategoryXmlFileRepository
+            x:Key="DEBUG_ExpenseCategoryRepositoryImplementation" />
+        <resourceBinders:ExpenseCategoryXmlFileRepository
+            x:Key="ExpenseCategoryRepositoryImplementation" />
+        <resourceBinders:ExpenseCategoryObservableRepository
+            x:Key="ExpenseCategoryRepository" />
+
+        <resourceBinders:ExpenseXmlFileRepository
+            x:Key="DEBUG_ExpenseRepositoryImplementation" />
+        <resourceBinders:ExpenseXmlFileRepository
+            x:Key="ExpenseRepositoryImplementation" />
+        <resourceBinders:ExpenseObservableRepository
+            x:Key="ExpenseRepository" />
+
+        <resourceBinders:ExpenseCategoryViewModels
+            x:Key="ExpenseCategoryViewModels" />
+
+        <converters:LocalizationConverter
+            x:Key="LocalizationConverter" />
+        <converters:ArgbColorToColorConverter
+            x:Key="ArgbColorToColorConverter" />
+        <converters:IdealReadingColorCoverter
+            x:Key="IdealReadingColorCoverter" />
+        <converters:ModelFromModelStateConverter
+            x:Key="ModelFromModelStateConverter" />
+        <converters:ModelStateToModelOnlyConverter
+            x:Key="ModelStateToModelOnlyConverter" />
+        <converters:DateOnlyConverter
+            x:Key="DateOnlyConverter" />
+        <converters:ResourceFormatConverter
+            x:Key="ResourceFormatConverter" />
+        <converters:CommandConverter
+            x:Key="CommandConverter" />
+        <converters:StringToIntConverter
+            x:Key="StringToIntConverter" />
+        <converters:IsMatchConverter
+            x:Key="IsMatchConverter" />
+        <converters:IndexerConverter
+            x:Key="IndexerConverter" />
+        <converters:ToEnumerableConverter
+            x:Key="ToEnumerableConverter" />
+        <converters:SelectModelFromExpenseCategories
+            x:Key="SelectModelFromExpenseCategories" />
+
+        <mocks:SettingsRepository
+            x:Key="DEBUG_SettingsRepository"
+            MillisecondsDelay="1000" />
+        <mocks:SettingsRepository
+            x:Key="SettingsRepository"
+            MillisecondsDelay="1000" />
+
+        <resourceBinders:SettingsViewModel
+            x:Key="SettingsViewModel" />
+    </Application.Resources>
+</Application>

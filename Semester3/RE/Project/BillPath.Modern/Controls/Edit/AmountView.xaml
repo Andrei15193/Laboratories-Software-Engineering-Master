@@ -1,0 +1,46 @@
+﻿<UserControl
+    x:Class="BillPath.Modern.Controls.Edit.AmountView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:BillPath.Modern.Converters"
+    xmlns:mocks="using:BillPath.Modern.Mocks"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:DecimalToStringConverter
+            x:Key="DecimalToStringConverter" />
+        <converters:ModelFromModelStateConverter
+            x:Key="ModelFromModelStateConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition
+                Width="20" />
+            <ColumnDefinition
+                Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBox
+            Grid.Column="0"
+            Header="Amount"
+            Text="{Binding
+                Path=[Value],
+                Converter={StaticResource DecimalToStringConverter},
+                ConverterParameter=N/G,
+                Mode=TwoWay,
+                UpdateSourceTrigger=PropertyChanged}" />
+        <ComboBox
+            Grid.Column="2"
+            Header=" "
+            DisplayMemberPath="IsoCode"
+            ItemsSource="{Binding
+                Path=Currencies,
+                Source={StaticResource CurrencyProvider},
+                Mode=OneTime}"
+            SelectedItem="{Binding
+                Path=[Currency],
+                Converter={StaticResource ModelFromModelStateConverter},
+                Mode=TwoWay}" />
+    </Grid>
+</UserControl>

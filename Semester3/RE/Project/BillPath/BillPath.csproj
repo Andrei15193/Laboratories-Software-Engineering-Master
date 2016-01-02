@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6F1D21E6-EEBA-4D46-8E1A-44703C93044A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BillPath</RootNamespace>
+    <AssemblyName>BillPath</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DataAccess\ExpenseCategoryObservableRepository.cs" />
+    <Compile Include="DataAccess\ExpenseObservableRepository.cs" />
+    <Compile Include="DataAccess\IExpenseReader.cs" />
+    <Compile Include="DataAccess\IExpenseRepository.cs" />
+    <Compile Include="DataAccess\RepositoryChange.cs" />
+    <Compile Include="DataAccess\RepositoryChangeAction.cs" />
+    <Compile Include="DataAccess\ISettingsRepository.cs" />
+    <Compile Include="DataAccess\SettingsRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseCategoryXmlFileRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseCategoryXmlMockRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseCategoryXmlRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseCategoryXmlTranslator.cs" />
+    <Compile Include="DataAccess\IExpenseCategoryRepository.cs" />
+    <Compile Include="DataAccess\IIncomeReader.cs" />
+    <Compile Include="DataAccess\IIncomeRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseXmlFileRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseXmlMockRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseXmlRepository.cs" />
+    <Compile Include="DataAccess\Xml\ExpenseXmlTranslator.cs" />
+    <Compile Include="DataAccess\Xml\IncomeXmlFileRepository.cs" />
+    <Compile Include="DataAccess\IncomeObservableRepository.cs" />
+    <Compile Include="DataAccess\Xml\IncomeXmlRepository.cs" />
+    <Compile Include="DataAccess\Xml\IncomeXmlTranslator.cs" />
+    <Compile Include="DataAccess\Xml\FileProvider.cs" />
+    <Compile Include="DataAccess\Xml\IncomeXmlMockRepository.cs" />
+    <Compile Include="DataAccess\Xml\MemoryStreamMock.cs" />
+    <Compile Include="DataAccess\Xml\XmlReaderHelper.cs" />
+    <Compile Include="DataAccess\Xml\XmlTranslator.cs" />
+    <Compile Include="DataAccess\Xml\XmlSettingsRepository.cs" />
+    <Compile Include="DefaultModelStateProvider.cs" />
+    <Compile Include="ModelStateProvider.cs" />
+    <Compile Include="ModelStateCache.cs" />
+    <Compile Include="ModelStateProviders.cs" />
+    <Compile Include="Models\Amount.cs" />
+    <Compile Include="Models\ArgbColor.cs" />
+    <Compile Include="Models\Currency.cs" />
+    <Compile Include="Models\CurrencyDisplayFormat.cs" />
+    <Compile Include="Models\CurrencyIsoCodeOnlyFormatter.cs" />
+    <Compile Include="Models\CurrencySymbolOnlyFormatter.cs" />
+    <Compile Include="Models\CurrencySynmbolAndIsoCodeFormatter.cs" />
+    <Compile Include="Models\Expense.cs" />
+    <Compile Include="Models\ExpenseCategory.cs" />
+    <Compile Include="Models\ExpenseEqualityComparer.cs" />
+    <Compile Include="Models\ICloneable.cs" />
+    <Compile Include="Models\ICurrencyFormatter.cs" />
+    <Compile Include="IModelErrors.cs" />
+    <Compile Include="Models\Income.cs" />
+    <Compile Include="IValidatableObject.cs" />
+    <Compile Include="ModelErrors.cs" />
+    <Compile Include="Models\IncomeEqualityComparer.cs" />
+    <Compile Include="Models\States\AmountModelState.cs" />
+    <Compile Include="Models\States\Providers\AmountModelStateProvider.cs" />
+    <Compile Include="Models\States\Providers\ExpenseCategoryModelStateProvider.cs" />
+    <Compile Include="ModelValidator.cs" />
+    <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Observable.cs" />
+    <Compile Include="DelegateObserver.cs" />
+    <Compile Include="ObserverSubscription.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ArgbColorProvider.cs" />
+    <Compile Include="Providers\CurrencyDisplayFormatProvider.cs" />
+    <Compile Include="Providers\CurrencyProvider.cs" />
+    <Compile Include="Strings\en\Amount.cs">
+      <DependentUpon>Amount.resw</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Strings\en\CurrencyDisplayFormat.cs">
+      <DependentUpon>CurrencyDisplayFormat.resw</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Strings\en\Expense.cs">
+      <DependentUpon>Expense.resw</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Strings\en\ExpenseCategory.cs">
+      <DependentUpon>ExpenseCategory.resw</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Strings\en\Settings.cs">
+      <DependentUpon>Settings.resw</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Strings\en\Transaction.cs">
+      <DependentUpon>Transaction.resw</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="TypeHelper.cs" />
+    <Compile Include="UserInterface\ViewModels\AsyncCommand.cs" />
+    <Compile Include="ModelState.cs" />
+    <Compile Include="UserInterface\ViewModels\Command.cs" />
+    <Compile Include="UserInterface\ViewModels\DelegateAsyncCommand.cs" />
+    <Compile Include="UserInterface\ViewModels\DelegateCommand.cs" />
+    <Compile Include="UserInterface\ViewModels\ExpenseCategoryViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\ExpenseCategoryViewModels.cs" />
+    <Compile Include="UserInterface\ViewModels\ExpensesPageViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\IncomesPageViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\ExpenseViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\IncomeViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\SettingsViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\StatsViewModel.cs" />
+    <Compile Include="UserInterface\ViewModels\ViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\ro-RO\Amount.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\ro-RO\CurrencyDisplayFormat.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\ro-RO\ExpenseCategory.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\ro-RO\Settings.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\ro-RO\Expense.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\ro-RO\Transaction.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Amount.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Amount.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\CurrencyDisplayFormat.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>CurrencyDisplayFormat.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Expense.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Expense.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\ExpenseCategory.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>ExpenseCategory.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Settings.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Settings.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Transaction.resw">
+      <Generator>ReswFileCodeGenerator</Generator>
+      <LastGenOutput>Transaction.cs</LastGenOutput>
+      <CustomToolNamespace>BillPath.Strings</CustomToolNamespace>
+    </PRIResource>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
+    <VisualStudioVersion>12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="..\BillPath.Properties\BillPath.Properties.projitems" Label="Shared" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
