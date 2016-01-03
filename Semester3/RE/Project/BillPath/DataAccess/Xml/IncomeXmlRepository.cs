@@ -99,13 +99,14 @@ namespace BillPath.DataAccess.Xml
             => GetCountAsync(CancellationToken.None);
         public async Task<int> GetCountAsync(CancellationToken cancellationToken)
         {
+            using (var stream = await GetReadStreamAsync(cancellationToken))
             using (var xmlReader = XmlReader.Create(
-                await GetReadStreamAsync(cancellationToken),
+                stream,
                 new XmlReaderSettings
                 {
                     Async = true,
                     ConformanceLevel = ConformanceLevel.Auto,
-                    CloseInput = true
+                    CloseInput = false
                 }))
                 if (await xmlReader.ReadUntilAsync(_rootElementName, cancellationToken))
                     try

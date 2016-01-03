@@ -26,28 +26,6 @@ namespace BillPath.Models.Tests
 
             _AssertAreEqual(expenseCategory, expenseCategory.Clone());
         }
-        [TestMethod]
-        public void TestSerialization()
-        {
-            ExpenseCategory deserializedExpenseCategory;
-            var expenseCategory =
-                new ExpenseCategory
-                {
-                    Name = "test",
-                    Color = new ArgbColor(2, 3, 4, 5)
-                };
-            var expenseCategorySerializer = new DataContractSerializer(typeof(ExpenseCategory));
-
-            using (var expenseCategorySerializationStream = new MemoryStream())
-            {
-                expenseCategorySerializer.WriteObject(expenseCategorySerializationStream, expenseCategory);
-                expenseCategorySerializationStream.Seek(0, SeekOrigin.Begin);
-
-                deserializedExpenseCategory = (ExpenseCategory)expenseCategorySerializer.ReadObject(expenseCategorySerializationStream);
-            }
-
-            _AssertAreEqual(expenseCategory, deserializedExpenseCategory);
-        }
 
         private static void _AssertAreEqual(ExpenseCategory first, ExpenseCategory second)
         {

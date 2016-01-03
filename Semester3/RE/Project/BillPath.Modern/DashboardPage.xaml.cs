@@ -73,5 +73,10 @@ namespace BillPath.Modern
                         DateRealized = DateTimeOffset.Now.Date
                     })
             };
+
+        private void _ChartsButtonClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(Graph));
+        }
     }
 }

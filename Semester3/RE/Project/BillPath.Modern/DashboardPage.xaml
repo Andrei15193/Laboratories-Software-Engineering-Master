@@ -123,7 +123,8 @@
                     <AppBarButton
                         x:Uid="/DashboardPage/ChartsButton"
                         Icon="FourBars"
-                        IsCompact="True" />
+                        IsCompact="True"
+                        Click="_ChartsButtonClick" />
                 </StackPanel>
             </StackPanel>
         </Hub.Header>
