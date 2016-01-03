@@ -164,6 +164,9 @@
     <Compile Include="ExpensesPageView.xaml.cs">
       <DependentUpon>ExpensesPageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Graph.xaml.cs">
+      <DependentUpon>Graph.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IncomesPageView.xaml.cs">
       <DependentUpon>IncomesPageView.xaml</DependentUpon>
     </Compile>
@@ -186,6 +189,7 @@
     <Compile Include="Mocks\SettingsRepository.cs" />
     <Compile Include="ResourceBinders\IncomeObservableRepository.cs" />
     <Compile Include="ResourceBinders\IncomeXmlRepository.cs" />
+    <Compile Include="ResourceBinders\SettingsRepository.cs" />
     <Compile Include="ResourceBinders\SettingsViewModel.cs" />
     <Compile Include="ModernAppFileProvider.cs" />
     <Compile Include="Overview.xaml.cs">
@@ -278,6 +282,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExpensesPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Graph.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

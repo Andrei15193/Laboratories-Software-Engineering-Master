@@ -78,9 +78,8 @@
         <converters:SelectModelFromExpenseCategories
             x:Key="SelectModelFromExpenseCategories" />
 
-        <mocks:SettingsRepository
-            x:Key="DEBUG_SettingsRepository"
-            MillisecondsDelay="1000" />
+        <resourceBinders:SettingsRepository
+            x:Key="DEBUG_SettingsRepository" />
         <mocks:SettingsRepository
             x:Key="SettingsRepository"
             MillisecondsDelay="1000" />
