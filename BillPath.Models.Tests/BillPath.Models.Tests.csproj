@@ -128,7 +128,6 @@
     <Compile Include="IncomeEqualityComparerTests.cs" />
     <Compile Include="IncomeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializationTests.cs" />
     <Compile Include="SettingsTest.cs" />
     <Compile Include="TransactionTests.cs" />
   </ItemGroup>

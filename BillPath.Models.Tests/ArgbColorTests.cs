@@ -101,20 +101,5 @@ namespace BillPath.Models.Tests
             Assert.AreNotEqual(argbColor1, argbColor2);
             Assert.IsTrue(argbColor1 != argbColor2);
         }
-
-        [TestMethod]
-        public void TestSerializedColorIsEqualToSameInstanceAfterDeserialization()
-        {
-            var argbColor = new ArgbColor(1, 2, 3, 4);
-
-            using (var argbColorSerializationStream = new MemoryStream())
-            {
-                var argbColorSerializer = new DataContractSerializer(typeof(ArgbColor));
-                argbColorSerializer.WriteObject(argbColorSerializationStream, argbColor);
-                argbColorSerializationStream.Seek(0, SeekOrigin.Begin);
-
-                Assert.AreEqual(argbColor, (ArgbColor)argbColorSerializer.ReadObject(argbColorSerializationStream));
-            }
-        }
     }
 }

@@ -58,20 +58,5 @@ namespace BillPath.Models.Tests
             Assert.IsFalse(currecy1 == currecy2);
             Assert.IsTrue(currecy1 != currecy2);
         }
-
-        [TestMethod]
-        public void TestSerializedCurrencyIsEqualAfterDeserialization()
-        {
-            var currency = new Currency(new RegionInfo("RO"));
-            var currencySerializer = new DataContractSerializer(typeof(Currency));
-
-            using (var currencySerializationStream = new MemoryStream())
-            {
-                currencySerializer.WriteObject(currencySerializationStream, currency);
-                currencySerializationStream.Seek(0, SeekOrigin.Begin);
-
-                Assert.AreEqual(currency, (Currency)currencySerializer.ReadObject(currencySerializationStream));
-            }
-        }
     }
 }
