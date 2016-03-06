@@ -112,4 +112,4 @@ The GetFor and TryGetFor methods are similar to the dictionary indexer and TryGe
 
 == Remarks ==
 
-IConstraint<TValue> is contra variant. This means that constraints implemented for base types can be reused with derivatives without explicitly extending from the respective constraints.
+IConstraint<TValue> is contra variant. Constraints implemented for base types can be reused with derivatives without needing to extend the respective constraints, they can be added to a linear constraint instead of subclassing.
