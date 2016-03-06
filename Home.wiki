@@ -108,7 +108,7 @@ This is a static container that can hold multiple constraints for different type
 
 The purpose of the class is to register multiple IConstraint<TValue> implementations for different types and have them retrieved and checked from different parts of the application (e.g.: Controller/ViewModel).
 
-The GetFor and TryGetFor methods are similar to the dictionary indexer and TryGetMethod. If a constraint is not found when calling GetFor an exception is thrown (KeyNotFoundException) while in this case the TryGetFor method will return null.
+The GetFor and TryGetFor methods are similar to the dictionary indexer and TryGetValue method. If a constraint is not found when calling GetFor an exception is thrown (KeyNotFoundException) while in this case the TryGetFor method will return null.
 
 == Remarks ==
 
