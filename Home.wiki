@@ -4,7 +4,7 @@ Oval is a simple validation library available for .NET on NuGet ([[https://www.n
 
 == Reasoning ==
 
-There are multiple approaches to validation. One technique is to use .NETs [[https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.aspx|Data Annotations]] or implementing [[https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.ivalidatableobject.aspx|IValidatableObject]] interface if attributes do not suffice. Another approach is to validate the object in a Controller or ViewModel.
+There are multiple approaches to validation. One technique is to use .NET's [[https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.aspx|Data Annotations]] or implementing [[https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.ivalidatableobject.aspx|IValidatableObject]] interface if attributes do not suffice. Another approach is to validate the object in a Controller or ViewModel.
 
 The above mentioned techniques are good, but not that good. For instance, when one wants to validate whether an object is valid this may include checking for uniqueness for a specific property (e.g.: username or e-mail). Using data annotations is not enough, implementing IValidatableObject to run a query is not recommended because it ties it to the way it is persisted reducing its reuse potential.
 
