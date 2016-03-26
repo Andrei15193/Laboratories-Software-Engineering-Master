@@ -1,3 +1,7 @@
+=== Navigation
+
+<<toc / 1>>
+
 = Application Configuration
 
 == Introduction
