@@ -1,3 +1,5 @@
+= Application Configuration
+
 == Introduction
 
 There are a number of configurations for the application that will also be required to be set up in Azure or any hosting environment. The development values are stored in <<file master:.vscode/launch.json>> on the {{{env}}} object.
