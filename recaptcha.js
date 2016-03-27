@@ -10,26 +10,54 @@ function getReCaptchaAnswerFrom(response) {
     throw new Error('Invalid reCaptcha response, expected a string or an object with \'' + gRecaptchaResponse + '\' field');
 }
 
+function handleErrors(errors, errorHandlers) {
+    errors.forEach(function(error) {
+        switch (error) {
+            case 'missing-input-secret':
+                if (errorHandlers.missingInputSecret)
+                    errorHandlers.missingInputSecret();
+                break;
+
+            case 'invalid-input-secret':
+                if (errorHandlers.invalidInputSecret)
+                    errorHandlers.invalidInputSecret();
+                break;
+
+            case 'missing-input-response':
+                if (errorHandlers.missingInputResponse)
+                    errorHandlers.missingInputResponse();
+                break;
+
+            case 'invalid-input-response':
+                if (errorHandlers.invalidInputResponse)
+                    errorHandlers.invalidInputResponse();
+                break;
+        }
+    });
+}
+
 module.exports = {
-    'verify': function(response, callback) {
-        request.post(
-            {
-                'url': 'https://www.google.com/recaptcha/api/siteverify',
-                'form': {
-                    'secret': process.env.APPSETTING_reCaptchaSecretKey,
-                    'response': getReCaptchaAnswerFrom(response)
-                }
-            },
-            function(error, htttResponse, htttResponseBody) {
-                if (error)
-                    throw error;
+    'verify': function(errorHandlers) {
+        return function(request, response, next) {
+            request.post(
+                {
+                    'url': 'https://www.google.com/recaptcha/api/siteverify',
+                    'form': {
+                        'secret': process.env.APPSETTING_reCaptchaSecretKey,
+                        'response': getReCaptchaAnswerFrom(response)
+                    }
+                },
+                function(error, htttResponse, htttResponseBody) {
+                    if (error)
+                        throw error;
 
-                var body = JSON.parse(htttResponseBody);
+                    var reCaptchaResponse = JSON.parse(htttResponseBody);
 
-                if (body.success)
-                    callback(null);
-                else
-                    callback(body['error-codes']);
-            });
+                    handleErrors(callback(body['error-codes']), errorHandlers);
+
+                    response.locals.reCaptcha = reCaptchaResponse;
+                    next();
+                });
+        }
     }
 };
