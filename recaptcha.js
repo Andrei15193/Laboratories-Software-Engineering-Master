@@ -1,50 +1,54 @@
-const request = require('request');
+function getReCaptchaAnswerFrom(responseBody) {
+    if (responseBody) {
+        const gRecaptchaResponse = 'g-recaptcha-response';
+        if (responseBody instanceof String)
+            return responseBody;
+        if (responseBody instanceof Object && responseBody.hasOwnProperty(gRecaptchaResponse))
+            return responseBody[gRecaptchaResponse];
+    }
 
-function getReCaptchaAnswerFrom(response) {
-    const gRecaptchaResponse = 'g-recaptcha-response';
-    if (response instanceof String)
-        return response;
-    if (response instanceof Object && response.hasOwnProperty(gRecaptchaResponse))
-        return response[gRecaptchaResponse];
-
-    throw new Error('Invalid reCaptcha response, expected a string or an object with \'' + gRecaptchaResponse + '\' field');
+    throw new Error('Invalid reCaptcha response body, expected a string or an object with a \'' + gRecaptchaResponse + '\' field');
 }
 
-function handleErrors(errors, errorHandlers) {
-    errors.forEach(function(error) {
-        switch (error) {
-            case 'missing-input-secret':
-                if (errorHandlers.missingInputSecret)
-                    errorHandlers.missingInputSecret();
-                break;
+function safeCall(func, parameters) {
+    if (func)
+        func.call(parameters);
+}
 
-            case 'invalid-input-secret':
-                if (errorHandlers.invalidInputSecret)
-                    errorHandlers.invalidInputSecret();
-                break;
+function handleErrors(errorHandlers, errorCodes) {
+    if (errorHandlers && errorCodes)
+        errorCodes.forEach(function(error) {
+            var errorHandler;
+            switch (error) {
+                case 'missing-input-secret':
+                    safeCall(errorHandlers.missingInputSecret, errorHandlers);
+                    break;
 
-            case 'missing-input-response':
-                if (errorHandlers.missingInputResponse)
-                    errorHandlers.missingInputResponse();
-                break;
+                case 'invalid-input-secret':
+                    safeCall(errorHandlers.invalidInputSecret, errorHandlers);
+                    break;
 
-            case 'invalid-input-response':
-                if (errorHandlers.invalidInputResponse)
-                    errorHandlers.invalidInputResponse();
-                break;
-        }
-    });
+                case 'missing-input-response':
+                    safeCall(errorHandlers.missingInputResponse, errorHandlers);
+                    break;
+
+                case 'invalid-input-response':
+                    safeCall(errorHandlers.invalidInputResponse, errorHandlers);
+                    break;
+            }
+        });
 }
 
 module.exports = {
     'verify': function(errorHandlers) {
         return function(request, response, next) {
-            request.post(
+            require('request')
+                .post(
                 {
                     'url': 'https://www.google.com/recaptcha/api/siteverify',
                     'form': {
                         'secret': process.env.APPSETTING_reCaptchaSecretKey,
-                        'response': getReCaptchaAnswerFrom(response)
+                        'response': getReCaptchaAnswerFrom(request.body)
                     }
                 },
                 function(error, htttResponse, htttResponseBody) {
@@ -53,7 +57,7 @@ module.exports = {
 
                     var reCaptchaResponse = JSON.parse(htttResponseBody);
 
-                    handleErrors(callback(body['error-codes']), errorHandlers);
+                    handleErrors(errorHandlers, reCaptchaResponse['error-codes']);
 
                     response.locals.reCaptcha = reCaptchaResponse;
                     next();
