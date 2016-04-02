@@ -5,11 +5,11 @@ module.exports = require('express')
             items: [
                 {
                     label: 'Register',
-                    path: '/account/register'
+                    path: '/user/register'
                 },
                 {
                     label: 'Log in',
-                    path: '/account/login'
+                    path: '/user/login'
                 }
             ]
         };

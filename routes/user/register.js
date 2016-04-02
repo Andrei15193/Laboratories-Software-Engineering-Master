@@ -30,12 +30,12 @@ function registerUser(request, response, next) {
             next();
         })
     });
-    response.render('account/register', request.body);
+    response.render('user/register', request.body);
 }
 
 module.exports = require('express')
     .Router()
     .get('/', function(request, response, next) {
-        response.render('account/register');
+        response.render('user/register');
     })
     .post('/', bodyParser(), validateUser, registerUser);

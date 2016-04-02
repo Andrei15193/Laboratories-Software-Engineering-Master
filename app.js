@@ -9,7 +9,7 @@ app
     .use(express.static(path.join(__dirname, 'public')))
     .use(require('./filters/navigation'))
     .use('/', require('./routes/index'))
-    .use('/account', require('./routes/account'))
+    .use('/user', require('./routes/user'))
     .use(errors.notFound)
     .listen(process.env.PORT || 3000);
 
