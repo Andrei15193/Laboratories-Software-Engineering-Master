@@ -1,11 +1,16 @@
+const path = require('path');
 const express = require('express');
+const app = express();
+const errors = require('./routes/errors');
 
-express()
-    .use(function(request, response, next) {
-        response
-            .status(404)
-            .end('The resource you are looking for does not exist');
-    })
+app
+    .set('views', './views')
+    .set('view engine', 'jade')
+    .use(express.static(path.join(__dirname, 'public')))
+    .use(require('./filters/navigation'))
+    .use('/', require('./routes/index'))
+    .use('/account', require('./routes/account'))
+    .use(errors.notFound)
     .listen(process.env.PORT || 3000);
 
 console.log("Server started");

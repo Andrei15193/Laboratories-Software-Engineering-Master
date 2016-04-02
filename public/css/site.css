@@ -1,0 +1,20 @@
+nav.navbar {
+    border-radius: 0;
+}
+
+div.container-fluid {
+    padding: 0;
+}
+
+div.content {
+    width: 700px;
+    margin: 0 auto;
+}
+
+div.content > footer{
+    text-align: center;
+}
+
+div.center {
+    text-align: center;
+}

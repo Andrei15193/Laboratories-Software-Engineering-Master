@@ -1,0 +1,7 @@
+nav.navbar.navbar-inverse
+  .content
+    .container-fluid
+        .navbar-header: a.navbar-brand(href="/") Mosaic
+        .collapse.navbar-collapse: ul.nav.navbar-nav
+            each navigationItem in navigation.items
+                li: a(href=navigationItem.path)= navigationItem.label

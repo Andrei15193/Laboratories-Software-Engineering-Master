@@ -1,0 +1,23 @@
+extends ../layout.jade
+
+block scripts
+     script(src="https://www.google.com/recaptcha/api.js")
+
+block content
+    h1 Register Account
+    form(method="POST")
+        .form-group
+            label(for="username") Username
+            input.form-control(type="text", name="username", id="username", placeholder="Username", value=username)
+        .form-group
+            label(for="email") E-Mail
+            input.form-control(type="email", name="email", id="email", placeholder="E-Mail", value=email)
+        .form-group
+            label(for="password") Password
+            input.form-control(type="password", name="password", id="password", placeholder="Password")
+        .form-group
+            label(for="passwordCheck") Password Check
+            input.form-control(type="password", name="passwordCheck", id="passwordCheck", placeholder="Retype password")
+        .form-group
+            .g-recaptcha(data-sitekey=process.env.APPSETTING_reCaptchaSiteKey)
+        button.btn.btn-default(type="submit") Register
