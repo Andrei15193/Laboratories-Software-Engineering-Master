@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const app = express();
+const autoRoute = require('./autoRoute')
 const errors = require('./routes/errors');
 
 app
@@ -8,8 +9,7 @@ app
     .set('view engine', 'jade')
     .use(express.static(path.join(__dirname, 'public')))
     .use(require('./filters/navigation'))
-    .use('/', require('./routes/index'))
-    .use('/user', require('./routes/user'))
+    .use(autoRoute.from('routes', 'index'))
     .use(errors.notFound)
     .listen(process.env.PORT || 3000);
 
