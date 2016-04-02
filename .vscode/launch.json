@@ -17,7 +17,8 @@
             "env": {
                 "NODE_ENV": "development",
                 "APPSETTING_reCaptchaSecretKey": "6Lf-0BsTAAAAAF4oIkSDc4216uymHcupaZJ22ldu",
-                "APPSETTING_reCaptchaSiteKey": "6LfbtBsTAAAAAKGlMUoiXIYrxXVj_PsxOCioQxLE"
+                "APPSETTING_reCaptchaSiteKey": "6LfbtBsTAAAAAKGlMUoiXIYrxXVj_PsxOCioQxLE",
+                "CUSTOMCONNSTR_azureTableStorage": "UseDevelopmentStorage=true"
             },
             "externalConsole": false,
             "sourceMaps": false,
