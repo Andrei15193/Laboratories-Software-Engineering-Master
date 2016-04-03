@@ -2,5 +2,6 @@
     "data": {
         "provider": "data/provider"
     },
-    "objectExtensions": "objectExtensions"
+    "objectExtensions": "objectExtensions",
+    "common": "common"
 }

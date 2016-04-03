@@ -1,15 +1,4 @@
-mixin formGroup(propertyName, type, displayName)
-    - var hasErrors = errors && errors[propertyName];
-    - var hasValue = type != 'password' && user != undefined;
-    
-    .form-group(class=(hasErrors ? "has-error" : ""))
-        if propertyName == 'reCaptcha'
-            .g-recaptcha(data-sitekey=process.env.APPSETTING_reCaptchaSiteKey)
-        else
-            label.control-label(for=propertyName)= displayName
-            input.form-control(type=type, name=propertyName, id=propertyName, placeholder=displayName, value=(hasValue ? user[propertyName] : ""))
-        if hasErrors
-            p.help-block= errors[propertyName]
+include ./common.jade
 
 extends ../layout.jade
 
@@ -18,10 +7,9 @@ block scripts
 
 block content
     h1 Register Account
-    form(method="POST")
+    +form('POST', 'Register')
         +formGroup('username', 'text', 'Username')
         +formGroup('email', 'email', 'E-Mail')
         +formGroup('password', 'password', 'Password')
         +formGroup('passwordCheck', 'password', 'Password check')
         +formGroup('reCaptcha')
-        button.btn.btn-default(type="submit") Register

@@ -1,0 +1,9 @@
+include ./common.jade
+
+extends ../layout.jade
+
+block content
+    h1 Log in
+    +form('POST', 'Log in')
+        +formGroup('username', 'text', 'Username')
+        +formGroup('password', 'password', 'Password')

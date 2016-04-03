@@ -1,8 +1,8 @@
-require('../../objectExtensions');
+require(modules.objectExtensions);
 const reCaptcha = require('../../reCaptcha');
 const bodyParser = require('body-parser');
-const crypto = require('crypto');
-const azureStorage = require('azure-storage');
+const common = require(modules.common);
+const data = require(modules.data.provider);
 
 module.exports = require('express')
     .Router()
@@ -10,8 +10,6 @@ module.exports = require('express')
         response.render('user/register');
     })
     .post('/', bodyParser(), reCaptcha.verify(), validateUser, verifyModelState, registerUser);
-
-const storageTable = azureStorage.createTableService(process.env.CUSTOMCONNSTR_azureTableStorage);
 
 function validateUser(request, response, next) {
     response.locals.errors = {};
@@ -38,13 +36,11 @@ function validateUser(request, response, next) {
     if (response.locals.errors.username)
         next();
     else
-        storageTable.createTableIfNotExists('usersValidationUsername', function() {
-            storageTable.retrieveEntity('usersValidationUsername', request.body.username.toLowerCase(), 'Unique usernames in lowercase', function(error, result) {
-                if (!error && result)
-                    response.locals.errors.username = 'The username you have picked is already in use. Please use a different one.';
+        data.users.isUsernameUnique(request.body.username, function(isUnique) {
+            if (!isUnique)
+                response.locals.errors.username = 'The username you have picked is already in use. Please use a different one.';
 
-                next();
-            });
+            next();
         });
 }
 
@@ -56,57 +52,15 @@ function verifyModelState(request, response, next) {
 }
 
 function registerUser(request, response, next) {
-    var userCreateBatch = new azureStorage.TableBatch();
-
-    userCreateBatch.insertEntity(
-        response.locals.user.toAzureEntity(
-            {
-                partitionKey: 'username',
-                rowKey: 'password',
-                rowKeyMap: getHash
-            }));
-    userCreateBatch.insertEntity(
-        response.locals.user.toAzureEntity(
-            {
-                partitionKey: 'username',
-                rowKey: 'password',
-                rowKeyMap: function() { return 'check'; }
-            }));
-
-    storageTable.createTableIfNotExists('usersValidationUsername', function() {
-        storageTable.insertEntity(
-            'usersValidationUsername',
-            {
-                PartitionKey: response.locals.user.username.toLowerCase(),
-                RowKey: 'Unique usernames in lowercase'
-            }.toAzureEntity(),
-            function(error) {
-                if (error) {
-                    if (!response.locals.errors)
-                        response.locals.errors = {};
-
-                    response.locals.errors.username = 'The username you have picked is already in use. Please use a different one.';
-                    response.render('user/register');
-                }
-
-                storageTable.createTableIfNotExists('users', function() {
-                    storageTable.executeBatch(
-                        'users',
-                        userCreateBatch,
-                        function(error) {
-                            if (error)
-                                throw error;
-
-                            response.redirect('/');
-                        });
-                });
-            });
-
+    data.users.add(response.locals.user, function(errors) {
+        if (errors) {
+            if (response.locals.errors)
+                resposne.locals.errors = errors;
+            else
+                response.locals.errors.username = errors.username;
+            response.render('user/register');
+        }
+        else
+            response.redirect('/');
     });
-}
-
-function getHash(data) {
-    var hash = crypto.createHash('sha256');
-    hash.update(data);
-    return hash.digest('hex');
 }

@@ -1,0 +1,21 @@
+mixin form(method, submitButtonLabel)
+    - var hasErrors = errors && errors['_'];
+    form(method=method)
+        if (hasErrors)
+            .form-group.has-error
+                p.help-block= errors._
+        block
+        button.btn.btn-default(type="submit")= submitButtonLabel
+
+mixin formGroup(propertyName, type, displayName)
+    - var hasErrors = errors && errors[propertyName];
+    - var hasValue = type != 'password' && user != undefined;
+    
+    .form-group(class=(hasErrors ? "has-error" : ""))
+        if propertyName == 'reCaptcha'
+            .g-recaptcha(data-sitekey=process.env.APPSETTING_reCaptchaSiteKey)
+        else
+            label.control-label(for=propertyName)= displayName
+            input.form-control(type=type, name=propertyName, id=propertyName, placeholder=displayName, value=(hasValue ? user[propertyName] : ""))
+        if hasErrors
+            p.help-block= errors[propertyName]
