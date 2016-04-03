@@ -1,3 +1,5 @@
+require('./aliases').load({ propertyName: 'modules' });
+
 const path = require('path');
 const express = require('express');
 const app = express();
