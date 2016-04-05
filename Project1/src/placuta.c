@@ -259,25 +259,26 @@ void SetDisplayDigit(uint8_t digit){
 	DisplayDigitSetters[digit % 10]();
 }
 
-int main(void) {
-	uint8_t nr = 0;
+void SetDisplayRed(){
+	SetDisplaySegment(Constants.SevenSegmentDisplay.Top);
+}
+void SetDisplayGreen(){
+	SetDisplaySegment(Constants.SevenSegmentDisplay.Bottom);
+}
 
+int main(void) {
 	GPIOInit();
 
 	Configure7SegmentDisplay();
 	ConfigureButtons();
 
 	while (1) {
-		SetDisplayDigit(nr);
-		if (IsButtonPressed(Constants.Button.BottomLeft)) {
-			if (nr > 0)
-				nr--;
-			delay();
-		}
-		if (IsButtonPressed(Constants.Button.BottomRight)) {
-			if (nr < 9)
-				nr++;
-			delay();
-		}
+		Clear();
+		SetDisplayRed();
+		if (IsButtonPressed(Constants.Button.TopLeft)) {
+			Clear();
+			SetDisplayGreen();
+			for(int i = 0; i < 7000000; i++)
+				;
 	}
 }
