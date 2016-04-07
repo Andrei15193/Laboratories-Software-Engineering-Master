@@ -95,30 +95,24 @@ struct {
 		const Pin BottomLeft;
 		const Pin BottomRight;
 	} Button;
-} Constants =
-	{
-		{
-			{ 0, 9 },  // Top
-			{ 0, 5 },  // TopLeft
-			{ 0, 1 },  // TopRight
-			{ 0, 7 },  // Middle
-			{ 0, 4 },  // BottomLeft
-			{ 0, 2 },  // BottomRight
-			{ 0, 3 }   // Bottom
-		},
-		{
-			{ 0, 21 }, // TopLeft
-			{ 1, 23 }, // TopRight
-			{ 0, 11 }, // BottomLeft
-			{ 0, 15 }  // BottomRight
-		}
-	};
+} Constants = { { { 0, 9 },  // Top
+		{ 0, 5 },  // TopLeft
+		{ 0, 1 },  // TopRight
+		{ 0, 7 },  // Middle
+		{ 0, 4 },  // BottomLeft
+		{ 0, 2 },  // BottomRight
+		{ 0, 3 }   // Bottom
+}, { { 0, 21 }, // TopLeft
+		{ 1, 23 }, // TopRight
+		{ 0, 11 }, // BottomLeft
+		{ 0, 15 }  // BottomRight
+} };
 
-void SetOutPin(Pin pin){
+void SetOutPin(Pin pin) {
 	GPIOSetDir(pin.Port, pin.Bit, 1);
 }
 
-void SetInPin(Pin pin){
+void SetInPin(Pin pin) {
 	GPIOSetDir(pin.Port, pin.Bit, 0);
 }
 
@@ -130,8 +124,8 @@ void ClearDisplaySegment(Pin displayPin) {
 	GPIOSetBitValue(displayPin.Port, displayPin.Bit, 1);
 }
 
-int IsButtonPressed(Pin buttonPin){
-	 return !GPIOGetPinValue(buttonPin.Port, buttonPin.Bit);
+int IsButtonPressed(Pin buttonPin) {
+	return !GPIOGetPinValue(buttonPin.Port, buttonPin.Bit);
 }
 
 void Configure7SegmentDisplay() {
@@ -254,15 +248,15 @@ void (*DisplayDigitSetters[])() =
 	SetDisplayDigit9
 };
 
-void SetDisplayDigit(uint8_t digit){
+void SetDisplayDigit(uint8_t digit) {
 	Clear();
 	DisplayDigitSetters[digit % 10]();
 }
 
-void SetDisplayRed(){
+void SetDisplayRed() {
 	SetDisplaySegment(Constants.SevenSegmentDisplay.Top);
 }
-void SetDisplayGreen(){
+void SetDisplayGreen() {
 	SetDisplaySegment(Constants.SevenSegmentDisplay.Bottom);
 }
 
@@ -278,7 +272,8 @@ int main(void) {
 		if (IsButtonPressed(Constants.Button.TopLeft)) {
 			Clear();
 			SetDisplayGreen();
-			for(int i = 0; i < 7000000; i++)
+			for (int i = 0; i < 7000000; i++)
 				;
+		}
 	}
 }
