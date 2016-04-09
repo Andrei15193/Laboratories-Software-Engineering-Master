@@ -1,7 +1,7 @@
 module.exports = require('express')
     .Router()
     .use(function(request, response, next) {
-        if (request.user)
+        if (response.locals.user)
             response.locals.navigation = {
                 items: [
                     {

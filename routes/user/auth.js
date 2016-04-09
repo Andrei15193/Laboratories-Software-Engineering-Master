@@ -24,9 +24,9 @@ module.exports = {
                 process.env.APPSETTING_jwtSecret,
                 function(error, user) {
                     if (error)
-                        request.user = null;
+                        response.locals.user = null;
                     else
-                        request.user = user;
+                        response.locals.user = user;
                     next();
                 });
         })
