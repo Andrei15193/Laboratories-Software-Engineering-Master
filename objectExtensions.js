@@ -35,6 +35,43 @@ Object.defineProperty(
         }
     });
 
+Object.defineProperty(
+    Object.prototype,
+    'fromAzureEntity',
+    {
+        writable: true,
+        configurable: true,
+        enumerable: false,
+        value: function(options) {
+            var object = new Object();
+            if (!options)
+                options = {};
+
+            for (var propertyName in this)
+                if (this.hasOwnProperty(propertyName))
+                    switch (propertyName) {
+                        case '.metadata':
+                        case 'Timestamp':
+                            break;
+
+                        case 'PartitionKey':
+                            object[options.partitionKey || 'PartitionKey'] = mapIfPossible(getValueFromAzureEntity(this[propertyName]), options.partitionKeyMap);
+                            break;
+
+                        case 'RowKey':
+                            object[options.rowKey || 'RowKey'] = mapIfPossible(getValueFromAzureEntity(this[propertyName]), options.rowKeyMap);
+                            break;
+
+                        default:
+                            if (!options.properties || options.properties.indexOf(propertyName) != -1)
+                                object[propertyName] = getValueFromAzureEntity(this[propertyName]);
+                            break;
+                    }
+
+            return object;
+        }
+    });
+
 function mapIfPossible(value, mapCallback) {
     if (mapCallback && mapCallback instanceof Function)
         return mapCallback(value);
@@ -70,8 +107,12 @@ function getAzureEntityValueFrom(value) {
                 return entityGenerator.DateTime(value);
             break;
     }
-    
+
     throw new Error('Unsuported property type!');
+}
+
+function getValueFromAzureEntity(value) {
+    return value._;
 }
 
 function getAzureEntityNumericValueFrom(value) {

@@ -1,6 +1,7 @@
 const azureStorage = require('azure-storage');
 const common = require(modules.common);
 const storageTable = azureStorage.createTableService(process.env.CUSTOMCONNSTR_azureTableStorage);
+const crypto = require('crypto');
 
 module.exports =
     {
@@ -15,19 +16,23 @@ module.exports =
             });
         },
 
-        tryGetUserByCredentials: function(username, passwordHash, callback) {
+        tryGetUser: function(username, password, callback) {
             storageTable.createTableIfNotExists(
                 'users',
                 function() {
                     storageTable.retrieveEntity(
                         'users',
                         username,
-                        passwordHash,
+                        getHashFor(password),
                         function(error, result) {
                             if (error)
                                 callback(null);
                             else
-                                callback(result);
+                                callback(result.fromAzureEntity(
+                                    {
+                                        partitionKey: 'username',
+                                        rowKey: 'password'
+                                    }));
                         });
                 });
         },
@@ -40,7 +45,7 @@ module.exports =
                     {
                         partitionKey: 'username',
                         rowKey: 'password',
-                        rowKeyMap: common.getHash
+                        rowKeyMap: getHashFor
                     }));
             userCreateBatch.insertEntity(
                 user.toAzureEntity(
@@ -58,7 +63,7 @@ module.exports =
                         RowKey: 'Unique usernames in lowercase'
                     }.toAzureEntity(),
                     function(error) {
-                        if (error) 
+                        if (error)
                             callback({ username: 'The username you have picked is already in use. Please use a different one.' });
 
                         storageTable.createTableIfNotExists('users', function() {
@@ -76,3 +81,9 @@ module.exports =
             });
         }
     };
+
+function getHashFor(data) {
+    var hash = crypto.createHash('sha256');
+    hash.update(data);
+    return hash.digest('hex');
+}
