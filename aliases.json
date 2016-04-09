@@ -3,5 +3,6 @@
         "provider": "data/provider"
     },
     "objectExtensions": "objectExtensions",
-    "common": "common"
+    "common": "common",
+    "auth": "routes/user/auth"
 }

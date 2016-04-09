@@ -19,6 +19,8 @@
                 "APPSETTING_reCaptchaSecretKey": "6Lf-0BsTAAAAAF4oIkSDc4216uymHcupaZJ22ldu",
                 "APPSETTING_reCaptchaSiteKey": "6Lf-0BsTAAAAAAdk8L14fxwb9EKjLl4BWote9Zjm",
                 "APPSETTING_dataProvider": "azure",
+                "APPSETTING_jwtSecret": "jwtSecret",
+                "APPSETTING_cookieSecret": "cookieSecret",
                 "CUSTOMCONNSTR_azureTableStorage": "UseDevelopmentStorage=true"
             },
             "externalConsole": false,
