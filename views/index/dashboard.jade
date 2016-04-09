@@ -2,3 +2,22 @@ extends ../layout.jade
 
 block content
     h1 Welcome #{user.username}!
+        small
+            | (
+            = user.email
+            | )
+    h3
+        a.btn.btn-primary.btn-sm(href="#") Add
+        |  Sites 
+    if sites.length > 0
+        each site in sites
+            div
+                h4
+                    a.btn.btn-danger.btn-xs(href="#") Remove
+                    | 
+                    =site.title
+                    | 
+                    small= site.key
+                p= site.description
+    else
+        p There are no sites! Why are you doing here?

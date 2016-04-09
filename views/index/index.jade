@@ -2,3 +2,19 @@ extends ../layout.jade
 
 block content
     h1 Welcome to Mosaic!
+    p
+        | Mosaic is a RESTful content management system. This portal is only for registering accounts, logging in and managing sites that have been previously created.
+        | Everything else, such as managing categories, submitting posts and so on are all done through our API. This allows great flexibility as one can use this
+        | engine to manage posts on a variety of devices.
+    p
+        | The development of this platform is split into iterations. At first there will be account creationg, logging in, creating and deleting sites. Each site can have
+        | any number of categories and within these categories any number of posts. There will be no support for hierarchies of categories, however that will be implemented
+        | in future iterations (possibly the next one).
+    p
+        | It is not planned to have multi user write access or limit categories to specific users in the first iteration. The creator can add posts and any other user, logged in
+        | or not, is able to view it in read-only mode. Pretty much how blogs work, one writers, everyone else reads.
+    p
+        | Stay tuned as development goes on, feedback is greatly appreciated! Mosaic is an open source project developed using NodeJS (at least for now) and it uses NoSQL Storage
+        | (Azure Table Storage) for scalability. Visit the git repository on BitBucket: 
+        a(href="https://bitbucket.org/Andrei15193/mosaic/", target="_blank") https://bitbucket.org/Andrei15193/Mosaic/
+        | . Use the Issue Tracker to make suggestions and report bugs (you need to be logged into BitBucket to be able to do that).

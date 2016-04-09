@@ -18,3 +18,12 @@ div.content > footer{
 div.center {
     text-align: center;
 }
+
+div.content > h1{
+    text-align: center;
+}
+
+div.content > p {
+    text-align: justify;
+    text-indent: 40px;
+}
