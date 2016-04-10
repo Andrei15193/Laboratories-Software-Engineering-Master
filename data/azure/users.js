@@ -1,5 +1,5 @@
+require(modules.objectExtensions);
 const azureStorage = require('azure-storage');
-const common = require(modules.common);
 const storageTable = azureStorage.createTableService(process.env.CUSTOMCONNSTR_azureTableStorage);
 const crypto = require('crypto');
 

@@ -1,7 +1,5 @@
-require(modules.objectExtensions);
 const reCaptcha = require('../../reCaptcha');
 const bodyParser = require('body-parser');
-const common = require(modules.common);
 const data = require(modules.data.provider);
 
 module.exports = require('express')

@@ -1,6 +1,4 @@
-require(modules.objectExtensions);
 const bodyParser = require('body-parser');
-const common = require(modules.common);
 const data = require(modules.data.provider);
 const auth = require(modules.auth);
 
