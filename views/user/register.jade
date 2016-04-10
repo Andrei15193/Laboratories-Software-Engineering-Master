@@ -1,4 +1,4 @@
-include ./common.jade
+include ../common.jade
 
 extends ../layout.jade
 
@@ -7,9 +7,9 @@ block scripts
 
 block content
     h1 Register Account
-    +form('POST', 'Register')
-        +formGroup('username', 'text', 'Username')
-        +formGroup('email', 'email', 'E-Mail')
+    +form('POST', 'Register', 'Cance', '/')
+        +formGroup('username', 'text', 'Username', user)
+        +formGroup('email', 'email', 'E-Mail', user)
         +formGroup('password', 'password', 'Password')
         +formGroup('passwordCheck', 'password', 'Password check')
         +formGroup('reCaptcha')

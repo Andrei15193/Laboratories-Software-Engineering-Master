@@ -1,21 +1,24 @@
-mixin form(method, submitButtonLabel)
+mixin form(method, submitButtonLabel, cancelButtonLabel, cancelUrl)
     - var hasErrors = errors && errors['_'];
     form(method=method)
         if (hasErrors)
             .form-group.has-error
                 p.help-block= errors._
         block
-        button.btn.btn-default(type="submit")= submitButtonLabel
+        button.btn.btn-primary(type="submit")= submitButtonLabel
+        if cancelButtonLabel && cancelUrl
+            |  
+            a.btn.btn-danger(href=cancelUrl)= cancelButtonLabel
 
-mixin formGroup(propertyName, type, displayName)
+mixin formGroup(propertyName, type, displayName, model)
     - var hasErrors = errors && errors[propertyName];
-    - var hasValue = type != 'password' && user != undefined;
+    - var hasValue = model != undefined;
     
     .form-group(class=(hasErrors ? "has-error" : ""))
         if propertyName == 'reCaptcha'
             .g-recaptcha(data-sitekey=process.env.APPSETTING_reCaptchaSiteKey)
         else
             label.control-label(for=propertyName)= displayName
-            input.form-control(type=type, name=propertyName, id=propertyName, placeholder=displayName, value=(hasValue ? user[propertyName] : ""))
+            input.form-control(type=type, name=propertyName, id=propertyName, placeholder=displayName, value=(hasValue ? model[propertyName] : ""))
         if hasErrors
             p.help-block= errors[propertyName]

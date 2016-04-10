@@ -1,8 +1,12 @@
+const data = require(modules.data.provider);
+
 module.exports = require('express')
     .Router()
     .get('/', function(request, response, next) {
         if (response.locals.user)
-            response.render('index/dashboard', { sites: [{ title: 'test site', key: 'site key', description: 'site description' }, { title: 'test site', key: 'site key', description: 'site description' }] });
+            data.sites.getSitesFor(response.locals.user, function(sites) {
+                response.render('index/dashboard', { sites: sites });
+            });
         else
             response.render('index/index');
     });
