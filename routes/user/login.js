@@ -1,6 +1,6 @@
 const bodyParser = require('body-parser');
 const data = require(modules.data.provider);
-const auth = require(modules.auth);
+const siteAuth = require(modules.auth.site);
 
 module.exports = require('express')
     .Router()
@@ -13,7 +13,7 @@ module.exports = require('express')
             request.body.password,
             function(user) {
                 if (user) {
-                    auth.setToken(response, user);
+                    siteAuth.setToken(response, user);
                     response.redirect('/');
                 }
                 else {

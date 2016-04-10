@@ -12,7 +12,7 @@ app
     .set('view engine', 'jade')
     .use(express.static(path.join(__dirname, 'public')))
     .use(cookieParser(process.env.APPSETTING_cookieSecret))
-    .use(require(modules.auth).authenticate)
+    .use(require(modules.auth.site).authenticate)
     .use(require('./filters/navigation'))
     .use(autoRoute.from('routes', 'index'))
     .use(errors.notFound)

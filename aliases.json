@@ -4,5 +4,8 @@
     },
     "objectExtensions": "objectExtensions",
     "common": "common",
-    "auth": "routes/user/auth"
+    "auth": {
+        "site": "routes/user/auth",
+        "api": "routes/api/auth"
+    }
 }

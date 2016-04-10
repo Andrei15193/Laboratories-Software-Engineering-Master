@@ -1,8 +1,8 @@
-const auth = require(modules.auth);
+const siteAuth = require(modules.auth.site);
 
 module.exports = require('express')
     .Router()
     .get('/', function(request, response, next) {
-        auth.removeToken(response);
+        siteAuth.removeToken(response);
         response.redirect('/');
     });
