@@ -5,5 +5,5 @@ extends ../layout.jade
 block content
     h1 Log in
     +form('POST', 'Log in', 'Cancel', '/')
-        +formGroup('username', 'text', 'Username', , user)
+        +formGroup('username', 'text', 'Username', user)
         +formGroup('password', 'password', 'Password')

@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const data = require(modules.data.provider);
 
 module.exports = require('express')
@@ -11,7 +12,7 @@ module.exports = require('express')
     .get('/', function(request, response, next) {
         response.render('site/add');
     })
-    .post('/', require('body-parser')(), validate, function(request, response, next) {
+    .post('/', bodyParser.urlencoded({ extended: false }), validate, function(request, response, next) {
         if (response.locals.errors.name)
             response.render('site/add');
         else

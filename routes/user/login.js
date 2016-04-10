@@ -7,7 +7,7 @@ module.exports = require('express')
     .get('/', function(request, response, next) {
         response.render('user/login');
     })
-    .post('/', bodyParser(), function(request, response, next) {
+    .post('/', bodyParser.urlencoded({ extended: false }), function(request, response, next) {
         data.users.tryGetUser(
             request.body.username,
             request.body.password,

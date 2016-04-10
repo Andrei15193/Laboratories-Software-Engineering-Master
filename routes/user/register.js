@@ -7,7 +7,7 @@ module.exports = require('express')
     .get('/', function(request, response, next) {
         response.render('user/register');
     })
-    .post('/', bodyParser(), reCaptcha.verify(), validateUser, verifyModelState, registerUser);
+    .post('/', bodyParser.urlencoded({ extended: false }), reCaptcha.verify(), validateUser, verifyModelState, registerUser);
 
 function validateUser(request, response, next) {
     response.locals.errors = {};
