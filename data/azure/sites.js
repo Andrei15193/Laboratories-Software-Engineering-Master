@@ -1,12 +1,11 @@
 require(modules.objectExtensions);
 const azureStorage = require('azure-storage');
 const storageTable = azureStorage.createTableService(process.env.CUSTOMCONNSTR_azureTableStorage);
+const data = require(modules.data.provider);
 
 module.exports =
     {
         add: function(site, callback) {
-            var siteAddBatch = new azureStorage.TableBatch();
-
             storageTable.createTableIfNotExists('sitesValidationName', function() {
                 storageTable.insertEntity(
                     'sitesValidationName',
@@ -48,7 +47,7 @@ module.exports =
                                 rowKey: 'name'
                             });
                         }));
-                    })
+                    });
             });
         },
 
@@ -73,9 +72,31 @@ module.exports =
                             if (error)
                                 console.error(error);
 
-                            callback();
+                            storageTable.deleteTable(site.name + 'Categories', function(error) {
+                                if (error)
+                                    console.error(error);
+
+                                callback();
+                            });
                         }
                     );
+                });
+        },
+
+        tryGet: function(name, callback) {
+            var query = new azureStorage.TableQuery().top(1).where('RowKey eq ?', name);
+            storageTable.queryEntities(
+                'userSites',
+                query,
+                null,
+                function(error, result, response) {
+                    if (result.entries.length == 1)
+                        callback(result.entries[0].fromAzureEntity({
+                            partitionKey: 'owner',
+                            rowKey: 'name'
+                        }));
+                    else
+                        callback(null);
                 });
         }
     };
