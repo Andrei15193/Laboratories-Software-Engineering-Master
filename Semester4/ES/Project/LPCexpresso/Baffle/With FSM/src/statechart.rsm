@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StateMachine>
+<Global key="Reset Signal" value="reset"/>
+<Global key="Dispatch Function" value="statechart_dispatch"/>
+<Global key="Action Header" value="statechart_actions.h"/>
+<Global key="Main Header file" value="statechart.h"/>
+<Global key="Action C file" value="statechart_actions.c"/>
+<Global key="Initial State" value="greenState"/>
+<Global key="Prefix" value=""/>
+<Global key="Main output file" value="statechart.c"/>
+<Global key="Name" value="statechart"/>
+<Input IMemento.internal.id="SmInput" Name="button" Permissions="0" Source="int" Type="1"/>
+<Output IMemento.internal.id="SmOutput" Name="redOn" Permissions="0" Source="int" Type="2"/>
+<Output IMemento.internal.id="SmOutput" Name="redOff" Permissions="0" Source="int" Type="2"/>
+<Output IMemento.internal.id="SmOutput" Name="greenOn" Permissions="0" Source="int" Type="2" preload=""/>
+<Output IMemento.internal.id="SmOutput" Name="greenOff" Permissions="0" Source="int" Type="2" preload=""/>
+<Output IMemento.internal.id="SmOutput" Name="duration" Permissions="0" Source="int" Type="1" preload="160000"/>
+<Output IMemento.internal.id="SmOutput" Name="timer" Permissions="0" Source="int" Type="1" preload="160000"/>
+<Output IMemento.internal.id="SmOutput" Name="incrementDuration" Permissions="0" Source="int" Type="2"/>
+<State h="35" name="greenState" w="142" x="637" y="241"/>
+<State h="35" name="redState" w="186" x="45" y="82"/>
+<Action description="" name="goGreen" numElements="3">
+<ActionElement name="redOff" op="2" order="1"/>
+<ActionElement name="greenOn" op="2" order="2"/>
+<ActionElement name="duration" op="3" order="3" value="0"/>
+</Action>
+<Action description="" name="goRed" numElements="2">
+<ActionElement name="redOn" op="2" order="1"/>
+<ActionElement name="greenOff" op="2" order="2"/>
+</Action>
+<Action description="" name="incrementDuration" numElements="1">
+<ActionElement name="incrementDuration" op="2" order="1"/>
+</Action>
+<SmLogical IMemento.internal.id="SmSignal" SML_DESC="" SML_NAME="buttonPress">
+<SmLogical IMemento.internal.id="SmLogicalBool" IOTYPE="0" SML_NAME="button" SML_TYPE="1"/>
+</SmLogical>
+<SmLogical IMemento.internal.id="SmSignal" SML_DESC="" SML_NAME="timeOut (10min)">
+<SmLogical IMemento.internal.id="SmLogicalMatch">
+<SML_ARG1 IMemento.internal.id="SmOutput" Name="duration" Permissions="0" Source="int" Type="1" preload="160000"/>
+<SML_ARG2 IMemento.internal.id="SmOutput" Name="timer" Permissions="0" Source="int" Type="1" preload="160000"/>
+</SmLogical>
+</SmLogical>
+<SmLogical IMemento.internal.id="SmSignal" SML_DESC="" SML_NAME="incrementDuration">
+<SmLogical IMemento.internal.id="SmLogicalNot">
+<SML_ARG1 IMemento.internal.id="SmLogicalMatch">
+<SML_ARG1 IMemento.internal.id="SmOutput" Name="duration" Permissions="0" Source="int" Type="1" preload="160000"/>
+<SML_ARG2 IMemento.internal.id="SmOutput" Name="timer" Permissions="0" Source="int" Type="1" preload="160000"/>
+</SML_ARG1>
+</SmLogical>
+</SmLogical>
+<SmLogical IMemento.internal.id="SmSignal" SML_DESC="" SML_NAME="reset">
+<SmLogical IMemento.internal.id="SmLogicalNot">
+<SML_ARG1 IMemento.internal.id="SmLogicalBool" IOTYPE="1" SML_NAME="timer" SML_TYPE="1"/>
+</SmLogical>
+</SmLogical>
+<Transition action="goRed" current="greenState" h="120" next="redState" priority="0" signal="timeOut (10min)" w="195" x="141" y="226">
+<curve num="1">
+<point d1x="-382" d1y="-33" d2x="188" d2y="126" index="0" weight="0.5"/>
+</curve>
+</Transition>
+<Transition action="incrementDuration" current="greenState" h="60" next="greenState" priority="0" signal="incrementDuration" w="109" x="673" y="347">
+<curve num="1">
+<point d1x="2" d1y="77" d2x="2" d2y="77" index="0" weight="0.5"/>
+</curve>
+</Transition>
+<Transition action="goGreen" current="redState" h="150" next="greenState" priority="0" signal="buttonPress" w="177" x="589" y="19">
+<curve num="1">
+<point d1x="343" d1y="32" d2x="-227" d2y="-127" index="0" weight="0.5"/>
+</curve>
+</Transition>
+<SmSpecification IMemento.internal.id="SmSoftware"/>
+</StateMachine>
