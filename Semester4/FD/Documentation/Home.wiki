@@ -1,0 +1,115 @@
+= Using Oval =
+
+Oval is a simple validation library available for .NET on NuGet ([[https://www.nuget.org/packages/Oval/]]). The name comes from **O**bject **val**idation and also because of the [[https://en.wikipedia.org/wiki/Oval|oval]] geometric shape. Writing validation for an object has some symmetry to its definition.
+
+== Reasoning ==
+
+There are multiple approaches to validation. One technique is to use .NET's [[https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.aspx|Data Annotations]] or implementing [[https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.ivalidatableobject.aspx|IValidatableObject]] interface if attributes do not suffice. Another approach is to validate the object in a Controller or ViewModel.
+
+The above mentioned techniques are good, but not that good. For instance, when one wants to validate whether an object is valid this may include checking for uniqueness for a specific property (e.g.: username or e-mail). Using data annotations is not enough, implementing IValidatableObject to run a query is not recommended because it ties it to the way it is persisted reducing its reuse potential.
+
+Moving this validation to the Controller or ViewModel, which communicate with a repository or data access object, makes sense, however validation is split in two. There is one part of the validation that takes place through Data Annotations (maybe even through the IValidatableObject implementation) and another in the Controller or ViewModel.
+
+Thus far another problem persists. Neither the object that holds some data, usually a [[https://en.wikipedia.org/wiki/Data_transfer_object|Data Transfer Object]] or the Controller/ViewModel have other responsibilities than implementing partial validation for a given object.
+
+The Data Transfer Object is concerned only to containing some data but not whether it is valid. The only restrictions it may have are done by the types of each property (int, string, bool other Data Transfer Objects and so on). Annotating may seem to have an acceptable cost, however one must consider the fact that validation is split if one wants to display an error regarding duplicates before clicking save.
+
+The Controller/ViewModel are responsible with receiving requests from a user or a different system. They should not contain any validation logic of specific Data Transfer Objects that are handed to them, they should invoke a validation service that indicates what is wrong, or better yet, what are the requirements that an object must meet.
+
+Separating validation implementation/specification from a Data Transfer Object enables a greater reuse for it. Multiple validation implementations can exist for the same Data Transfer Object, but for different purposes.
+
+Having this in mind, the library offers a validation service to which different constraints can be registered for different types having different names. These constraints can be retrieved later on and invoked. Each constraint is implemented asynchronously, the task may not require it however a trip to the database needs it.
+
+There are two main types of constraints (LinearConstraint and AnyConstraint, these are both static classes and rely on builders to create the constraint), a default implementation for the IConstraint<TValue> interface (Constraint<TValue> class) and a static class that is meant to ease creating of constraints (Constraint static class).
+
+== Requirements ==
+
+This library proposes a different approach to reporting "problems". Instead of reporting a list of errors it insists that a list of requirements must be returned. Requirements that describe what makes a Data Transfer Object valid.
+
+For instance, having the validate whether an integer is greater than 0, what is more helpful. A message saying "The value 0 is invalid", or "The value -1 is invalid" (the user is somehow asked to guess the right value) or a message saying "The value needs to be greater than 0" (the user is told about what the application requires him/her to do)?
+
+Instead of focusing to report errors, the library insists that requirements to satisfy a constraint should be returned. Instead of telling what is wrong, applications should tell what is correct. The fact that is being reported should be a clear hint to the user that something is wrong.
+
+== Linear Constraints ==
+
+Validation can be done all at once or in steps. For instance, it makes sense to first validate whether a Data Transfer Object is in check with regard to property values (e.g.: is the provided e-mail address a valid e-mail address?) and only afterwards to check with the database for uniqueness or other types of validation. Checking whether invalid data is present in the database should always return false thus an invalid e-mail address should never generate a duplicate in the database.
+
+Linear constraints are divided into a sequence of batches where each batch contains at least one constraint. The validation is done batch by batch. If constraints in a batch are not satisfied then validation is carried out until the end of that batch but no further. This enables developers to stop validating an object if issues have been found until specific points.
+
+The following example creates a linear constraint that checks if the value of a string is not null, the length is less than 255 and starts with "Test".
+
+{{{
+#!C#
+
+var constraint = LinearConstraint
+    .StartingWith<string>(
+        value =>
+        {
+            if (value != null)
+                return Enumerable.Empty<Requirement>();
+
+            return new[] { new Requirement("Cannot be null") };
+        })
+    .CheckedAndFollowedBy(
+        value =>
+        {
+            if (value.Length < 255)
+                return Enumerable.Empty<Requirement>();
+
+            return new[] { new Requirement("Cannot exceed 255 characters") };
+        })
+    .AndEndedWith(
+        value =>
+        {
+            if (value.StartsWith("Testing"))
+                return Enumerable.Empty<Requirement>();
+
+            return new[] { new Requirement("Must start with \"Test\"") };
+        });
+
+var requirements = await constraint.CheckAsync("not valid");
+
+Assert.AreEqual(
+    "Must start with \"Test\"",
+    requirements.Single().Text,
+    ignoreCase: false);
+}}}
+
+== Any Constraints ==
+
+These are similar to the "or" Boolean operator. A number of constraints are aggregated and a number of requirements are specified to the any constraint builder. If at least one of the aggregated constraints is satisfied then the any constraint is considered to be satisfied. If none of the aggregated constraints are satisfied then the list of provided requirements is returned as a result instead of concatenating the requirements of each constraint.
+
+Having its own list of requirements allows developers to better illustrate what is needed as any constraint from a number of constraints determines whether these requirements are meet.
+
+The example below checks if a string is null or starts with test.
+
+{{{
+#!C#
+
+var constraint = AnyConstraint
+    .From<string>(value => value == null)
+    .Or(value => value.StartsWith("Test"))
+    .Fulfils(new Requirement("Value must be either null or start with \"Test\""))
+    .AsOneConstraint();
+
+var requirements = await constraint.CheckAsync("not valid");
+
+Assert.AreEqual(
+    "Value must be either null or start with \"Test\"",
+    requirements.Single().Text,
+    ignoreCase: false);
+}}}
+
+Note that the overloads taking predicates have been used. This is applicable to this kind of constraint because the requirements returned by aggregated constraints are only used to determine whether a constraint is satisfied and never returned by the any constraint itself.
+
+== The Constraint Service ==
+
+This is a static container that can hold multiple constraints for different types under different names. The name is optional, however it is useful when one wants to register multiple constraints for the same type. Please be aware that the name of the constraint is trimmed!
+
+The purpose of the class is to register multiple IConstraint<TValue> implementations for different types and have them retrieved and checked from different parts of the application (e.g.: Controller/ViewModel).
+
+The GetFor and TryGetFor methods are similar to the dictionary indexer and TryGetValue method. If a constraint is not found when calling GetFor an exception is thrown (KeyNotFoundException) while in this case the TryGetFor method will return null.
+
+== Remarks ==
+
+IConstraint<TValue> is contra variant. Constraints implemented for base types can be reused with derivatives without needing to extend the respective constraints, they can be added to a linear constraint instead of subclassing.
