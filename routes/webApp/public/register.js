@@ -1,13 +1,21 @@
-const reCaptcha = require('../../reCaptcha');
+const reCaptcha = require('../../../reCaptcha');
 const bodyParser = require('body-parser');
 const data = require(modules.data.provider);
 
-module.exports = require('express')
-    .Router()
-    .get('/', function(request, response, next) {
-        response.render('user/register');
-    })
-    .post('/', bodyParser.urlencoded({ extended: false }), reCaptcha.verify(), validateUser, verifyModelState, registerUser);
+module.exports = {
+    '/user/register': {
+        get: function (request, response, next) {
+            response.render('user/register');
+        },
+        post: [
+            bodyParser.urlencoded({ extended: false }),
+            reCaptcha.verify(),
+            validateUser,
+            verifyModelState,
+            registerUser
+        ]
+    }
+}
 
 function validateUser(request, response, next) {
     response.locals.errors = {};
@@ -34,7 +42,7 @@ function validateUser(request, response, next) {
     if (response.locals.errors.username)
         next();
     else
-        data.users.isUsernameUnique(request.body.username, function(isUnique) {
+        data.users.isUsernameUnique(request.body.username, function (isUnique) {
             if (!isUnique)
                 response.locals.errors.username = 'The username you have picked is already in use. Please use a different one.';
 
@@ -50,7 +58,7 @@ function verifyModelState(request, response, next) {
 }
 
 function registerUser(request, response, next) {
-    data.users.add(response.locals.user, function(errors) {
+    data.users.add(response.locals.user, function (errors) {
         if (errors) {
             if (response.locals.errors)
                 resposne.locals.errors = errors;

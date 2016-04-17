@@ -6,12 +6,12 @@ module.exports =
     {
         notFound: express
             .Router()
-            .use('/api/*', function(request, response, next) {
+            .use('/api/*', function (request, response, next) {
                 response
                     .status(404)
                     .end(notFoundMessage);
             })
-            .use('*', function(request, response, next) {
+            .use('*', function (request, response, next) {
                 response.render('errors/notFound', { title: ' You have ran into a 404!', message: notFoundMessage });
             })
     };
