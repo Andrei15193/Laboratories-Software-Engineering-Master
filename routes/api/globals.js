@@ -22,12 +22,13 @@ module.exports = {
                 .status(401)
                 .end('You must provide credentials through \'Authorization\' header.');
     },
-    '^mosaic-site': function (request, response, next, siteName) {
-        if (siteName)
+    '^mosaic-site': function (request, response, next, siteId) {
+        if (siteId)
             data.sites.tryGet(
-                siteName,
+                siteId,
                 function (site) {
                     if (site) {
+                        site.owner = response.locals.user;
                         response.locals.site = site;
                         next();
                     }

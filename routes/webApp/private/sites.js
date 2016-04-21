@@ -29,16 +29,18 @@ module.exports = {
             }
         ]
     },
-    '/site/:siteName': {
+    '/site/remove/:siteId': {
         get: function (request, response, next) {
-            data.sites.remove(
-                {
-                    name: request.params.name,
-                    owner: response.locals.user
-                },
-                function () {
+            data.sites.tryGet(request.params.siteId, function (site) {
+                if (site){
+                    site.owner = response.locals.user;
+                    data.sites.remove(site, function () {
+                        response.redirect('/');
+                    });
+                }
+                else
                     response.redirect('/');
-                });
+            });
         }
     }
 };

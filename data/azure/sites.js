@@ -22,7 +22,8 @@ module.exports =
                                     'userSites',
                                     {
                                         PartitionKey: site.owner.username,
-                                        RowKey: site.name,
+                                        RowKey: new Date().getTime().toString(),
+                                        name: site.name,
                                         description: site.description
                                     }.toAzureEntity(),
                                     function(error) {
@@ -44,7 +45,7 @@ module.exports =
                         callback(result.entries.map(function(entry) {
                             return entry.fromAzureEntity({
                                 partitionKey: 'owner',
-                                rowKey: 'name'
+                                rowKey: 'id'
                             });
                         }));
                     });
@@ -56,7 +57,7 @@ module.exports =
                 'userSites',
                 {
                     PartitionKey: site.owner.username,
-                    RowKey: site.name
+                    RowKey: site.id
                 }.toAzureEntity(),
                 function(error, response) {
                     if (error)
@@ -83,8 +84,8 @@ module.exports =
                 });
         },
 
-        tryGet: function(name, callback) {
-            var query = new azureStorage.TableQuery().top(1).where('RowKey eq ?', name);
+        tryGet: function(id, callback) {
+            var query = new azureStorage.TableQuery().top(1).where('RowKey eq ?', id);
             storageTable.queryEntities(
                 'userSites',
                 query,
@@ -93,7 +94,7 @@ module.exports =
                     if (result.entries.length == 1)
                         callback(result.entries[0].fromAzureEntity({
                             partitionKey: 'owner',
-                            rowKey: 'name'
+                            rowKey: 'id'
                         }));
                     else
                         callback(null);
