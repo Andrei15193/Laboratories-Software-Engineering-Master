@@ -51,7 +51,7 @@ module.exports = {
                                     .end();
                             else
                                 response
-                                    .status(200)
+                                    .status(201)
                                     .end();
                         }
                     )
@@ -70,7 +70,7 @@ module.exports = {
                             .end();
                     else
                         response
-                            .status(200)
+                            .status(204)
                             .end();
                 });
         }

@@ -39,7 +39,7 @@ module.exports = {
                     post,
                     function () {
                         response
-                            .status(200)
+                            .status(201)
                             .end();
                     });
             }
@@ -48,7 +48,7 @@ module.exports = {
     '/api/categories/:categoryId/posts/:postId': function (request, response, next) {
         data.posts.remove(response.locals.post, function () {
             response
-                .status(200)
+                .status(204)
                 .end();
         });
     }
