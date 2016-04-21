@@ -32,14 +32,16 @@ module.exports = {
     '/site/remove/:siteId': {
         get: function (request, response, next) {
             data.sites.tryGet(request.params.siteId, function (site) {
-                if (site){
+                if (site) {
                     site.owner = response.locals.user;
                     data.sites.remove(site, function () {
                         response.redirect('/');
                     });
                 }
-                else
+                else {
+                    console.error('Could not find site with ID: ' + request.params.siteId + '. Redirecting to \'/\'');
                     response.redirect('/');
+                }
             });
         }
     }

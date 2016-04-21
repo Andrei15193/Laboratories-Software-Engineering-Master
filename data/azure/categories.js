@@ -3,18 +3,19 @@ const azureStorage = require('azure-storage');
 const storageTable = azureStorage.createTableService(process.env.CUSTOMCONNSTR_azureTableStorage);
 
 module.exports = {
-    getFor: function(site, callback) {
-        storageTable.createTableIfNotExists(site.name.trim() + 'Categories', function() {
-            var query = new azureStorage.TableQuery().where('PartitionKey eq ?', site.name);
+    getFor: function (site, callback) {
+        const categoriesTableName = getTableNameFor(site);
+        storageTable.createTableIfNotExists(categoriesTableName, function () {
+            var query = new azureStorage.TableQuery().where('PartitionKey eq ?', site.id);
             storageTable.queryEntities(
-                site.name + 'Categories',
+                categoriesTableName,
                 query,
                 null,
-                function(error, result, response) {
-                    callback(result.entries.map(function(entry) {
+                function (error, result, response) {
+                    callback(result.entries.map(function (entry) {
                         var category = entry.fromAzureEntity({
                             partitionKey: 'site',
-                            rowKey: 'name'
+                            rowKey: 'id'
                         });
                         category.site = site;
 
@@ -24,20 +25,20 @@ module.exports = {
         });
     },
 
-    get: function(site, categoryName, callback) {
-        storageTable.createTableIfNotExists(site.name.trim() + 'Categories', function() {
-            var query = new azureStorage.TableQuery().where('PartitionKey eq ?', site.name);
+    get: function (site, categoryId, callback) {
+        const categoriesTableName = getTableNameFor(site);
+        storageTable.createTableIfNotExists(categoriesTableName, function () {
             storageTable.retrieveEntity(
-                site.name.trim() + 'Categories',
-                site.name,
-                categoryName,
-                function(error, result, response) {
+                categoriesTableName,
+                site.id,
+                categoryId,
+                function (error, result, response) {
                     if (error)
                         callback(null);
                     else {
                         var category = result.fromAzureEntity({
                             partitionKey: 'site',
-                            rowKey: 'name'
+                            rowKey: 'id'
                         });
                         category.site = site;
                         callback(category);
@@ -46,44 +47,86 @@ module.exports = {
         });
     },
 
-    add: function(category, callback) {
-        storageTable.createTableIfNotExists(category.site.name + 'Categories', function() {
+    add: function (category, callback) {
+        const uniqueCategoryNameValidationTableName = getUniqueCategoryNameValidationTableNameFor(category.site);
+        storageTable.createTableIfNotExists(uniqueCategoryNameValidationTableName, function () {
             storageTable.insertEntity(
-                category.site.name + 'Categories',
+                uniqueCategoryNameValidationTableName,
                 {
-                    PartitionKey: category.site.name,
-                    RowKey: category.name,
-                    description: category.description
+                    PartitionKey: category.name.toLowerCase(),
+                    RowKey: 'Unique names in lowercase'
                 }.toAzureEntity(),
-                function(error) {
+                function (error) {
                     if (error)
-                        callback({ code: 1, name: 'A category with the given name already exists, please use a different one.' });
-                    else
-                        callback();
-                }
-            )
+                        callback(error);
+                    else {
+                        const categoriesTableName = getTableNameFor(category.site);
+                        storageTable.createTableIfNotExists(categoriesTableName, function () {
+                            storageTable.insertEntity(
+                                categoriesTableName,
+                                {
+                                    PartitionKey: category.site.id,
+                                    RowKey: new Date().getTime().toString(),
+                                    name: category.name,
+                                    description: category.description
+                                }.toAzureEntity(),
+                                function (error) {
+                                    if (error)
+                                        callback({ code: 1, name: 'A category with the given name already exists, please use a different one.' });
+                                    else
+                                        callback();
+                                }
+                            )
+                        });
+                    }
+                });
         });
     },
 
-    remove: function(category, callback) {
-        storageTable.createTableIfNotExists(category.site.name + 'Categories', function() {
+    remove: function (category, callback) {
+        const categoriesTableName = getTableNameFor(category.site);
+        storageTable.createTableIfNotExists(categoriesTableName, function () {
             storageTable.deleteEntity(
-                category.site.name + 'Categories',
+                categoriesTableName,
                 {
-                    PartitionKey: category.site.name,
-                    RowKey: category.name
+                    PartitionKey: category.site.id,
+                    RowKey: category.id
                 }.toAzureEntity(),
-                function(error) {
+                function (error) {
                     if (error)
                         callback(error);
-                    else
-                        storageTable.deleteTable(
-                            category.site.name + 'Category' + category.name.replace(' ', '') + 'Posts',
-                            function(error) {
-                                callback(error);
+                    else {
+                        const uniqueCategoryNameValidationTableName = getUniqueCategoryNameValidationTableNameFor(category.site);
+                        storageTable.deleteEntity(
+                            uniqueCategoryNameValidationTableName,
+                            {
+                                PartitionKey: category.name.toLowerCase(),
+                                RowKey: 'Unique names in lowercase'
+                            }.toAzureEntity(),
+                            function (error) {
+                                if (error) {
+                                    console.log(error);
+                                    callback();
+                                }
+                                else
+                                    storageTable.deleteTable(
+                                        category.site.name + 'Category' + category.name.replace(' ', '') + 'Posts',
+                                        function (error) {
+                                            if (error)
+                                                console.log(error);
+                                            callback();
+                                        });
                             });
-                }
-            )
+                    }
+                })
         });
     }
 };
+
+function getTableNameFor(site) {
+    return 'Categories' + site.id.toString();
+}
+
+function getUniqueCategoryNameValidationTableNameFor(site) {
+    return getTableNameFor(site) + 'UniqueNameValidation';
+}

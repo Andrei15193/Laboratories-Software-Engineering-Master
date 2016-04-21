@@ -2,12 +2,12 @@ const bodyParser = require('body-parser');
 const data = require(modules.data.provider);
 
 module.exports = {
-    ':categoryName': function (request, response, next, categoryName) {
-        data.categories.get(response.locals.site, categoryName, function (category) {
+    ':categoryId': function (request, response, next, categoryId) {
+        data.categories.get(response.locals.site, categoryId, function (category) {
             if (!category)
                 response
                     .status(404)
-                    .end('The category does not exists.');
+                    .end('Category with ID: ' + categoryId + ' does not exists.');
             else {
                 response.locals.category = category;
                 next();
@@ -58,7 +58,7 @@ module.exports = {
             }
         ]
     },
-    '/api/categories/:categoryName': {
+    '/api/categories/:categoryId': {
         delete: function (request, response, next) {
             data.categories.remove(
                 response.locals.category,
