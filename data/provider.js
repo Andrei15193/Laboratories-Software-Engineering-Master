@@ -17,7 +17,7 @@ function initializeFrom(providerName) {
     do {
         current = toVisit.pop();
 
-        fs.readdirSync(current.directoryPath).forEach(function(fileName) {
+        fs.readdirSync(current.directoryPath).forEach(function (fileName) {
             var filePath = path.join(current.directoryPath, fileName);
             var fileStats = fs.statSync(filePath);
             var fileExtension = path.extname(filePath);
@@ -30,7 +30,7 @@ function initializeFrom(providerName) {
                         writable: true,
                         configurable: true,
                         enumerable: true,
-                        value: require(filePath)
+                        value: withContext(require(filePath), provider)
                     });
             else {
                 var object = {};
@@ -47,8 +47,29 @@ function initializeFrom(providerName) {
             }
         });
     } while (toVisit.length > 0);
-    
+
     return provider;
 }
 
 module.exports = initializeFrom(process.env.APPSETTING_dataProvider);
+
+function withContext(object, context) {
+    var root = { value: object };
+    var toVisit = [root];
+    var visited = [];
+
+    do {
+        var current = toVisit.pop();
+        Object.getOwnPropertyNames(current).forEach(function (propertyName) {
+            var propertyValue = current[propertyName];
+            if (typeof propertyValue === 'function')
+                current[propertyName] = current[propertyName].bind(context);
+            else if (typeof propertyValue === 'object' && visited.indexOf(propertyValue) === -1) {
+                visited.push(propertyValue);
+                toVisit.push(propertyValue);
+            }
+        });
+    } while (toVisit.length > 0);
+
+    return root.value;
+}

@@ -3,7 +3,7 @@ const azureStorage = require('azure-storage');
 const storageTable = azureStorage.createTableService(process.env.CUSTOMCONNSTR_azureTableStorage);
 
 module.exports = {
-    getFor: function (site, callback) {
+    getFor: function getFor(site, callback) {
         const categoriesTableName = getTableNameFor(site);
         storageTable.createTableIfNotExists(categoriesTableName, function () {
             var query = new azureStorage.TableQuery().where('PartitionKey eq ?', site.id);
@@ -83,7 +83,8 @@ module.exports = {
         });
     },
 
-    remove: function (category, callback) {
+    remove: function remove(category, callback) {
+        var data = this;
         const categoriesTableName = getTableNameFor(category.site);
         storageTable.createTableIfNotExists(categoriesTableName, function () {
             storageTable.deleteEntity(
@@ -104,21 +105,38 @@ module.exports = {
                                 RowKey: 'Unique names in lowercase'
                             }.toAzureEntity(),
                             function (error) {
-                                if (error) {
+                                if (error)
                                     console.log(error);
-                                    callback();
-                                }
-                                else
-                                    storageTable.deleteTable(
-                                        category.site.name + 'Category' + category.name.replace(' ', '') + 'Posts',
-                                        function (error) {
-                                            if (error)
-                                                console.log(error);
-                                            callback();
-                                        });
+                                data.posts.clear(category, callback);
                             });
                     }
                 })
+        });
+    },
+
+    clear: function (site, callback) {
+        var data = this;
+        const categoriesTableName = getTableNameFor(site);
+
+        data.categories.getFor(site, function removeCategory(categories) {
+            if (categories.length > 0)
+                data.categories.remove(categories.pop(), function () {
+                    removeCategory(categories);
+                });
+            else {
+                storageTable.deleteTable(categoriesTableName, function (error) {
+                    if (error)
+                        console.log(error);
+
+                    const uniqueCategoryNameValidationTableName = getUniqueCategoryNameValidationTableNameFor(site);
+                    storageTable.deleteTable(uniqueCategoryNameValidationTableName, function (error) {
+                        if (error)
+                            console.error(error);
+
+                        callback();
+                    });
+                });
+            }
         });
     }
 };

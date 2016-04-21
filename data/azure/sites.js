@@ -5,19 +5,19 @@ const data = require(modules.data.provider);
 
 module.exports =
     {
-        add: function(site, callback) {
-            storageTable.createTableIfNotExists('sitesValidationName', function() {
+        add: function (site, callback) {
+            storageTable.createTableIfNotExists('sitesValidationName', function () {
                 storageTable.insertEntity(
                     'sitesValidationName',
                     {
                         PartitionKey: site.name.toLowerCase(),
                         RowKey: 'Unique names in lowercase'
                     }.toAzureEntity(),
-                    function(error) {
+                    function (error) {
                         if (error)
                             callback({ name: 'The name you have picked for your site is already in use. Please use a different one.' });
                         else
-                            storageTable.createTableIfNotExists('userSites', function() {
+                            storageTable.createTableIfNotExists('userSites', function () {
                                 storageTable.insertEntity(
                                     'userSites',
                                     {
@@ -26,7 +26,7 @@ module.exports =
                                         name: site.name,
                                         description: site.description
                                     }.toAzureEntity(),
-                                    function(error) {
+                                    function (error) {
                                         callback();
                                     });
                             });
@@ -34,15 +34,15 @@ module.exports =
             });
         },
 
-        getSitesFor: function(user, callback) {
-            storageTable.createTableIfNotExists('userSites', function() {
+        getSitesFor: function (user, callback) {
+            storageTable.createTableIfNotExists('userSites', function () {
                 var query = new azureStorage.TableQuery().where('PartitionKey eq ?', user.username);
                 storageTable.queryEntities(
                     'userSites',
                     query,
                     null,
-                    function(error, result, response) {
-                        callback(result.entries.map(function(entry) {
+                    function (error, result, response) {
+                        callback(result.entries.map(function (entry) {
                             return entry.fromAzureEntity({
                                 partitionKey: 'owner',
                                 rowKey: 'id'
@@ -52,14 +52,15 @@ module.exports =
             });
         },
 
-        remove: function(site, callback) {
+        remove: function (site, callback) {
+            var data = this;
             storageTable.deleteEntity(
                 'userSites',
                 {
                     PartitionKey: site.owner.username,
                     RowKey: site.id
                 }.toAzureEntity(),
-                function(error, response) {
+                function (error, response) {
                     if (error)
                         console.error(error);
 
@@ -69,28 +70,27 @@ module.exports =
                             PartitionKey: site.name.toLowerCase(),
                             RowKey: 'Unique names in lowercase'
                         }.toAzureEntity(),
-                        function(error, response) {
+                        function (error, response) {
                             if (error)
                                 console.error(error);
 
-                            storageTable.deleteTable(site.name + 'Categories', function(error) {
+                            storageTable.deleteTable(site.name + 'Categories', function (error) {
                                 if (error)
                                     console.error(error);
-
-                                callback();
+                                data.categories.clear(site, callback);
                             });
                         }
                     );
                 });
         },
 
-        tryGet: function(id, callback) {
+        tryGet: function (id, callback) {
             var query = new azureStorage.TableQuery().top(1).where('RowKey eq ?', id);
             storageTable.queryEntities(
                 'userSites',
                 query,
                 null,
-                function(error, result, response) {
+                function (error, result, response) {
                     if (result.entries.length == 1)
                         callback(result.entries[0].fromAzureEntity({
                             partitionKey: 'owner',

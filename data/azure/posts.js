@@ -78,6 +78,15 @@ module.exports = {
                     callback();
                 });
         });
+    },
+
+    clear: function (category, callback) {
+        const postsTableName = getTableNameFor(category);
+        storageTable.deleteTable(postsTableName, function (error) {
+            if (error)
+                console.error(error);
+            callback();
+        });
     }
 };
 
