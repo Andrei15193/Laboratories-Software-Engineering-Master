@@ -3,15 +3,16 @@ const azureStorage = require('azure-storage');
 const storageTable = azureStorage.createTableService(process.env.CUSTOMCONNSTR_azureTableStorage);
 
 module.exports = {
-    getFor: function(category, callback) {
-        storageTable.createTableIfNotExists(category.site.name.trim() + 'Category' + category.name.replace(' ', '').trim() + 'Posts', function() {
+    getFor: function (category, callback) {
+        const postsTableName = getTableNameFor(category);
+        storageTable.createTableIfNotExists(postsTableName, function () {
             var query = new azureStorage.TableQuery().where('RowKey eq ?', 'post');
             storageTable.queryEntities(
-                category.site.name.trim() + 'Category' + category.name.replace(' ', '') + 'Posts',
+                postsTableName,
                 query,
                 null,
-                function(error, result, response) {
-                    callback(result.entries.map(function(entry) {
+                function (error, result, response) {
+                    callback(result.entries.map(function (entry) {
                         var post = entry.fromAzureEntity({
                             partitionKey: 'id',
                             rowKey: 'type'
@@ -24,10 +25,33 @@ module.exports = {
         });
     },
 
-    add: function(post, callback) {
-        storageTable.createTableIfNotExists(post.category.site.name + 'Category' + post.category.name.replace(' ', '') + 'Posts', function() {
+    tryGet: function (category, postId, callback) {
+        const postsTableName = getTableNameFor(category);
+        storageTable.createTableIfNotExists(postsTableName, function () {
+            storageTable.retrieveEntity(
+                postsTableName,
+                postId,
+                'post',
+                function (error, result, response) {
+                    if (error)
+                        callback(null);
+                    else {
+                        var post = result.fromAzureEntity({
+                            partitionKey: 'id',
+                            rowKey: 'type'
+                        });
+                        post.category = category;
+                        callback(post);
+                    }
+                });
+        });
+    },
+
+    add: function (post, callback) {
+        const postsTableName = getTableNameFor(post.category);
+        storageTable.createTableIfNotExists(postsTableName, function () {
             storageTable.insertEntity(
-                post.category.site.name + 'Category' + post.category.name.replace(' ', '') + 'Posts',
+                postsTableName,
                 {
                     PartitionKey: new Date().getTime().toString(),
                     RowKey: 'post',
@@ -35,23 +59,28 @@ module.exports = {
                     content: post.content,
                     postTime: post.postTime
                 }.toAzureEntity(),
-                function(error, result, response) {
+                function (error, result, response) {
                     callback();
                 });
         });
     },
 
-    remove: function(post, callback) {
-        storageTable.createTableIfNotExists(post.category.site.name + 'Category' + post.category.name.replace(' ', '') + 'Posts', function() {
+    remove: function (post, callback) {
+        const postsTableName = getTableNameFor(post.category);
+        storageTable.createTableIfNotExists(postsTableName, function () {
             storageTable.deleteEntity(
-                post.category.site.name + 'Category' + post.category.name.replace(' ', '') + 'Posts',
+                postsTableName,
                 {
                     PartitionKey: post.id,
                     RowKey: 'post'
                 }.toAzureEntity(),
-                function(error, result, response) {
+                function (error, result, response) {
                     callback();
                 });
         });
     }
 };
+
+function getTableNameFor(category) {
+    return 'Categories' + category.site.id.toString() + 'Posts' + category.id.toString();
+}

@@ -2,7 +2,20 @@ const bodyParser = require('body-parser');
 const data = require(modules.data.provider);
 
 module.exports = {
-    '/api/categories/:categoryName/posts': {
+    ':postId': function (request, response, next, postId) {
+        data.posts.tryGet(response.locals.category, postId, function (post) {
+            if (!post)
+                response
+                    .status(404)
+                    .end('Post with ID: ' + postId + ' does not exists.');
+            else {
+                response.locals.post = post;
+                next();
+            }
+        });
+    },
+
+    '/api/categories/:categoryId/posts': {
         get: function (request, response, next) {
             data.posts.getFor(
                 response.locals.category,
@@ -32,17 +45,12 @@ module.exports = {
             }
         ]
     },
-    '/api/categories/:categoryName/posts/:postId': function (request, response, next) {
-        data.posts.remove(
-            {
-                category: response.locals.category,
-                id: request.params.postId
-            },
-            function () {
-                response
-                    .status(200)
-                    .end();
-            });
+    '/api/categories/:categoryId/posts/:postId': function (request, response, next) {
+        data.posts.remove(response.locals.post, function () {
+            response
+                .status(200)
+                .end();
+        });
     }
 };
 
