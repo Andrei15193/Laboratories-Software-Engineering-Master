@@ -29,6 +29,7 @@ module.exports = {
 
         post:
         [
+            authorize,
             bodyParser.json(),
             validatePost,
             function (request, response, next) {
@@ -45,14 +46,29 @@ module.exports = {
             }
         ]
     },
-    '/api/categories/:categoryId/posts/:postId': function (request, response, next) {
-        data.posts.remove(response.locals.post, function () {
-            response
-                .status(204)
-                .end();
-        });
+    '/api/categories/:categoryId/posts/:postId':
+    {
+        delete: [
+            authorize,
+            function (request, response, next) {
+                data.posts.remove(response.locals.post, function () {
+                    response
+                        .status(204)
+                        .end();
+                });
+            }
+        ]
     }
 };
+
+function authorize(request, response, next) {
+    if (response.locals.user)
+        next();
+    else
+        response
+            .status(403)
+            .end('You do not have access to this part of the application.');
+}
 
 function validatePost(request, response, next) {
     if (!/\S/.test(request.body.title))

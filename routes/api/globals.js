@@ -8,19 +8,11 @@ module.exports = {
                 userInformation.username,
                 userInformation.password,
                 function (user) {
-                    if (user) {
+                    if (user)
                         response.locals.user = user;
-                        next();
-                    }
-                    else
-                        response
-                            .status(403)
-                            .end('You do not have access to this part of the application.');
+                    next();
                 });
-        else
-            response
-                .status(401)
-                .end('You must provide credentials through \'Authorization\' header.');
+        next();
     },
     '^mosaic-site': function (request, response, next, siteId) {
         if (siteId)

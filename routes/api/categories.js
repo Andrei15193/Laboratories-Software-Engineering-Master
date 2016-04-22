@@ -28,6 +28,7 @@ module.exports = {
         },
         post:
         [
+            authorize,
             bodyParser.json(),
             validateCategory,
             function (request, response, next) {
@@ -59,23 +60,35 @@ module.exports = {
         ]
     },
     '/api/categories/:categoryId': {
-        delete: function (request, response, next) {
-            data.categories.remove(
-                response.locals.category,
-                function (error) {
-                    if (error)
-                        response
-                            .status(404)
-                            .json({ code: 3, name: 'The category you are trying to delete does not exist.' })
-                            .end();
-                    else
-                        response
-                            .status(204)
-                            .end();
-                });
-        }
+        delete: [
+            authorize,
+            function (request, response, next) {
+                data.categories.remove(
+                    response.locals.category,
+                    function (error) {
+                        if (error)
+                            response
+                                .status(404)
+                                .json({ code: 3, name: 'The category you are trying to delete does not exist.' })
+                                .end();
+                        else
+                            response
+                                .status(204)
+                                .end();
+                    });
+            }
+        ]
     }
 };
+
+function authorize(request, response, next) {
+    if (response.locals.user)
+        next();
+    else
+        response
+            .status(403)
+            .end('You do not have access to this part of the application.');
+}
 
 function validateCategory(request, response, next) {
     if (!/\S/.test(request.body.name))
