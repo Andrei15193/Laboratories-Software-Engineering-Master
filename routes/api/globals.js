@@ -12,7 +12,8 @@ module.exports = {
                         response.locals.user = user;
                     next();
                 });
-        next();
+        else
+            next();
     },
     '^mosaic-site': function (request, response, next, siteId) {
         if (siteId)
