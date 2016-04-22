@@ -21,7 +21,6 @@ module.exports = {
                 siteId,
                 function (site) {
                     if (site) {
-                        site.owner = response.locals.user;
                         response.locals.site = site;
                         next();
                     }
