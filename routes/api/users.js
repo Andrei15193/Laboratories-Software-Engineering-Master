@@ -3,6 +3,7 @@ module.exports = {
         get: [
             authorize,
             function (request, response, next) {
+                response.locals.user.password = undefined;
                 response
                     .status(200)
                     .send(response.locals.user)
