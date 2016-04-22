@@ -58,7 +58,7 @@ module.exports = {
                 }.toAzureEntity(),
                 function (error) {
                     if (error)
-                        callback(error);
+                        callback({ code: 1, name: 'A category with the given name already exists, please use a different one.' });
                     else {
                         const categoriesTableName = getTableNameFor(category.site);
                         storageTable.createTableIfNotExists(categoriesTableName, function () {
