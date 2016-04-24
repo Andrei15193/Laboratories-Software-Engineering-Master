@@ -57,7 +57,7 @@ module.exports =
             storageTable.deleteEntity(
                 'userSites',
                 {
-                    PartitionKey: site.owner.username,
+                    PartitionKey: site.owner,
                     RowKey: site.id
                 }.toAzureEntity(),
                 function (error, response) {
