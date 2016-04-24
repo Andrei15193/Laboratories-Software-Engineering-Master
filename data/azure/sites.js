@@ -74,11 +74,7 @@ module.exports =
                             if (error)
                                 console.error(error);
 
-                            storageTable.deleteTable(site.name + 'Categories', function (error) {
-                                if (error)
-                                    console.error(error);
-                                data.categories.clear(site, callback);
-                            });
+                            data.categories.clear(site, callback);
                         }
                     );
                 });

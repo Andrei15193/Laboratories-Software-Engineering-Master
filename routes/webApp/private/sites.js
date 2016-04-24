@@ -54,8 +54,8 @@ function validate(request, response, next) {
     if (!response.locals.errors)
         response.locals.errors = {};
 
-    if (!/^[a-zA-Z0-8]{7,}$/.test(request.body.name))
-        response.locals.errors.name = 'The name must be at least 7 characters long and may contain only alphanumerc characters.';
+    if (!/^[^/\\#\?\t\n\r\u0000-\u001F\u007F-\u009F]{4,}$/.test(request.body.name))
+        response.locals.errors.name = 'Please pick a site name that is at least 4 characters long and does not contain forward slashes (/), backslashes (\\), the number sign (#), the question mark (?), tab or new line characters or any control characters.';
 
     next();
 }
