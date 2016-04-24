@@ -17,6 +17,7 @@
 			"env": {
 				"NODE_ENV": "development",
 				"APPSETTING_jwtSecret": "myJwtSecret",
+				"APPSETTING_cookieSecret": "myCookieSecret",
 				"APPSETTING_mosaicHost": "http://localhost:3000/",
 				"APPSETTING_mosaicSiteID": "1461345950720"
 			},

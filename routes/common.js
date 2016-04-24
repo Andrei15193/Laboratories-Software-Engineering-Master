@@ -1,29 +1,64 @@
+const jwt = require('jsonwebtoken');
 const url = require('url');
 const requestJs = require('request');
 
 module.exports = require('express')
     .Router()
     .use(function (request, response, next) {
-        response.locals.subnavItems =
-            [
-                {
-                    url: '#top',
-                    label: 'Top'
-                },
-                {
-                    url: '/',
-                    label: 'Home'
-                },
-                {
-                    url: '/login',
-                    label: 'Login'
-                },
-                {
-                    url: 'http://mosaicdemo.azurewebsites.net/',
-                    label: 'Mosaic',
-                    target: '_blank'
-                }
-            ];
+        jwt.verify(
+            request.signedCookies['mosaic-client-token'],
+            process.env.APPSETTING_jwtSecret,
+            function (error, user) {
+                if (error)
+                    response.locals.user = null;
+                else
+                    response.locals.user = user;
+                next();
+            });
+    })
+    .use(function (request, response, next) {
+        if (response.locals.user)
+            response.locals.subnavItems =
+                [
+                    {
+                        url: '#top',
+                        label: 'Top'
+                    },
+                    {
+                        url: '/',
+                        label: 'Home'
+                    },
+                    {
+                        url: '/logout',
+                        label: 'Logout'
+                    },
+                    {
+                        url: process.env.APPSETTING_mosaicHost,
+                        label: 'Mosaic',
+                        target: '_blank'
+                    }
+                ];
+        else
+            response.locals.subnavItems =
+                [
+                    {
+                        url: '#top',
+                        label: 'Top'
+                    },
+                    {
+                        url: '/',
+                        label: 'Home'
+                    },
+                    {
+                        url: '/login',
+                        label: 'Login'
+                    },
+                    {
+                        url: process.env.APPSETTING_mosaicHost,
+                        label: 'Mosaic',
+                        target: '_blank'
+                    }
+                ];
         next();
     })
     .use(function (request, response, next) {
