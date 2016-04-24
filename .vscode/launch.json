@@ -15,7 +15,10 @@
 				"--nolazy"
 			],
 			"env": {
-				"NODE_ENV": "development"
+				"NODE_ENV": "development",
+				"APPSETTING_jwtSecret": "myJwtSecret",
+				"APPSETTING_mosaicHost": "http://localhost:3000/",
+				"APPSETTING_mosaicSiteID": "1461345950720"
 			},
 			"externalConsole": false,
 			"sourceMaps": false,
