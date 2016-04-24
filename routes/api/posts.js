@@ -33,16 +33,23 @@ module.exports = {
             bodyParser.json(),
             validatePost,
             function (request, response, next) {
-                var post = getPostFrom(request);
-                post.category = response.locals.category;
+                if (response.locals.errors)
+                    response
+                        .status(400)
+                        .json(response.locals.errors)
+                        .end;
+                else {
+                    var post = getPostFrom(request);
+                    post.category = response.locals.category;
 
-                data.posts.add(
-                    post,
-                    function () {
-                        response
-                            .status(201)
-                            .end();
-                    });
+                    data.posts.add(
+                        post,
+                        function () {
+                            response
+                                .status(201)
+                                .end();
+                        });
+                }
             }
         ]
     },
@@ -74,7 +81,7 @@ function validatePost(request, response, next) {
     if (!/\S/.test(request.body.title))
         response.locals.errors = {
             code: 4,
-            name: 'The title of a post cannot be empty. Please provide a title.'
+            title: 'The title of a post cannot be empty. Please provide a title.'
         };
     next();
 }
