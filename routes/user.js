@@ -32,7 +32,7 @@ module.exports = require('express')
                         httpOnly: true,
                         signed: true
                     });
-                response.redirect('/');
+                response.redirect('/dashboard');
             }
             else
                 response.render('login', { error: 'Invalid credentials' });

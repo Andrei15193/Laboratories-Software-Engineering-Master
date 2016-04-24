@@ -4,7 +4,7 @@ mixin post(post)
         section.body!= post.content
         footer
             .author Author: #{category.site.owner}
-            .time #{new Date(post.postTime).toUTCString()} (UTC)
+            .time= new Date(post.postTime).toUTCString()
 
 extends ./layout.jade
 block content

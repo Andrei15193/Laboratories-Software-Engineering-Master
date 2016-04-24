@@ -1,0 +1,20 @@
+extends ./dashboard.jade
+
+block mainContent
+    form(method='POST')
+        div
+            label(for='title') Title
+            br
+            input(type='text', name='title', id='title', style='width:100%;', value=title)
+            if (error && error.title)
+                p.error= error.title
+        div(style='padding-top: 10px;')
+            label(for='content') Content
+            br
+            textarea(name='content', id='content', style='width:100%;')= content
+            if (error && error.content)
+                p.error= error.content
+        div(style='padding-top: 10px;')
+            button(type='submit') Add
+            |  
+            a(href='/dashboard') Back

@@ -10,6 +10,7 @@ app
     .use(cookieParser(process.env.APPSETTING_cookieSecret))
     .use(require('./routes/common'))
     .use(require('./routes/user'))
+    .use(require('./routes/dashboard'))
     .use(require('./routes/index'))
     .all('*', function (request, response, next) {
         response.render(

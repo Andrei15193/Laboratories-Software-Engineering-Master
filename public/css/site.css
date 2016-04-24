@@ -6,11 +6,13 @@
 }
 a,
 input,
-button {
+button,
+textarea {
     color: #22afcd;
 }
 input,
-button {
+button,
+textarea {
     background: none;
     border: 1px solid #22afcd;
 }
@@ -20,10 +22,16 @@ button:hover {
     color: #98ffff;
 }
 input:hover,
-button:hover {
+button:hover,
+textarea:hover {
     background: none;
     border: 1px solid #98ffff;
 }
+
+textarea{
+    min-height: 300px;
+}
+
 html,
 body {
     height: 100%;
@@ -141,6 +149,7 @@ body > div.wrapper > div.body .messageArea > .message > .body {
 body > div.wrapper > div.body > div.articles > article > section.body p,
 body > div.wrapper > div.body .messageArea > .message > .body p {
     padding-bottom: 10px;
+    text-align: justify;
 }
 body > div.wrapper > div.body > div.articles > article > section.body p:last-child,
 body > div.wrapper > div.body .messageArea > .message > .body p:last-child {

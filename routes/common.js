@@ -29,6 +29,10 @@ module.exports = require('express')
                         label: 'Home'
                     },
                     {
+                        url: '/dashboard',
+                        label: 'Dashboard'
+                    },
+                    {
                         url: '/logout',
                         label: 'Logout'
                     },

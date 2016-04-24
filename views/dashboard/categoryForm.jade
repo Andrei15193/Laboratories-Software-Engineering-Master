@@ -1,0 +1,20 @@
+extends ./dashboard.jade
+
+block mainContent
+    form(method='POST')
+        div
+            label(for='name') Name
+            br
+            input(type='text', name='name', id='name', style='width:100%;', value=name)
+            if (error && error.name)
+                p.error= error.name
+        div(style='padding-top: 10px;')
+            label(for='description') Description
+            br
+            input(type='text', name='description', id='description', style='width:100%;', value=description)
+            if (error && error.description)
+                p.error= error.description
+        div(style='padding-top: 10px;')
+            button(type='submit') Add
+            |  
+            a(href='/dashboard') Back
