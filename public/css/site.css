@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+}
+a {
+    color: #22afcd;
+}
+a:hover {
+    color: #98ffff;
+}
+html,
+body {
+    height: 100%;
+}
+html {
+    background: url('../images/bg_2.gif') 50% 0 repeat-y black;
+}
+body {
+    font: 12px Tahoma;
+    color: #ddeeff;
+    width: 1000px;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-width: 0px 1px;
+}
+body > div.wrapper {
+    min-height: 100%;
+    margin: 0 auto -100px;
+    background: url('../images/background_2.jpg') repeat;
+}
+body > div.wrapper > .push,
+body > footer {
+    height: 80px;
+}
+body > div.wrapper > header {
+    height: 162px;
+    background: url('../images/header_2.jpg') right no-repeat;
+    padding: 0 395px;
+}
+body > div.wrapper > header h1 {
+    padding-top: 50px;
+    color: white;
+}
+body > div.wrapper > div.body {
+    padding: 20px 10px;
+    display: table;
+    width: 100%;
+    background: url('../images/horiz_2.gif') repeat-x;
+}
+body > div.wrapper > div.body > nav {
+    display: table-cell;
+    width: 195px;
+}
+body > div.wrapper > div.body > nav > a {
+    background: url('../images/buttons2.gif') no-repeat;
+    width: 170px;
+    height: 25px;
+    display: block;
+    padding-left: 25px;
+    font-size: 13px;
+    color: white;
+    text-decoration: none;
+    line-height: 25px;
+    padding-bottom: 5px;
+}
+body > div.wrapper > div.body > nav > a:hover {
+    background-position: 100% top;
+}
+body > div.wrapper > div.body > nav > div.box {
+    padding: 10px 0 15px 0;
+}
+body > div.wrapper > div.body > nav > div.box > div.content {
+    background: url('../images/extras_bg2.jpg');
+    border: 1px solid #98ffff;
+    padding: 10px;
+}
+body > div.wrapper > div.body > nav > div.box:first-of-type::before {
+    display: block;
+    padding-top: 15px;
+    content: "";
+}
+body > div.wrapper > div.body > div.articles {
+    display: table-cell;
+    padding: 0px 20px;
+}
+body > div.wrapper > div.body > div.articles > div.caption {
+    font-size: 19px;
+    border-bottom: 1px solid #98ffff;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+body > div.wrapper > div.body > div.articles > article {
+    padding-bottom: 20px;
+}
+body > div.wrapper > div.body > div.articles > article > header,
+body > div.wrapper > div.body > div.articles > article > section.body {
+    border: 1px solid #98ffff;
+    background: url('../images/blue_overlay.jpg');
+}
+body > div.wrapper > div.body > div.articles > article > header {
+    border-bottom-width: 0px;
+}
+body > div.wrapper > div.body > div.articles > article > header h1 {
+    background: url('../images/title_2.gif') repeat-x;
+    padding: 2px 10px;
+    font-size: 15px;
+    color: white;
+}
+body > div.wrapper > div.body > div.articles > article > section.body {
+    border-top-width: 0;
+}
+body > div.wrapper > div.body > div.articles > article > section.body {
+    line-height: 18px;
+    padding: 17px 15px;
+}
+body > div.wrapper > div.body > div.articles > article > section.body p {
+    padding-bottom: 10px;
+}
+body > div.wrapper > div.body > div.articles > article > section.body p:last-child {
+    padding-bottom: 0;
+}
+body > div.wrapper > div.body > div.articles > article > section.body ul {
+    padding: 10px;
+}
+body > div.wrapper > div.body > div.articles > article > section.body ul li {
+    list-style: none;
+    background: url('../images/bullet2.gif') 0 5px no-repeat;
+    padding-left: 30px;
+    line-height: 25px;
+}
+body > div.wrapper > div.body > div.articles > article > footer {
+    display: table;
+    width: 100%;
+}
+body > div.wrapper > div.body > div.articles > article > footer div.author {
+    display: table-cell;
+    text-align: left;
+}
+body > div.wrapper > div.body > div.articles > article > footer div.time {
+    display: table-cell;
+    text-align: right;
+}
+body > footer {
+    padding: 0 20px;
+}
+body > footer nav {
+    padding: 10px 0;
+}
+body > footer span.copyright {
+    font-size: 10px;
+}

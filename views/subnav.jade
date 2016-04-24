@@ -1,0 +1,6 @@
+- var isFirst = true;
+each subnavItem in subnavItems
+    if !isFirst
+        |  | 
+    a(href=subnavItem.url, target=subnavItem.target)=subnavItem.label
+    - isFirst = false;
