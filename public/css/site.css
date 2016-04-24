@@ -1,11 +1,28 @@
 * {
     margin: 0;
 }
-a {
+.error {
+    color: #ff0000;
+}
+a,
+input,
+button {
     color: #22afcd;
 }
-a:hover {
+input,
+button {
+    background: none;
+    border: 1px solid #22afcd;
+}
+a:hover,
+input[type=submit]:hover,
+button:hover {
     color: #98ffff;
+}
+input:hover,
+button:hover {
+    background: none;
+    border: 1px solid #98ffff;
 }
 html,
 body {

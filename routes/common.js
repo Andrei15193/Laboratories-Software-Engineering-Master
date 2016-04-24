@@ -11,6 +11,14 @@ module.exports = require('express')
                     label: 'Top'
                 },
                 {
+                    url: '/',
+                    label: 'Home'
+                },
+                {
+                    url: '/login',
+                    label: 'Login'
+                },
+                {
                     url: 'http://mosaicdemo.azurewebsites.net/',
                     label: 'Mosaic',
                     target: '_blank'

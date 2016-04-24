@@ -19,7 +19,7 @@ module.exports = require('express')
                 });
     },
     getPosts)
-    .get('/:categoryId', function (request, response, next) {
+    .get('/category/:categoryId', function (request, response, next) {
         var categories = response
             .locals
             .categories

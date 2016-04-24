@@ -7,6 +7,7 @@ app
     .set('view engine', 'jade')
     .use(express.static(path.join(__dirname, 'public')))
     .use(require('./routes/common'))
+    .use(require('./routes/user'))
     .use(require('./routes/index'))
     .all('*', function (request, response, next) {
         response.render(

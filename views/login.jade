@@ -1,0 +1,18 @@
+extends ./layout.jade
+
+block info
+    .messageArea
+        .caption Authenticate
+        .message
+            .header: h1 Enter your Mosaic Credentials
+            .body
+                form(method='POST')
+                    if (error)
+                        p.error= error
+                    label(for='username') Username: 
+                    input(type='text', id='username', name='username')
+                    |  
+                    label(for='password') Password: 
+                    input(type='password', id='password', name='password')
+                    |  
+                    button(type='submit') Login
