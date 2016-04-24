@@ -1,7 +1,0 @@
-mixin post(post)
-    article
-        header: h1= post.title || 'untitled'
-        section.body!= post.content
-        footer
-            .author Author: #{post.author}
-            .time= new Date(post.time).toLocaleDateString()

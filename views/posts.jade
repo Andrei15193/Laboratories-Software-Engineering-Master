@@ -1,0 +1,19 @@
+mixin post(post)
+    article
+        header: h1= post.title || 'untitled'
+        section.body!= post.content
+        footer
+            .author Author: #{category.site.owner}
+            .time #{new Date(post.postTime).toUTCString()} (UTC)
+
+extends ./layout.jade
+block content
+    .articles
+        .caption= caption
+        if (posts.length > 0)
+            each post in posts
+                +post(post)
+        else
+            article
+                header: h1 There are no posts!
+                section.body Looks like there are no posts in this category. Lets give the author a few moments...

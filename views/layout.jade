@@ -3,20 +3,20 @@ doctype html
 html
     head
         meta(http-equiv='Content-Type' content='text/html; charset=utf-8')
-        title= siteName
+        title= site.name
         link(href='css/site.css' rel='stylesheet' type='text/css')
 body
     .wrapper
-        header: h1= siteName
+        header: h1= site.name
         .body
-            nav
+            block info
                 include ./menu.jade
 
-                //- .box: .content Poll:
-                //- .box: .content Features:
-                //- .box: .content Links:
+                    //- .box: .content Poll:
+                    //- .box: .content Features:
+                    //- .box: .content Links:
 
-            block content
+                block content
         .push
     footer
         nav

@@ -41,7 +41,6 @@ body > div.wrapper > header h1 {
     color: white;
 }
 body > div.wrapper > div.body {
-    padding: 20px 10px;
     display: table;
     width: 100%;
     background: url('../images/horiz_2.gif') repeat-x;
@@ -49,6 +48,7 @@ body > div.wrapper > div.body {
 body > div.wrapper > div.body > nav {
     display: table-cell;
     width: 195px;
+    padding: 0 0 0 10px;
 }
 body > div.wrapper > div.body > nav > a {
     background: url('../images/buttons2.gif') no-repeat;
@@ -78,50 +78,63 @@ body > div.wrapper > div.body > nav > div.box:first-of-type::before {
     padding-top: 15px;
     content: "";
 }
-body > div.wrapper > div.body > div.articles {
+body > div.wrapper > div.body > div.articles,
+body > div.wrapper > div.body .messageArea {
     display: table-cell;
     padding: 0px 20px;
 }
-body > div.wrapper > div.body > div.articles > div.caption {
+body > div.wrapper > div.body > div.articles > div.caption,
+body > div.wrapper > div.body .messageArea > div.caption {
     font-size: 19px;
     border-bottom: 1px solid #98ffff;
     margin-bottom: 10px;
     text-transform: capitalize;
 }
-body > div.wrapper > div.body > div.articles > article {
+body > div.wrapper > div.body > div.articles > article,
+body > div.wrapper > div.body .messageArea > .message {
     padding-bottom: 20px;
 }
 body > div.wrapper > div.body > div.articles > article > header,
-body > div.wrapper > div.body > div.articles > article > section.body {
+body > div.wrapper > div.body > div.articles > article > section.body,
+body > div.wrapper > div.body .messageArea > .message > .header,
+body > div.wrapper > div.body .messageArea > .message > .body {
     border: 1px solid #98ffff;
     background: url('../images/blue_overlay.jpg');
 }
-body > div.wrapper > div.body > div.articles > article > header {
+body > div.wrapper > div.body > div.articles > article > header,
+body > div.wrapper > div.body .messageArea > .message > .header {
     border-bottom-width: 0px;
 }
-body > div.wrapper > div.body > div.articles > article > header h1 {
+body > div.wrapper > div.body > div.articles > article > header h1,
+body > div.wrapper > div.body .messageArea > .message > .header h1 {
     background: url('../images/title_2.gif') repeat-x;
     padding: 2px 10px;
     font-size: 15px;
     color: white;
 }
-body > div.wrapper > div.body > div.articles > article > section.body {
+body > div.wrapper > div.body > div.articles > article > section.body,
+body > div.wrapper > div.body .messageArea > .message > .body {
     border-top-width: 0;
 }
-body > div.wrapper > div.body > div.articles > article > section.body {
+body > div.wrapper > div.body > div.articles > article > section.body,
+body > div.wrapper > div.body .messageArea > .message > .body {
     line-height: 18px;
     padding: 17px 15px;
 }
-body > div.wrapper > div.body > div.articles > article > section.body p {
+body > div.wrapper > div.body > div.articles > article > section.body p,
+body > div.wrapper > div.body .messageArea > .message > .body p {
     padding-bottom: 10px;
 }
-body > div.wrapper > div.body > div.articles > article > section.body p:last-child {
+body > div.wrapper > div.body > div.articles > article > section.body p:last-child,
+body > div.wrapper > div.body .messageArea > .message > .body p:last-child {
     padding-bottom: 0;
 }
-body > div.wrapper > div.body > div.articles > article > section.body ul {
+body > div.wrapper > div.body > div.articles > article > section.body ul,
+body > div.wrapper > div.body .messageArea > .message > .body ul {
     padding: 10px;
 }
-body > div.wrapper > div.body > div.articles > article > section.body ul li {
+body > div.wrapper > div.body > div.articles > article > section.body ul li,
+body > div.wrapper > div.body .messageArea > .message > .body ul li {
     list-style: none;
     background: url('../images/bullet2.gif') 0 5px no-repeat;
     padding-left: 30px;

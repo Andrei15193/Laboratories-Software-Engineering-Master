@@ -1,2 +1,7 @@
-each menuItem in menuItems
-    a(href=menuItem.url)=menuItem.label
+if (categories && categories.length > 0)
+    nav
+        each category in categories
+            if category.description && category.description.length > 0
+                a(href='/#{category.id}', title=category.description)=category.name
+            else
+                a(href='/#{category.id}')=category.name
