@@ -82,7 +82,7 @@ module.exports = {
 };
 
 function authorize(request, response, next) {
-    if (response.locals.user)
+    if (response.locals.user && response.locals.site.owner == response.locals.user.username)
         next();
     else
         response
