@@ -6,21 +6,23 @@ module.exports = {
     getFor: function getFor(site, callback) {
         const categoriesTableName = getTableNameFor(site);
         storageTable.createTableIfNotExists(categoriesTableName, function () {
-            var query = new azureStorage.TableQuery().where('PartitionKey eq ?', site.id);
-            storageTable.queryEntities(
+            getEntries(
                 categoriesTableName,
-                query,
-                null,
-                function (error, result, response) {
-                    callback(result.entries.map(function (entry) {
-                        var category = entry.fromAzureEntity({
-                            partitionKey: 'site',
-                            rowKey: 'id'
-                        });
-                        category.site = site;
+                new azureStorage.TableQuery().where('PartitionKey eq ?', site.id),
+                function (entries) {
+                    callback(entries
+                        .map(function (entry) {
+                            var category = entry.fromAzureEntity({
+                                partitionKey: 'site',
+                                rowKey: 'id'
+                            });
+                            category.site = site;
 
-                        return category;
-                    }));
+                            return category;
+                        })
+                        .sort(function (left, right) {
+                            return parseInt(left.id) - parseInt(right.id);
+                        }));
                 });
         });
     },
@@ -147,4 +149,23 @@ function getTableNameFor(site) {
 
 function getUniqueCategoryNameValidationTableNameFor(site) {
     return getTableNameFor(site) + 'UniqueNameValidation';
+}
+
+function getEntries(tableName, query, callback, context) {
+    if (!context)
+        context = {
+            entries: [],
+            continuationToken: null
+        }
+    storageTable.queryEntities(
+        tableName,
+        query,
+        context.continuationToken,
+        function (error, result, response) {
+            result.entries.forEach(function (entry) { context.entries.push(entry); });
+            if (result.continuationToken)
+                getEntries(tableName, query, callback, { entries: result.entries, continuationToken: result.continuationToken });
+            else
+                callback(context.entries);
+        });
 }

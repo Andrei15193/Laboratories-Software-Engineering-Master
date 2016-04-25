@@ -6,21 +6,23 @@ module.exports = {
     getFor: function (category, callback) {
         const postsTableName = getTableNameFor(category);
         storageTable.createTableIfNotExists(postsTableName, function () {
-            var query = new azureStorage.TableQuery().where('RowKey eq ?', 'post');
-            storageTable.queryEntities(
+            getEntries(
                 postsTableName,
-                query,
-                null,
-                function (error, result, response) {
-                    callback(result.entries.map(function (entry) {
-                        var post = entry.fromAzureEntity({
-                            partitionKey: 'id',
-                            rowKey: 'type'
-                        });
-                        post.category = category;
+                new azureStorage.TableQuery().where('RowKey eq ?', 'post'),
+                function (entries) {
+                    callback(entries
+                        .map(function (entry) {
+                            var post = entry.fromAzureEntity({
+                                partitionKey: 'id',
+                                rowKey: 'type'
+                            });
+                            post.category = category;
 
-                        return post;
-                    }));
+                            return post;
+                        })
+                        .sort(function (left, right) {
+                            return parseInt(right.id) - parseInt(left.id);
+                        }));
                 });
         });
     },
@@ -89,6 +91,25 @@ module.exports = {
         });
     }
 };
+
+function getEntries(tableName, query, callback, context) {
+    if (!context)
+        context = {
+            entries: [],
+            continuationToken: null
+        }
+    storageTable.queryEntities(
+        tableName,
+        query,
+        context.continuationToken,
+        function (error, result, response) {
+            result.entries.forEach(function (entry) { context.entries.push(entry); });
+            if (result.continuationToken)
+                getEntries(tableName, query, callback, { entries: result.entries, continuationToken: result.continuationToken });
+            else
+                callback(context.entries);
+        });
+}
 
 function getTableNameFor(category) {
     return 'Categories' + category.site.id.toString() + 'Posts' + category.id.toString();
