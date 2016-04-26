@@ -1,0 +1,248 @@
+mixin methodLabel(method)
+    case method
+        when 'GET'
+            span.label.label-success GET
+        when 'POST'
+            span.label.label-primary POST
+        when 'PUT'
+            span.label.label-info PUT
+        when 'DELETE'
+            span.label.label-danger DELETE
+
+mixin request(method, path)
+    hr
+    p
+        +methodLabel(method)
+        |  
+        strong= path
+    if block
+        block
+    else
+        p: small There is no request or response body for this endpoint.
+
+extends ./layout.jade
+
+block content
+    h1 API
+    .api
+        h2 Request Headers
+        p
+            | When making any requests, the 
+            i mosaic-site
+            |  header must always be set containing the site ID. Any request without that header set will return a 404.
+        p
+            | When making 
+            +methodLabel('POST')
+            | , 
+            +methodLabel('PUT')
+            |  or 
+            +methodLabel('DELETE')
+            |  request, the 
+            i Authentication
+            |  header must always be set containing basic authentication for the owner of the site.
+
+        h2 Getting Site Info
+        +request('GET', '/api/sites/details')
+            p Response:
+            pre: code
+                | {
+                |   "type": "object",
+                |   "properties": {
+                |     "owner": {
+                |       "type": "string"
+                |     },
+                |     "id": {
+                |       "type": "string"
+                |     },
+                |     "name": {
+                |       "type": "string"
+                |     },
+                |     "description": {
+                |       "type": "string"
+                |     }
+                |   },
+                |   "additionalProperties": false,
+                |   "required": [
+                |     "owner",
+                |     "id",
+                |     "name"
+                |   ]
+                | }
+
+        h2 Getting User Info
+        +request('GET', '/api/users/details')
+            p Response:
+            pre: code
+                | {
+                |   "type": "object",
+                |   "properties": {
+                |     "username": {
+                |       "type": "string"
+                |     },
+                |     "email": {
+                |       "type": "string"
+                |     }
+                |   },
+                |   "additionalProperties": false,
+                |   "required": [
+                |     "username",
+                |     "email"
+                |   ]
+                | }
+
+        h2 Managing Categories
+        +request('GET', '/api/categories/')
+            p Response:
+            pre: code
+                | {
+                |   "type": "array",
+                |   "items": {
+                |     "type": "object",
+                |     "properties": {
+                |       "site": {
+                |         "type": "object",
+                |         "properties": {
+                |           "owner": {
+                |             "type": "string"
+                |           },
+                |           "id": {
+                |             "type": "string"
+                |           },
+                |           "name": {
+                |             "type": "string"
+                |           },
+                |           "description": {
+                |             "type": "string"
+                |           }
+                |         },
+                |         "additionalProperties": false,
+                |         "required": [
+                |           "owner",
+                |           "id",
+                |           "name"
+                |         ]
+                |       },
+                |       "id": {
+                |         "type": "string"
+                |       },
+                |       "name": {
+                |         "type": "string"
+                |       },
+                |       "description": {
+                |         "type": "string"
+                |       }
+                |     },
+                |     "additionalProperties": false,
+                |     "required": [
+                |       "site",
+                |       "id",
+                |       "name"
+                |     ]
+                |   }
+                | }
+        +request('POST', '/api/categories/')
+            p Request:
+            pre: code
+                | {
+                |   "type": "object",
+                |   "properties": {
+                |     "name": {
+                |       "type": "string"
+                |     },
+                |     "description": {
+                |       "type": "string"
+                |     }
+                |   },
+                |   "additionalProperties": false,
+                |   "required": [
+                |     "name"
+                |   ]
+                | }
+        +request('DELETE', '/api/categories/{categoryId}')
+
+        h2 Managing Posts
+        +request('GET', '/api/categories/{categoryId}/posts')
+            p Response:
+            pre: code
+                | {
+                |   "type": "array",
+                |   "items": {
+                |     "type": "object",
+                |     "properties": {
+                |       "id": {
+                |         "type": "string"
+                |       },
+                |       "type": {
+                |         "type": "string"
+                |       },
+                |       "title": {
+                |         "type": "string"
+                |       },
+                |       "content": {
+                |         "type": "string"
+                |       },
+                |       "postTime": {
+                |         "type": "string"
+                |       },
+                |       "category": {
+                |         "type": "object",
+                |         "properties": {
+                |           "site": {
+                |             "type": "object",
+                |             "properties": {
+                |               "owner": {
+                |                 "type": "string"
+                |               },
+                |               "id": {
+                |                 "type": "string"
+                |               },
+                |               "name": {
+                |                   "type": "string"
+                |               },
+                |               "description": {
+                |                   "type": "string"
+                |               }
+                |             },
+                |             "additionalProperties": false
+                |           },
+                |           "id": {
+                |             "type": "string"
+                |           },
+                |           "name": {
+                |               "type": "string"
+                |           }
+                |         },
+                |         "additionalProperties": false
+                |       }
+                |     },
+                |     "additionalProperties": false,
+                |     "required": [
+                |       "id",
+                |       "type",
+                |       "title",
+                |       "content",
+                |       "postTime",
+                |       "category"
+                |     ]
+                |   }
+                | }
+        +request('POST', '/api/categories/{categoryId}/posts')
+            p Request:
+            pre: code
+                | {
+                |   "type": "object",
+                |   "properties": {
+                |     "title": {
+                |       "type": "string"
+                |     },
+                |     "content": {
+                |       "type": "string"
+                |     }
+                |   },
+                |   "additionalProperties": false,
+                |   "required": [
+                |     "title",
+                |     "content"
+                |   ]
+                | }
+        +request('DELETE', '/api/categories/{categoryId}/posts/{postId}')

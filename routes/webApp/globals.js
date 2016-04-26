@@ -18,6 +18,10 @@ module.exports = {
             response.locals.navigation = {
                 items: [
                     {
+                        label: 'API',
+                        path: '/api'
+                    },
+                    {
                         label: 'Log out',
                         path: '/user/logout'
                     }
@@ -26,6 +30,10 @@ module.exports = {
         else
             response.locals.navigation = {
                 items: [
+                    {
+                        label: 'API',
+                        path: '/api'
+                    },
                     {
                         label: 'Register',
                         path: '/user/register'
