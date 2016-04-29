@@ -23,7 +23,6 @@ The application uses NoSQL storage (Azure Table Storage, Azure Blob Storage and 
 |= Key |= Description
 | APPSETTING_reCaptchaSecretKey | Secret key provided by the [[https://developers.google.com/recaptcha/|reCaptcha]] service from Google. This is used by the site to determine whether the user has passed the [[https://developers.google.com/recaptcha/|reCaptcha]] verification.
 | APPSETTING_reCaptchaSiteKey | Secret key provided by the [[https://developers.google.com/recaptcha/|reCaptcha]] service from Google. This is used to make requests from the client side towards the [[https://developers.google.com/recaptcha/|reCaptcha]] service in order to //demonstrate// that the user is not a bot.
-| APPSETTING_dataProvider | The provider used to retrieve data. This should be the name of a subfolder of the {{{data}}} folder which contains a number of source files ({{{.js}}}, {{{.json}}} or {{{.node}}}) that handle data.
 | APPSETTING_jwtSecret | A secret key used for JSON Web Token authentication.
 | APPSETTING_cookieSecret | A secret key used for securing cookies.
 
