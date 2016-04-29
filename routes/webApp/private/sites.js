@@ -1,49 +1,40 @@
 const bodyParser = require('body-parser');
 const data = require(modules.data.provider);
 
-module.exports = {
-    '/site/add': {
-        get: function (request, response, next) {
+module.exports = require('express')
+    .Router()
+    .get('/site/add', function (request, response, next) {
+        response.render('site/add');
+    })
+    .post('/site/add', bodyParser.urlencoded({ extended: false }), validate, function (request, response, next) {
+        if (response.locals.errors.name)
             response.render('site/add');
-        },
-        post:
-        [
-            bodyParser.urlencoded({ extended: false }),
-            validate,
-            function (request, response, next) {
-                if (response.locals.errors.name)
-                    response.render('site/add');
-                else
-                    data.sites.add(
-                        {
-                            name: request.body.name,
-                            description: request.body.description,
-                            owner: response.locals.user
-                        },
-                        function (errors) {
-                            if (errors && errors.name)
-                                response.render('site/add', { errors: errors });
-                            else
-                                response.redirect('/');
-                        });
-            }
-        ]
-    },
-    '/site/remove/:siteId': {
-        get: function (request, response, next) {
-            data.sites.tryGet(request.params.siteId, function (site) {
-                if (site)
-                    data.sites.remove(site, function () {
+        else
+            data.sites.add(
+                {
+                    name: request.body.name,
+                    description: request.body.description,
+                    owner: response.locals.user
+                },
+                function (errors) {
+                    if (errors && errors.name)
+                        response.render('site/add', { errors: errors });
+                    else
                         response.redirect('/');
-                    });
-                else {
-                    console.error('Could not find site with ID: ' + request.params.siteId + '. Redirecting to \'/\'');
+                });
+    })
+    .get('/site/remove/:siteId', function (request, response, next) {
+        data.sites.tryGet(request.params.siteId, function (site) {
+            if (site)
+                data.sites.remove(site, function () {
                     response.redirect('/');
-                }
-            });
-        }
-    }
-};
+                });
+            else {
+                console.error('Could not find site with ID: ' + request.params.siteId + '. Redirecting to \'/\'');
+                response.redirect('/');
+            }
+        });
+    });
 
 function validate(request, response, next) {
     response.locals.site = {

@@ -1,13 +1,14 @@
 require(modules.objectExtensions);
 const azureStorage = require('azure-storage');
+
 const storageTable = azureStorage.createTableService(process.env.CUSTOMCONNSTR_azureTableStorage);
 const crypto = require('crypto');
 
 module.exports =
     {
-        isUsernameUnique: function(username, callback) {
-            storageTable.createTableIfNotExists('usersValidationUsername', function() {
-                storageTable.retrieveEntity('usersValidationUsername', username.toLowerCase(), 'Unique usernames in lowercase', function(error, result) {
+        isUsernameUnique: function (username, callback) {
+            storageTable.createTableIfNotExists('usersValidationUsername', function () {
+                storageTable.retrieveEntity('usersValidationUsername', username.toLowerCase(), 'Unique usernames in lowercase', function (error, result) {
                     if (error)
                         callback(true);
                     else
@@ -16,15 +17,15 @@ module.exports =
             });
         },
 
-        tryGetUser: function(username, password, callback) {
+        tryGetUser: function (username, password, callback) {
             storageTable.createTableIfNotExists(
                 'users',
-                function() {
+                function () {
                     storageTable.retrieveEntity(
                         'users',
                         username,
                         getHashFor(password),
-                        function(error, result) {
+                        function (error, result) {
                             if (error)
                                 callback(null);
                             else
@@ -37,7 +38,7 @@ module.exports =
                 });
         },
 
-        add: function(user, callback) {
+        add: function (user, callback) {
             var userCreateBatch = new azureStorage.TableBatch();
 
             userCreateBatch.insertEntity(
@@ -52,25 +53,25 @@ module.exports =
                     {
                         partitionKey: 'username',
                         rowKey: 'password',
-                        rowKeyMap: function() { return 'check'; }
+                        rowKeyMap: function () { return 'check'; }
                     }));
 
-            storageTable.createTableIfNotExists('usersValidationUsername', function() {
+            storageTable.createTableIfNotExists('usersValidationUsername', function () {
                 storageTable.insertEntity(
                     'usersValidationUsername',
                     {
                         PartitionKey: user.username.toLowerCase(),
                         RowKey: 'Unique usernames in lowercase'
                     }.toAzureEntity(),
-                    function(error) {
+                    function (error) {
                         if (error)
                             callback({ username: 'The username you have picked is already in use. Please use a different one.' });
 
-                        storageTable.createTableIfNotExists('users', function() {
+                        storageTable.createTableIfNotExists('users', function () {
                             storageTable.executeBatch(
                                 'users',
                                 userCreateBatch,
-                                function(error) {
+                                function (error) {
                                     if (error)
                                         throw error;
 

@@ -1,7 +1,9 @@
 const data = require(modules.data.provider);
 
-module.exports = {
-    '^authorization': function (request, response, next, authorization) {
+module.exports = require('express')
+    .Router()
+    .use(function (request, response, next) {
+        var authorization = request.header('authorization');
         var userInformation = tryGetUserInformationFrom(authorization);
         if (userInformation)
             data.users.tryGetUser(
@@ -14,8 +16,9 @@ module.exports = {
                 });
         else
             next();
-    },
-    '^mosaic-site': function (request, response, next, siteId) {
+    })
+    .use(function (request, response, next) {
+        var siteId = request.header('mosaic-site');
         if (siteId)
             data.sites.tryGet(
                 siteId,
@@ -33,8 +36,7 @@ module.exports = {
             response
                 .status(400)
                 .end('You must provide a site name through \'mosaic-site\' header.');
-    }
-}
+    });
 
 function tryGetUserInformationFrom(authorization) {
     if (authorization && /^basic\s+\S+/i.test(authorization)) {

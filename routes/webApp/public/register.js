@@ -2,20 +2,12 @@ const reCaptcha = require('../../../reCaptcha');
 const bodyParser = require('body-parser');
 const data = require(modules.data.provider);
 
-module.exports = {
-    '/user/register': {
-        get: function (request, response, next) {
-            response.render('user/register');
-        },
-        post: [
-            bodyParser.urlencoded({ extended: false }),
-            reCaptcha.verify(),
-            validateUser,
-            verifyModelState,
-            registerUser
-        ]
-    }
-}
+module.exports = require('express')
+    .Router()
+    .get('/user/register', function (request, response, next) {
+        response.render('user/register');
+    })
+    .post('/user/register', bodyParser.urlencoded({ extended: false }), reCaptcha.verify(), validateUser, verifyModelState, registerUser);
 
 function validateUser(request, response, next) {
     response.locals.errors = {};

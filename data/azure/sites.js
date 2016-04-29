@@ -1,7 +1,6 @@
 require(modules.objectExtensions);
 const azureStorage = require('azure-storage');
 const storageTable = azureStorage.createTableService(process.env.CUSTOMCONNSTR_azureTableStorage);
-const data = require(modules.data.provider);
 
 module.exports =
     {
@@ -53,7 +52,7 @@ module.exports =
         },
 
         remove: function (site, callback) {
-            var data = this;
+            const data = require(modules.data.provider);
             storageTable.deleteEntity(
                 'userSites',
                 {

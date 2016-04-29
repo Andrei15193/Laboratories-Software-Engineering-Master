@@ -1,17 +1,12 @@
-module.exports = {
-    '/api/users/details': {
-        get: [
-            authorize,
-            function (request, response, next) {
-                response.locals.user.password = undefined;
-                response
-                    .status(200)
-                    .send(response.locals.user)
-                    .end();
-            }
-        ]
-    }
-};
+module.exports = require('express')
+    .Router()
+    .get('/api/users/details', authorize, function (request, response, next) {
+        response.locals.user.password = undefined;
+        response
+            .status(200)
+            .send(response.locals.user)
+            .end();
+    });
 
 function authorize(request, response, next) {
     if (response.locals.user)

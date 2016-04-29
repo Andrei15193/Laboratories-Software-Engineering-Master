@@ -86,7 +86,7 @@ module.exports = {
     },
 
     remove: function remove(category, callback) {
-        var data = this;
+        const data = require(modules.data.provider);
         const categoriesTableName = getTableNameFor(category.site);
         storageTable.createTableIfNotExists(categoriesTableName, function () {
             storageTable.deleteEntity(
@@ -117,7 +117,7 @@ module.exports = {
     },
 
     clear: function (site, callback) {
-        var data = this;
+        const data = require(modules.data.provider);
         const categoriesTableName = getTableNameFor(site);
 
         data.categories.getFor(site, function removeCategory(categories) {

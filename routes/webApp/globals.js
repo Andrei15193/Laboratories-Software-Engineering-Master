@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = {
-    '!mosaic-token': function (request, response, next, signedCookie) {
+module.exports = require('express')
+    .Router()
+    .use(function (request, response, next) {
+        const signedCookie = request.signedCookies['mosaic-token'];
         jwt.verify(
             signedCookie,
             process.env.APPSETTING_jwtSecret,
@@ -12,8 +14,8 @@ module.exports = {
                     response.locals.user = user;
                 next();
             });
-    },
-    '/': function (request, response, next) {
+    })
+    .use(function (request, response, next) {
         if (response.locals.user)
             response.locals.navigation = {
                 items: [
@@ -45,5 +47,4 @@ module.exports = {
                 ]
             };
         next();
-    }
-}
+    });
