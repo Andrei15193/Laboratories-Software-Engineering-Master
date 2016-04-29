@@ -1,3 +1,5 @@
+var initStartTime = new Date();
+
 require('./aliases').load({ propertyName: 'modules' });
 
 const path = require('path');
@@ -14,4 +16,8 @@ app
     .use(require('./errors').notFound)
     .listen(process.env.PORT || 3000);
 
-console.log("Server started");
+var initEndTime = new Date();
+var initTime = new Date(initEndTime.getTime() - initStartTime.getTime());
+var initTimeString = initTime.getUTCHours() + ':' + initTime.getUTCMinutes() + ':' + initTime.getUTCSeconds() + ':' + initTime.getUTCMilliseconds();
+
+console.log('Server started in ' + initTimeString + '.');
