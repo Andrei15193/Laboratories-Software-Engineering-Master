@@ -2,7 +2,7 @@ const data = require(modules.data.provider);
 
 module.exports = require('express')
     .Router()
-    .use(function (request, response, next) {
+    .use('/api/*', function (request, response, next) {
         var authorization = request.header('authorization');
         var userInformation = tryGetUserInformationFrom(authorization);
         if (userInformation)
@@ -17,7 +17,7 @@ module.exports = require('express')
         else
             next();
     })
-    .use(function (request, response, next) {
+    .use('/api/*',function (request, response, next) {
         var siteId = request.header('mosaic-site');
         if (siteId)
             data.sites.tryGet(
