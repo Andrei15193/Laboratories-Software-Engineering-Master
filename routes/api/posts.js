@@ -3,7 +3,11 @@ const data = require(modules.data.provider);
 
 module.exports = require('express')
     .Router()
-    .all('/api/categories/:categoryId/posts/:postId/', function (request, response, next) {
+    .all([
+        '/api/categories/:categoryId/posts/:postId/',
+        '/api/categories/:categoryId/posts/:postId/*'
+    ],
+    function (request, response, next) {
         const postId = request.params.postId;
         data.posts.tryGet(response.locals.category, postId, function (post) {
             if (!post)

@@ -2,8 +2,23 @@ const bodyParser = require('body-parser');
 const data = require(modules.data.provider);
 
 module.exports = require('express').Router()
-    .all('/api/categories/:categoryId', getCategoryById)
-    .all('/api/categories/:categoryId/*', getCategoryById)
+    .all([
+        '/api/categories/:categoryId',
+        '/api/categories/:categoryId/*'
+    ],
+    function (request, response, next) {
+        const categoryId = request.params.categoryId;
+        data.categories.get(response.locals.site, categoryId, function (category) {
+            if (!category)
+                response
+                    .status(404)
+                    .end('Category with ID: ' + categoryId + ' does not exists.');
+            else {
+                response.locals.category = category;
+                next();
+            }
+        });
+    })
     .get('/api/categories', function (request, response, next) {
         data.categories.getFor(
             response.locals.site,
@@ -55,20 +70,6 @@ module.exports = require('express').Router()
                         .end();
             });
     });
-
-function getCategoryById(request, response, next) {
-    const categoryId = request.params.categoryId;
-    data.categories.get(response.locals.site, categoryId, function (category) {
-        if (!category)
-            response
-                .status(404)
-                .end('Category with ID: ' + categoryId + ' does not exists.');
-        else {
-            response.locals.category = category;
-            next();
-        }
-    });
-}
 
 function authorize(request, response, next) {
     if (response.locals.user && response.locals.site.owner == response.locals.user.username)
