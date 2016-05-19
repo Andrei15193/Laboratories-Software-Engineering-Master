@@ -1,0 +1,26 @@
+extends ../layout.jade
+
+block info
+    .messageArea
+        .caption Dashboard
+        .message
+            .header: h1 Manage #{site.name} as #{user.userDetails.username} (#{user.userDetails.email})
+            .body
+                block mainContent
+                    p
+                        a(href='/') Home
+                        |  
+                        a(href='/dashboard/category/add') Add Category
+                    if (categories.length > 0)
+                        ul
+                            each category in categories
+                                li #{category.name}
+                                    |  
+                                    a(href='/dashboard/category/#{category.id}/post') Add Post
+                                    |  
+                                    a(href='/dashboard/category/#{category.id}/view') View Posts
+                                    |  
+                                    a(href='/dashboard/category/#{category.id}/delete') Delete
+                    else
+                        p There are no categories. You can change that...
+        block posts

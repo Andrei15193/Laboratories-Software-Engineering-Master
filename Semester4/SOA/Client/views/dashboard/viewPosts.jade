@@ -1,0 +1,15 @@
+extends ./dashboard.jade
+
+block posts
+    .message
+        .header: h1 Manage Posts for #{category.name}
+        .body
+            p: a(href='/dashboard/category/#{category.id}/post') Add Post
+            if (posts.length > 0)
+                ul
+                    each post in posts
+                        li #{post.title} (on #{new Date(post.postTime).toUTCString()})
+                            |  
+                            a(href='/dashboard/category/#{category.id}/post/#{post.id}/delete') Delete
+            else
+                p There are no posts in this category. You can change that...
