@@ -1,0 +1,22 @@
+extends ../layout.jade
+
+block content
+    h1 Welcome #{user.username}!
+        small
+            | (
+            = user.email
+            | )
+    h3
+        a.btn.btn-primary.btn-sm(href="/site/add") Add
+        |  Sites 
+    if sites.length > 0
+        each site in sites
+            div
+                h4
+                    a.btn.btn-danger.btn-xs(href=("/site/remove/" + site.id)) Remove
+                    | 
+                    =site.name
+                p: small= "Site ID: " + site.id
+                p= site.description
+    else
+        p There are no sites! Why are you here?

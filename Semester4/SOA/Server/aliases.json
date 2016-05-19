@@ -1,0 +1,14 @@
+{
+    "data": {
+        "provider": "data/provider"
+    },
+    "objectExtensions": "objectExtensions",
+    "common": "common",
+    "auth": {
+        "site": "routes/user/auth",
+        "api": "routes/api/auth"
+    },
+    "site": {
+        "lookup": "routes/api/lookup"
+    }
+}

@@ -1,0 +1,15 @@
+include ../common.jade
+
+extends ../layout.jade
+
+block scripts
+     script(src="https://www.google.com/recaptcha/api.js")
+
+block content
+    h1 Register Account
+    +form('POST', 'Register', 'Cancel', '/')
+        +formGroup('username', 'text', 'Username', user)
+        +formGroup('email', 'email', 'E-Mail', user)
+        +formGroup('password', 'password', 'Password')
+        +formGroup('passwordCheck', 'password', 'Password check')
+        +formGroup('reCaptcha')

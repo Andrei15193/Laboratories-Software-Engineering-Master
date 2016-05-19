@@ -1,0 +1,18 @@
+doctype html
+
+html
+    head
+        title Mosaic
+        block styles
+            link(rel="stylesheet", type="text/css", href="/css/bootstrap.min.css")
+            link(rel="stylesheet", type="text/css", href="/css/site.css")
+        block scripts
+    body
+        include ./navigation.jade
+        .content
+            block content
+            hr
+            footer: p: small
+                | (C) Website created by Andrei Fangli. All rights reserved.
+                br/
+                a(href="http://www.andrei15193.ro/", target="_blank") www.Andrei15193.ro

@@ -1,0 +1,10 @@
+include ../common.jade
+
+extends ../layout.jade
+
+block content
+    h1 Add a New Site
+
+    +form('POST', 'Add', 'Cancel', '/')
+        +formGroup('name', 'text', 'Name', site)
+        +formGroup('description', 'text', 'Description', site)
