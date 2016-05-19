@@ -1,0 +1,15 @@
+=== Navigation
+
+<<toc / 1>>
+
+= API
+
+== Sample
+
+|= Route | {{{VERB}}} /api/path/**:parameter(__RegExp__)**/
+|= Request Headers | **header**: value \\ **header**: value
+|= Request Body | <<file path/to/JSON/schema>>
+|= Response Headers | **header**: value \\ **header**: value
+|= Response Body | <<file path/to/JSON/sschema>>
+
+//Optional description, remarks and so on.//

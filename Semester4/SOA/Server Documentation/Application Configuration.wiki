@@ -1,0 +1,37 @@
+=== Navigation
+
+<<toc / 1>>
+
+= Application Configuration
+
+== Introduction
+
+There are a number of configurations for the application that will also be required to be set up in Azure or any hosting environment. The development values are stored in <<file master:.vscode/launch.json>> on the {{{env}}} object.
+
+Azure provides app settings and connections strings to the application through environment variables. For each application setting there are two correspondents. One environment variable named exactly as the app setting key and one that is prefixed with {{{APPSETTING_}}}, both having the same value.
+
+**For clearness this application uses the {{{APPSETTING_}}} option to distinguish between environment variables and from settings that need to be made to the hosting environment.**
+
+There are four types of connection strings in Azure. SQL Server, MySQL, SQL Database, and Custom. For each connection string that is defined the hosting environment makes it available through environment variables that are prefixed with {{{SQLCONNSTR_}}}, {{{MYSQLCONNSTR_}}}, {{{SQLAZURECONNSTR_}}} and {{{CUSTOMCONNSTR_}}} respectively.
+
+The application uses NoSQL storage (Azure Table Storage, Azure Blob Storage and possibly Azure Queue) thus all but the custom connection strings should be used (the application does not connect to an SQL server of any kind). For consistency, the table containing the connection string keys also indicates their type.
+
+== Configuration Table
+
+=== Application Settings
+
+|= Key |= Description
+| APPSETTING_reCaptchaSecretKey | Secret key provided by the [[https://developers.google.com/recaptcha/|reCaptcha]] service from Google. This is used by the site to determine whether the user has passed the [[https://developers.google.com/recaptcha/|reCaptcha]] verification.
+| APPSETTING_reCaptchaSiteKey | Secret key provided by the [[https://developers.google.com/recaptcha/|reCaptcha]] service from Google. This is used to make requests from the client side towards the [[https://developers.google.com/recaptcha/|reCaptcha]] service in order to //demonstrate// that the user is not a bot.
+| APPSETTING_jwtSecret | A secret key used for JSON Web Token authentication.
+| APPSETTING_cookieSecret | A secret key used for securing cookies.
+
+=== Connection Strings
+
+|= Type |= Key |= Description
+| Custom | CUSTOMCONNSTR_azureTableStorage | The connection string that can be used to manage Entities for an Azure Storage Account.
+
+== References
+
+* [[https://azure.microsoft.com/en-us/documentation/articles/web-sites-configure/|Configure web apps in Azure App Service]]
+* [[https://nodejs.org/api/process.html#process_process_env|Node.js process.env]]
